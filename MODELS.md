@@ -9,17 +9,29 @@ downloads. Locations: `models/` and `work/` in the repo are symlinks to
 originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
 `/Volumes/HUB/archive/manifests/local-ai-stack-MANIFEST.sha256`, 2,742 files).
 
+Checkpoint fields: `revision:` is the commit sha recorded at download time by the HF
+cache (first line of `.cache/huggingface/download/*.metadata`; the second line is the
+content sha256 and matches the pinned file hashes). `pin:` gives each cited script's
+last-touch commit, verifiable with `git log -1 --format=%h --follow -- <path>`.
+`revision: unrecorded` means a pre-ledger download left no cache on any pinned volume.
+
 ## Laya-English — ModernBERT-large 421M decision model
 
 - source: `convaiinnovations/laya` (HF); weights at `models/laya-english/`
   (`model.safetensors` sha256 `891102d372688fc2a094dac56a384bc537b87c63f21f9f3dac0be2b7cbc8d86c`,
   mini manifest line) — author's repo cloned pre-EXP at `work/laya-repo/`
+- revision: `1c5edc17a7acd8701df6fc341c0d179f1c62c982` (download cache:
+  mini `models/laya-english/.cache/huggingface/download/model.safetensors.metadata`,
+  inside local-ai-stack manifest)
+- download: `hf download convaiinnovations/laya --revision 1c5edc17a7acd8701df6fc341c0d179f1c62c982 --local-dir models/laya-english`
 - surgery + why: fp16 everywhere (ANE cannot execute fp32 ops, `05-gotchas`
   F-25); 1×1-conv form for linears; RoPE cos/sin as precomputed buffers, not
   gathered in-graph (F-34 compiler segfault); final-pool padded ≥32 fp16 wide
   (alignment rule) — same template as Von below
 - scripts: `bench/laya_ane_bench.py`, `bench/jevbench_ane.py` (verify),
   `ports/export_laya_ane.py` header covers the multilingual sibling
+  (pin: `ports/export_laya_ane.py` + `bench/laya_ane_bench.py` @ `9503b24`;
+  `bench/jevbench_ane.py` @ `746912f`)
 - artifact(s): Core AI `.aimodel` builds under `work/` (M4 era archive;
   re-bake: `python bench/laya_ane_bench.py --seq-len 256 --variant v1`)
 - proof: EXP-016/EXP-018; JevBench v1.3.0 fidelity 230/231 vs author's
@@ -30,11 +42,17 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
 ## Laya-multilingual — mmBERT-base + typed decision head
 
 - source: `convaiinnovations/laya-multilingual`; weights `models/laya-multilingual/`
+- revision: `052592a15d198d9ad47da779604259b10b47b7aa` (download cache
+  `models/laya-multilingual/.cache/huggingface/download/model.safetensors.metadata` —
+  identical on mini and HUB copies; upstream `main` has since advanced to `1720e3e3…`,
+  HF API 2026-10-03, so re-download must pin the revision)
+- download: `hf download convaiinnovations/laya-multilingual --revision 052592a15d198d9ad47da779604259b10b47b7aa --local-dir models/laya-multilingual`
 - surgery: `torch.gather` marker-select → selection **matmul** against a
   host-built one-hot (ANE rejects data-dependent gather_nd, rank-3 rule);
   everything else reproduced faithfully from `NayaKishorM/laya`
   `DecisionModel.forward` (see `SOURCES.md`)
 - scripts: `ports/export_laya_ane.py` (export), `bench/laya_ane_bench.py`
+  (pin: both @ `9503b24`)
 - artifact(s): s256 Core AI graph, 2 ANE regions verified (EXP-017)
 - proof: EXP-017 residency + latency vs `aac6fef/laya-multilingual-coreml-ane`
 - notes:
@@ -51,10 +69,16 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
 ## Von-1.0 — ModernBERT-large 3-way NLI decision model
 
 - source: `wfzyx/von`; author repo cloned at `work/von-repo/` (mini archive)
+- revision: `aa2fdc9630ecdadef32c56073553b3a69bed38bf` (download cache: mini
+  `models/von-1.0/.cache/huggingface/download/model.safetensors.metadata`, inside
+  local-ai-stack manifest)
+- download: `hf download wfzyx/von --revision aa2fdc9630ecdadef32c56073553b3a69bed38bf --local-dir models/von-1.0`
 - surgery: re-author of the whole backbone for static trace — precomputed
   RoPE buffers (F-34), masked **mean** pooling, padded 32-wide head output;
   sliding/full attention alternation preserved (EXP-016)
 - scripts: `ports/export_von_ane.py`, `bench/von_authored144.py`
+  (pin: `ports/export_von_ane.py` @ `9503b24`; `bench/von_authored144.py` @ `83e2645`;
+  `bench/aot_verify.sh` @ `41df40e`)
 - artifact(s): EXP-016 builds (M4-era); `aot_verify.sh` re-checks region counts
 - proof: EXP-016 ANE residency; EXP-018 JevBench rows; oracle-gated per
   `09-origins` §3
@@ -64,13 +88,21 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
 
 - source: `ibm-granite/granite-embedding-97m-multilingual-r2`; zoo bundle
   `granite97m_fp32_s128_bound.aimodel` (mini `models/`, plus `work/granite-embedding-97m/`)
+- revision: `835ad14087e140460703cf0fae09f97d469d65c2` (download cache
+  `work/granite-embedding-97m/source/.cache/huggingface/download/model.safetensors.metadata`)
+- download: `hf download ibm-granite/granite-embedding-97m-multilingual-r2 --revision 835ad14087e140460703cf0fae09f97d469d65c2 --local-dir work/granite-embedding-97m/source`
 - surgery ladder (EXP-005 — the fp16 series): v0 as-is fp32 → **0 ANE
   regions (silent GPU fallback)**; v1 +fp16 softmax; v2 +fp16 scale;
   v3 +fp16 pooling → **1 region, 4.00 ms, 83 mW GPU** vs 10,390 mW fp32-GPU;
   quantization series w8/w6/w4 +fp16; "ours" = own build of the multilingual r2
 - scripts: `ports/export_granite_fp16_placement.py`,
   `ports/export_granite_w8_fp16.py`, `bench/granite_ane_variants.py`,
-  `bench/build_fork_granite.py` (mini-era), `bench/interference_coreai.py`
+  `bench/build_fork_granite.py` (mini-era, not relocated — it was a harness-side
+  driver and left no in-tree successor; the port lineage runs through the ports/
+  exports above), `bench/interference_coreai.py`
+  (pin: `ports/export_granite_fp16_placement.py` + `ports/export_granite_w8_fp16.py`
+  @ `9503b24`; `bench/granite_ane_variants.py` @ `04ce0e8`;
+  `bench/interference_coreai.py` @ `f5fc9ac`)
 - artifact(s): zoo bundle + v0–v3/w-series `.aimodel`s (mini archive, pinned);
   region counting via `bench/probe_ane_regions.py` (glob-double-count fixed, F-27)
 - proof: EXP-005 (regions + power), EXP-021; every number in
@@ -93,11 +125,16 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
 ## MiniLM — all-MiniLM-L6-v2 (the Core ML baseline lineage)
 
 - source: `sentence-transformers/all-MiniLM-L6-v2`
+- revision: unrecorded (pre-ledger Core ML era, before cache pinning discipline;
+  the artifact of record is the converted `minilm128.mlpackage`, mini-manifest-pinned)
+- download: `hf download sentence-transformers/all-MiniLM-L6-v2 --local-dir models/all-MiniLM-L6-v2`
 - surgery: Core ML conversion only (this predates the Core AI program); the
   famous surgery here was to the TOOLCHAIN, not the model — NumPy ≥2.4
   `int()` regression (F-01) fixed the silent conversion failure
 - scripts: `ports/convert_encoder_coreml.py` (`models/minilm128.mlpackage`),
   `bench/bench_encoder.py`, `bench/power_ab.py`
+  (pin: `ports/convert_encoder_coreml.py` @ `9503b24`; `bench/bench_encoder.py` @
+  `c25b8cc`; `bench/power_ab.py` @ `68b8547`)
 - artifact(s): `minilm128.mlpackage` (mini `models/`, pinned in manifest)
 - proof: EXP-003 (Core ML vs ANE power band)
 - ledger rows: `minilm-*` (47)
@@ -105,12 +142,17 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
 ## Qwen3-Reranker-0.6B — cross-encoder re-author (EXP-013)
 
 - source: `Qwen/Qwen3-Reranker-0.6B`; weights `models/qwen3-reranker-hf/`
-  (Studio/HUB home now; download: `hf download Qwen/Qwen3-Reranker-0.6B --local-dir models/qwen3-reranker-hf`)
+  (Studio/HUB home now; download: `hf download Qwen/Qwen3-Reranker-0.6B --revision e61197ed45024b0ed8a2d74b80b4d909f1255473 --local-dir models/qwen3-reranker-hf`)
+- revision: `e61197ed45024b0ed8a2d74b80b4d909f1255473` (download cache
+  `models/qwen3-reranker-hf/.cache/huggingface/download/model.safetensors.metadata`;
+  equals upstream `main` per HF API 2026-10-03)
 - surgery: full re-author to a static ANE graph (the 0.500-score incident and
   the two-way-softmax-over-dead-logits diagnosis, F-32; RoPE fix via F-34
   bisection; every execution path gated across fresh processes)
 - scripts: `ports/export_reranker_ane.py` (bake), `bench/gate_reranker_ane.py`
   (fidelity gate), `bench/correctness_head.py`
+  (pin: `ports/export_reranker_ane.py` @ `9503b24`; `bench/gate_reranker_ane.py` @
+  `41df40e`; `bench/correctness_head.py` @ `746912f`)
 - artifact(s): `work/exports/reranker-ane/qwen3-reranker-0.6b_float16_s512_ane.aimodel`
   (`main.mlirb` sha256 `3bd166b6a4fcff89226787950e746c9a400c82d47aaf57ca0ed976005d29f422`;
   tree pinned: `work/MANIFEST.sha256`) + AOT bundles `aot_h17g_ane/`, `aot_recheck/`
@@ -122,6 +164,9 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
 ## EmbeddingGemma-300m — small-embedder pilot (M5 era)
 
 - source: `google/embeddinggemma-300m`
+- revision: unrecorded (pilot ran harness-side on the mini; no HF cache in any pinned
+  volume — the driver log `work/gemma_ane.log` is the artifact of record)
+- download: `hf download google/embeddinggemma-300m --local-dir models/embeddinggemma-300m`
 - surgery: fp16 export trial; driver lived harness-side (`ane-gemma-*` runs
   logged in mini archive `work/gemma_ane.log`) — in-tree port script is a GAP-2
   item (`results/FLEET.md` appendix)

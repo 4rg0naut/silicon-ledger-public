@@ -74,6 +74,49 @@ The mini's home (`/Volumes/Mini M4+/Users/<user>`, 659 docs hashed) and the deep
 this program and have not been distilled here; they stay mapped, hashed, and untouched,
 open threads for later campaigns (FACT).
 
+## 6. Why the private-API route, and the entitlement dead-ends that mapped it
+
+The route the corpus runs on — `dlopen` of
+`/System/Library/PrivateFrameworks/AppleNeuralEngine.framework` plus
+`NSClassFromString` lookups — was chosen because it needs **no entitlement and no
+signature on macOS**: the `com.apple.ane.iokit-user-access` entitlement is "required for
+the direct H11ANE IOKit path, not for the AppleNeuralEngine framework path"
+(DOCUMENTED: `API-004`; `API-003` records the unsigned-dylib build working;
+`knowledge/ane/02-private-api.md` §1 @
+`6da53a3d3459f0634df8ce6d40e4ad0ef50e43a0b19b8e1d3b6b5a9bcf507fe9`).
+
+The alternatives were surveyed and left on the shelf. The direct `H11ANE` IOKit driver
+path requires `com.apple.ane.iokit-user-access` (same source, `API-004`). The community
+workaround — geohot-era tinygrad's in-memory patch of the `amfid` signing daemon at
+`+0x8e38` to let unsigned binaries past the entitlement check — is catalogued with its
+own dissent: patching a system security daemon "should not be assumed covered by the
+same arguments" as interoperability reverse engineering (DOCUMENTED: `LANDSCAPE-044`,
+`knowledge/ane/01-landscape.md` @
+`3e4626117a15bdf7d9818cdfcef116978ff7da382e3d35a58a76ec1143b3b5f3`). The survey page
+also credits `mdaiter/ane` as "the entitlement findings behind the private-API route"
+(same source, Sources section) — the corpus took the framework path, never the driver
+path and never the daemon patch (INFERRED: no artifact here touches `H11ANE` IOKit
+directly, and no amfid patch appears in any EXP record).
+
+What the route buys is why it was worth taking: Core ML and the fallback paths give no
+placement guarantee, and a silent GPU fallback "leaves no error string" — the only
+reliable signals are the ANE region count and hardware activity counters
+(DOCUMENTED: `GOTCHAS-028`, `knowledge/ane/05-gotchas.md` @
+`cc6bcbd006c20e5bbef8f3dc3554f3a305bbecba11ba14a966c9ed35ddc94001`). The whole
+measurement program — region counting (`bench/probe_ane_regions.py`), enginemon power
+rails, EXP-005's ladder — is built on exactly those two signals (DOCUMENTED: those
+instruments; link INFERRED).
+
+The accepted cost is drift: private-API usage carries "no public stability guarantee"
+and breaks across macOS updates (DOCUMENTED: `GOTCHAS-049` + §5, same source). The
+corpus's response is re-verification rather than trust: `bench/ane-probe.m` reads the
+live class/method surface on each machine, and `07-private-api-verified.md` records the
+result on the mini — `h16g`, 16 cores, and the note that "h16g is the same string our
+AOT builds target" plus a segfault lesson (private-API getters return scalars; messaging
+them as objects faults at address `0x10`) (MEASURED:
+`knowledge/ane/07-private-api-verified.md` @
+`e628a5a531d91f12f1a73a19d5108bc7920410594a036efcfc8689be88da0dd5`).
+
 ---
 
 ## Records
@@ -87,4 +130,8 @@ open threads for later campaigns (FACT).
 {"id":"ORIGIN-006","claim":"The re-author-don't-convert porting doctrine with oracle-gated verification was inherited from the zoo-fork porting walk: 'the oracle comes first, and every stage gates against it. A port without gates is a guess with extra steps.'","kind":"fact","confidence":"documented","source":"/Volumes/M4-Partage/local_ai_stack/work/zoo-fork/PORTING.md#sha256-7843d13e7a49f4be904b5255a2d3200c81f983aad5637793425cd974b3b9d5d6","source_type":"primary","retrieved":"2026-10-03","topic":["origins","method"],"entities":["coreai-model-zoo","zoo-fork"],"evidence":"PORTING.md section 0, verbatim quote","caveat":null,"contested":false}
 {"id":"ORIGIN-007","claim":"The JevBench v1.3.0 clone and the Laya author's repository were both already present in the mini working tree before EXP-017 and EXP-018 used them.","kind":"fact","confidence":"documented","source":"/Volumes/M4-Partage/local_ai_stack/work/jevbench/README.md#sha256-3576568a9f8c6963f5385f33268d86bd138c70815e866be2f05ba981aafaab43","source_type":"primary","retrieved":"2026-10-03","topic":["origins","prior-art"],"entities":["JevBench","Laya","EXP-017","EXP-018"],"evidence":"jevbench v1.3.0 scoring README + laya-repo README hashes in ARCHIVE-MAP","caveat":"prior presence is evidenced by tree contents and mtimes, not by a session log","contested":false}
 {"id":"ORIGIN-008","claim":"The mini home tree (659 hashed docs) and the deep archives at HUB/archive (3,957 docs back to 2023-10) and Backup/_omp-archive predate or parallel the ANE program and remain undistilled open threads.","kind":"fact","confidence":"documented","source":"/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/knowledge/ane/ARCHIVE-MAP.md","source_type":"primary","retrieved":"2026-10-03","topic":["origins","open-threads"],"entities":["Mini M4+","HUB","_omp-archive"],"evidence":"ARCHIVE-MAP summary rows with doc counts and date ranges","caveat":null,"contested":false}
+{"id":"ORIGIN-009","claim":"The private-API route was viable without entitlements on macOS: dlopen-ing AppleNeuralEngine.framework and resolving classes by name works from a plain unsigned dylib, with no signing or entitlement required on the framework path.","kind":"fact","confidence":"documented","source":"knowledge/ane/02-private-api.md#sha256-6da53a3d3459f0634df8ce6d40e4ad0ef50e43a0b19b8e1d3b6b5a9bcf507fe9","source_type":"primary","retrieved":"2026-10-03","topic":["origins","entitlements","private-api"],"entities":["AppleNeuralEngine","_ANEInMemoryModel","maderix/ANE"],"evidence":"API-003: unsigned dylib build flags in maderix bridge Makefile, benchmark results shipped from it","caveat":"confidence inherited from the surveyed project's measured claim, later re-verified locally per 07-private-api-verified.md","contested":false}
+{"id":"ORIGIN-010","claim":"The entitlement dead-ends were mapped and declined: com.apple.ane.iokit-user-access is required only by the direct H11ANE IOKit path, and tinygrad's amfid in-memory patch (+0x8e38) for unsigned binaries was catalogued but never used by this corpus.","kind":"fact","confidence":"documented","source":"knowledge/ane/01-landscape.md#sha256-3e4626117a15bdf7d9818cdfcef116978ff7da382e3d35a58a76ec1143b3b5f3","source_type":"primary","retrieved":"2026-10-03","topic":["origins","entitlements","private-api"],"entities":["com.apple.ane.iokit-user-access","H11ANE","amfid","tinygrad","mdaiter/ane"],"evidence":"LANDSCAPE-044 (amfid patch + dissent caveat) + API-004 + Sources line crediting mdaiter/ane for the entitlement findings behind the route","caveat":"the 'never used' half is INFERRED from absence of any direct-IOKit artifact in the corpus","contested":false}
+{"id":"ORIGIN-011","claim":"The route was taken for placement certainty, not speed: a silent GPU fallback leaves no error string, so the only reliable placement signals are the ANE region count and hardware activity counters, which the entire measurement program is built on.","kind":"fact","confidence":"documented","source":"knowledge/ane/05-gotchas.md#sha256-cc6bcbd006c20e5bbef8f3dc3554f3a305bbecba11ba14a966c9ed35ddc94001","source_type":"primary","retrieved":"2026-10-03","topic":["origins","private-api","measurement"],"entities":["GOTCHAS-028","enginemon","probe_ane_regions"],"evidence":"GOTCHAS-028 silent-fallback entry sourced from own enginemon README; instruments enumerated in FLEET appendix","caveat":"motivation link (signals -> route choice) is INFERRED","contested":false}
+{"id":"ORIGIN-012","claim":"The route's accepted cost is OS drift -- private APIs carry no public stability guarantee and break across macOS updates -- which the corpus answers by live re-probing: bench/ane-probe.m read h16g and 16 cores off the running framework on the mini, the same string the AOT builds target.","kind":"fact","confidence":"measured","source":"knowledge/ane/07-private-api-verified.md#sha256-e628a5a531d91f12f1a73a19d5108bc7920410594a036efcfc8689be88da0dd5","source_type":"our-own","retrieved":"2026-10-03","topic":["origins","private-api","integrity"],"entities":["ane-probe","h16g","_ANEDevice"],"evidence":"live device table in 07-private-api-verified.md; GOTCHAS-049 for the drift disclaimer; scalar-vs-object segfault lesson recorded","caveat":null,"contested":false}
 ```

@@ -58,7 +58,10 @@ them; only *our measurements* are in this corpus. Verify each model's own
 license before pulling weights.
 
 - IBM `granite-embedding-97m` (Apache-2.0) — most-measured model in the corpus
-  (`bench/coreai_bench002.py`, `bench/build_fork_granite.py`, EXP-005/021).
+  (EXP-005/021; in-tree: `ports/export_granite_fp16_placement.py`,
+  `ports/export_granite_w8_fp16.py`, `bench/granite_ane_variants.py`;
+  `bench/coreai_bench002.py` / `bench/build_fork_granite.py` are mini harness-era
+  driver names with no in-tree copy — archive-only references).
 - Qwen family: `Qwen3-0.6B` / `1.7B` / `8B`, `Qwen3.5-0.8B/2B/4B`
   (Apache-2.0) — `bench/llama_real_bench.py`, container evals (EXP-023).
 - `gpt-oss-20b` (Apache-2.0) — container evals (EXP-023).
