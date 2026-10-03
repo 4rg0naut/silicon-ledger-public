@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import glob
 import os
 import shutil
 import subprocess
@@ -44,10 +45,25 @@ from _common import golden, verify_source  # noqa: E402
 from _gate_metrics import gate_vectors  # noqa: E402
 from _granite_model import load_granite  # noqa: E402
 
-COREAI_BUILD = (
-    "/private/var/run/com.apple.security.cryptexd/mnt/"
-    "com.apple.MobileAsset.MetalToolchain-v27.1.266.1.vbaqjL/Metal.xctoolchain/usr/bin/coreai-build"
-)
+def resolve_coreai_build() -> str:
+    # Mount suffix under cryptexd is per-boot random; resolve dynamically.
+    env = os.environ.get("COREAI_BUILD")
+    if env:
+        return env
+    hits = sorted(glob.glob(
+        "/private/var/run/com.apple.security.cryptexd/mnt/"
+        "com.apple.MobileAsset.MetalToolchain-v*/Metal.xctoolchain/usr/bin/coreai-build"
+    ))
+    if hits:
+        return hits[-1]
+    found = subprocess.run(["xcrun", "-f", "coreai-build"],
+                           capture_output=True, text=True).stdout.strip()
+    if found:
+        return found
+    raise FileNotFoundError("coreai-build not found; set COREAI_BUILD env var")
+
+
+COREAI_BUILD = resolve_coreai_build()
 
 
 def inputs_of(spec: dict) -> dict:

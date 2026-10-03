@@ -47,9 +47,9 @@ field + raw `LICENSE` path), as recorded in LANDSCAPE-037 and neighbors.
 | `torch`, `transformers` | BSD-3 / Apache-2.0 | `bench/llama_real_bench.py` (via JevBench's tooling) |
 | `safetensors` | Apache-2.0 | `bench/run_bench003_005.py` |
 | JevBench | upstream (author's harness) | `bench/llama_real_bench.py` — header: "uses JevBench's tooling (imported)" |
-| `coreai-model-zoo` (Apple; no public URL pinned in this corpus — referenced via the local checkout as `coreai-model-zoo/knowledge/coreai-overview.md`) | license unverified | Cited in `01-landscape.md` and EXP-005 (Core AI pipeline stages, silent-fallback definition); **code adapted**: `bench/export_von_ane.py` is adapted from the zoo's `conversion/granite_embedding/_granite_model.py` — derivative, not vendored text; verify the zoo's license before redistributing that file |
-| [aac6fef/laya-multilingual-coreml-ane](https://github.com/aac6fef/laya-multilingual-coreml-ane) | unverified | EXP-017 reproduction target; the port and its published latencies are cited and attributed, no text redistributed (`results/EXP-017-laya-ane/README.md`, `bench/export_laya_ane.py` header) |
-| [NayaKishorM/laya](https://github.com/NayaKishorM/laya) | unverified | `bench/export_laya_ane.py` reproduces `laya/common.py::DecisionModel.forward` **semantics** faithfully (one ANE-legal substitution: `torch.gather` → selection matmul) — graph behaviour, not code text |
+| `coreai-model-zoo` (Apple; no public URL pinned in this corpus — referenced via the local checkout as `coreai-model-zoo/knowledge/coreai-overview.md`) | license unverified | Cited in `01-landscape.md` and EXP-005 (Core AI pipeline stages, silent-fallback definition); **code adapted**: `ports/export_von_ane.py` is adapted from the zoo's `conversion/granite_embedding/_granite_model.py` — derivative, not vendored text; verify the zoo's license before redistributing that file |
+| [aac6fef/laya-multilingual-coreml-ane](https://github.com/aac6fef/laya-multilingual-coreml-ane) | unverified | EXP-017 reproduction target; the port and its published latencies are cited and attributed, no text redistributed (`results/EXP-017-laya-ane/README.md`, `ports/export_laya_ane.py` header) |
+| [NayaKishorM/laya](https://github.com/NayaKishorM/laya) | unverified | `ports/export_laya_ane.py` reproduces `laya/common.py::DecisionModel.forward` **semantics** faithfully (one ANE-legal substitution: `torch.gather` → selection matmul) — graph behaviour, not code text |
 
 ## Model weights referenced (measured, never redistributed)
 

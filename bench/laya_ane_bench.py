@@ -26,6 +26,7 @@ import numpy as np
 import torch
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "ports"))
 sys.path.insert(0, str(ROOT / "bench"))
 
 from export_laya_ane import MODEL_DIR, K_SLOTS, LayaANE, build_case, _set_variant  # noqa: E402

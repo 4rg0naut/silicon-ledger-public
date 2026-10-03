@@ -23,7 +23,7 @@ personal = [(r["pattern"], r.get("replacement", "")) for r in rules if r["class"
 # longest pattern first so nested paths collapse fully
 personal.sort(key=lambda t: len(t[0]), reverse=True)
 
-KEEP_DIRS = ("bench/", "tools/", "knowledge/", "evaluation/", "schemas/")
+KEEP_DIRS = ("bench/", "ports/", "tools/", "knowledge/", "evaluation/", "schemas/")
 KEEP_TOP = (".md", ".txt", ".json", "LICENSE")
 KEEP_RESULTS_EXT = (".md", ".json", ".txt", ".sh")
 OVERLAY_PREFIX = "tools/publish/public-content/"

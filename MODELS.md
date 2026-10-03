@@ -19,7 +19,7 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
   gathered in-graph (F-34 compiler segfault); final-pool padded ≥32 fp16 wide
   (alignment rule) — same template as Von below
 - scripts: `bench/laya_ane_bench.py`, `bench/jevbench_ane.py` (verify),
-  `bench/export_laya_ane.py` header covers the multilingual sibling
+  `ports/export_laya_ane.py` header covers the multilingual sibling
 - artifact(s): Core AI `.aimodel` builds under `work/` (M4 era archive;
   re-bake: `python bench/laya_ane_bench.py --seq-len 256 --variant v1`)
 - proof: EXP-016/EXP-018; JevBench v1.3.0 fidelity 230/231 vs author's
@@ -34,9 +34,18 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
   host-built one-hot (ANE rejects data-dependent gather_nd, rank-3 rule);
   everything else reproduced faithfully from `NayaKishorM/laya`
   `DecisionModel.forward` (see `SOURCES.md`)
-- scripts: `bench/export_laya_ane.py` (export), `bench/laya_ane_bench.py`
+- scripts: `ports/export_laya_ane.py` (export), `bench/laya_ane_bench.py`
 - artifact(s): s256 Core AI graph, 2 ANE regions verified (EXP-017)
 - proof: EXP-017 residency + latency vs `aac6fef/laya-multilingual-coreml-ane`
+- notes:
+  - 2026-10-03 P3 re-bake (Studio M5 Max, `.venv-conv` torch 2.14.1 +
+    coreai-torch 0.4.2, clean dir): oracle gate PASS max|Δlogit| = 4.77e-06,
+    bit-identical to the original mini run;
+    `work/exports/laya-rebake-p3/laya-multilingual_v1_float16_s256_ane.aimodel/main.mlirb`
+    sha256 `30cdf9aab27d54dba0c04517c5ded8494c98d42eeb61779ec23238f12b4eb828`
+    vs mini original `d65f9aa6b64bad6f050807caf6fb536a80bb2195b2a42036de5341b480c1f6f6`
+    (local-ai-stack manifest) — pinned explained delta: numerics identical,
+    container bytes machine/torch-build-sensitive. Evidence: `REBAKE.log` beside artifact.
 - ledger rows: `laya-multilingual-*`, `laya-ane-*`
 
 ## Von-1.0 — ModernBERT-large 3-way NLI decision model
@@ -45,7 +54,7 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
 - surgery: re-author of the whole backbone for static trace — precomputed
   RoPE buffers (F-34), masked **mean** pooling, padded 32-wide head output;
   sliding/full attention alternation preserved (EXP-016)
-- scripts: `bench/export_von_ane.py`, `bench/von_authored144.py`
+- scripts: `ports/export_von_ane.py`, `bench/von_authored144.py`
 - artifact(s): EXP-016 builds (M4-era); `aot_verify.sh` re-checks region counts
 - proof: EXP-016 ANE residency; EXP-018 JevBench rows; oracle-gated per
   `09-origins` §3
@@ -59,13 +68,26 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
   regions (silent GPU fallback)**; v1 +fp16 softmax; v2 +fp16 scale;
   v3 +fp16 pooling → **1 region, 4.00 ms, 83 mW GPU** vs 10,390 mW fp32-GPU;
   quantization series w8/w6/w4 +fp16; "ours" = own build of the multilingual r2
-- scripts: `bench/export_granite_fp16_placement.py`,
-  `bench/export_granite_w8_fp16.py`, `bench/granite_ane_variants.py`,
+- scripts: `ports/export_granite_fp16_placement.py`,
+  `ports/export_granite_w8_fp16.py`, `bench/granite_ane_variants.py`,
   `bench/build_fork_granite.py` (mini-era), `bench/interference_coreai.py`
 - artifact(s): zoo bundle + v0–v3/w-series `.aimodel`s (mini archive, pinned);
   region counting via `bench/probe_ane_regions.py` (glob-double-count fixed, F-27)
 - proof: EXP-005 (regions + power), EXP-021; every number in
   `results/EXP-005-ane-residency/README.md`
+- notes:
+  - 2026-10-03 P3 re-bake (clean dir, `--out work/exports/granite-rebake-p3`):
+    gold gate PASS min_cosine `0.9999907492331014`; export 195,081,877 B/3.9 s;
+    AOT via `coreai-build --preferred-compute neural-engine` (resolved at
+    runtime, cryptexd mount suffix is per-boot random — F-09) compiled 22
+    specializations: h13 → 0 ANE regions, h14+ → 14 regions (MPSGraph
+    delegate). `main.mlirb` sha256
+    `df276e99b4129c44637426fb56a7743adbb8f5e4132b35063344e4e2faed8e73`;
+    same-day pre-fix baseline `689696c15c89146975925f3e7066106f32f7dd6fb4f6e61a38f14810027042d2`
+    (14-byte container delta, gate numerics identical). Honest gap: the pre-move
+    original of this probe was never manifest-pinned (`work/MANIFEST.sha256`
+    covers the reranker tree only); pinned from today forward. Evidence:
+    `REBAKE.log` + `probe-record.json` beside artifact.
 - ledger rows: `granite-*` (~280 across variants)
 
 ## MiniLM — all-MiniLM-L6-v2 (the Core ML baseline lineage)
@@ -74,7 +96,7 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
 - surgery: Core ML conversion only (this predates the Core AI program); the
   famous surgery here was to the TOOLCHAIN, not the model — NumPy ≥2.4
   `int()` regression (F-01) fixed the silent conversion failure
-- scripts: `bench/convert_encoder_coreml.py` (`models/minilm128.mlpackage`),
+- scripts: `ports/convert_encoder_coreml.py` (`models/minilm128.mlpackage`),
   `bench/bench_encoder.py`, `bench/power_ab.py`
 - artifact(s): `minilm128.mlpackage` (mini `models/`, pinned in manifest)
 - proof: EXP-003 (Core ML vs ANE power band)
@@ -87,7 +109,7 @@ originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
 - surgery: full re-author to a static ANE graph (the 0.500-score incident and
   the two-way-softmax-over-dead-logits diagnosis, F-32; RoPE fix via F-34
   bisection; every execution path gated across fresh processes)
-- scripts: `bench/export_reranker_ane.py` (bake), `bench/gate_reranker_ane.py`
+- scripts: `ports/export_reranker_ane.py` (bake), `bench/gate_reranker_ane.py`
   (fidelity gate), `bench/correctness_head.py`
 - artifact(s): `work/exports/reranker-ane/qwen3-reranker-0.6b_float16_s512_ane.aimodel`
   (`main.mlirb` sha256 `3bd166b6a4fcff89226787950e746c9a400c82d47aaf57ca0ed976005d29f422`;
@@ -126,5 +148,6 @@ rows (instrument metadata, not models). Each appears in the ledger with its
 ---
 Regenerate discipline: add a block when a new family is ported; update `proof`
 lines only by appending dated notes. `bench/import_bench_reports.py` remains
-the intake path for machine rows. (P3 will pin per-artifact re-bake hashes for
-Laya and Granite here; until then the manifests above are the authority.)
+the intake path for machine rows. Per-artifact re-bake hashes for Laya and
+Granite are pinned in the notes above (2026-10-03); the manifests remain the
+authority for everything else.
