@@ -1,0 +1,109 @@
+{
+ "generated": "2026-09-26",
+ "generated_on": "Mac Studio M5 Max (h17g), 128 GB — CPU reference, torch 2.13.0",
+ "pairs": {
+  "s256-rel": {
+   "query": "How does the ANE store weights?",
+   "doc": "Weights stream from DRAM to the Neural Engine at each invocation; a dedicated DMA path moves them, which is why resident weight size bounds throughput.",
+   "relevant": true
+  },
+  "s256-irr": {
+   "query": "Best pasta sauce in Bologna",
+   "doc": "Trattoria spots in Bologna favor tortellini in brodo over cream sauces.",
+   "relevant": false
+  },
+  "s256-hard": {
+   "query": "Does the ANE have a datapath for fp8?",
+   "doc": "Apple's fp8 matrix path appears with the M5 family; on M4 Core AI fp8 weights fall back, so quantizing to fp8 buys nothing on that silicon.",
+   "relevant": true
+  },
+  "long-rel": {
+   "query": "Why does coreai-build fall back to the GPU for some models?",
+   "doc": "Authoring: the compiler puts operations on the Neural Engine only in the dialect it accepts, fp16 weights, channel-last BC1S layouts, 1x1 convolutions, no fp32 ops, no scatter or control flow. When any op falls outside, the graph splits or lands on the GPU silently. This is why an fp32 published checkpoint compiles to zero ANE regions while a re-authored fp16 copy compiles to one, and why the fallback carries no warning in the compile log.",
+   "relevant": true
+  },
+  "long-irr": {
+   "query": "Who invented the telephone?",
+   "doc": "Alexander Graham Bell patented the telephone in 1876, though Antonio Meucci earlier demonstrated a voice-call device.",
+   "relevant": false
+  },
+  "rel-int": {
+   "query": "What is int8 weight quantization?",
+   "doc": "Storing int8 per channel with an fp16 scale factor halves weight bytes, which helps size and streaming, but on the Neural Engine int8 weights measure about 4.8x slower per inference because there is no int8 compute datapath. It is a storage lever, not a speed lever.",
+   "relevant": true
+  },
+  "irr-math": {
+   "query": "What is the Riemann zeta function?",
+   "doc": "The zeta function sums 1 over n to the s for n from 1 to infinity and extends meromorphically to the plane with a simple pole at s equal to one.",
+   "relevant": false
+  },
+  "rel-cos": {
+   "query": "What precision gate does this project use for embeddings?",
+   "doc": "Minimum cosine similarity of at least 0.999 against a CPU reference, plus zero inversions on clearly-ordered document pairs. An int6 variant failed on this machine at cosine 0.9983865 with one pair inverted; int8 and fp16 pass.",
+   "relevant": true
+  },
+  "irr-film": {
+   "query": "Recommend a good science fiction film.",
+   "doc": "Try Arrival or Blade Runner 2049 for thoughtful near-future stories.",
+   "relevant": false
+  },
+  "rel-sram": {
+   "query": "Is ANE latency constant across model size?",
+   "doc": "No. The Neural Engine has a fast burst state of about 1.9 ms at roughly 31 GB/s and a slow sustained state of about 4.75 ms at 14.5 GB/s per inference, and idle does not restore the fast state. Weight streaming is served through a shared SRAM, so working sets above roughly 32 to 48 MB stream from DRAM at single-digit GB/s.",
+   "relevant": true
+  }
+ },
+ "scores": {
+  "s256-rel": 0.002378123812377453,
+  "s256-irr": 0.033589500933885574,
+  "s256-hard": 0.5525397062301636,
+  "long-rel": 0.0005614787223748863,
+  "long-irr": 0.06233103945851326,
+  "rel-int": 0.9688562154769897,
+  "irr-math": 0.2798284888267517,
+  "rel-cos": 4.832564081880264e-05,
+  "irr-film": 0.04958902671933174,
+  "rel-sram": 0.00018667821132112294
+ },
+ "official_scores": {
+  "s256-rel": 0.002261630492284894,
+  "s256-irr": 0.033082105219364166,
+  "s256-hard": 0.5466237664222717,
+  "long-rel": 0.0005560236750170588,
+  "long-irr": 0.06310320645570755,
+  "rel-int": 0.9699857234954834,
+  "irr-math": 0.27200961112976074,
+  "rel-cos": 4.686506508733146e-05,
+  "irr-film": 0.05014774948358536,
+  "rel-sram": 0.00018368472228758037
+ },
+ "rank_groups": {
+  "ane": [
+   "s256-irr",
+   "s256-rel"
+  ],
+  "longctx": [
+   "long-irr",
+   "long-rel"
+  ],
+  "int8": [
+   "rel-int",
+   "irr-math"
+  ],
+  "gate": [
+   "irr-film",
+   "rel-cos"
+  ],
+  "sram": [
+   "irr-film",
+   "rel-sram"
+  ]
+ },
+ "prefix": "<|im_start|>system\nJudge whether the Document meets the requirements based on the Query and the Instruct provided. Note that the answer can only be \"yes\" or \"no\".<|im_end|>\n<|im_start|>user\n",
+ "suffix": "<|im_end|>\n<|im_start|>assistant\n",
+ "default_instruction": "Given a web search query, retrieve relevant passages that answer the query",
+ "pad_token_id": 151643,
+ "no_id": 2152,
+ "yes_id": 9693,
+ "rank_groups_note": "order = descending measured CPU fp16 score; invariance target for bundle reproduction, NOT retrieval-quality labels (0.6B shows weak separation on domain pairs)"
+}

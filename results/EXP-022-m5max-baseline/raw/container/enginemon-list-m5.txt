@@ -1,0 +1,28 @@
+group                            subgroup                 channel                    unit
+Energy Model                                              CPU Energy                 mJ
+Energy Model                                              GPU0                       mJ
+Energy Model                                              ANE0                       mJ
+Energy Model                                              GPU Energy                 nJ
+Interrupt Statistics (by index)  dart-ane0 0              First Level Interrupt Handler Count 
+Interrupt Statistics (by index)  dart-ane0 0              Second Level Interrupt Handler Count 
+Interrupt Statistics (by index)  dart-ane0 0              First Level Interrupt Handler Time (MATUs) 
+Interrupt Statistics (by index)  dart-ane0 0              Second Level Interrupt Handler CPU Time (MATUs) 
+Interrupt Statistics (by index)  dart-ane0 0              Second Level Interrupt Handler System Time (MATUs) 
+SoC Stats                        Events                   UT_EXT_THROTTLE_MGPU03     24Mticks
+SoC Stats                        Events                   UT_EXT_THROTTLE_MGPU12     24Mticks
+SoC Stats                        Events                   VDD_GPU03_VOLTAGE_CHANGE_COMPLETION 24Mticks
+SoC Stats                        Events                   VDD_GPU12_VOLTAGE_CHANGE_COMPLETION 24Mticks
+GPU Stats                        Power Zone Filters       GPU Power Zone Filter 0    events
+GPU Stats                        Power Zone Filters       GPU Power Zone Filter 1    events
+GPU Stats                        Power Zone Filters       GPU Power Zone Filter 2    events
+GPU Stats                        Power Zone Filters       GPU Power Zone Filter 3    events
+GPU Stats                        Power Zone Filters       GPU Power Zone Filter 4    events
+GPU Stats                        Power Zone Filters       GPU Power Filter           events
+GPU Stats                        GPU Performance States   GPUPH                      24Mticks
+GPU Stats                        GPU Boost Controller Performance States BSTGPUPH                   24Mticks
+GPU Stats                        DVD Request States       GPUDVDH                    24Mticks
+GPU Stats                        CLTM-induced GPU Performance States GPU_CLTM                   24Mticks
+GPU Stats                        Active Time Histogram    GPU Active Time            24Mticks
+GPU Stats                        Idle Time Histogram      GPU Idle Time              24Mticks
+GPU Stats                        PPM Target as % of Max GPU Power GPU_PPM                    24Mticks
+GPU Stats                        UT Engagement centi-% Histogram GPU UT Engagement centi-%  

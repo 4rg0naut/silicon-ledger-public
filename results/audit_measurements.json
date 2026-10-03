@@ -1,0 +1,5566 @@
+{
+ "_note": "Standing re-check of every measurements.json row against its source EXP report. verified = value (+latency_ms/ane_regions/date when set) literally appears in an attributable report (separator-blind). unattributable = no report found \u2014 declared, never asserted. value-missing = a report was found but a field does not occur in it. Coverage: all 920 ledger rows audited this run (895 attributed to an EXP report, 25 declared unattributable); regenerate with --json after any ledger change.",
+ "totals": {
+  "verified": 877,
+  "value-missing": 18,
+  "unattributable": 25
+ },
+ "rows": [
+  {
+   "id": "laya-en-ane-s256",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-cpu-published",
+   "status": "value-missing",
+   "report": "EXP-018-jevbench-ane",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "von-ane-s256",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-cpu-s256",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ml-ane-s1024",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "reranker-ane-s512",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "granite97m-ane-s512",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite97m-fp32-gpu",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-ane",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-ane-energy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "granite97m-w8",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "ane-ops-scanned",
+   "status": "verified",
+   "report": "EXP-001-ane-op-map",
+   "missing": []
+  },
+  {
+   "id": "ane-ops-ok",
+   "status": "verified",
+   "report": "EXP-001-ane-op-map",
+   "missing": []
+  },
+  {
+   "id": "ane-ops-skipped",
+   "status": "verified",
+   "report": "EXP-001-ane-op-map",
+   "missing": []
+  },
+  {
+   "id": "ane-supported-ops",
+   "status": "verified",
+   "report": "EXP-001-ane-op-map",
+   "missing": []
+  },
+  {
+   "id": "cold-turn-e2e",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "cold-inference",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "load-fm-api-generic-3b",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "load-input-safety",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "load-mm-guard",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "load-image-tokenizer",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "load-output-safety",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "tokens-input",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "tokens-generated",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "style-cold-oneshot",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "style-warm-oneshot",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "style-resident-serve",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "style-warm-traced-inference",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "warm-asset-loads-cold",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "warm-asset-loads-warm",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "ane-intervals",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "ane-duration",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-conversion-cosine",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-latency-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-latency-p95",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-throughput",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-and-gpu-latency-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-and-gpu-latency-p95",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-and-gpu-throughput",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-latency-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-latency-p95",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-throughput",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-speedup-vs-cpu",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-placement-cosine-agreement",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-ane-intervals",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-ane-busy",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-ane-intervals",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-ane-busy",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-ane-busy-excl-first",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-ane-first-load-interval",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-ane-work-per-inference",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-ane-share-of-wall",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-power-throughput",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-power-throughput",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-power-throughput-ratio",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-energy-per-embedding",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-energy-per-embedding",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-energy-per-embedding-ratio",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-ane-power-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-ane-power-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-cpu-power-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-cpu-power-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-cpu-power-peak",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-all-gpu-power-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-only-gpu-power-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu-power-ratio",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-dynamic-latency-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-dynamic-speedup-vs-cpu",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-cpuonly-warm-median",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-cpuonly-load",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-cpuonly-first-after-load",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-cpuonly-gate-cosine",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-cpu-warm-median",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-cpu-load",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-cpu-first-after-load",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-cpu-gate-cosine",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-cpu-speedup-vs-cpuonly",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-gpu-warm-median",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-gpu-load",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-gpu-first-after-load",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-gpu-gate-cosine",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-gpu-speedup-vs-cpuonly",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-neuralengine-warm-median",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-neuralengine-load",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-neuralengine-first-after-load",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-neuralengine-gate-cosine",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "granite-neuralengine-speedup-vs-cpuonly",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "xctrace-proc-granite-ane-intervals",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "xctrace-proc-granite-cpuonly-intervals",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "xctrace-proc-minilm-all-intervals",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "xctrace-proc-minilm-all-busy",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "xctrace-syswide-minilm-all-intervals",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "xctrace-syswide-minilm-all-busy",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "xctrace-syswide-minilm-all-mean",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "xctrace-syswide-minilm-cpuandgpu-intervals",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "xctrace-syswide-granite-cpuonly-intervals",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "xctrace-syswide-granite-ane-intervals",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "latsig-neuralengine-median",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "latsig-neuralengine-spread",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "latsig-gpu-median",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "latsig-gpu-spread",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "latsig-cpuonly-median",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "latsig-cpuonly-spread",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-neuralengine-median",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-neuralengine-ane-mw",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-neuralengine-gpu-mw",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-neuralengine-cpu-mw",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-gpu-median",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-gpu-ane-mw",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-gpu-gpu-mw",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-gpu-cpu-mw",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-cpuonly-median",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-cpuonly-ane-mw",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-cpuonly-gpu-mw",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "power-cpuonly-cpu-mw",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "sampler-minilm-all-ane-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "sampler-minilm-all-ane-peak",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "sampler-minilm-cpuonly-ane-mean",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "trace-metal-gpu-intervals",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "trace-metal-command-buffer-completed",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "trace-metal-gpu-state-intervals",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "trace-ane-hw-intervals",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-amc-stats-ane-dcs-rd-ne",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-amc-stats-ane-dcs-rd-gpu",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-amc-stats-ane-dcs-rd-minilm-all",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-amc-stats-ane-nrt-af-rd-ne",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-amc-stats-ane-nrt-af-rd-gpu",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-amc-stats-ane-nrt-af-rd-minilm-all",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-pmp-ane0-rd-ne",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-pmp-ane0-rd-gpu",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-pmp-ane0-rd-minilm-all",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-ane-0-interrupts-ne",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-ane-0-interrupts-gpu",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-ane-0-interrupts-minilm-all",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-energy-model-gpu-energy-ne",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-energy-model-gpu-energy-gpu",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "enginemon-energy-model-gpu-energy-minilm-all",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "aot-jit-ane-traffic",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "aot-jit-ane-interrupts",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "aot-jit-gpu-power",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "aot-aimodelc-ane-traffic",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "aot-aimodelc-ane-interrupts",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "aot-aimodelc-gpu-power",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "aot-aimodelc-gate-cosine",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "aot-aimodelc-latency",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "aot-aimodelc-tokenizer-parity",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "coreai-build-ne-macos-ane-regions",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "coreai-build-gpu-macos-ane-regions",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "coreai-build-ne-ios-ane-regions",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "odie-category-inference",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "odie-category-setup",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "odie-category-load",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "odie-phase-inference",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "odie-phase-load",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "odie-color-blue",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "odie-color-purple",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "odie-color-teal",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "odie-function-name-main",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "odie-profile-total-rows",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "tiny-ane-shaped-control-graph-1-1-conv2d-bc1s-channel-layernorm-ane-an",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "tiny-ane-shaped-control-graph-1-1-conv2d-bc1s-channel-layernorm-gpu-an",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-ane-regions",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-re-export-ane-ane-regions-as-reported-pre-f",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-ane-regions-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-ane-moved",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-ane-interrupts",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-gpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-load-time",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-warm-median-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-min-cosine",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-max-abs-error",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-ane-regions",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-ane-moved",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-ane-interrupts",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-gpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-load-time",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-warm-median-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-min-cosine",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-max-abs-error",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v1-fp16-softmax-ane-ane-regions",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v1-fp16-softmax-ane-ane-moved",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v1-fp16-softmax-ane-ane-interrupts",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v1-fp16-softmax-ane-gpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v1-fp16-softmax-ane-load-time",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v1-fp16-softmax-ane-warm-median-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v1-fp16-softmax-ane-min-cosine",
+   "status": "value-missing",
+   "report": "EXP-005-ane-residency",
+   "missing": [
+    "value"
+   ]
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v1-fp16-softmax-ane-max-abs-error",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-ane-regions",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-ane-moved",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-ane-interrupts",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-gpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-load-time",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-warm-median-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-min-cosine",
+   "status": "value-missing",
+   "report": "EXP-005-ane-residency",
+   "missing": [
+    "value"
+   ]
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-max-abs-error",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-regions",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-moved",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-interrupts",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-gpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-load-time",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-min-cosine",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-max-abs-error",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-min-cosine-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-max-abs-error-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-norm-error",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-clear-pair-flips",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-worst-score-error",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-min-cosine-2",
+   "status": "value-missing",
+   "report": "EXP-005-ane-residency",
+   "missing": [
+    "value"
+   ]
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-max-abs-error-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-norm-error",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-clear-pair-flips",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-worst-score-error",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-warm-median-latency-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-gpu-power-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v2-f16-scale-ane-max-abs-error-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-gpu-power-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-max-abs-error-3",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-storage-element-count",
+   "status": "value-missing",
+   "report": "EXP-005-ane-residency",
+   "missing": [
+    "value"
+   ]
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-storage-element-count",
+   "status": "value-missing",
+   "report": "EXP-005-ane-residency",
+   "missing": [
+    "value"
+   ]
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-storage-element-count-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-ane-moved-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-ane-interrupts-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-gpu-power-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-load-time-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-warm-median-latency-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-min-cosine-3",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-max-abs-error-3",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-bundle-size",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-moved-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-interrupts-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-gpu-power-3",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-load-time-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-3",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-min-cosine-3",
+   "status": "value-missing",
+   "report": "EXP-005-ane-residency",
+   "missing": [
+    "value"
+   ]
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-max-abs-error-4",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-bundle-size",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-ane-moved",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-ane-interrupts",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-gpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-load-time",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-warm-median-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-min-cosine",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-max-abs-error",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-bundle-size",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-ane-regions-corrected-f-27",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-ane-regions-as-reported-pre-f",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-ane-regions-corrected-f-27",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-ane-regions-as-reported-pre-f",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v1-v2-v3-ane-ane-regions-corrected-f-27",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v1-v2-v3-ane-ane-regions-as-reported-pre-f",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-ane-regions-corrected-f-27",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-ane-regions-as-reported-pre-f-27",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-bundle-component-size-r",
+   "status": "value-missing",
+   "report": "EXP-005-ane-residency",
+   "missing": [
+    "value"
+   ]
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-bundle-component-size-a",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-bundle-component-size-m",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-bundle-component-size-m-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-ane-regions-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v0-as-is-ane-converged-median-latency-4000",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-regions-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-converged-median-latenc",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-median-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-min-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-gpu-power-4",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-gpu-median-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-gpu-min-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-gpu-gpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-median-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-min-latency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp32-published-gpu-gpu-power-3",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-median-latency-another",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-ide",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-ide-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-ide-3",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-ide-4",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-ide-5",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-ide-6",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-ide-7",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-ide-8",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-ide-9",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-warm-median-latency-ide-10",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-latency-fast-state",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-effective-ane-bandwidth",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-latency-slow-state",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-effective-ane-bandwidth-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-transformer-linear-weig",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-traffic-per-inferen",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "apple-m4-ane-ane-on-chip-scratchpad-size",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "apple-m4-ane-literature-ane-working-set-threshold-for-degradation",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-traffic",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-interrupts-3",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-regions-3",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-min-cosine-4",
+   "status": "value-missing",
+   "report": "EXP-005-ane-residency",
+   "missing": [
+    "value"
+   ]
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-clear-pair-flips-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-bundle-size-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-ane-regions",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-min-cosine-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-clear-pair-flips",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w8-fp16-ane-bundle-size-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w6-fp16-ane-ane-regions",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w6-fp16-ane-min-cosine",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w6-fp16-ane-clear-pair-flips",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w6-fp16-ane-bundle-size",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w4-fp16-ane-ane-regions",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w4-fp16-ane-min-cosine",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w4-fp16-ane-clear-pair-flips",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-w4-fp16-ane-bundle-size",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-median-latency-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-gpu-power-5",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-cpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-gpu-median-latency-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-gpu-ane-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-gpu-gpu-power-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-gpu-cpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-cpuonly-ane-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-cpuonly-gpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-cpuonly-cpu-power",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-power-2",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-embedding-97m-fp16-v3-fp16-pooling-ane-ane-power-3",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "zoo-w8-variant-of-granite-embedding-97m-shipped-fp32-compute-none-min",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "zoo-w8-variant-of-granite-embedding-97m-shipped-fp32-compute-none-max",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "apple-ane-roofline-from-the-guide-s-cited-sources-ane-single-dispatch",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "apple-ane-roofline-from-the-guide-s-cited-sources-ane-working-set-thre",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "apple-ane-roofline-from-the-guide-s-cited-sources-ane-peak-efficiency",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-scifact-s512",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "minilm-l6-scifact",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "bge-small-scifact",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "bge-base-scifact",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "mpnet-base-scifact",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-nfcorpus-s512",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "minilm-l6-nfcorpus",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "bge-small-nfcorpus",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "bge-base-nfcorpus",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "mpnet-base-nfcorpus",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-s512-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "multilingual-e5-small-ref-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-minus-e5-small-delta",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-en-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-en-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-en-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-es-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-es-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-es-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-fr-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-fr-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-fr-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-de-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-de-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-de-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-sv-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-sv-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-sv-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-it-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-it-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-it-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-pt-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-pt-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-pt-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-ja-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-ja-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-ja-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-ar-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-ar-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-ar-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-ko-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-ko-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-ko-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-no-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-no-recall10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-no-recall100",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-ane-11lang-mean-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid64-ndcg10",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid64-recall10",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid64-recall100",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid128-ndcg10",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid128-ndcg10-delta-over-64",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid128-recall10",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid128-recall100",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid256-ndcg10",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid256-ndcg10-delta-over-128",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid256-recall10",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid256-recall100",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid512-ndcg10",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid512-ndcg10-delta-over-256",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid512-recall10",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid512-recall100",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid1024-ndcg10",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid1024-ndcg10-delta-over-512",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid1024-recall10",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid1024-recall100",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid256-ndcg10-first-sweep-collided",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-97m-grid256-ndcg10-corrected",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "granite-truncate-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-truncate-s256-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-truncate-s512-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-truncate-s1024-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-truncate-s128-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-truncate-s256-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-truncate-s512-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-truncate-s1024-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-max-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-max-s256-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-max-s512-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-max-s128-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-max-s256-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-max-s512-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-mean-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-mean-s256-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-mean-s512-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-mean-s128-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-mean-s256-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-mean-s512-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-mean-s128-delta-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-mean-s256-delta-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-mean-s512-delta-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-max-s128-delta-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-max-s256-delta-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-max-s512-delta-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "exp011-chunk-indexed-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "exp011-chunk-indexed-s128-recall100",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "exp011-chunk-indexed-s128-delta-ndcg10",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "exp011-chunk-indexed-s128-delta-recall100",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "truncate-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "truncate-s128-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "chunk-max-pool-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "chunk-max-pool-s128-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "chunk-mean-pool-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "chunk-mean-pool-s128-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "chunk-indexed-separate-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "chunk-indexed-separate-s128-recall100",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "truncate-s512-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "truncate-s512-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "truncate-s1024-ndcg10",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "truncate-s1024-recall100",
+   "status": "verified",
+   "report": "EXP-010-chunk-pooling",
+   "missing": []
+  },
+  {
+   "id": "cost-truncate-s512-embeddings",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "cost-truncate-s512-ane-work",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "cost-truncate-s512-index-vectors",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "cost-truncate-s1024-embeddings",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "cost-truncate-s1024-ane-work",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "cost-truncate-s1024-index-vectors",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "cost-chunk-indexed-s128-embeddings",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "cost-chunk-indexed-s128-ane-work",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "cost-chunk-indexed-s128-index-vectors",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "mteb-harness-truncate-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "mteb-harness-truncate-s128-recall100",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "hand-rolled-harness-truncate-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "hand-rolled-harness-truncate-s128-recall100",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "delta-chunk-indexed-vs-truncate-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "delta-chunk-indexed-vs-truncate-s128-recall100",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "delta-chunk-indexed-vs-mean-pool-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "delta-chunk-indexed-vs-max-pool-s128-ndcg10",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "retriever-order-baseline-ndcg10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "retriever-order-baseline-recall10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "qwen3-reranker-k20-ndcg10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "qwen3-reranker-k20-recall10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "reranker-delta-ndcg10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "reranker-delta-recall10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "k20-ceiling-ndcg10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "correction-our-embedder-alone-ndcg10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "correction-our-embedder-plus-reranker-ndcg10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "published-bge-base-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "published-bge-small-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "published-all-minilm-l6-ndcg10",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "bge-base-plus-reranker-ndcg10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "rerank-latency-per-query-k20",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "rerank-latency-per-pair",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "rerank-full-run-seconds",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "zoo-latency-per-pair-m4-max",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "gpu-delegate-load-time",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "ane-delegate-load-time",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "delegate-ane-relevant-pair-score",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "delegate-gpu-relevant-pair-score",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "delegate-cpu-relevant-pair-score",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "official-relevant-pair-score",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "pilot-reranked-recall10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "pilot-ceiling-recall10",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "gate-worst-abs-deviation",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "gate-separation",
+   "status": "verified",
+   "report": "EXP-012-reranker",
+   "missing": []
+  },
+  {
+   "id": "aot-compile-ane-h16g",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "ane-residency-regions",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-worst-delta-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-groups-correct-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-worst-delta-ane-equals-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_capital-official",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_capital-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_capital-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_capital-absdelta-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_beesting-official",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_beesting-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_beesting-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_beesting-absdelta-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_fuji_ja-official",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_fuji_ja-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_fuji_ja-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-rel_fuji_ja-absdelta-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_capital-official",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_capital-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_capital-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_capital-absdelta-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_beesting-official",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "gate-irr_beesting-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_beesting-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_beesting-absdelta-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_fuji_ja-official",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_fuji_ja-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_fuji_ja-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-irr_fuji_ja-absdelta-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "bisect-1layer-rope-ingraph-exit",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "bisect-1layer-rope-input-exit",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "published-bundle-ane-constant",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "fp16-prefix-score",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "hf-reference-score",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "fp32-match-delta",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "rmsnorm-fix-worst-delta",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "exp003-embedder-energy-ane",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "sustained-load-ane-burst",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "sustained-load-gpu-burst",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "powermetrics-ane-power-run1",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "powermetrics-ane-power-run2",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "scifact-ane-ndcg10",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "scifact-ane-recall10",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "scifact-ane-total-time",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "scifact-ane-per-query",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "scifact-gpu-exp012-ndcg10",
+   "status": "value-missing",
+   "report": "EXP-012-reranker",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "scifact-gpu-exp012-recall10",
+   "status": "value-missing",
+   "report": "EXP-012-reranker",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "scifact-gpu-exp012-total-time",
+   "status": "value-missing",
+   "report": "EXP-012-reranker",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "scifact-gpu-exp012-per-query",
+   "status": "value-missing",
+   "report": "EXP-012-reranker",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "scifact-ceiling",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "timing-direct-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "timing-direct-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "timing-pipeline-ane-per-pair",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "timing-pipeline-ane-per-query",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "timing-pipeline-gpu-per-pair",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "timing-pipeline-gpu-per-query",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-load-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-load-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-median-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "gate-median-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "ane-bundle-size",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "scifact-ndcg10-gap-ane-vs-gpu",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "rmsnorm-fix-improvement-factor",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "granite97m-chunk-ane-base",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "granite97m-chunk-ane-reranked",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "granite97m-chunk-ane-delta",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "granite97m-chunk-ane-recall10",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "bgebase-cpu-base",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "bgebase-cpu-reranked",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "bgebase-cpu-delta",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "bgebase-cpu-recall10",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "achieved-granite-retriever-alone",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "achieved-bgebase-alone",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "achieved-granite-full-pipeline",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "achieved-bgebase-reranked",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "granite-chunk-indexed-s128-exp011",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "granite-wholedoc-truncate-s512-exp009",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "granite-wholedoc-truncate-s1024-best",
+   "status": "verified",
+   "report": "EXP-011-chunk-indexed",
+   "missing": []
+  },
+  {
+   "id": "bgebase-wholedoc-same-mode",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "zoo-h2h-embeddinggemma-nanoscifact",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "zoo-h2h-embeddinggemma-jaquad",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "zoo-h2h-embeddinggemma-miracl-ja",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "zoo-h2h-nemotron-nanoscifact",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "zoo-h2h-nemotron-jaquad",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "zoo-h2h-nemotron-miracl-ja",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "zoo-h2h-qwen3-nanoscifact",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "zoo-h2h-qwen3-jaquad",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "zoo-h2h-qwen3-miracl-ja",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "mmbert-matched-nanoscifact-ours",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "mmbert-matched-nanoscifact-mmbert",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "mmbert-matched-nanoscifact-gap",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "mmbert-matched-jaquad-ours",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "mmbert-matched-jaquad-mmbert",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "mmbert-matched-jaquad-gap",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "mmbert-matched-miracl-ja-ours",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "mmbert-matched-miracl-ja-mmbert",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "mmbert-matched-miracl-ja-gap",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "bootstrap-mmbert-nanoscifact",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "bootstrap-mmbert-jaquad",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "bootstrap-mmbert-miracl-ja",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-nanoscifact-embeddinggemma",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-nanoscifact-nemotron",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-nanoscifact-granite-ours",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-nanoscifact-qwen3",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-jaquad-embeddinggemma",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-jaquad-nemotron",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-jaquad-qwen3",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-jaquad-granite-ours",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-miracl-ja-nemotron",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-miracl-ja-embeddinggemma",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-miracl-ja-qwen3",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "harness-miracl-ja-granite-ours",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-nanoscifact-embeddinggemma",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-nanoscifact-nemotron",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-nanoscifact-qwen3",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-nanoscifact-granite-ours",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-jaquad-embeddinggemma",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-jaquad-nemotron",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-jaquad-qwen3",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-jaquad-granite-ours",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-miracl-ja-embeddinggemma",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-miracl-ja-nemotron",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-miracl-ja-qwen3",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "full250-miracl-ja-granite-ours",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-nanoscifact-zoo-cpu",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-nanoscifact-ane",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-nanoscifact-incumbent",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-nanoscifact-gain",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-jaquad-zoo-cpu",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-jaquad-ane",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-jaquad-incumbent",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-jaquad-gain",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-miracl-ja-zoo-cpu",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-miracl-ja-gpu",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-miracl-ja-incumbent",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "ane-gemma-miracl-ja-gain",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "pipeline-scifact-granite-retriever-baseline",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "pipeline-scifact-granite-plus-ane-reranker",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "pipeline-scifact-granite-gain",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "pipeline-scifact-gemma-retriever-baseline",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "pipeline-scifact-gemma-plus-ane-reranker",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "pipeline-scifact-gemma-gain",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "pipeline-gemma-recall10-no-rerank",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "pipeline-gemma-recall10-with-rerank",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "gemma-ane-residency",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "gemma-ane-crash-6400",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "gemma-ane-crash-9000",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "bootstrap-qwen3-jaquad",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "bootstrap-qwen3-miracl-ja",
+   "status": "verified",
+   "report": "EXP-015-candidate-landscape",
+   "missing": []
+  },
+  {
+   "id": "von-v0-ane-regions",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-v0-ane-latency",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-v0-worst-dp",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-v1-ane-regions",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-v1-ane-latency",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-v1-worst-dp",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-v2-f16-buffers-ane-regions",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-v2-f16-buffers-torch-gate",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-v3-f16-literals-ane-regions",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-v3-f16-literals-torch-gate",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-v1-torch-gate",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-gpu-delegate-latency",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-aot-compile-time",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-max-prob-error",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-jevbench-intelligence",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-jevbench-latency",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-temperature",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-blocking-hf-e",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-blocking-hf-n",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-blocking-hf-c",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-blocking-ane-e",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-blocking-ane-n",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-blocking-ane-c",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-blocking-max-dp",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-unrelated-hf-e",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-unrelated-hf-n",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-unrelated-hf-c",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-unrelated-ane-e",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-unrelated-ane-n",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-unrelated-ane-c",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-unrelated-max-dp",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-contradiction-hf-e",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-contradiction-hf-n",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-contradiction-hf-c",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-contradiction-ane-e",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-contradiction-ane-n",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-contradiction-ane-c",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-contradiction-max-dp",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-entailment-hf-e",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-entailment-hf-n",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-entailment-hf-c",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-entailment-ane-e",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-entailment-ane-n",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-entailment-ane-c",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-entailment-max-dp",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-borderline-hf-e",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-borderline-hf-n",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-borderline-hf-c",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-borderline-ane-e",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-borderline-ane-n",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-borderline-ane-c",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-case-borderline-max-dp",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-a144-hf-raw-acc",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-a144-hf-balanced-acc",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-a144-hf-median-latency",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-a144-ane-raw-acc",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-a144-ane-balanced-acc",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-a144-ane-median-latency",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-a144-identical-predictions",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-a144-balanced-acc-delta",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-a144-speedup-vs-cpu",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-size-ane",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-size-hf",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "openjev-qwen35-4b-size",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "openjev-qwen35-4b-balanced-acc",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "openjev-qwen35-4b-latency",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "von-openjev-acc-gap",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-latency-p50",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-latency-p95",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-token-budget",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-option-slots",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-energy-vs-mlx-fp16",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-fidelity-fixtures",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-fidelity-repeated-calls",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "von-token-budget",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "zoo-ane-boundary-overhead",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-vendor-latency-mps",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-vendor-jabr-v2-macro",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-aot-exit-code",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-aot-variants",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-regions",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-memory-moved",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-interrupts",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-gpu-power",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-latency-p50-s256",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-latency-p95-s256",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-fidelity-argmax",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-gpu-power-forced-gpu",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-coreml-port-latency-p50",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-coreml-port-latency-p95",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-coreml-port-token-budget",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-coreml-port-per-token",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-per-token",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-per-token-speedup",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-coreml-port-energy-vs-mlx",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-ane-gpu-power-ratio",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-coreml-port-fidelity-fixtures",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-bug1-cost",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-bug2-cost",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-bug3-cost",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-dlogit-before-fixes",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-gate-dlogit-after-fixes",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-enginemon-ane-moved",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-enginemon-ane-interrupts",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-enginemon-gpu-moved",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-enginemon-gpu-interrupts",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-easy-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-easy-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-easy-delta",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-standard-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-standard-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-standard-delta",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-hard-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-hard-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-hard-delta",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-intel-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-intel-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-intel-delta",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-speed-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-speed-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-speed-delta",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-score-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-score-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-score-delta",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-p50-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-p95-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-p50-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-p95-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-raw-latency-ratio",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-ane-regions",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-torch-gate",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-intel-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-intel-jevbench",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-speed-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-speed-jevbench",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-easy-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-easy-jevbench",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-standard-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-standard-jevbench",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-hard-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-hard-jevbench",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-p50-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-multi-p50-jevbench",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r512-easy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r512-standard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r512-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r512-intel",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r512-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r512-p95",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r2048-easy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r2048-standard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r2048-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r2048-intel",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r2048-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "r2048-p95",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "energy-gpu-power-ane-specialised",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "energy-gpu-power-gpu-specialised",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "energy-ane-bytes-ane-specialised",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "energy-ane-bytes-gpu-specialised",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "energy-ane-interrupts-ane-specialised",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "energy-ane-interrupts-gpu-specialised",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "energy-gpu-power-ratio",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "vendor-p50-tabled",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "vendor-p50-claimed",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "our-ane-p50-m4-s512",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "jevbench-cpu-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "our-ane-speedup-vs-jevbench-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "our-ane-slowdown-vs-vendor",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s256-easy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s256-standard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s256-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s256-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s384-easy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s384-standard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s384-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s384-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s512-easy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s512-standard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s512-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s512-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s640-easy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s640-standard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s640-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s640-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s640-hard-delta",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s768-easy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s768-standard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s768-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s768-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s1024-easy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s1024-standard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s1024-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s1024-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s1024-hard-delta",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s2048-easy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s2048-standard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s2048-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s2048-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "sweep-s2048-hard-delta",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "ctrl-author-maxlen256-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "ctrl-our-ane-maxlen256-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "ctrl-author-maxlen512-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "ctrl-our-ane-maxlen512-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "ctrl-author-maxlen640-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "ctrl-our-ane-maxlen640-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "ctrl-author-maxlen1024-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "ctrl-our-ane-maxlen1024-hard",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "von-easy",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-standard",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-hard",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-intel",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-p50",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-hard-vs-chance",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-table-laya-ref-easy",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-table-laya-ref-standard",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-table-laya-ref-hard",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-table-laya-ref-intel",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-table-laya-ref-p50",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-bundle-cpu-exit",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-bundle-gpu-exit",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-bundle-ane-exit",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-ane-p50-exp016",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "fidelity-agreement-pct",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "fidelity-agreement-count",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "fidelity-our-ane-accuracy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "fidelity-our-ane-accuracy-count",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "fidelity-author-pkg-accuracy",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "fidelity-author-pkg-accuracy-count",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "fidelity-margin-original-policy-05-0",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "costbuy-s256-regions",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "costbuy-s256-torch-gate",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "costbuy-s256-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "costbuy-s1024-regions",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "costbuy-s1024-torch-gate",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "costbuy-s1024-p50",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "adjusted-latency-s1024",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "vendor-in-task-accuracy",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "vendor-in-task-ece",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "vendor-zero-shot-accuracy",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "vendor-zero-shot-ece",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "vendor-headline-claim",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "jev-published-accuracy",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "jevbench-hard-as-fraction",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "jevbench-hard-chance-baseline",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "jev-intelligence",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "jevbench-opendecision-intel",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "jevbench-openjev-verdict-intel",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "hard-states-over-512",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "hard-state-tokens-median",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "hard-state-tokens-p90",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "hard-state-tokens-max",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "hard-family-trap-accuracy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "hard-family-long_policy-accuracy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "hard-family-tradeoff-accuracy",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "latency-ratio-s2048-over-s512",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "latency-ratio-s256-over-s512",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "speedup-s256-vs-jevbench-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "latency-ratio-s1024-over-s256",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-ane-s256-protocol",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-ane-s256-energy-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-ane-s256-energy-gpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-placement-ane",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-placement-cpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-placement-gpu",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-ece-distribution",
+   "status": "verified",
+   "report": "EXP-019-correctness-head",
+   "missing": []
+  },
+  {
+   "id": "laya-en-ece-correctness-head",
+   "status": "verified",
+   "report": "EXP-019-correctness-head",
+   "missing": []
+  },
+  {
+   "id": "laya-en-calibration-axis-a",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-calibration-axis-a-fixed",
+   "status": "verified",
+   "report": "EXP-018-jevbench-ane",
+   "missing": []
+  },
+  {
+   "id": "laya-en-cascade-auroc",
+   "status": "verified",
+   "report": "EXP-019-correctness-head",
+   "missing": []
+  },
+  {
+   "id": "m5max-s1-gpu-read",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5max-s1-gpu-write",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5max-s1-gpu-copy",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5max-s1-gpu-triad",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5max-s1-cpu-read",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5max-s1-cpu-write",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5max-s1-cpu-triad",
+   "status": "value-missing",
+   "report": "EXP-005-ane-residency",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "m5max-s1-tensor-copy",
+   "status": "value-missing",
+   "report": "EXP-005-ane-residency",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "m5max-s2-gemm8192-fp16-mps",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5max-s2-gemm8192-fp32-mps",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5max-s2-gemm8192-bf16-msl",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5max-s2-gemm8192-int8-mps",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5max-s3-dispatch-floor",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5max-s3-peak-int8-d128",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5max-s3-peak-fp16-256x64-d256",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5max-s3-scale4096",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5max-s4-coreai-matmul",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5max-s4-coreai-deep-fp16",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5max-s4-coreai-deep-int8",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "t8-m5-reranker-ane-latency",
+   "status": "value-missing",
+   "report": "EXP-012-reranker",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "t8-m5-reranker-gpu-latency",
+   "status": "value-missing",
+   "report": "EXP-012-reranker",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "t8-m5-reranker-cpu-latency",
+   "status": "value-missing",
+   "report": "EXP-012-reranker",
+   "missing": [
+    "date"
+   ]
+  }
+ ]
+}

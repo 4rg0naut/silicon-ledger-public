@@ -1,0 +1,67 @@
+== machine fingerprint ==
+  fingerprint : bda452aabd60bf26
+  host        : <host>.local (Mac Studio)
+  chip        : Apple M5 Max
+  os          : macOS 27.0 (26A434)
+  memory      : 128 GB
+  cpu cores   : perflevel0=6 perflevel1=12 total=18
+  gpu         : Apple M5 Max (40 cores)
+  metal fams  : apple1, apple2, apple3, apple4, apple5, apple6, apple7, apple8, apple9, apple10
+  tensor dt   : bf16=y fp16=y fp32=y fp4e2m1=y fp8e4m3=y fp8e5m2=y int4=y int8=y
+  ane         : ane_compiler_xpc=y aned_daemon=y coreai_framework=y coreml_mlmodel=y framework_loadable=y inmemory_classes=y request_class=y
+  tools       : aimodelc=present coremlc=present python=Python 3.11.16 swift_clt=Target: arm64-apple-macosx27.0.0 swift_xcode=Target: arm64-apple-macosx27.0.0
+
+{
+  "ane" : {
+    "ane_compiler_xpc" : true,
+    "aned_daemon" : true,
+    "coreai_framework" : true,
+    "coreml_mlmodel" : true,
+    "framework_loadable" : true,
+    "inmemory_classes" : true,
+    "request_class" : true
+  },
+  "chip" : "Apple M5 Max",
+  "cpuCores" : {
+    "perflevel0" : 6,
+    "perflevel1" : 12,
+    "total" : 18
+  },
+  "fingerprint" : "bda452aabd60bf26",
+  "gpuCores" : 40,
+  "gpuName" : "Apple M5 Max",
+  "host" : "<host>.local",
+  "memoryGB" : 128,
+  "metalFamilies" : [
+    "apple1",
+    "apple2",
+    "apple3",
+    "apple4",
+    "apple5",
+    "apple6",
+    "apple7",
+    "apple8",
+    "apple9",
+    "apple10"
+  ],
+  "metalTensor" : {
+    "bf16" : true,
+    "fp16" : true,
+    "fp32" : true,
+    "fp4e2m1" : true,
+    "fp8e4m3" : true,
+    "fp8e5m2" : true,
+    "int4" : true,
+    "int8" : true
+  },
+  "model" : "Mac Studio",
+  "osBuild" : "26A434",
+  "osVersion" : "27.0",
+  "tools" : {
+    "aimodelc" : "present",
+    "coremlc" : "present",
+    "python" : "Python 3.11.16",
+    "swift_clt" : "Target: arm64-apple-macosx27.0.0",
+    "swift_xcode" : "Target: arm64-apple-macosx27.0.0"
+  }
+}

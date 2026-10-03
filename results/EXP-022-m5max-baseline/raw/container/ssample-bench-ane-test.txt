@@ -1,0 +1,68 @@
+ssample: interval=1.0s duration=300.0s child=/Users/<user>/Library/Application Support/openfox/workspaces/dev_m5max_re/silicon-ledger-publish/.build/release/bench ane
+t(s)  ane GB/s  gpu GB/s  cpu GB/s  mem GB/s  tot GB/s  |  ane W  gpu W  cpu W
+    2.1      52.85       1.00       7.89       0.00      61.73  |  —  —  —
+    4.1      65.82       1.00       4.09       0.00      70.91  |  —  —  —
+    6.1      10.18       1.00       7.13       0.00      18.31  |  —  0.1W  —
+    8.2      23.94       1.00      11.40       0.00      36.35  |  —  0.1W  —
+
+== ANE raw throughput (direct _ANEInMemoryModel private API) (s3_ane_raw) ==
+  name                    variant        iters      median         p95      unit
+  dispatch_floor          fp32 IO          100       0.102       0.130   ms/eval
+  scale_256               fp32 IO          100       0.099       0.112   ms/eval
+  scale_512               fp32 IO          100       0.096       0.122   ms/eval
+  scale_1024              fp32 IO          100       0.248       0.261   ms/eval
+  scale_2048              fp32 IO          100       1.816       1.852   ms/eval
+  scale_4096              fp32 IO          100      26.779      27.362   ms/eval
+  peak_512x64_d32         fp32 IO          100       0.203       0.225   ms/eval
+  peak_512x64_d48         fp32 IO          100       0.245       0.263   ms/eval
+  peak_512x64_d64         fp32 IO          100       0.304       0.320   ms/eval
+  peak_256x64_d128        fp32 IO          100       0.201       0.215   ms/eval
+  peak_256x64_d256        fp32 IO          100       0.303       0.320   ms/eval
+  peak_512x64_d64_fp16io  fp16 IO          100       0.301       0.320   ms/eval
+  peak_int8_512x64_d64    int8 W8A16       100       0.207       0.221   ms/eval
+  peak_int8_512x64_d128   int8 W8A16       100       0.316       0.337   ms/eval
+  sram_2.6MB              fp32 IO          100       0.099       0.121   ms/eval
+  sram_10MB               fp32 IO          100       0.142       0.156   ms/eval
+  sram_24MB               fp32 IO          100       0.216       0.232   ms/eval
+  sram_42MB               fp32 IO          100       0.315       0.336   ms/eval
+  sram_94MB               fp32 IO          100       1.075       1.091   ms/eval
+  sram_168MB              fp32 IO          100       1.830       1.848   ms/eval
+  blob_probe_d1           shared           100       0.099       0.115        ms
+  blob_probe_d1           per_file         100       0.104       0.130        ms
+  blob_probe_d2           shared           100       0.104       0.126        ms
+  blob_probe_d2           per_file           0       0.000       0.000        ms  compile_failed
+  blob_512x64_d16         shared           100       0.140       0.152        ms
+  blob_512x64_d16         per_file           0       0.000       0.000        ms  compile_failed
+  blob_512x64_d128        shared           100       0.537       0.608        ms
+  blob_512x64_d128        per_file           0       0.000       0.000        ms  compile_failed
+    dispatch_floor/fp32 IO: 0.08 TOPS
+    scale_256/fp32 IO: 0.34 TOPS
+    scale_512/fp32 IO: 2.81 TOPS
+    scale_1024/fp32 IO: 8.65 TOPS
+    scale_2048/fp32 IO: 9.46 TOPS
+    scale_4096/fp32 IO: 5.13 TOPS
+    peak_512x64_d32/fp32 IO: 5.30 TOPS
+    peak_512x64_d48/fp32 IO: 6.56 TOPS
+    peak_512x64_d64/fp32 IO: 7.08 TOPS
+    peak_256x64_d128/fp32 IO: 5.35 TOPS
+    peak_256x64_d256/fp32 IO: 7.08 TOPS
+    peak_512x64_d64_fp16io/fp16 IO: 7.14 TOPS
+    peak_int8_512x64_d64/int8 W8A16: 10.38 TOPS
+    peak_int8_512x64_d128/int8 W8A16: 13.60 TOPS
+    sram_2.6MB/fp32 IO: 0.68 TOPS
+    sram_10MB/fp32 IO: 3.79 TOPS
+    sram_24MB/fp32 IO: 8.39 TOPS
+    sram_42MB/fp32 IO: 13.65 TOPS
+    sram_94MB/fp32 IO: 13.48 TOPS
+    sram_168MB/fp32 IO: 18.77 TOPS
+    blob_probe_d1/shared: 0.34 TOPS
+    blob_probe_d1/per_file: 0.32 TOPS
+    blob_probe_d2/shared: 0.65 TOPS
+    blob_512x64_d16/shared: 3.83 TOPS
+    blob_512x64_d128/shared: 8.00 TOPS
+  note: Methodology: MIL 1x1-conv chains via _ANEInMemoryModelDescriptor, IOSurface fp32 I/O (or fp16 in), mach_absolute_time, median of N. int8 = W8A16 (per-channel symmetric, constexpr_affine_dequantize, same scheme as CoreML-compiled quantized models). The conv chain is the ANE's native dense datapath (matmul/linear layers fold into the convolution datapath; a linear y=x@W.T is a 1x1 conv) — see docs/research-notes.md R7 and arXiv:2606.22283. Adapted from maderix/ANE (MIT).
+  note: compiles this run: 25 (per-process limit ~119)
+
+report: /private/tmp/SiliconScope/results/2026-09-26T18-13-00Z-bda452aabd60bf26.json
+   10.3       4.00       1.00       5.35       0.00      10.35  |  —  0.1W  —
+TOTAL over 10.4s (5 lines): ANE 156.80 GB moved, GPU 5.00 GB moved, child_rc=0

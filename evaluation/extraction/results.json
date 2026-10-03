@@ -1,0 +1,67 @@
+{
+  "technical identifier|technical identifier": {
+    "recall": 0.3,
+    "spans_per_item": 4,
+    "ms": 43.10104198521003
+  },
+  "technical identifier|code identifier": {
+    "recall": 0.32222222222222224,
+    "spans_per_item": 3,
+    "ms": 35.912333987653255
+  },
+  "technical identifier|symbol name": {
+    "recall": 0.26666666666666666,
+    "spans_per_item": 5.866666666666666,
+    "ms": 36.64929201477207
+  },
+  "API name|API name": {
+    "recall": 0.16666666666666666,
+    "spans_per_item": 2.2,
+    "ms": 37.919083988526836
+  },
+  "API name|private API": {
+    "recall": 0.2,
+    "spans_per_item": 1.5333333333333334,
+    "ms": 40.15366602106951
+  },
+  "API name|framework class": {
+    "recall": 0.26666666666666666,
+    "spans_per_item": 3.066666666666667,
+    "ms": 36.573250021319836
+  },
+  "API name|method selector": {
+    "recall": 0.1111111111111111,
+    "spans_per_item": 1.9333333333333333,
+    "ms": 37.07295801723376
+  },
+  "value|numeric value": {
+    "recall": 0.24444444444444444,
+    "spans_per_item": 3.933333333333333,
+    "ms": 36.47745802300051
+  },
+  "value|hexadecimal value": {
+    "recall": 0.16666666666666666,
+    "spans_per_item": 3.1333333333333333,
+    "ms": 37.18262500478886
+  },
+  "value|measurement": {
+    "recall": 0.13333333333333333,
+    "spans_per_item": 1.2666666666666666,
+    "ms": 36.32612497312948
+  },
+  "hardware|chip": {
+    "recall": 0.32222222222222224,
+    "spans_per_item": 3.1333333333333333,
+    "ms": 37.136167025892064
+  },
+  "hardware|hardware component": {
+    "recall": 0.3333333333333333,
+    "spans_per_item": 3,
+    "ms": 36.038874997757375
+  },
+  "hardware|processor": {
+    "recall": 0.35555555555555557,
+    "spans_per_item": 3.933333333333333,
+    "ms": 35.57149998960085
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/4rg0naut/silicon-ledger/main/schemas/facets/silicon-ledger/1.json",
+  "title": "silicon-ledger facet, version 1",
+  "description": "Extension fields this corpus attaches to a Claim. OpenClaims permits arbitrary extension via `facets`, requiring only `_producer` and `_schemaURL`. This schema describes what this repository puts there, so a consumer can validate or index it without reading our converter.",
+  "type": "object",
+  "required": [
+    "_producer",
+    "_schemaURL"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_producer": {
+      "const": "silicon-ledger",
+      "description": "Bare repository name, NOT a URN. Convention, pinned across both repositories: _producer is the producing repo's short name, so a reader can tell which instrument wrote a record without resolving anything. The companion instrument is silicon-ledger-bench."
+    },
+    "_schemaURL": {
+      "type": "string",
+      "format": "uri",
+      "description": "Must resolve. A facet pointing at an unreachable schema is a dangling identifier, which is worse than omitting the facet."
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "fact",
+        "definition",
+        "procedure",
+        "gotcha",
+        "measurement",
+        "open-question"
+      ],
+      "description": "Our finer-grained category. Claim.claim_type is constrained by the OpenClaims spec to factual|calculation|inference|recommendation|prediction and cannot carry this distinction, so it lives here. Every record: claim_type=factual, plus the real kind in this field."
+    },
+    "topic": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Retrieval keys."
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Chips, APIs, projects or models the claim names."
+    },
+    "caveat": {
+      "type": "string",
+      "description": "The scope limit that makes the claim not universally true, e.g. 'M3 affected; M1 and M5 Max reportedly unaffected'. Load-bearing: without it a claim is read as universal."
+    },
+    "split": {
+      "type": "string",
+      "enum": [
+        "train",
+        "holdout"
+      ],
+      "default": "train",
+      "description": "Holdout records are sealed at creation and never used to build or tune anything, so the corpus can serve as its own evaluation set. This cannot be applied retroactively: once trained on, contamination is permanent."
+    },
+    "legacy_confidence": {
+      "type": "string",
+      "enum": [
+        "measured",
+        "documented",
+        "inferred",
+        "claimed",
+        null
+      ],
+      "description": "RETIRED. The pre-spine label for how a claim was established. Superseded by the OpenClaims Verification object (verification_result + verification_method + validator), which records who checked it, how, and when \u2014 questions this field could not answer. Kept only so old records remain readable."
+    },
+    "evidence_status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "unlocatable",
+        "stale"
+      ],
+      "default": "ok",
+      "description": "Whether the evidence this record cites can still be verified, checked in this order: (1) does the source still hash to the digest pinned at emission? If not -> 'stale': the target changed under a surviving pointer. (2) does the cited passage still occur in it? If not -> 'unlocatable': the pointer was never right. 'ok' = both pass. The two failure modes are sequential and mutually exclusive, which is why this is one field and not two booleans. A record whose status is not 'ok' claims NO Evidence: absence is declared, never asserted. Mirrors the rule that a span not found verbatim in the registered text is rejected at write time, by non-LLM code."
+    }
+  }
+}

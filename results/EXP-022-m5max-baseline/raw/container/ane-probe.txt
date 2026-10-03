@@ -1,0 +1,237 @@
+=== AppleNeuralEngine.framework on this machine ===
+  macOS: 27.0   arch: arm64
+  dlopen: OK
+
+=== _ANEDeviceInfo ===
+      numANECores            -> 16        [I16@0:8]
+      numANEs                -> 1        [I16@0:8]
+      aneArchitectureType    -> h17g
+      aneSubType             -> h17
+      productName            -> macOS
+      isVirtualMachine       -> NO        [B16@0:8]
+      aneBoardType           -> 544        [q16@0:8]
+
+=== class existence vs what our KB documents ===
+  class                          exists     prior art said
+  -----                          ------     -------------
+  _ANEClient                     YES        documented, used by ane-infer
+  _ANEInMemoryModel              YES        documented, used by maderix + ANE-LM
+  _ANEInMemoryModelDescriptor    YES        documented
+  _ANEModel                      YES        documented, kernel-side handle
+  _ANEProgramForEvaluation       YES        documented, fast-path dispatch
+  _ANERequest                    YES        documented
+  _ANEChainingRequest            YES        documented; chaining
+  _ANEIOSurfaceObject            YES        documented
+  _ANEIOSurfaceOutputSets        YES        documented; error 15 came from the wrong factory
+  _ANEDeviceInfo                 YES        documented; core counts
+  _ANEDeviceController           YES        documented
+  _ANEQoSMapper                  YES        documented
+  _ANEStrings                    YES        documented; error domains
+  _ANEErrors                     YES        documented; error factories
+  _ANEMemoryModel                no         NO evidence it exists
+  _ANECompiler                   no         NO class dump; likely just a log prefix
+  _ANESharedEvents               YES        documented; crashes on MIL path
+  _ANEProgram                    no         seen in some dumps
+  _ANEModelCache                 no         seen in some dumps
+
+  15 present, 4 absent
+
+=== _ANEInMemoryModel ===
+    instance (43):
+      -setModel:   v24@0:8@16
+      -descriptor   @16@0:8
+      -model   @16@0:8
+      -queueDepth   c16@0:8
+      -modelURL   @16@0:8
+      -setModelAttributes:   v24@0:8@16
+      -programHandle   Q16@0:8
+      -setProgramHandle:   v24@0:8Q16
+      -program   @16@0:8
+      -sharedConnection   @16@0:8
+      -setState:   v24@0:8Q16
+      -init   @16@0:8
+      -setIntermediateBufferHandle:   v24@0:8Q16
+      -setPerfStatsMask:   v20@0:8I16
+      -.cxx_destruct   v16@0:8
+      -dealloc   v16@0:8
+      -perfStatsMask   I16@0:8
+      -setProgram:   v24@0:8@16
+      -setQueueDepth:   v20@0:8c16
+      -setDescriptor:   v24@0:8@16
+      -string_id   Q16@0:8
+      -intermediateBufferHandle   Q16@0:8
+      -modelAttributes   @16@0:8
+      -setModelURL:   v24@0:8@16
+      -state   Q16@0:8
+      -evaluateWithQoS:options:request:error:   B44@0:8I16@20@28^@36
+      -loadWithQoS:options:error:   B36@0:8I16@20^@28
+      -unloadWithQoS:error:   B28@0:8I16^@20
+      -hexStringIdentifier   @16@0:8
+      -purgeCompiledModel   v16@0:8
+      -compileWithQoS:options:error:   B36@0:8I16@20^@28
+      -compiledModelExists   B16@0:8
+      -compilerOptionsFileName   @16@0:8
+      -compilerOptionsWithOptions:isCompiledModelCached:   @28@0:8@16B24
+      -initWithDesctiptor:   @24@0:8@16
+      -isMILModel   B16@0:8
+      -localModelPath   @16@0:8
+      -mapIOSurfacesWithRequest:cacheInference:error:   B36@0:8@16B24^@28
+      -perFileHashes   @16@0:8
+      -saveModelFiles   @16@0:8
+      -setCompilerOptionsFileName:   v24@0:8@16
+      -setPerFileHashes:   v24@0:8@16
+      -unmapIOSurfacesWithRequest:   v24@0:8@16
+    class (3):
+      +new   @16@0:8
+      +initialize   v16@0:8
+      +inMemoryModelWithDescriptor:   @24@0:8@16
+
+=== _ANEClient ===
+    instance (54):
+      -echo:   B24@0:8@16
+      -connections   @16@0:8
+      -isRootDaemon   B16@0:8
+      -connectionUsedForLoadingModel:   @24@0:8@16
+      -compiledModelExistsFor:   B24@0:8@16
+      -connectionsUsedForLoadingModels   @16@0:8
+      -reportEvaluateFailure:failureReason:qIdx:   v36@0:8@16I24Q28
+      -loadModelNewInstance:options:modelInstParams:qos:error:   B52@0:8@16@24@32I40^@44
+      -doBuffersReadyWithModel:inputBuffers:options:qos:error:   B52@0:8@16@24@32I40^@44
+      -isVirtualClient   B16@0:8
+      -evaluateRealTimeWithModel:options:request:error:   B48@0:8@16@24@32^@40
+      -purgeCompiledModel:   v24@0:8@16
+      -beginRealTimeTask   B16@0:8
+      -loadModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -loadRealTimeModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -compiledModelExistsInCacheFor:   B24@0:8@16
+      -doLoadModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -unloadModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -doLoadModelNewInstance:options:modelInstParams:qos:error:   B52@0:8@16@24@32I40^@44
+      -compiledModelExistsInCacheFor:limitToCurrentProcess:   B28@0:8@16B24
+      -unloadRealTimeModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -fastConnWithoutLock   @16@0:8
+      -fastConn   @16@0:8
+      -initWithRestrictedAccessAllowed:   @20@0:8B16
+      -init   @16@0:8
+      -doPrepareChainingWithModel:options:chainingReq:qos:error:   B52@0:8@16@24@32I40^@44
+      -updateCachedModelLocationForModelTrackedByHash:toAppGroup:error:   B40@0:8@16@24^@32
+      -syncMutableWeightsForModel:andProcedure:fromOffset:withSize:error:   B56@0:8@16@24Q32Q40^@48
+      -.cxx_destruct   v16@0:8
+      -dealloc   v16@0:8
+      -enqueueSetsWithModel:outputSet:options:qos:error:   B52@0:8@16@24@32I40^@44
+      -mapIOSurfacesWithModel:request:cacheInference:error:   B44@0:8@16@24B32^@36
+      -compiledModelExistsMatchingHash:   B24@0:8@16
+      -prepareChainingWithModel:options:chainingReq:qos:error:   B52@0:8@16@24@32I40^@44
+      -isAnetoolRootDaemonConnection   B16@0:8
+      -priorityQ   @16@0:8
+      -doEvaluateDirectWithModel:options:request:qos:error:   B52@0:8@16@24@32I40^@44
+      -purgeCompiledModelMatchingHash:   v24@0:8@16
+      -updateSourcePathForModelTrackedByHash:to:error:   B40@0:8@16@24^@32
+      -virtualClient   @16@0:8
+      -mapMutableWeightsForModel:andProcedure:mappedWeightsBuffer:size:error:   B56@0:8@16@24^^v32^Q40^@48
+      -conn   @16@0:8
+      -unmapMutableWeightsForModel:andProcedure:   B32@0:8@16@24
+      -doEnqueueSetsWithModel:outputSet:options:qos:error:   B52@0:8@16@24@32I40^@44
+      -doUnloadModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -updatePurgeabilityLevelForModelTrackedByHash:to:   v32@0:8@16Q24
+      -evaluateWithModel:options:request:qos:error:   B52@0:8@16@24@32I40^@44
+      -connectionForLoadingModel:options:   @32@0:8@16@24
+      -endRealTimeTask   B16@0:8
+      -buffersReadyWithModel:inputBuffers:options:qos:error:   B52@0:8@16@24@32I40^@44
+      -allowRestrictedAccess   B16@0:8
+      -sessionHintWithModel:hint:options:report:error:   B56@0:8@16@24@32@40^@48
+      -compileModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -unmapIOSurfacesWithModel:request:   v32@0:8@16@24
+    class (4):
+      +new   @16@0:8
+      +initialize   v16@0:8
+      +sharedConnection   @16@0:8
+      +sharedPrivateConnection   @16@0:8
+
+=== _ANEIOSurfaceOutputSets ===
+    instance (9):
+      -description   @16@0:8
+      -initWithCoder:   @24@0:8@16
+      -init   @16@0:8
+      -.cxx_destruct   v16@0:8
+      -dealloc   v16@0:8
+      -encodeWithCoder:   v24@0:8@16
+      -initWithstatsSurRef:outputBuffer:   @32@0:8^{__IOSurface=}16@24
+      -outputBuffer   @16@0:8
+      -statsSurRef   ^{__IOSurface=}16@0:8
+    class (3):
+      +new   @16@0:8
+      +supportsSecureCoding   B16@0:8
+      +objectWithstatsSurRef:outputBuffer:   @32@0:8^{__IOSurface=}16@24
+
+=== _ANEProgramForEvaluation ===
+    instance (23):
+      -description   @16@0:8
+      -processInputBuffers:model:options:error:   B48@0:8@16@24@32^@40
+      -initWithController:intermediateBufferHandle:queueDepth:   @36@0:8@16Q24c32
+      -setCurrentAsyncRequestsInFlight:   v24@0:8q16
+      -processSessionHint:options:report:error:   B48@0:8@16@24@32^@40
+      -deviceController   @16@0:8
+      -queueDepth   c16@0:8
+      -programHandle   Q16@0:8
+      -mapMutableWeightsBufferDirectForProcedure:bufferID:buffer:size:error:   B56@0:8@16Q24^^v32^Q40^@48
+      -setProgramHandle:   v24@0:8Q16
+      -controller   @16@0:8
+      -processOutputSet:model:options:error:   B48@0:8@16@24@32^@40
+      -requestsInFlight   @16@0:8
+      -currentAsyncRequestsInFlight   q16@0:8
+      -unmapMutableWeightsBufferDirectForProcedure:bufferID:   B32@0:8@16Q24
+      -processRequest:model:qos:qIndex:modelStringID:options:returnValue:error:   B76@0:8@16@24I32Q36Q44@52^I60^@68
+      -init   @16@0:8
+      -.cxx_construct   @16@0:8
+      -setIntermediateBufferHandle:   v24@0:8Q16
+      -.cxx_destruct   v16@0:8
+      -dealloc   v16@0:8
+      -programInferenceOtherErrorForMessage:model:methodName:   @40@0:8^{ANENotificationMessage=ii^v[4^v][4I][4[4^v]][4[4I]]QBCC}16@24@32
+      -intermediateBufferHandle   Q16@0:8
+    class (3):
+      +new   @16@0:8
+      +programWithController:intermediateBufferHandle:queueDepth:   @36@0:8@16Q24c32
+      +programWithHandle:intermediateBufferHandle:queueDepth:   @36@0:8Q16Q24c32
+
+=== every class whose name starts with _ANE ===
+  _ANESharedWaitEvent
+  _ANECloneHelper
+  _ANEBuffer
+  _ANESandboxingHelper
+  _ANEInputBuffersReady
+  _ANEPerformanceStats
+  _ANESharedSignalEvent
+  _ANEDaemonConnection
+  _ANEProgramIOSurfacesMapper
+  _ANETensorDebugHelper
+  _ANEIntermediateTensor
+  _ANECompileFlavorPolicy
+  _ANEDebugUtils
+  _ANEHashEncoding
+  _ANEProgramProcedurePriv
+  _ANEOutputSetEnqueue
+  _ANEPerformanceStatsIOSurface
+  _ANEModelInstanceParameters
+  _ANEWeight
+  _ANEProcedureData
+  _ANEDataReporter
+  _ANEModelToken
+  _ANESharedEvents
+  _ANEErrors
+  _ANEStrings
+  _ANEQoSMapper
+  _ANEDeviceController
+  _ANEIOSurfaceOutputSets
+  _ANEIOSurfaceObject
+  _ANEChainingRequest
+  _ANERequest
+  _ANEProgramForEvaluation
+  _ANEModel
+  _ANEInMemoryModelDescriptor
+  _ANEInMemoryModel
+  _ANEClient
+  _ANELog
+  _ANEVirtualClient
+  _ANEDeviceInfo
+  (39 of 10398 runtime classes)

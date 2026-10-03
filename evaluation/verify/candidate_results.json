@@ -1,0 +1,941 @@
+{
+  "modernce-large-nli": [
+    {
+      "id": "LANDSCAPE-008",
+      "verdict": "no",
+      "conf": 0.7110885381698608,
+      "probs": {
+        "yes": 0.015445823781192303,
+        "partial": 0.2734656035900116,
+        "no": 0.7110885381698608
+      }
+    },
+    {
+      "id": "LANDSCAPE-016",
+      "verdict": "partial",
+      "conf": 0.778937041759491,
+      "probs": {
+        "yes": 0.007494901306927204,
+        "partial": 0.778937041759491,
+        "no": 0.2135680764913559
+      }
+    },
+    {
+      "id": "LANDSCAPE-023",
+      "verdict": "no",
+      "conf": 0.9277117252349854,
+      "probs": {
+        "yes": 0.016437584534287453,
+        "partial": 0.055850643664598465,
+        "no": 0.9277117252349854
+      }
+    },
+    {
+      "id": "LANDSCAPE-025",
+      "verdict": "no",
+      "conf": 0.9588749408721924,
+      "probs": {
+        "yes": 0.012108109891414642,
+        "partial": 0.029016952961683273,
+        "no": 0.9588749408721924
+      }
+    },
+    {
+      "id": "LANDSCAPE-031",
+      "verdict": "no",
+      "conf": 0.9943230152130127,
+      "probs": {
+        "yes": 0.004087778273969889,
+        "partial": 0.0015891698421910405,
+        "no": 0.9943230152130127
+      }
+    },
+    {
+      "id": "LANDSCAPE-041",
+      "verdict": "no",
+      "conf": 0.7172456383705139,
+      "probs": {
+        "yes": 0.20012915134429932,
+        "partial": 0.08262517303228378,
+        "no": 0.7172456383705139
+      }
+    },
+    {
+      "id": "LANDSCAPE-045",
+      "verdict": "no",
+      "conf": 0.8967432379722595,
+      "probs": {
+        "yes": 0.019780253991484642,
+        "partial": 0.08347644656896591,
+        "no": 0.8967432379722595
+      }
+    },
+    {
+      "id": "LANDSCAPE-061",
+      "verdict": "no",
+      "conf": 0.5283321142196655,
+      "probs": {
+        "yes": 0.3728909492492676,
+        "partial": 0.09877704083919525,
+        "no": 0.5283321142196655
+      }
+    },
+    {
+      "id": "API-011",
+      "verdict": "partial",
+      "conf": 0.5036494731903076,
+      "probs": {
+        "yes": 0.0982859879732132,
+        "partial": 0.5036494731903076,
+        "no": 0.39806461334228516
+      }
+    },
+    {
+      "id": "API-022",
+      "verdict": "partial",
+      "conf": 0.9219201803207397,
+      "probs": {
+        "yes": 0.010319271124899387,
+        "partial": 0.9219201803207397,
+        "no": 0.06776057183742523
+      }
+    },
+    {
+      "id": "API-035",
+      "verdict": "no",
+      "conf": 0.47855865955352783,
+      "probs": {
+        "yes": 0.24347463250160217,
+        "partial": 0.2779666781425476,
+        "no": 0.47855865955352783
+      }
+    },
+    {
+      "id": "API-042",
+      "verdict": "partial",
+      "conf": 0.9868576526641846,
+      "probs": {
+        "yes": 0.0025177975185215473,
+        "partial": 0.9868576526641846,
+        "no": 0.010624507442116737
+      }
+    },
+    {
+      "id": "API-055",
+      "verdict": "partial",
+      "conf": 0.6280555129051208,
+      "probs": {
+        "yes": 0.03963422402739525,
+        "partial": 0.6280555129051208,
+        "no": 0.3323102295398712
+      }
+    },
+    {
+      "id": "API-066",
+      "verdict": "partial",
+      "conf": 0.8677830696105957,
+      "probs": {
+        "yes": 0.01247601117938757,
+        "partial": 0.8677830696105957,
+        "no": 0.11974093317985535
+      }
+    },
+    {
+      "id": "API-071",
+      "verdict": "partial",
+      "conf": 0.9394331574440002,
+      "probs": {
+        "yes": 0.010647202841937542,
+        "partial": 0.9394331574440002,
+        "no": 0.04991965368390083
+      }
+    },
+    {
+      "id": "API-081",
+      "verdict": "partial",
+      "conf": 0.8607288002967834,
+      "probs": {
+        "yes": 0.006001218222081661,
+        "partial": 0.8607288002967834,
+        "no": 0.13326996564865112
+      }
+    },
+    {
+      "id": "API-096",
+      "verdict": "partial",
+      "conf": 0.9452593922615051,
+      "probs": {
+        "yes": 0.004089781548827887,
+        "partial": 0.9452593922615051,
+        "no": 0.05065077915787697
+      }
+    },
+    {
+      "id": "FORMAT-006",
+      "verdict": "no",
+      "conf": 0.8044788241386414,
+      "probs": {
+        "yes": 0.001320784562267363,
+        "partial": 0.19420044124126434,
+        "no": 0.8044788241386414
+      }
+    },
+    {
+      "id": "FORMAT-016",
+      "verdict": "no",
+      "conf": 0.6208727359771729,
+      "probs": {
+        "yes": 0.023767774924635887,
+        "partial": 0.3553594946861267,
+        "no": 0.6208727359771729
+      }
+    },
+    {
+      "id": "FORMAT-024",
+      "verdict": "no",
+      "conf": 0.6307643055915833,
+      "probs": {
+        "yes": 0.1286090761423111,
+        "partial": 0.24062658846378326,
+        "no": 0.6307643055915833
+      }
+    },
+    {
+      "id": "FORMAT-043",
+      "verdict": "partial",
+      "conf": 0.9615221619606018,
+      "probs": {
+        "yes": 0.006614352576434612,
+        "partial": 0.9615221619606018,
+        "no": 0.03186345845460892
+      }
+    },
+    {
+      "id": "FORMAT-051",
+      "verdict": "partial",
+      "conf": 0.6083692908287048,
+      "probs": {
+        "yes": 0.036548465490341187,
+        "partial": 0.6083692908287048,
+        "no": 0.35508230328559875
+      }
+    },
+    {
+      "id": "FORMAT-065",
+      "verdict": "partial",
+      "conf": 0.9546331763267517,
+      "probs": {
+        "yes": 0.0014721573097631335,
+        "partial": 0.9546331763267517,
+        "no": 0.04389472305774689
+      }
+    },
+    {
+      "id": "FORMAT-074",
+      "verdict": "partial",
+      "conf": 0.9014039039611816,
+      "probs": {
+        "yes": 0.026829978451132774,
+        "partial": 0.9014039039611816,
+        "no": 0.07176612317562103
+      }
+    },
+    {
+      "id": "FORMAT-084",
+      "verdict": "no",
+      "conf": 0.6066772937774658,
+      "probs": {
+        "yes": 0.004160408861935139,
+        "partial": 0.3891623318195343,
+        "no": 0.6066772937774658
+      }
+    },
+    {
+      "id": "FORMAT-093",
+      "verdict": "no",
+      "conf": 0.8978646993637085,
+      "probs": {
+        "yes": 0.014491264708340168,
+        "partial": 0.08764398843050003,
+        "no": 0.8978646993637085
+      }
+    },
+    {
+      "id": "RUNTIME-001",
+      "verdict": "no",
+      "conf": 0.8436680436134338,
+      "probs": {
+        "yes": 0.11620047688484192,
+        "partial": 0.04013144224882126,
+        "no": 0.8436680436134338
+      }
+    },
+    {
+      "id": "RUNTIME-013",
+      "verdict": "no",
+      "conf": 0.472311794757843,
+      "probs": {
+        "yes": 0.1203296110033989,
+        "partial": 0.4073586165904999,
+        "no": 0.472311794757843
+      }
+    },
+    {
+      "id": "RUNTIME-020",
+      "verdict": "partial",
+      "conf": 0.9292016625404358,
+      "probs": {
+        "yes": 0.00864654965698719,
+        "partial": 0.9292016625404358,
+        "no": 0.06215173378586769
+      }
+    },
+    {
+      "id": "RUNTIME-027",
+      "verdict": "partial",
+      "conf": 0.9749169945716858,
+      "probs": {
+        "yes": 0.0009227700647898018,
+        "partial": 0.9749169945716858,
+        "no": 0.024160189554095268
+      }
+    },
+    {
+      "id": "RUNTIME-031",
+      "verdict": "partial",
+      "conf": 0.9852395057678223,
+      "probs": {
+        "yes": 0.0009931046515703201,
+        "partial": 0.9852395057678223,
+        "no": 0.013767369091510773
+      }
+    },
+    {
+      "id": "RUNTIME-042",
+      "verdict": "no",
+      "conf": 0.6419477462768555,
+      "probs": {
+        "yes": 0.2093748152256012,
+        "partial": 0.14867739379405975,
+        "no": 0.6419477462768555
+      }
+    },
+    {
+      "id": "RUNTIME-051",
+      "verdict": "no",
+      "conf": 0.7219969034194946,
+      "probs": {
+        "yes": 0.1976415514945984,
+        "partial": 0.08036154508590698,
+        "no": 0.7219969034194946
+      }
+    },
+    {
+      "id": "GOTCHAS-005",
+      "verdict": "no",
+      "conf": 0.7916324734687805,
+      "probs": {
+        "yes": 0.04641702026128769,
+        "partial": 0.16195057332515717,
+        "no": 0.7916324734687805
+      }
+    },
+    {
+      "id": "GOTCHAS-022",
+      "verdict": "no",
+      "conf": 0.4916491210460663,
+      "probs": {
+        "yes": 0.11486674845218658,
+        "partial": 0.3934841454029083,
+        "no": 0.4916491210460663
+      }
+    },
+    {
+      "id": "GOTCHAS-029",
+      "verdict": "partial",
+      "conf": 0.8620444536209106,
+      "probs": {
+        "yes": 0.004883299116045237,
+        "partial": 0.8620444536209106,
+        "no": 0.13307221233844757
+      }
+    },
+    {
+      "id": "GOTCHAS-036",
+      "verdict": "partial",
+      "conf": 0.6512856483459473,
+      "probs": {
+        "yes": 0.031955040991306305,
+        "partial": 0.6512856483459473,
+        "no": 0.3167593479156494
+      }
+    },
+    {
+      "id": "GOTCHAS-047",
+      "verdict": "partial",
+      "conf": 0.904636561870575,
+      "probs": {
+        "yes": 0.009107835590839386,
+        "partial": 0.904636561870575,
+        "no": 0.08625564724206924
+      }
+    },
+    {
+      "id": "GOTCHAS-054",
+      "verdict": "partial",
+      "conf": 0.924509584903717,
+      "probs": {
+        "yes": 0.0067189401015639305,
+        "partial": 0.924509584903717,
+        "no": 0.06877143681049347
+      }
+    },
+    {
+      "id": "GOTCHAS-060",
+      "verdict": "no",
+      "conf": 0.585689902305603,
+      "probs": {
+        "yes": 0.004474956542253494,
+        "partial": 0.4098351299762726,
+        "no": 0.585689902305603
+      }
+    },
+    {
+      "id": "MEASURE-023",
+      "verdict": "partial",
+      "conf": 0.9612581729888916,
+      "probs": {
+        "yes": 0.0023543820716440678,
+        "partial": 0.9612581729888916,
+        "no": 0.03638744726777077
+      }
+    },
+    {
+      "id": "MEASURE-038",
+      "verdict": "partial",
+      "conf": 0.6215357780456543,
+      "probs": {
+        "yes": 0.0670829713344574,
+        "partial": 0.6215357780456543,
+        "no": 0.3113812804222107
+      }
+    },
+    {
+      "id": "MEASURE-045",
+      "verdict": "no",
+      "conf": 0.7488248944282532,
+      "probs": {
+        "yes": 0.01026271190494299,
+        "partial": 0.24091239273548126,
+        "no": 0.7488248944282532
+      }
+    },
+    {
+      "id": "MEASURE-051",
+      "verdict": "partial",
+      "conf": 0.8150166869163513,
+      "probs": {
+        "yes": 0.006695891730487347,
+        "partial": 0.8150166869163513,
+        "no": 0.17828746140003204
+      }
+    },
+    {
+      "id": "MEASURE-064",
+      "verdict": "no",
+      "conf": 0.6451955437660217,
+      "probs": {
+        "yes": 0.006818107794970274,
+        "partial": 0.34798628091812134,
+        "no": 0.6451955437660217
+      }
+    },
+    {
+      "id": "MEASURE-073",
+      "verdict": "partial",
+      "conf": 0.8912233114242554,
+      "probs": {
+        "yes": 0.00935388170182705,
+        "partial": 0.8912233114242554,
+        "no": 0.0994228646159172
+      }
+    },
+    {
+      "id": "MEASURE-081",
+      "verdict": "no",
+      "conf": 0.9904496073722839,
+      "probs": {
+        "yes": 0.0032215763349086046,
+        "partial": 0.00632885005325079,
+        "no": 0.9904496073722839
+      }
+    },
+    {
+      "id": "MEASURE-088",
+      "verdict": "no",
+      "conf": 0.5110229253768921,
+      "probs": {
+        "yes": 0.0299332644790411,
+        "partial": 0.45904383063316345,
+        "no": 0.5110229253768921
+      }
+    },
+    {
+      "id": "MEASURE-093",
+      "verdict": "partial",
+      "conf": 0.9887872338294983,
+      "probs": {
+        "yes": 0.001213344861753285,
+        "partial": 0.9887872338294983,
+        "no": 0.009999414905905724
+      }
+    },
+    {
+      "id": "MEASURE-106",
+      "verdict": "no",
+      "conf": 0.9891089200973511,
+      "probs": {
+        "yes": 0.0015622760402038693,
+        "partial": 0.009328813292086124,
+        "no": 0.9891089200973511
+      }
+    },
+    {
+      "id": "MEASURE-114",
+      "verdict": "partial",
+      "conf": 0.8046624064445496,
+      "probs": {
+        "yes": 0.0006288404110819101,
+        "partial": 0.8046624064445496,
+        "no": 0.19470876455307007
+      }
+    },
+    {
+      "id": "MEASURE-118",
+      "verdict": "partial",
+      "conf": 0.7445966005325317,
+      "probs": {
+        "yes": 0.0037863117177039385,
+        "partial": 0.7445966005325317,
+        "no": 0.25161710381507874
+      }
+    },
+    {
+      "id": "MEASURE-127",
+      "verdict": "no",
+      "conf": 0.8458917737007141,
+      "probs": {
+        "yes": 0.006187118124216795,
+        "partial": 0.14792107045650482,
+        "no": 0.8458917737007141
+      }
+    },
+    {
+      "id": "MEASURE-142",
+      "verdict": "partial",
+      "conf": 0.9600668549537659,
+      "probs": {
+        "yes": 0.004393042530864477,
+        "partial": 0.9600668549537659,
+        "no": 0.03554006293416023
+      }
+    },
+    {
+      "id": "MEASURE-145",
+      "verdict": "no",
+      "conf": 0.9287614822387695,
+      "probs": {
+        "yes": 0.050585247576236725,
+        "partial": 0.020653212442994118,
+        "no": 0.9287614822387695
+      }
+    }
+  ],
+  "lettucedect-v2": [
+    {
+      "id": "LANDSCAPE-008",
+      "verdict": "partial",
+      "unsupported_frac": 0.1818,
+      "n_answer_tokens": 44,
+      "n_unsupported": 8
+    },
+    {
+      "id": "LANDSCAPE-016",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 45,
+      "n_unsupported": 0
+    },
+    {
+      "id": "LANDSCAPE-023",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 45,
+      "n_unsupported": 0
+    },
+    {
+      "id": "LANDSCAPE-025",
+      "verdict": "partial",
+      "unsupported_frac": 0.2963,
+      "n_answer_tokens": 27,
+      "n_unsupported": 8
+    },
+    {
+      "id": "LANDSCAPE-031",
+      "verdict": "partial",
+      "unsupported_frac": 0.0612,
+      "n_answer_tokens": 49,
+      "n_unsupported": 3
+    },
+    {
+      "id": "LANDSCAPE-041",
+      "verdict": "no",
+      "unsupported_frac": 0.871,
+      "n_answer_tokens": 31,
+      "n_unsupported": 27
+    },
+    {
+      "id": "LANDSCAPE-045",
+      "verdict": "partial",
+      "unsupported_frac": 0.2,
+      "n_answer_tokens": 35,
+      "n_unsupported": 7
+    },
+    {
+      "id": "LANDSCAPE-061",
+      "verdict": "partial",
+      "unsupported_frac": 0.0222,
+      "n_answer_tokens": 45,
+      "n_unsupported": 1
+    },
+    {
+      "id": "API-011",
+      "verdict": "no",
+      "unsupported_frac": 0.5333,
+      "n_answer_tokens": 45,
+      "n_unsupported": 24
+    },
+    {
+      "id": "API-022",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 29,
+      "n_unsupported": 0
+    },
+    {
+      "id": "API-035",
+      "verdict": "partial",
+      "unsupported_frac": 0.0741,
+      "n_answer_tokens": 27,
+      "n_unsupported": 2
+    },
+    {
+      "id": "API-042",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 35,
+      "n_unsupported": 0
+    },
+    {
+      "id": "API-055",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 55,
+      "n_unsupported": 0
+    },
+    {
+      "id": "API-066",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 49,
+      "n_unsupported": 0
+    },
+    {
+      "id": "API-071",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 35,
+      "n_unsupported": 0
+    },
+    {
+      "id": "API-081",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 29,
+      "n_unsupported": 0
+    },
+    {
+      "id": "API-096",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 33,
+      "n_unsupported": 0
+    },
+    {
+      "id": "FORMAT-006",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 53,
+      "n_unsupported": 0
+    },
+    {
+      "id": "FORMAT-016",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 41,
+      "n_unsupported": 0
+    },
+    {
+      "id": "FORMAT-024",
+      "verdict": "partial",
+      "unsupported_frac": 0.0323,
+      "n_answer_tokens": 31,
+      "n_unsupported": 1
+    },
+    {
+      "id": "FORMAT-043",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 31,
+      "n_unsupported": 0
+    },
+    {
+      "id": "FORMAT-051",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 52,
+      "n_unsupported": 0
+    },
+    {
+      "id": "FORMAT-065",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 57,
+      "n_unsupported": 0
+    },
+    {
+      "id": "FORMAT-074",
+      "verdict": "partial",
+      "unsupported_frac": 0.0127,
+      "n_answer_tokens": 79,
+      "n_unsupported": 1
+    },
+    {
+      "id": "FORMAT-084",
+      "verdict": "no",
+      "unsupported_frac": 0.5217,
+      "n_answer_tokens": 46,
+      "n_unsupported": 24
+    },
+    {
+      "id": "FORMAT-093",
+      "verdict": "partial",
+      "unsupported_frac": 0.2295,
+      "n_answer_tokens": 61,
+      "n_unsupported": 14
+    },
+    {
+      "id": "RUNTIME-001",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 41,
+      "n_unsupported": 0
+    },
+    {
+      "id": "RUNTIME-013",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 64,
+      "n_unsupported": 0
+    },
+    {
+      "id": "RUNTIME-020",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 40,
+      "n_unsupported": 0
+    },
+    {
+      "id": "RUNTIME-027",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 57,
+      "n_unsupported": 0
+    },
+    {
+      "id": "RUNTIME-031",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 25,
+      "n_unsupported": 0
+    },
+    {
+      "id": "RUNTIME-042",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 32,
+      "n_unsupported": 0
+    },
+    {
+      "id": "RUNTIME-051",
+      "verdict": "partial",
+      "unsupported_frac": 0.2857,
+      "n_answer_tokens": 91,
+      "n_unsupported": 26
+    },
+    {
+      "id": "GOTCHAS-005",
+      "verdict": "partial",
+      "unsupported_frac": 0.2045,
+      "n_answer_tokens": 44,
+      "n_unsupported": 9
+    },
+    {
+      "id": "GOTCHAS-022",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 51,
+      "n_unsupported": 0
+    },
+    {
+      "id": "GOTCHAS-029",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 27,
+      "n_unsupported": 0
+    },
+    {
+      "id": "GOTCHAS-036",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 38,
+      "n_unsupported": 0
+    },
+    {
+      "id": "GOTCHAS-047",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 32,
+      "n_unsupported": 0
+    },
+    {
+      "id": "GOTCHAS-054",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 24,
+      "n_unsupported": 0
+    },
+    {
+      "id": "GOTCHAS-060",
+      "verdict": "partial",
+      "unsupported_frac": 0.0323,
+      "n_answer_tokens": 31,
+      "n_unsupported": 1
+    },
+    {
+      "id": "MEASURE-023",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 69,
+      "n_unsupported": 0
+    },
+    {
+      "id": "MEASURE-038",
+      "verdict": "partial",
+      "unsupported_frac": 0.0811,
+      "n_answer_tokens": 37,
+      "n_unsupported": 3
+    },
+    {
+      "id": "MEASURE-045",
+      "verdict": "partial",
+      "unsupported_frac": 0.1429,
+      "n_answer_tokens": 35,
+      "n_unsupported": 5
+    },
+    {
+      "id": "MEASURE-051",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 49,
+      "n_unsupported": 0
+    },
+    {
+      "id": "MEASURE-064",
+      "verdict": "partial",
+      "unsupported_frac": 0.1429,
+      "n_answer_tokens": 56,
+      "n_unsupported": 8
+    },
+    {
+      "id": "MEASURE-073",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 20,
+      "n_unsupported": 0
+    },
+    {
+      "id": "MEASURE-081",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 35,
+      "n_unsupported": 0
+    },
+    {
+      "id": "MEASURE-088",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 46,
+      "n_unsupported": 0
+    },
+    {
+      "id": "MEASURE-093",
+      "verdict": "partial",
+      "unsupported_frac": 0.0141,
+      "n_answer_tokens": 71,
+      "n_unsupported": 1
+    },
+    {
+      "id": "MEASURE-106",
+      "verdict": "partial",
+      "unsupported_frac": 0.2273,
+      "n_answer_tokens": 44,
+      "n_unsupported": 10
+    },
+    {
+      "id": "MEASURE-114",
+      "verdict": "partial",
+      "unsupported_frac": 0.2982,
+      "n_answer_tokens": 57,
+      "n_unsupported": 17
+    },
+    {
+      "id": "MEASURE-118",
+      "verdict": "partial",
+      "unsupported_frac": 0.087,
+      "n_answer_tokens": 69,
+      "n_unsupported": 6
+    },
+    {
+      "id": "MEASURE-127",
+      "verdict": "yes",
+      "unsupported_frac": 0.0,
+      "n_answer_tokens": 32,
+      "n_unsupported": 0
+    },
+    {
+      "id": "MEASURE-142",
+      "verdict": "partial",
+      "unsupported_frac": 0.0682,
+      "n_answer_tokens": 44,
+      "n_unsupported": 3
+    },
+    {
+      "id": "MEASURE-145",
+      "verdict": "partial",
+      "unsupported_frac": 0.129,
+      "n_answer_tokens": 31,
+      "n_unsupported": 4
+    }
+  ]
+}

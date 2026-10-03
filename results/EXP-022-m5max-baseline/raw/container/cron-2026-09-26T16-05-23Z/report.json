@@ -1,0 +1,2491 @@
+{
+  "generated" : "2026-09-26T16:37:42Z",
+  "machine" : {
+    "ane" : {
+      "ane_compiler_xpc" : true,
+      "aned_daemon" : true,
+      "coreai_framework" : true,
+      "coreml_mlmodel" : true,
+      "framework_loadable" : true,
+      "inmemory_classes" : true,
+      "request_class" : true
+    },
+    "chip" : "Apple M5 Max",
+    "cpuCores" : {
+      "perflevel0" : 6,
+      "perflevel1" : 12,
+      "total" : 18
+    },
+    "fingerprint" : "bda452aabd60bf26",
+    "gpuCores" : 40,
+    "gpuName" : "Apple M5 Max",
+    "host" : "<host>.local",
+    "memoryGB" : 128,
+    "metalFamilies" : [
+      "apple1",
+      "apple2",
+      "apple3",
+      "apple4",
+      "apple5",
+      "apple6",
+      "apple7",
+      "apple8",
+      "apple9",
+      "apple10"
+    ],
+    "metalTensor" : {
+      "bf16" : true,
+      "fp16" : true,
+      "fp32" : true,
+      "fp4e2m1" : true,
+      "fp8e4m3" : true,
+      "fp8e5m2" : true,
+      "int4" : true,
+      "int8" : true
+    },
+    "model" : "Mac Studio",
+    "osBuild" : "26A428",
+    "osVersion" : "27.0",
+    "tools" : {
+      "aimodelc" : "present",
+      "coremlc" : "present",
+      "python" : "Python 3.11.16",
+      "swift_clt" : "Target: arm64-apple-macosx27.0.0",
+      "swift_xcode" : "Target: arm64-apple-macosx27.0.0"
+    }
+  },
+  "schema" : "silicon-ledger\/1",
+  "sections" : [
+    {
+      "id" : "s1_memory",
+      "notes" : [
+        "CPU: vDSP vectorized, one chunk per core. GPU: shared storage buffers, full DRAM traffic. Tensor: MTL4 encoder native tensor copy.",
+        "CPU timed in three 3s windows (median per window reported); pre-flight aborts if the SoC is busy so background daemons cannot contaminate a measurement.",
+        "GPU timed via Metal GPU timestamps (gpuEndTime-gpuStartTime, 8 dispatches\/command buffer) to exclude CPU commit\/wait overhead; a self-calibrating mixed CPU+GPU primer runs until measured GPU-copy bandwidth recovers to >=340 GB\/s sustained over two consecutive windows (20-120s) so deep-idle processes converge to the same power state.",
+        "WARNING: GPU power-state primer hit 120s cap below sustained bandwidth (305 GB\/s) — results may be low; rerun when idle"
+      ],
+      "runs" : [
+        {
+          "config" : {
+            "cores" : "18"
+          },
+          "derived" : {
+            "GBs" : 267.935867247528,
+            "p95_GBs" : 266.9947965768043
+          },
+          "iters" : 3,
+          "max" : 2.010791666666667,
+          "mean" : 2.0058680555555557,
+          "median" : 2.003729166666667,
+          "min" : 2.003083333333333,
+          "name" : "cpu_read",
+          "p95" : 2.010791666666667,
+          "status" : "ok",
+          "unit" : "GB\/s",
+          "variant" : "512MB"
+        },
+        {
+          "config" : {
+            "cores" : "18"
+          },
+          "derived" : {
+            "GBs" : 100.55253110245746,
+            "p95_GBs" : 100.52350550016384
+          },
+          "iters" : 3,
+          "max" : 5.34075,
+          "mean" : 5.3272361111111115,
+          "median" : 5.339208333333333,
+          "min" : 5.30175,
+          "name" : "cpu_write",
+          "p95" : 5.34075,
+          "status" : "ok",
+          "unit" : "GB\/s",
+          "variant" : "512MB"
+        },
+        {
+          "config" : {
+            "cores" : "18"
+          },
+          "derived" : {
+            "GBs" : 224.64654100389959,
+            "p95_GBs" : 166.2353488324087
+          },
+          "iters" : 3,
+          "max" : 9.68875,
+          "mean" : 7.734083333333333,
+          "median" : 7.169541666666667,
+          "min" : 6.343958333333333,
+          "name" : "cpu_triad",
+          "p95" : 9.68875,
+          "status" : "ok",
+          "unit" : "GB\/s",
+          "variant" : "512MB"
+        },
+        {
+          "config" : {
+
+          },
+          "derived" : {
+            "GBs" : 570.254564950338,
+            "p95_GBs" : 539.7834929216788
+          },
+          "iters" : 15,
+          "max" : 0.4973020841134712,
+          "mean" : 0.4737079863843974,
+          "median" : 0.47072916640900075,
+          "min" : 0.46538020978914574,
+          "name" : "gpu_read",
+          "p95" : 0.4973020841134712,
+          "status" : "ok",
+          "unit" : "GB\/s",
+          "variant" : "256MB"
+        },
+        {
+          "config" : {
+
+          },
+          "derived" : {
+            "GBs" : 196.01653452436454,
+            "p95_GBs" : 195.96063849337855
+          },
+          "iters" : 15,
+          "max" : 1.3698437505809125,
+          "mean" : 1.3694378472185538,
+          "median" : 1.3694531262444798,
+          "min" : 1.3691562526219059,
+          "name" : "gpu_write",
+          "p95" : 1.3698437505809125,
+          "status" : "ok",
+          "unit" : "GB\/s",
+          "variant" : "256MB"
+        },
+        {
+          "config" : {
+
+          },
+          "derived" : {
+            "GBs" : 379.9272990203828,
+            "p95_GBs" : 379.85449501681137
+          },
+          "iters" : 15,
+          "max" : 1.413359375874279,
+          "mean" : 1.4130694444853968,
+          "median" : 1.4130885392660275,
+          "min" : 1.41271354368655,
+          "name" : "gpu_copy",
+          "p95" : 1.413359375874279,
+          "status" : "ok",
+          "unit" : "GB\/s",
+          "variant" : "256MB"
+        },
+        {
+          "config" : {
+
+          },
+          "derived" : {
+            "GBs" : 553.3266146805494,
+            "p95_GBs" : 551.0253764429954
+          },
+          "iters" : 15,
+          "max" : 1.4614687497669365,
+          "mean" : 1.456213541920685,
+          "median" : 1.4553906257788185,
+          "min" : 1.4537864590238314,
+          "name" : "gpu_triad",
+          "p95" : 1.4614687497669365,
+          "status" : "ok",
+          "unit" : "GB\/s",
+          "variant" : "256MB"
+        },
+        {
+          "config" : {
+            "api" : "MTL4 encoder"
+          },
+          "derived" : {
+            "GBs" : 42.57219945813784,
+            "p95_GBs" : 42.535378374631094
+          },
+          "iters" : 15,
+          "max" : 12.62175,
+          "mean" : 12.608572222222222,
+          "median" : 12.610833333333334,
+          "min" : 12.577625,
+          "name" : "tensor_copy",
+          "p95" : 12.62175,
+          "status" : "ok",
+          "unit" : "GB\/s",
+          "variant" : "256MB fp32"
+        }
+      ],
+      "title" : "Memory bandwidth (CPU + GPU)"
+    },
+    {
+      "id" : "s2_gemm",
+      "notes" : [
+        "tensorops\/matmul2d probe: PASSED (single 64x32 tile, K=64, all elements correct); multi-tile\/multi-K-chunk matmul2d dispatch silently no-ops on macOS 27.0 beta GPUCompiler (32023): full-size rows below report validation_failed, not skipped, because the op runs and returns zeros",
+        "tensorops\/fp32: not supported (skipped)",
+        "tensorops\/fp16\/n512: VALIDATION FAILED max_abs_err=19.468708038330078 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/bf16: unsupported data type (skipped)",
+        "tensorops\/bf16\/n512: VALIDATION FAILED max_abs_err=19.325054168701172 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "tensorops\/int8\/n512: VALIDATION FAILED max_abs_err=48670.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/fp8: unsupported data type (skipped)",
+        "tensorops\/fp8\/n512: VALIDATION FAILED max_abs_err=17.54296875 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/fp8e5m2: unsupported data type (skipped)",
+        "tensorops\/fp8e5m2: not supported (skipped)",
+        "mps\/fp4: unsupported data type (skipped)",
+        "tensorops\/fp4\/n512: VALIDATION FAILED max_abs_err=18.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "tensorops\/fp32: not supported (skipped)",
+        "tensorops\/fp16\/n1024: VALIDATION FAILED max_abs_err=45.61699295043945 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/bf16: unsupported data type (skipped)",
+        "tensorops\/bf16\/n1024: VALIDATION FAILED max_abs_err=45.41667175292969 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "tensorops\/int8\/n1024: VALIDATION FAILED max_abs_err=114028.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/fp8: unsupported data type (skipped)",
+        "tensorops\/fp8\/n1024: VALIDATION FAILED max_abs_err=58.63671875 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/fp8e5m2: unsupported data type (skipped)",
+        "tensorops\/fp8e5m2: not supported (skipped)",
+        "mps\/fp4: unsupported data type (skipped)",
+        "tensorops\/fp4\/n1024: VALIDATION FAILED max_abs_err=39.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "tensorops\/fp32: not supported (skipped)",
+        "msl\/fp16\/n2048: VALIDATION FAILED max_abs_err=1.4579696655273438 rel_err=0.01785909038532007 (excluded)",
+        "tensorops\/fp16\/n2048: VALIDATION FAILED max_abs_err=81.63739776611328 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/bf16: unsupported data type (skipped)",
+        "tensorops\/bf16\/n2048: VALIDATION FAILED max_abs_err=81.33203887939453 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "tensorops\/int8\/n2048: VALIDATION FAILED max_abs_err=204107.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/fp8: unsupported data type (skipped)",
+        "tensorops\/fp8\/n2048: VALIDATION FAILED max_abs_err=89.36328125 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/fp8e5m2: unsupported data type (skipped)",
+        "tensorops\/fp8e5m2: not supported (skipped)",
+        "mps\/fp4: unsupported data type (skipped)",
+        "tensorops\/fp4\/n2048: VALIDATION FAILED max_abs_err=65.5 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "tensorops\/fp32: not supported (skipped)",
+        "msl\/fp16\/n4096: VALIDATION FAILED max_abs_err=4.2912445068359375 rel_err=0.03650270943035442 (excluded)",
+        "tensorops\/fp16\/n4096: VALIDATION FAILED max_abs_err=117.55961608886719 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/bf16: unsupported data type (skipped)",
+        "tensorops\/bf16\/n4096: VALIDATION FAILED max_abs_err=117.78874969482422 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "tensorops\/int8\/n4096: VALIDATION FAILED max_abs_err=293960.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/fp8: unsupported data type (skipped)",
+        "tensorops\/fp8\/n4096: VALIDATION FAILED max_abs_err=134.5546875 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/fp8e5m2: unsupported data type (skipped)",
+        "tensorops\/fp8e5m2: not supported (skipped)",
+        "mps\/fp4: unsupported data type (skipped)",
+        "tensorops\/fp4\/n4096: VALIDATION FAILED max_abs_err=161.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "tensorops\/fp32: not supported (skipped)",
+        "tensorops\/fp16\/n8192: VALIDATION FAILED max_abs_err=322.1950378417969 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/bf16: unsupported data type (skipped)",
+        "tensorops\/bf16\/n8192: VALIDATION FAILED max_abs_err=321.0073547363281 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "tensorops\/int8\/n8192: VALIDATION FAILED max_abs_err=805534.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/fp8: unsupported data type (skipped)",
+        "tensorops\/fp8\/n8192: VALIDATION FAILED max_abs_err=363.41796875 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)",
+        "mps\/fp8e5m2: unsupported data type (skipped)",
+        "tensorops\/fp8e5m2: not supported (skipped)",
+        "mps\/fp4: unsupported data type (skipped)",
+        "tensorops\/fp4\/n8192: VALIDATION FAILED max_abs_err=255.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs\/research-notes.md R8)"
+      ],
+      "runs" : [
+        {
+          "config" : {
+            "n" : "512"
+          },
+          "derived" : {
+            "GFLOPS" : 1624.420308623298,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 0.21091666666666667,
+          "mean" : 0.1735069444444445,
+          "median" : 0.16525,
+          "min" : 0.15129166666666666,
+          "name" : "gemm_512_fp32",
+          "p95" : 0.19829166666666664,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "512",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1594.8634593390273,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 0.23404166666666665,
+          "mean" : 0.17373611111111106,
+          "median" : 0.1683125,
+          "min" : 0.14354166666666665,
+          "name" : "gemm_512_fp32",
+          "p95" : 0.21154166666666666,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "512"
+          },
+          "derived" : {
+            "GFLOPS" : 1822.7333269203564,
+            "max_abs_err" : 0.0075778961181640625,
+            "rel_err" : 0.0003892346684353511
+          },
+          "iters" : 30,
+          "max" : 0.19508333333333333,
+          "mean" : 0.15244444444444444,
+          "median" : 0.14727083333333335,
+          "min" : 0.13529166666666664,
+          "name" : "gemm_512_fp16",
+          "p95" : 0.187125,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "512",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1746.6316779178528,
+            "max_abs_err" : 0.09549808502197266,
+            "rel_err" : 0.004905209160975428
+          },
+          "iters" : 30,
+          "max" : 0.21695833333333334,
+          "mean" : 0.16375138888888888,
+          "median" : 0.1536875,
+          "min" : 0.135875,
+          "name" : "gemm_512_fp16",
+          "p95" : 0.19495833333333334,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "512"
+          },
+          "derived" : {
+            "max_abs_err" : 19.468708038330078,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=19.468708038330078 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_512_fp16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "512",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1596.8399910769613,
+            "max_abs_err" : 0.3867645263671875,
+            "rel_err" : 0.02001363219946833
+          },
+          "iters" : 30,
+          "max" : 0.216,
+          "mean" : 0.17043472222222225,
+          "median" : 0.16810416666666667,
+          "min" : 0.14279166666666665,
+          "name" : "gemm_512_bf16",
+          "p95" : 0.20758333333333334,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "512"
+          },
+          "derived" : {
+            "max_abs_err" : 19.325054168701172,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=19.325054168701172 rel_err=1.0 tol=0.1; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_512_bf16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "512"
+          },
+          "derived" : {
+            "GFLOPS" : 1302.0313144704933,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 0.24820833333333334,
+          "mean" : 0.20879444444444442,
+          "median" : 0.20616666666666666,
+          "min" : 0.186375,
+          "name" : "gemm_512_int8",
+          "p95" : 0.24654166666666666,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "512",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 780.3828894676276,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 0.444375,
+          "mean" : 0.3516805555555556,
+          "median" : 0.34397916666666667,
+          "min" : 0.32758333333333334,
+          "name" : "gemm_512_int8",
+          "p95" : 0.42241666666666666,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "512"
+          },
+          "derived" : {
+            "max_abs_err" : 48670,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=48670.0 rel_err=1.0 tol=0.001; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_512_int8",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "512",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 584.0579252073795,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 0.5300416666666666,
+          "mean" : 0.46008750000000004,
+          "median" : 0.4596041666666667,
+          "min" : 0.4059583333333333,
+          "name" : "gemm_512_fp8",
+          "p95" : 0.5067083333333333,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "512"
+          },
+          "derived" : {
+            "max_abs_err" : 17.54296875,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=17.54296875 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_512_fp8",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "512",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 585.9969932690559,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 0.5554166666666667,
+          "mean" : 0.45476805555555555,
+          "median" : 0.4580833333333333,
+          "min" : 0.4080833333333333,
+          "name" : "gemm_512_fp8e5m2",
+          "p95" : 0.518875,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "512",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 542.6135723069149,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 0.5734583333333334,
+          "mean" : 0.4950986111111112,
+          "median" : 0.4947083333333333,
+          "min" : 0.44145833333333334,
+          "name" : "gemm_512_fp4",
+          "p95" : 0.5695,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "512"
+          },
+          "derived" : {
+            "max_abs_err" : 18,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=18.0 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_512_fp4",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "1024"
+          },
+          "derived" : {
+            "GFLOPS" : 7143.396750103949,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 0.3389583333333333,
+          "mean" : 0.30558333333333343,
+          "median" : 0.30062500000000003,
+          "min" : 0.28825,
+          "name" : "gemm_1024_fp32",
+          "p95" : 0.337375,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "1024",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 6904.1671201607505,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 0.36333333333333334,
+          "mean" : 0.3141444444444444,
+          "median" : 0.31104166666666666,
+          "min" : 0.290375,
+          "name" : "gemm_1024_fp32",
+          "p95" : 0.3445416666666667,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "1024"
+          },
+          "derived" : {
+            "GFLOPS" : 12261.117533484003,
+            "max_abs_err" : 0.015522003173828125,
+            "rel_err" : 0.00034026800474752894
+          },
+          "iters" : 30,
+          "max" : 0.20708333333333334,
+          "mean" : 0.17698750000000002,
+          "median" : 0.17514583333333333,
+          "min" : 0.16854166666666665,
+          "name" : "gemm_1024_fp16",
+          "p95" : 0.19908333333333333,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "1024",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 6705.647612802497,
+            "max_abs_err" : 0.34091949462890625,
+            "rel_err" : 0.007473519681564674
+          },
+          "iters" : 30,
+          "max" : 0.35983333333333334,
+          "mean" : 0.3210333333333334,
+          "median" : 0.32025000000000003,
+          "min" : 0.2974583333333333,
+          "name" : "gemm_1024_fp16",
+          "p95" : 0.35683333333333334,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "1024"
+          },
+          "derived" : {
+            "max_abs_err" : 45.61699295043945,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=45.61699295043945 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_1024_fp16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "1024",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 6611.456295555128,
+            "max_abs_err" : 1.2359504699707031,
+            "rel_err" : 0.027213585281950472
+          },
+          "iters" : 30,
+          "max" : 0.4149583333333333,
+          "mean" : 0.3300888888888889,
+          "median" : 0.3248125,
+          "min" : 0.30591666666666667,
+          "name" : "gemm_1024_bf16",
+          "p95" : 0.3742916666666667,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "1024"
+          },
+          "derived" : {
+            "max_abs_err" : 45.41667175292969,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=45.41667175292969 rel_err=1.0 tol=0.1; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_1024_bf16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "1024"
+          },
+          "derived" : {
+            "GFLOPS" : 4486.777013319405,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 0.5774166666666666,
+          "mean" : 0.48784999999999995,
+          "median" : 0.47862499999999997,
+          "min" : 0.44804166666666667,
+          "name" : "gemm_1024_int8",
+          "p95" : 0.5597083333333334,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "1024",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1511.226012754915,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 1.4849166666666667,
+          "mean" : 1.4237833333333332,
+          "median" : 1.4210208333333334,
+          "min" : 1.3546666666666667,
+          "name" : "gemm_1024_int8",
+          "p95" : 1.47425,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "1024"
+          },
+          "derived" : {
+            "max_abs_err" : 114028,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=114028.0 rel_err=1.0 tol=0.001; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_1024_int8",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "1024",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1120.2923031376686,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 1.9719583333333333,
+          "mean" : 1.9110027777777776,
+          "median" : 1.9168958333333332,
+          "min" : 1.84775,
+          "name" : "gemm_1024_fp8",
+          "p95" : 1.9412083333333332,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "1024"
+          },
+          "derived" : {
+            "max_abs_err" : 58.63671875,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=58.63671875 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_1024_fp8",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "1024",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1112.5297087412175,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 1.9848333333333332,
+          "mean" : 1.9198430555555555,
+          "median" : 1.9302708333333332,
+          "min" : 1.8719166666666667,
+          "name" : "gemm_1024_fp8e5m2",
+          "p95" : 1.9385,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "1024",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 996.8301479010125,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 2.172,
+          "mean" : 2.1544708333333333,
+          "median" : 2.1543125,
+          "min" : 2.1404583333333336,
+          "name" : "gemm_1024_fp4",
+          "p95" : 2.169,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "1024"
+          },
+          "derived" : {
+            "max_abs_err" : 39,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=39.0 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_1024_fp4",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "2048"
+          },
+          "derived" : {
+            "GFLOPS" : 12474.03825304048,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 1.4360416666666667,
+          "mean" : 1.3759013888888887,
+          "median" : 1.37725,
+          "min" : 1.3297916666666667,
+          "name" : "gemm_2048_fp32",
+          "p95" : 1.431875,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "2048",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 11294.80510658814,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 1.5857916666666667,
+          "mean" : 1.5200972222222222,
+          "median" : 1.5210416666666666,
+          "min" : 1.47275,
+          "name" : "gemm_2048_fp32",
+          "p95" : 1.5780416666666668,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "2048"
+          },
+          "derived" : {
+            "GFLOPS" : 38163.35250055535,
+            "max_abs_err" : 0.03115081787109375,
+            "rel_err" : 0.0003815753407566855
+          },
+          "iters" : 30,
+          "max" : 0.5195416666666667,
+          "mean" : 0.45877083333333335,
+          "median" : 0.45016666666666666,
+          "min" : 0.42283333333333334,
+          "name" : "gemm_2048_fp16",
+          "p95" : 0.5120833333333333,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "2048"
+          },
+          "derived" : {
+            "max_abs_err" : 1.4579696655273438,
+            "rel_err" : 0.01785909038532007
+          },
+          "error" : "max_abs_err=1.4579696655273438 rel_err=0.01785909038532007 tol=0.01",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_2048_fp16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "2048"
+          },
+          "derived" : {
+            "max_abs_err" : 81.63739776611328,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=81.63739776611328 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_2048_fp16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "2048",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 10592.053341279832,
+            "max_abs_err" : 1.9983406066894531,
+            "rel_err" : 0.024570152601888513
+          },
+          "iters" : 30,
+          "max" : 1.681625,
+          "mean" : 1.6166930555555554,
+          "median" : 1.6219583333333334,
+          "min" : 1.5588333333333333,
+          "name" : "gemm_2048_bf16",
+          "p95" : 1.6509166666666668,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "2048"
+          },
+          "derived" : {
+            "max_abs_err" : 81.33203887939453,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=81.33203887939453 rel_err=1.0 tol=0.1; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_2048_bf16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "2048"
+          },
+          "derived" : {
+            "GFLOPS" : 6753.148535611043,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 2.5473333333333334,
+          "mean" : 2.5397916666666656,
+          "median" : 2.5439791666666665,
+          "min" : 2.52325,
+          "name" : "gemm_2048_int8",
+          "p95" : 2.5469166666666667,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "2048",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1255.2591637813327,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 14.052708333333333,
+          "mean" : 13.700784722222219,
+          "median" : 13.6863125,
+          "min" : 13.429791666666667,
+          "name" : "gemm_2048_int8",
+          "p95" : 13.988333333333333,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "2048"
+          },
+          "derived" : {
+            "max_abs_err" : 204107,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=204107.0 rel_err=1.0 tol=0.001; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_2048_int8",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "2048",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1244.275631892954,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 13.837208333333335,
+          "mean" : 13.810731944444447,
+          "median" : 13.807125,
+          "min" : 13.801166666666665,
+          "name" : "gemm_2048_fp8",
+          "p95" : 13.836541666666665,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "2048"
+          },
+          "derived" : {
+            "max_abs_err" : 89.36328125,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=89.36328125 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_2048_fp8",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "2048",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1238.4323655734088,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 13.904166666666667,
+          "mean" : 13.871134722222221,
+          "median" : 13.872270833333332,
+          "min" : 13.84525,
+          "name" : "gemm_2048_fp8e5m2",
+          "p95" : 13.88525,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "2048",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1101.294256078506,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 15.617791666666665,
+          "mean" : 15.598261111111116,
+          "median" : 15.599708333333334,
+          "min" : 15.5725,
+          "name" : "gemm_2048_fp4",
+          "p95" : 15.614958333333334,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "2048"
+          },
+          "derived" : {
+            "max_abs_err" : 65.5,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=65.5 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_2048_fp4",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "4096"
+          },
+          "derived" : {
+            "GFLOPS" : 14650.22543977082,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 9.414,
+          "mean" : 9.38324861111111,
+          "median" : 9.381354166666668,
+          "min" : 9.349625,
+          "name" : "gemm_4096_fp32",
+          "p95" : 9.406125,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "4096",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 11176.321707036755,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 12.406958333333334,
+          "mean" : 12.303149999999997,
+          "median" : 12.297333333333334,
+          "min" : 12.236666666666666,
+          "name" : "gemm_4096_fp32",
+          "p95" : 12.362958333333333,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "4096"
+          },
+          "derived" : {
+            "GFLOPS" : 58081.48901381368,
+            "max_abs_err" : 0.0315399169921875,
+            "rel_err" : 0.00026828870356590344
+          },
+          "iters" : 30,
+          "max" : 2.4284583333333334,
+          "mean" : 2.3720263888888895,
+          "median" : 2.3663125000000003,
+          "min" : 2.346125,
+          "name" : "gemm_4096_fp16",
+          "p95" : 2.4089166666666664,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "4096"
+          },
+          "derived" : {
+            "max_abs_err" : 4.2912445068359375,
+            "rel_err" : 0.03650270943035442
+          },
+          "error" : "max_abs_err=4.2912445068359375 rel_err=0.03650270943035442 tol=0.01",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_4096_fp16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "4096"
+          },
+          "derived" : {
+            "max_abs_err" : 117.55961608886719,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=117.55961608886719 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_4096_fp16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "4096",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 11928.070295958387,
+            "max_abs_err" : 4.80169677734375,
+            "rel_err" : 0.04076532597369732
+          },
+          "iters" : 30,
+          "max" : 11.560041666666667,
+          "mean" : 11.521984722222221,
+          "median" : 11.5223125,
+          "min" : 11.490083333333335,
+          "name" : "gemm_4096_bf16",
+          "p95" : 11.5465,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "4096"
+          },
+          "derived" : {
+            "max_abs_err" : 117.78874969482422,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=117.78874969482422 rel_err=1.0 tol=0.1; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_4096_bf16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "4096"
+          },
+          "derived" : {
+            "GFLOPS" : 7529.7411547946385,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 18.27091666666667,
+          "mean" : 18.25020138888889,
+          "median" : 18.2528125,
+          "min" : 18.192708333333332,
+          "name" : "gemm_4096_int8",
+          "p95" : 18.270791666666668,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "4096",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 890.5931658539095,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 155.44491666666664,
+          "mean" : 154.3337611111111,
+          "median" : 154.3229375,
+          "min" : 153.3005,
+          "name" : "gemm_4096_int8",
+          "p95" : 155.42325,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "4096"
+          },
+          "derived" : {
+            "max_abs_err" : 293960,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=293960.0 rel_err=1.0 tol=0.001; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_4096_int8",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "4096",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1283.1196314363904,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 107.18020833333333,
+          "mean" : 107.1165111111111,
+          "median" : 107.113125,
+          "min" : 107.058375,
+          "name" : "gemm_4096_fp8",
+          "p95" : 107.173375,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "4096"
+          },
+          "derived" : {
+            "max_abs_err" : 134.5546875,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=134.5546875 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_4096_fp8",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "4096",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1277.9681676850075,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 107.59358333333333,
+          "mean" : 107.54566249999999,
+          "median" : 107.54489583333333,
+          "min" : 107.50229166666666,
+          "name" : "gemm_4096_fp8e5m2",
+          "p95" : 107.57520833333332,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "4096",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1138.9490680304677,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 120.777125,
+          "mean" : 120.68147083333334,
+          "median" : 120.67172916666667,
+          "min" : 120.63154166666668,
+          "name" : "gemm_4096_fp4",
+          "p95" : 120.74716666666667,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "4096"
+          },
+          "derived" : {
+            "max_abs_err" : 161,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=161.0 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_4096_fp4",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "8192"
+          },
+          "derived" : {
+            "GFLOPS" : 14608.052981379744,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 75.75283333333333,
+          "mean" : 75.27890000000002,
+          "median" : 75.26750000000001,
+          "min" : 75.19745833333333,
+          "name" : "gemm_8192_fp32",
+          "p95" : 75.34,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "8192",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 8345.271708371449,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 132.58695833333334,
+          "mean" : 131.819525,
+          "median" : 131.75264583333333,
+          "min" : 131.0265,
+          "name" : "gemm_8192_fp32",
+          "p95" : 132.52766666666668,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "8192"
+          },
+          "derived" : {
+            "GFLOPS" : 60731.53957617254,
+            "max_abs_err" : 0.128204345703125,
+            "rel_err" : 0.00039790912536050746
+          },
+          "iters" : 30,
+          "max" : 18.146125,
+          "mean" : 18.102822222222223,
+          "median" : 18.104458333333334,
+          "min" : 18.074791666666666,
+          "name" : "gemm_8192_fp16",
+          "p95" : 18.127458333333333,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "8192",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 5333.6975063942355,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 206.42754166666666,
+          "mean" : 206.16003888888898,
+          "median" : 206.14435416666666,
+          "min" : 205.830625,
+          "name" : "gemm_8192_fp16",
+          "p95" : 206.403,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "8192"
+          },
+          "derived" : {
+            "max_abs_err" : 322.1950378417969,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=322.1950378417969 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_8192_fp16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "8192",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 12161.127738937617,
+            "max_abs_err" : 23.371551513671875,
+            "rel_err" : 0.0728069035454624
+          },
+          "iters" : 30,
+          "max" : 90.495125,
+          "mean" : 90.41933194444445,
+          "median" : 90.41197916666667,
+          "min" : 90.35604166666667,
+          "name" : "gemm_8192_bf16",
+          "p95" : 90.494,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "8192"
+          },
+          "derived" : {
+            "max_abs_err" : 321.0073547363281,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=321.0073547363281 rel_err=1.0 tol=0.1; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_8192_bf16",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "8192"
+          },
+          "derived" : {
+            "GFLOPS" : 7690.615719729742,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 143.08116666666666,
+          "mean" : 142.9720777777778,
+          "median" : 142.96795833333334,
+          "min" : 142.90808333333334,
+          "name" : "gemm_8192_int8",
+          "p95" : 143.04166666666666,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "mps"
+        },
+        {
+          "config" : {
+            "n" : "8192",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 689.2571900070361,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 1600.1075833333332,
+          "mean" : 1594.1385972222222,
+          "median" : 1595.2124166666667,
+          "min" : 1568.5499166666668,
+          "name" : "gemm_8192_int8",
+          "p95" : 1599.399125,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "8192"
+          },
+          "derived" : {
+            "max_abs_err" : 805534,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=805534.0 rel_err=1.0 tol=0.001; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_8192_int8",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "8192",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1288.9388628797592,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 853.8365833333334,
+          "mean" : 853.0639458333334,
+          "median" : 853.0362916666668,
+          "min" : 852.9374583333333,
+          "name" : "gemm_8192_fp8",
+          "p95" : 853.366125,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "8192"
+          },
+          "derived" : {
+            "max_abs_err" : 363.41796875,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=363.41796875 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_8192_fp8",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        },
+        {
+          "config" : {
+            "n" : "8192",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1283.7470318589,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 856.9984166666666,
+          "mean" : 856.4982902777776,
+          "median" : 856.4862083333333,
+          "min" : 856.4040416666667,
+          "name" : "gemm_8192_fp8e5m2",
+          "p95" : 856.5294166666666,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "8192",
+            "tile" : "32x32"
+          },
+          "derived" : {
+            "GFLOPS" : 1142.5868670157781,
+            "max_abs_err" : 0,
+            "rel_err" : 0
+          },
+          "iters" : 30,
+          "max" : 962.6402083333334,
+          "mean" : 962.3147722222221,
+          "median" : 962.30025,
+          "min" : 962.2582083333334,
+          "name" : "gemm_8192_fp4",
+          "p95" : 962.375,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "msl"
+        },
+        {
+          "config" : {
+            "n" : "8192"
+          },
+          "derived" : {
+            "max_abs_err" : 255,
+            "rel_err" : 1
+          },
+          "error" : "max_abs_err=255.0 rel_err=1.0 tol=0.01; multi-tile matmul2d no-op (R8)",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "gemm_8192_fp4",
+          "p95" : 0,
+          "status" : "validation_failed",
+          "unit" : "ms",
+          "variant" : "tensorops"
+        }
+      ],
+      "title" : "GEMM throughput (GPU: MPS \/ custom MSL \/ TensorOps)"
+    },
+    {
+      "id" : "s3_ane_raw",
+      "notes" : [
+        "Methodology: MIL 1x1-conv chains via _ANEInMemoryModelDescriptor, IOSurface fp32 I\/O (or fp16 in), mach_absolute_time, median of N. int8 = W8A16 (per-channel symmetric, constexpr_affine_dequantize, same scheme as CoreML-compiled quantized models). The conv chain is the ANE's native dense datapath (matmul\/linear layers fold into the convolution datapath; a linear y=x@W.T is a 1x1 conv) — see docs\/research-notes.md R7 and arXiv:2606.22283. Adapted from maderix\/ANE (MIT).",
+        "compiles this run: 27 (per-process limit ~119)"
+      ],
+      "runs" : [
+        {
+          "config" : {
+            "ch" : "256",
+            "depth" : "1",
+            "sp" : "64",
+            "subset" : "dispatch",
+            "working_set_mb" : "0.2"
+          },
+          "derived" : {
+            "GBs_weights" : 1.2150359212050985,
+            "TOPS" : 0.0777622989571263
+          },
+          "iters" : 100,
+          "max" : 1.2775833333333333,
+          "mean" : 0.18071291666666664,
+          "median" : 0.107875,
+          "min" : 0.087375,
+          "name" : "dispatch_floor",
+          "p95" : 1.1400833333333333,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "256",
+            "depth" : "1",
+            "sp" : "256",
+            "subset" : "scaling",
+            "working_set_mb" : "0.4"
+          },
+          "derived" : {
+            "GBs_weights" : 1.31647959824231,
+            "TOPS" : 0.33701877715003137
+          },
+          "iters" : 100,
+          "max" : 1.2809583333333332,
+          "mean" : 0.12708791666666663,
+          "median" : 0.0995625,
+          "min" : 0.0835,
+          "name" : "scale_256",
+          "p95" : 0.17525,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "1",
+            "sp" : "512",
+            "subset" : "scaling",
+            "working_set_mb" : "1.5"
+          },
+          "derived" : {
+            "GBs_weights" : 3.4962245068074465,
+            "TOPS" : 1.7900669474854127
+          },
+          "iters" : 100,
+          "max" : 1.3695416666666667,
+          "mean" : 0.22256249999999997,
+          "median" : 0.14995833333333333,
+          "min" : 0.09466666666666668,
+          "name" : "scale_512",
+          "p95" : 1.3569166666666668,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "1024",
+            "depth" : "1",
+            "sp" : "1024",
+            "subset" : "scaling",
+            "working_set_mb" : "6.0"
+          },
+          "derived" : {
+            "GBs_weights" : 8.652509541000516,
+            "TOPS" : 8.860169769984529
+          },
+          "iters" : 100,
+          "max" : 0.256375,
+          "mean" : 0.24366458333333324,
+          "median" : 0.242375,
+          "min" : 0.23508333333333334,
+          "name" : "scale_1024",
+          "p95" : 0.254,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "2048",
+            "depth" : "1",
+            "sp" : "2048",
+            "subset" : "scaling",
+            "working_set_mb" : "24.0"
+          },
+          "derived" : {
+            "GBs_weights" : 4.656457396613933,
+            "TOPS" : 9.536424748265334
+          },
+          "iters" : 100,
+          "max" : 1.8539166666666667,
+          "mean" : 1.8037358333333342,
+          "median" : 1.8014999999999999,
+          "min" : 1.7869166666666667,
+          "name" : "scale_2048",
+          "p95" : 1.8227083333333332,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "4096",
+            "depth" : "1",
+            "sp" : "4096",
+            "subset" : "scaling",
+            "working_set_mb" : "96.0"
+          },
+          "derived" : {
+            "GBs_weights" : 1.2543077928298023,
+            "TOPS" : 5.13764471943087
+          },
+          "iters" : 100,
+          "max" : 26.764666666666667,
+          "mean" : 26.75141791666666,
+          "median" : 26.751354166666665,
+          "min" : 26.737875,
+          "name" : "scale_4096",
+          "p95" : 26.762416666666667,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "32",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "20.0"
+          },
+          "derived" : {
+            "GBs_weights" : 89.90804599754381,
+            "TOPS" : 5.754114943842804
+          },
+          "iters" : 100,
+          "max" : 0.19783333333333333,
+          "mean" : 0.18686458333333333,
+          "median" : 0.18660416666666668,
+          "min" : 0.17675,
+          "name" : "peak_512x64_d32",
+          "p95" : 0.19325,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "48",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "30.0"
+          },
+          "derived" : {
+            "GBs_weights" : 105.79432054650552,
+            "TOPS" : 6.770836514976353
+          },
+          "iters" : 100,
+          "max" : 0.24704166666666666,
+          "mean" : 0.23789958333333336,
+          "median" : 0.237875,
+          "min" : 0.22891666666666666,
+          "name" : "peak_512x64_d48",
+          "p95" : 0.24370833333333333,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "64",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "40.0"
+          },
+          "derived" : {
+            "GBs_weights" : 115.24956966010734,
+            "TOPS" : 7.37597245824687
+          },
+          "iters" : 100,
+          "max" : 0.306125,
+          "mean" : 0.291485,
+          "median" : 0.2911458333333333,
+          "min" : 0.2805833333333333,
+          "name" : "peak_512x64_d64",
+          "p95" : 0.300875,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "256",
+            "depth" : "128",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "24.0"
+          },
+          "derived" : {
+            "GBs_weights" : 90.5958339520756,
+            "TOPS" : 5.798133372932838
+          },
+          "iters" : 100,
+          "max" : 0.196875,
+          "mean" : 0.18531000000000006,
+          "median" : 0.1851875,
+          "min" : 0.17379166666666665,
+          "name" : "peak_256x64_d128",
+          "p95" : 0.19095833333333334,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "256",
+            "depth" : "256",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "48.0"
+          },
+          "derived" : {
+            "GBs_weights" : 116.29812520759621,
+            "TOPS" : 7.443080013286157
+          },
+          "iters" : 100,
+          "max" : 0.3005833333333333,
+          "mean" : 0.2889037499999999,
+          "median" : 0.28852083333333334,
+          "min" : 0.2813333333333333,
+          "name" : "peak_256x64_d256",
+          "p95" : 0.29691666666666666,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "64",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "40.0"
+          },
+          "derived" : {
+            "GBs_weights" : 116.05510419368784,
+            "TOPS" : 7.427526668396022
+          },
+          "iters" : 100,
+          "max" : 0.30341666666666667,
+          "mean" : 0.2896500000000001,
+          "median" : 0.289125,
+          "min" : 0.2814583333333333,
+          "name" : "peak_512x64_d64_fp16io",
+          "p95" : 0.2986666666666667,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp16 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "64",
+            "sp" : "64",
+            "subset" : "peak_int8",
+            "working_set_mb" : "24.0"
+          },
+          "derived" : {
+            "GBs_weights" : 87.20155582024906,
+            "TOPS" : 11.16179914499188
+          },
+          "iters" : 100,
+          "max" : 0.203875,
+          "mean" : 0.1926079166666666,
+          "median" : 0.19239583333333332,
+          "min" : 0.18420833333333334,
+          "name" : "peak_int8_512x64_d64",
+          "p95" : 0.19904166666666664,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "int8 W8A16"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "128",
+            "sp" : "64",
+            "subset" : "peak_int8",
+            "working_set_mb" : "48.0"
+          },
+          "derived" : {
+            "GBs_weights" : 110.56584993478411,
+            "TOPS" : 14.152428791652365
+          },
+          "iters" : 100,
+          "max" : 0.3181666666666667,
+          "mean" : 0.3040391666666667,
+          "median" : 0.30347916666666663,
+          "min" : 0.2961666666666667,
+          "name" : "peak_int8_512x64_d128",
+          "p95" : 0.3145833333333333,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "int8 W8A16"
+        },
+        {
+          "config" : {
+            "ch" : "256",
+            "depth" : "16",
+            "sp" : "32",
+            "subset" : "sram",
+            "working_set_mb" : "2.5"
+          },
+          "derived" : {
+            "GBs_weights" : 19.075856736782264,
+            "TOPS" : 0.6104274155770324
+          },
+          "iters" : 100,
+          "max" : 1.349875,
+          "mean" : 0.19219624999999996,
+          "median" : 0.1099375,
+          "min" : 0.083625,
+          "name" : "sram_2.6MB",
+          "p95" : 1.263,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "16",
+            "sp" : "64",
+            "subset" : "sram",
+            "working_set_mb" : "10.0"
+          },
+          "derived" : {
+            "GBs_weights" : 65.01746875504601,
+            "TOPS" : 4.161118000322945
+          },
+          "iters" : 100,
+          "max" : 0.15425,
+          "mean" : 0.13253708333333336,
+          "median" : 0.12902083333333333,
+          "min" : 0.1215,
+          "name" : "sram_10MB",
+          "p95" : 0.14858333333333335,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "768",
+            "depth" : "16",
+            "sp" : "96",
+            "subset" : "sram",
+            "working_set_mb" : "22.5"
+          },
+          "derived" : {
+            "GBs_weights" : 91.05222753768845,
+            "TOPS" : 8.741013843618092
+          },
+          "iters" : 100,
+          "max" : 0.22045833333333334,
+          "mean" : 0.20642249999999998,
+          "median" : 0.20729166666666665,
+          "min" : 0.197,
+          "name" : "sram_24MB",
+          "p95" : 0.21345833333333333,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "1024",
+            "depth" : "16",
+            "sp" : "128",
+            "subset" : "sram",
+            "working_set_mb" : "40.0"
+          },
+          "derived" : {
+            "GBs_weights" : 109.28299199348622,
+            "TOPS" : 13.988222975166236
+          },
+          "iters" : 100,
+          "max" : 0.3199583333333333,
+          "mean" : 0.30703416666666666,
+          "median" : 0.30704166666666666,
+          "min" : 0.296625,
+          "name" : "sram_42MB",
+          "p95" : 0.31504166666666666,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "1536",
+            "depth" : "16",
+            "sp" : "192",
+            "subset" : "sram",
+            "working_set_mb" : "90.0"
+          },
+          "derived" : {
+            "GBs_weights" : 71.07177344133049,
+            "TOPS" : 13.645780500735453
+          },
+          "iters" : 100,
+          "max" : 1.4595,
+          "mean" : 1.0665633333333333,
+          "median" : 1.0622708333333333,
+          "min" : 1.053375,
+          "name" : "sram_94MB",
+          "p95" : 1.0738333333333332,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "2048",
+            "depth" : "16",
+            "sp" : "256",
+            "subset" : "sram",
+            "working_set_mb" : "160.0"
+          },
+          "derived" : {
+            "GBs_weights" : 73.95001026182578,
+            "TOPS" : 18.9312026270274
+          },
+          "iters" : 100,
+          "max" : 1.8361666666666667,
+          "mean" : 1.8161254166666663,
+          "median" : 1.8149791666666666,
+          "min" : 1.80425,
+          "name" : "sram_168MB",
+          "p95" : 1.8298333333333332,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "1",
+            "sp" : "64",
+            "subset" : "blob_probe",
+            "weight_files" : "1",
+            "weights_mode" : "shared"
+          },
+          "derived" : {
+            "TOPS" : 0.32889784276087397,
+            "compile_ms" : 16.98575
+          },
+          "iters" : 100,
+          "max" : 1.3425833333333332,
+          "mean" : 0.1605879166666667,
+          "median" : 0.10202083333333334,
+          "min" : 0.07445833333333333,
+          "name" : "blob_probe_d1",
+          "p95" : 0.218625,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "shared"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "1",
+            "sp" : "64",
+            "subset" : "blob_probe",
+            "weight_files" : "1",
+            "weights_mode" : "per_file"
+          },
+          "derived" : {
+            "TOPS" : 0.33463800872636607,
+            "compile_ms" : 15.576583333333334
+          },
+          "iters" : 100,
+          "max" : 1.34875,
+          "mean" : 0.1575483333333334,
+          "median" : 0.10027083333333334,
+          "min" : 0.074375,
+          "name" : "blob_probe_d1",
+          "p95" : 0.20541666666666666,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "per_file"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "2",
+            "sp" : "64",
+            "subset" : "blob_probe",
+            "weight_files" : "1",
+            "weights_mode" : "shared"
+          },
+          "derived" : {
+            "TOPS" : 0.6878551082639334,
+            "compile_ms" : 17.28
+          },
+          "iters" : 100,
+          "max" : 1.3728333333333333,
+          "mean" : 0.1391566666666667,
+          "median" : 0.0975625,
+          "min" : 0.07258333333333333,
+          "name" : "blob_probe_d2",
+          "p95" : 0.19479166666666667,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "shared"
+        },
+        {
+          "config" : {
+            "weights_mode" : "per_file"
+          },
+          "derived" : {
+
+          },
+          "error" : "n_files=2",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "blob_probe_d2",
+          "p95" : 0,
+          "status" : "compile_failed",
+          "unit" : "ms",
+          "variant" : "per_file"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "16",
+            "sp" : "64",
+            "subset" : "blob_ab",
+            "weight_files" : "1",
+            "weights_mode" : "shared"
+          },
+          "derived" : {
+            "TOPS" : 4.140392637532134,
+            "compile_ms" : 49.22533333333334
+          },
+          "iters" : 100,
+          "max" : 0.153,
+          "mean" : 0.13271083333333336,
+          "median" : 0.12966666666666665,
+          "min" : 0.11945833333333333,
+          "name" : "blob_512x64_d16",
+          "p95" : 0.14720833333333333,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "shared"
+        },
+        {
+          "config" : {
+            "weights_mode" : "per_file"
+          },
+          "derived" : {
+
+          },
+          "error" : "n_files=16",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "blob_512x64_d16",
+          "p95" : 0,
+          "status" : "compile_failed",
+          "unit" : "ms",
+          "variant" : "per_file"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "128",
+            "sp" : "64",
+            "subset" : "blob_ab",
+            "weight_files" : "1",
+            "weights_mode" : "shared"
+          },
+          "derived" : {
+            "TOPS" : 8.31954924164649,
+            "compile_ms" : 325.54275
+          },
+          "iters" : 100,
+          "max" : 0.5830416666666667,
+          "mean" : 0.5191537499999999,
+          "median" : 0.51625,
+          "min" : 0.49804166666666666,
+          "name" : "blob_512x64_d128",
+          "p95" : 0.5494583333333334,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "shared"
+        },
+        {
+          "config" : {
+            "weights_mode" : "per_file"
+          },
+          "derived" : {
+
+          },
+          "error" : "n_files=128",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "blob_512x64_d128",
+          "p95" : 0,
+          "status" : "compile_failed",
+          "unit" : "ms",
+          "variant" : "per_file"
+        }
+      ],
+      "title" : "ANE raw throughput (direct _ANEInMemoryModel private API)"
+    },
+    {
+      "id" : "s4_coreai",
+      "notes" : [
+        "available compute unit kinds: cpu, gpu, neuralEngine",
+        "Model assets: models\/coreai\/*.aimodel (generated by tools\/gen_models.py via coreai-torch)",
+        "assets missing — running generator (first time, slow)",
+        "model generation failed to start: Error Domain=NSCocoaErrorDomain Code=4 \"The file “python” doesn’t exist.\" UserInfo={NSFilePath=\/Volumes\/DEV\/OpenFox\/dev_m5max_re\/tools\/.venv\/bin\/python}"
+      ],
+      "runs" : [
+
+      ],
+      "title" : "Core AI (.aimodel) inference — official ANE\/GPU dispatch stack"
+    }
+  ],
+  "status" : {
+    "s1_memory" : "done",
+    "s2_gemm" : "done",
+    "s3_ane" : "done",
+    "s4_coreai" : "done",
+    "s5_coreml" : "off (use --include-coreml)",
+    "spike" : "GO"
+  }
+}

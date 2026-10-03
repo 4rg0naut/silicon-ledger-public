@@ -1,0 +1,710 @@
+{
+  "generated" : "2026-09-26T16:38:21Z",
+  "machine" : {
+    "ane" : {
+      "ane_compiler_xpc" : true,
+      "aned_daemon" : true,
+      "coreai_framework" : true,
+      "coreml_mlmodel" : true,
+      "framework_loadable" : true,
+      "inmemory_classes" : true,
+      "request_class" : true
+    },
+    "chip" : "Apple M5 Max",
+    "cpuCores" : {
+      "perflevel0" : 6,
+      "perflevel1" : 12,
+      "total" : 18
+    },
+    "fingerprint" : "bda452aabd60bf26",
+    "gpuCores" : 40,
+    "gpuName" : "Apple M5 Max",
+    "host" : "<host>.local",
+    "memoryGB" : 128,
+    "metalFamilies" : [
+      "apple1",
+      "apple2",
+      "apple3",
+      "apple4",
+      "apple5",
+      "apple6",
+      "apple7",
+      "apple8",
+      "apple9",
+      "apple10"
+    ],
+    "metalTensor" : {
+      "bf16" : true,
+      "fp16" : true,
+      "fp32" : true,
+      "fp4e2m1" : true,
+      "fp8e4m3" : true,
+      "fp8e5m2" : true,
+      "int4" : true,
+      "int8" : true
+    },
+    "model" : "Mac Studio",
+    "osBuild" : "26A428",
+    "osVersion" : "27.0",
+    "tools" : {
+      "aimodelc" : "present",
+      "coremlc" : "present",
+      "python" : "Python 3.11.16",
+      "swift_clt" : "Target: arm64-apple-macosx27.0.0",
+      "swift_xcode" : "Target: arm64-apple-macosx27.0.0"
+    }
+  },
+  "schema" : "silicon-ledger\/1",
+  "sections" : [
+    {
+      "id" : "s3_ane_raw",
+      "notes" : [
+        "Methodology: MIL 1x1-conv chains via _ANEInMemoryModelDescriptor, IOSurface fp32 I\/O (or fp16 in), mach_absolute_time, median of N. int8 = W8A16 (per-channel symmetric, constexpr_affine_dequantize, same scheme as CoreML-compiled quantized models). The conv chain is the ANE's native dense datapath (matmul\/linear layers fold into the convolution datapath; a linear y=x@W.T is a 1x1 conv) — see docs\/research-notes.md R7 and arXiv:2606.22283. Adapted from maderix\/ANE (MIT).",
+        "compiles this run: 25 (per-process limit ~119)"
+      ],
+      "runs" : [
+        {
+          "config" : {
+            "ch" : "256",
+            "depth" : "1",
+            "sp" : "64",
+            "subset" : "dispatch",
+            "working_set_mb" : "0.2"
+          },
+          "derived" : {
+            "GBs_weights" : 1.2078049529660202,
+            "TOPS" : 0.07729951698982529
+          },
+          "iters" : 100,
+          "max" : 1.21575,
+          "mean" : 0.14288083333333332,
+          "median" : 0.10852083333333334,
+          "min" : 0.086875,
+          "name" : "dispatch_floor",
+          "p95" : 0.16291666666666665,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "256",
+            "depth" : "1",
+            "sp" : "256",
+            "subset" : "scaling",
+            "working_set_mb" : "0.4"
+          },
+          "derived" : {
+            "GBs_weights" : 1.2458328712871287,
+            "TOPS" : 0.31893321504950495
+          },
+          "iters" : 100,
+          "max" : 1.3068333333333333,
+          "mean" : 0.14982458333333332,
+          "median" : 0.10520833333333333,
+          "min" : 0.07325,
+          "name" : "scale_256",
+          "p95" : 0.17466666666666666,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "1",
+            "sp" : "512",
+            "subset" : "scaling",
+            "working_set_mb" : "1.5"
+          },
+          "derived" : {
+            "GBs_weights" : 3.4773834461793562,
+            "TOPS" : 1.7804203244438304
+          },
+          "iters" : 100,
+          "max" : 1.3564166666666668,
+          "mean" : 0.22270833333333337,
+          "median" : 0.15077083333333333,
+          "min" : 0.092625,
+          "name" : "scale_512",
+          "p95" : 1.3127916666666668,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "1024",
+            "depth" : "1",
+            "sp" : "1024",
+            "subset" : "scaling",
+            "working_set_mb" : "6.0"
+          },
+          "derived" : {
+            "GBs_weights" : 8.700371305099395,
+            "TOPS" : 8.909180216421781
+          },
+          "iters" : 100,
+          "max" : 0.25529166666666664,
+          "mean" : 0.24199374999999995,
+          "median" : 0.24104166666666665,
+          "min" : 0.235625,
+          "name" : "scale_1024",
+          "p95" : 0.25083333333333335,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "2048",
+            "depth" : "1",
+            "sp" : "2048",
+            "subset" : "scaling",
+            "working_set_mb" : "24.0"
+          },
+          "derived" : {
+            "GBs_weights" : 4.681251703211106,
+            "TOPS" : 9.587203488176343
+          },
+          "iters" : 100,
+          "max" : 2.2114583333333333,
+          "mean" : 1.8057124999999992,
+          "median" : 1.7919583333333333,
+          "min" : 1.7811666666666668,
+          "name" : "scale_2048",
+          "p95" : 1.8836666666666668,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "4096",
+            "depth" : "1",
+            "sp" : "4096",
+            "subset" : "scaling",
+            "working_set_mb" : "96.0"
+          },
+          "derived" : {
+            "GBs_weights" : 1.2543175611636574,
+            "TOPS" : 5.13768473052634
+          },
+          "iters" : 100,
+          "max" : 26.811708333333332,
+          "mean" : 26.754888333333334,
+          "median" : 26.751145833333332,
+          "min" : 26.73225,
+          "name" : "scale_4096",
+          "p95" : 26.781333333333333,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "32",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "20.0"
+          },
+          "derived" : {
+            "GBs_weights" : 90.40260080826224,
+            "TOPS" : 5.785766451728782
+          },
+          "iters" : 100,
+          "max" : 0.19666666666666666,
+          "mean" : 0.18491833333333324,
+          "median" : 0.18558333333333335,
+          "min" : 0.16645833333333335,
+          "name" : "peak_512x64_d32",
+          "p95" : 0.19070833333333334,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "48",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "30.0"
+          },
+          "derived" : {
+            "GBs_weights" : 106.11961275586401,
+            "TOPS" : 6.791655216375297
+          },
+          "iters" : 100,
+          "max" : 0.25029166666666663,
+          "mean" : 0.23737875000000014,
+          "median" : 0.23714583333333333,
+          "min" : 0.23033333333333333,
+          "name" : "peak_512x64_d48",
+          "p95" : 0.24266666666666667,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "64",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "40.0"
+          },
+          "derived" : {
+            "GBs_weights" : 115.31558215794372,
+            "TOPS" : 7.3801972581083986
+          },
+          "iters" : 100,
+          "max" : 0.30695833333333333,
+          "mean" : 0.2916704166666667,
+          "median" : 0.2909791666666667,
+          "min" : 0.282625,
+          "name" : "peak_512x64_d64",
+          "p95" : 0.30083333333333334,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "256",
+            "depth" : "128",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "24.0"
+          },
+          "derived" : {
+            "GBs_weights" : 90.49402944151029,
+            "TOPS" : 5.791617884256659
+          },
+          "iters" : 100,
+          "max" : 0.19575,
+          "mean" : 0.18550958333333326,
+          "median" : 0.18539583333333332,
+          "min" : 0.1775,
+          "name" : "peak_256x64_d128",
+          "p95" : 0.19145833333333334,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "256",
+            "depth" : "256",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "48.0"
+          },
+          "derived" : {
+            "GBs_weights" : 116.21420997185946,
+            "TOPS" : 7.437709438199005
+          },
+          "iters" : 100,
+          "max" : 0.299625,
+          "mean" : 0.2884129166666666,
+          "median" : 0.28872916666666665,
+          "min" : 0.2778333333333333,
+          "name" : "peak_256x64_d256",
+          "p95" : 0.2942916666666667,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "64",
+            "sp" : "64",
+            "subset" : "peak_fp16",
+            "working_set_mb" : "40.0"
+          },
+          "derived" : {
+            "GBs_weights" : 116.17229774956719,
+            "TOPS" : 7.435027055972301
+          },
+          "iters" : 100,
+          "max" : 0.3061666666666667,
+          "mean" : 0.28954875,
+          "median" : 0.2888333333333334,
+          "min" : 0.281625,
+          "name" : "peak_512x64_d64_fp16io",
+          "p95" : 0.29775,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp16 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "64",
+            "sp" : "64",
+            "subset" : "peak_int8",
+            "working_set_mb" : "24.0"
+          },
+          "derived" : {
+            "GBs_weights" : 87.17323749729378,
+            "TOPS" : 11.158174399653603
+          },
+          "iters" : 100,
+          "max" : 0.20220833333333335,
+          "mean" : 0.19266208333333334,
+          "median" : 0.19245833333333334,
+          "min" : 0.185375,
+          "name" : "peak_int8_512x64_d64",
+          "p95" : 0.19970833333333335,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "int8 W8A16"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "128",
+            "sp" : "64",
+            "subset" : "peak_int8",
+            "working_set_mb" : "48.0"
+          },
+          "derived" : {
+            "GBs_weights" : 110.97724357472612,
+            "TOPS" : 14.205087177564943
+          },
+          "iters" : 100,
+          "max" : 0.314125,
+          "mean" : 0.30304833333333336,
+          "median" : 0.30235416666666665,
+          "min" : 0.2955,
+          "name" : "peak_int8_512x64_d128",
+          "p95" : 0.31254166666666666,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "int8 W8A16"
+        },
+        {
+          "config" : {
+            "ch" : "256",
+            "depth" : "16",
+            "sp" : "32",
+            "subset" : "sram",
+            "working_set_mb" : "2.5"
+          },
+          "derived" : {
+            "GBs_weights" : 20.274581268882173,
+            "TOPS" : 0.6487866006042295
+          },
+          "iters" : 100,
+          "max" : 1.32625,
+          "mean" : 0.17369666666666675,
+          "median" : 0.1034375,
+          "min" : 0.08504166666666667,
+          "name" : "sram_2.6MB",
+          "p95" : 1.099125,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "16",
+            "sp" : "64",
+            "subset" : "sram",
+            "working_set_mb" : "10.0"
+          },
+          "derived" : {
+            "GBs_weights" : 66.52125954072362,
+            "TOPS" : 4.2573606106063115
+          },
+          "iters" : 100,
+          "max" : 0.150375,
+          "mean" : 0.1290791666666666,
+          "median" : 0.12610416666666666,
+          "min" : 0.113125,
+          "name" : "sram_10MB",
+          "p95" : 0.14758333333333334,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "768",
+            "depth" : "16",
+            "sp" : "96",
+            "subset" : "sram",
+            "working_set_mb" : "22.5"
+          },
+          "derived" : {
+            "GBs_weights" : 91.43819781994348,
+            "TOPS" : 8.778066990714574
+          },
+          "iters" : 100,
+          "max" : 0.21541666666666665,
+          "mean" : 0.20673416666666658,
+          "median" : 0.20641666666666666,
+          "min" : 0.195625,
+          "name" : "sram_24MB",
+          "p95" : 0.21254166666666666,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "1024",
+            "depth" : "16",
+            "sp" : "128",
+            "subset" : "sram",
+            "working_set_mb" : "40.0"
+          },
+          "derived" : {
+            "GBs_weights" : 109.34234460285131,
+            "TOPS" : 13.995820109164969
+          },
+          "iters" : 100,
+          "max" : 0.31875,
+          "mean" : 0.3069854166666665,
+          "median" : 0.306875,
+          "min" : 0.29833333333333334,
+          "name" : "sram_42MB",
+          "p95" : 0.315375,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "1536",
+            "depth" : "16",
+            "sp" : "192",
+            "subset" : "sram",
+            "working_set_mb" : "90.0"
+          },
+          "derived" : {
+            "GBs_weights" : 71.05226469031234,
+            "TOPS" : 13.642034820539969
+          },
+          "iters" : 100,
+          "max" : 1.1241666666666668,
+          "mean" : 1.070711666666667,
+          "median" : 1.0625624999999999,
+          "min" : 1.0510833333333331,
+          "name" : "sram_94MB",
+          "p95" : 1.1035,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "2048",
+            "depth" : "16",
+            "sp" : "256",
+            "subset" : "sram",
+            "working_set_mb" : "160.0"
+          },
+          "derived" : {
+            "GBs_weights" : 73.89911497034838,
+            "TOPS" : 18.918173432409183
+          },
+          "iters" : 100,
+          "max" : 1.899875,
+          "mean" : 1.824105833333334,
+          "median" : 1.8162291666666666,
+          "min" : 1.8064583333333333,
+          "name" : "sram_168MB",
+          "p95" : 1.8926666666666667,
+          "status" : "ok",
+          "unit" : "ms\/eval",
+          "variant" : "fp32 IO"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "1",
+            "sp" : "64",
+            "subset" : "blob_probe",
+            "weight_files" : "1",
+            "weights_mode" : "shared"
+          },
+          "derived" : {
+            "TOPS" : 0.3324278092879257,
+            "compile_ms" : 16.656541666666666
+          },
+          "iters" : 100,
+          "max" : 1.3368333333333333,
+          "mean" : 0.15784958333333335,
+          "median" : 0.1009375,
+          "min" : 0.075625,
+          "name" : "blob_probe_d1",
+          "p95" : 0.197,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "shared"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "1",
+            "sp" : "64",
+            "subset" : "blob_probe",
+            "weight_files" : "1",
+            "weights_mode" : "per_file"
+          },
+          "derived" : {
+            "TOPS" : 0.3425378000850701,
+            "compile_ms" : 15.686791666666666
+          },
+          "iters" : 100,
+          "max" : 1.35175,
+          "mean" : 0.15635708333333334,
+          "median" : 0.09795833333333334,
+          "min" : 0.07070833333333333,
+          "name" : "blob_probe_d1",
+          "p95" : 0.1865,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "per_file"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "2",
+            "sp" : "64",
+            "subset" : "blob_probe",
+            "weight_files" : "1",
+            "weights_mode" : "shared"
+          },
+          "derived" : {
+            "TOPS" : 0.6856588914431673,
+            "compile_ms" : 16.9315
+          },
+          "iters" : 100,
+          "max" : 1.3305416666666667,
+          "mean" : 0.14005916666666665,
+          "median" : 0.097875,
+          "min" : 0.076,
+          "name" : "blob_probe_d2",
+          "p95" : 0.18279166666666666,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "shared"
+        },
+        {
+          "config" : {
+            "weights_mode" : "per_file"
+          },
+          "derived" : {
+
+          },
+          "error" : "n_files=2",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "blob_probe_d2",
+          "p95" : 0,
+          "status" : "compile_failed",
+          "unit" : "ms",
+          "variant" : "per_file"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "16",
+            "sp" : "64",
+            "subset" : "blob_ab",
+            "weight_files" : "1",
+            "weights_mode" : "shared"
+          },
+          "derived" : {
+            "TOPS" : 4.138397908463144,
+            "compile_ms" : 46.855958333333334
+          },
+          "iters" : 100,
+          "max" : 0.15258333333333335,
+          "mean" : 0.1334733333333333,
+          "median" : 0.12972916666666667,
+          "min" : 0.12258333333333332,
+          "name" : "blob_512x64_d16",
+          "p95" : 0.146625,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "shared"
+        },
+        {
+          "config" : {
+            "weights_mode" : "per_file"
+          },
+          "derived" : {
+
+          },
+          "error" : "n_files=16",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "blob_512x64_d16",
+          "p95" : 0,
+          "status" : "compile_failed",
+          "unit" : "ms",
+          "variant" : "per_file"
+        },
+        {
+          "config" : {
+            "ch" : "512",
+            "depth" : "128",
+            "sp" : "64",
+            "subset" : "blob_ab",
+            "weight_files" : "1",
+            "weights_mode" : "shared"
+          },
+          "derived" : {
+            "TOPS" : 8.265844601579728,
+            "compile_ms" : 326.16183333333333
+          },
+          "iters" : 100,
+          "max" : 0.6600416666666666,
+          "mean" : 0.5234862499999996,
+          "median" : 0.5196041666666666,
+          "min" : 0.502625,
+          "name" : "blob_512x64_d128",
+          "p95" : 0.5639583333333333,
+          "status" : "ok",
+          "unit" : "ms",
+          "variant" : "shared"
+        },
+        {
+          "config" : {
+            "weights_mode" : "per_file"
+          },
+          "derived" : {
+
+          },
+          "error" : "n_files=128",
+          "iters" : 0,
+          "max" : 0,
+          "mean" : 0,
+          "median" : 0,
+          "min" : 0,
+          "name" : "blob_512x64_d128",
+          "p95" : 0,
+          "status" : "compile_failed",
+          "unit" : "ms",
+          "variant" : "per_file"
+        }
+      ],
+      "title" : "ANE raw throughput (direct _ANEInMemoryModel private API)"
+    }
+  ],
+  "status" : {
+    "ane" : "done"
+  }
+}

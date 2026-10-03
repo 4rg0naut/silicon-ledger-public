@@ -1,0 +1,101 @@
+A: /Users/<user>/Library/Application Support/openfox/workspaces/dev_m5max_re/silicon-ledger-publish/examples/2026-09-26T02-14-33Z-bda452aabd60bf26.json  (Apple M5 Max, 2026-09-26T02:14:33Z)
+B: /Users/<user>/Library/Application Support/openfox/workspaces/dev_m5max_re/silicon-ledger-publish/results/2026-09-28T01-52-09Z-bda452aabd60bf26.json  (Apple M5 Max, 2026-09-28T01:52:09Z)
+
+== s1_memory ==
+  name                             variant            unit         A median     B median    delta%
+  cpu_read                         512MB              GB/s         273.5241      50.6510    -81.5%
+  cpu_write                        512MB              GB/s         101.3745      96.2300     -5.1%
+  cpu_triad                        512MB              GB/s         203.6629      55.6905    -72.7%
+  gpu_read                         256MB              GB/s         561.5743     559.2041     -0.4%
+  gpu_write                        256MB              GB/s         196.0218     196.0106     -0.0%
+  gpu_copy                         256MB              GB/s         380.5051     380.5964     +0.0%
+  gpu_triad                        256MB              GB/s         555.0508     553.5386     -0.3%
+  tensor_copy                      256MB fp32         GB/s          42.5697      42.7282     +0.4%
+
+== s2_gemm ==
+  name                             variant            unit         A median     B median    delta%
+  gemm_512_fp32                    mps                ms             0.1671       0.3732   +123.3%
+  gemm_512_fp32                    msl                ms             0.1695       0.3558   +109.9%
+  gemm_512_fp16                    mps                ms             0.1485       0.2266    +52.5%
+  gemm_512_fp16                    msl                ms             0.1546       0.3604   +133.1%
+  gemm_512_bf16                    msl                ms             0.1709       0.3622   +111.9%
+  gemm_512_int8                    mps                ms             0.2066       0.4594   +122.4%
+  gemm_512_int8                    msl                ms             0.3458       0.3277     -5.2%
+  gemm_512_fp8                     msl                ms             0.4581       1.2322   +169.0%
+  gemm_512_fp8e5m2                 msl                ms             0.4540       0.4116     -9.3%
+  gemm_512_fp4                     msl                ms             0.4922       1.2201   +147.9%
+  gemm_1024_fp32                   mps                ms             0.3013       0.4239    +40.7%
+  gemm_1024_fp32                   msl                ms             0.3166       0.2994     -5.4%
+  gemm_1024_fp16                   mps                ms             0.1775       0.4355   +145.3%
+  gemm_1024_fp16                   msl                ms             0.3107       0.3042     -2.1%
+  gemm_1024_bf16                   msl                ms             0.3287       0.3494     +6.3%
+  gemm_1024_int8                   mps                ms             0.4765       1.2366   +159.5%
+  gemm_1024_int8                   msl                ms             1.4172       1.3532     -4.5%
+  gemm_1024_fp8                    msl                ms             1.9146       1.8700     -2.3%
+  gemm_1024_fp8e5m2                msl                ms             1.9339       1.8711     -3.3%
+  gemm_1024_fp4                    msl                ms             2.1497       2.1135     -1.7%
+  gemm_2048_fp32                   mps                ms             1.3840       1.5646    +13.0%
+  gemm_2048_fp32                   msl                ms             1.5032       1.4708     -2.2%
+  gemm_2048_fp16                   mps                ms             0.4722       0.6069    +28.5%
+  gemm_2048_bf16                   msl                ms             1.6226       1.5604     -3.8%
+  gemm_2048_int8                   mps                ms             2.5427       2.4954     -1.9%
+  gemm_2048_int8                   msl                ms            12.2345      12.1105     -1.0%
+  gemm_2048_fp8                    msl                ms            13.8064      13.7741     -0.2%
+  gemm_2048_fp8e5m2                msl                ms            13.8666      13.8335     -0.2%
+  gemm_2048_fp4                    msl                ms            15.6068      15.5596     -0.3%
+  gemm_4096_fp32                   mps                ms             9.3501       9.3155     -0.4%
+  gemm_4096_fp32                   msl                ms            12.3203      12.2674     -0.4%
+  gemm_4096_fp16                   mps                ms             2.3800       2.3355     -1.9%
+  gemm_4096_bf16                   msl                ms            11.5310      11.4872     -0.4%
+  gemm_4096_int8                   mps                ms            18.2531      18.2176     -0.2%
+  gemm_4096_int8                   msl                ms           154.5474     154.2990     -0.2%
+  gemm_4096_fp8                    msl                ms           107.0882     107.1374     +0.0%
+  gemm_4096_fp8e5m2                msl                ms           107.5330     107.5557     +0.0%
+  gemm_4096_fp4                    msl                ms           120.6731     120.6971     +0.0%
+  gemm_8192_fp32                   mps                ms            75.2089      75.2614     +0.1%
+  gemm_8192_fp32                   msl                ms           134.3586     134.2485     -0.1%
+  gemm_8192_fp16                   mps                ms            18.0988      18.0485     -0.3%
+  gemm_8192_fp16                   msl                ms           206.1113     206.1119     +0.0%
+  gemm_8192_bf16                   msl                ms            90.4137      90.4077     -0.0%
+  gemm_8192_int8                   mps                ms           142.9523     142.9755     +0.0%
+  gemm_8192_int8                   msl                ms          1595.9690    1597.3974     +0.1%
+  gemm_8192_fp8                    msl                ms           853.0274     853.0796     +0.0%
+  gemm_8192_fp8e5m2                msl                ms           856.4532     856.5204     +0.0%
+  gemm_8192_fp4                    msl                ms           962.2858     962.3374     +0.0%
+  only in B: gemm_512_fp16/tensorops, gemm_512_bf16/tensorops, gemm_512_int8/tensorops, gemm_512_fp8/tensorops, gemm_512_fp4/tensorops, gemm_1024_fp16/tensorops, gemm_1024_bf16/tensorops, gemm_1024_int8/tensorops, gemm_1024_fp8/tensorops, gemm_1024_fp4/tensorops, gemm_2048_fp16/msl, gemm_2048_fp16/tensorops, gemm_2048_bf16/tensorops, gemm_2048_int8/tensorops, gemm_2048_fp8/tensorops, gemm_2048_fp4/tensorops, gemm_4096_fp16/msl, gemm_4096_fp16/tensorops, gemm_4096_bf16/tensorops, gemm_4096_int8/tensorops, gemm_4096_fp8/tensorops, gemm_4096_fp4/tensorops, gemm_8192_fp16/tensorops, gemm_8192_bf16/tensorops, gemm_8192_int8/tensorops, gemm_8192_fp8/tensorops, gemm_8192_fp4/tensorops
+
+== s3_ane_raw ==
+  name                             variant            unit         A median     B median    delta%
+  dispatch_floor                   fp32 IO            ms/eval        0.1189       0.2201    +85.1%
+  scale_256                        fp32 IO            ms/eval        0.1099       0.2111    +92.2%
+  scale_512                        fp32 IO            ms/eval        0.1173       0.2423   +106.6%
+  scale_1024                       fp32 IO            ms/eval        0.2586       0.4294    +66.1%
+  scale_2048                       fp32 IO            ms/eval        1.8197       2.9127    +60.1%
+  scale_4096                       fp32 IO            ms/eval       26.7638      43.6667    +63.2%
+  peak_512x64_d32                  fp32 IO            ms/eval        0.2095       0.3008    +43.6%
+  peak_512x64_d48                  fp32 IO            ms/eval        0.2515       0.4010    +59.5%
+  peak_512x64_d64                  fp32 IO            ms/eval        0.3143       0.5028    +60.0%
+  peak_256x64_d128                 fp32 IO            ms/eval        0.2070       0.2977    +43.8%
+  peak_256x64_d256                 fp32 IO            ms/eval        0.3099       0.4996    +61.2%
+  peak_512x64_d64_fp16io           fp16 IO            ms/eval        0.3124       0.5014    +60.5%
+  peak_int8_512x64_d64             int8 W8A16         ms/eval        0.2156       0.4245    +96.9%
+  peak_int8_512x64_d128            int8 W8A16         ms/eval        0.3277       0.7770   +137.1%
+  sram_2.6MB                       fp32 IO            ms/eval        0.1033       0.2359   +128.4%
+  sram_10MB                        fp32 IO            ms/eval        0.1470       0.1981    +34.8%
+  sram_24MB                        fp32 IO            ms/eval        0.2293       0.4674   +103.8%
+  sram_42MB                        fp32 IO            ms/eval        0.3342       0.7722   +131.1%
+  sram_94MB                        fp32 IO            ms/eval        1.0791       3.0560   +183.2%
+  sram_168MB                       fp32 IO            ms/eval        1.8310       5.3177   +190.4%
+  only in B: blob_probe_d1/shared, blob_probe_d1/per_file, blob_probe_d2/shared, blob_probe_d2/per_file, blob_512x64_d16/shared, blob_512x64_d16/per_file, blob_512x64_d128/shared, blob_512x64_d128/per_file
+
+== s4_coreai ==
+  name                             variant            unit         A median     B median    delta%
+  coreai_deep_fp16                 default            ms/run         1.1645       1.9010    +63.3%
+  coreai_deep_fp16                 ane-preferred      ms/run         1.0643       2.1329   +100.4%
+  coreai_deep_fp16                 gpu-preferred      ms/run         1.0263       4.2011   +309.4%
+  coreai_deep_int8                 default            ms/run         0.9421       0.5759    -38.9%
+  coreai_deep_int8                 ane-preferred      ms/run         0.9344       0.7941    -15.0%
+  coreai_deep_int8                 gpu-preferred      ms/run         0.9431       0.9054     -4.0%
+  coreai_matmul                    default            ms/run         0.1951       0.3475    +78.1%
+  coreai_matmul                    ane-preferred      ms/run         0.1956       0.3180    +62.5%
+  coreai_matmul                    gpu-preferred      ms/run         0.2059       0.3411    +65.7%

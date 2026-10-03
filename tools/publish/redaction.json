@@ -1,0 +1,16 @@
+{
+  "_note": "Privacy scrub rules for the public edition. Generated from a full git-grep scan of tracked files on 2026-10-03, then human-classified. class=personal tokens are substituted in the staging tree by tools/publish/publish.sh (order: as listed, longest-first within personal). class=public tokens are recorded here because the scan flagged them, with the reason they are safe to publish. Additions: append to tokens, rerun publish.sh, verify publish.sh twice-diff stays byte-identical.",
+  "generated": "2026-10-03",
+  "tokens": [
+    {"pattern": "/Volumes/data", "replacement": "/Volumes/data", "class": "personal", "reason": "old volume path (1047 hits, 27 files): volume name plus project-dir naming of one private machine; collapsed to a neutral path"},
+    {"pattern": "/Volumes/data", "replacement": "/Volumes/data", "class": "personal", "reason": "bare old volume name in a few remnants"},
+    {"pattern": "/Volumes/data", "replacement": "/Volumes/data", "class": "personal", "reason": "current volume path (25 hits): reveals the owner's volume naming convention; collapsed to the same neutral path"},
+    {"pattern": "<host>.local", "replacement": "<host>.local", "class": "personal", "reason": "mDNS hostname of the Mac mini; mDNS names are LAN-joinable identifiers"},
+    {"pattern": "<host>", "replacement": "<host>", "class": "personal", "reason": "machine hostname (40 hits, 28 files, mostly raw env dumps)"},
+    {"pattern": "<user>", "replacement": "<user>", "class": "personal", "reason": "account name everywhere (321 hits, 43 files): /Users paths, ps dumps in raw env.txt, config strings; no English word collides (verified: all occurrences stand alone)"},
+    {"pattern": "<User>", "replacement": "<User>", "class": "personal", "reason": "capitalized form (git author names if they leak into logs)"},
+    {"pattern": "4rg0naut", "class": "public", "reason": "GitHub handle — already public on the public silicon-ledger-bench remote and contract URLs"},
+    {"pattern": "Mac Studio", "class": "public", "reason": "Apple product name (the scan's 31 'studio' hits were case-insensitive matches of this)"},
+    {"pattern": "Mac mini", "class": "public", "reason": "Apple product name"}
+  ]
+}

@@ -1,0 +1,551 @@
+# Gotchas — everything that goes wrong on the Neural Engine
+
+This file collects the failure modes of programming the ANE directly and through Core AI: a
+silicon bandwidth erratum, error strings with verified causes, silent fallbacks that look like
+success, floating-point traps, platform fragility, and the specific scars this project earned.
+Every entry states the symptom, the cause, and how to detect or avoid it; measured claims are
+separated from reported ones by `confidence` and `source_type`.
+
+The bias of the file is toward things that produce a **confident wrong answer** — a fallback that
+reads as a pass, a fallback that leaves no error string, an alignment notch that a benchmark
+silently pays. Those are the failures that cost the most time here, because they do not stop the
+program, they only make it lie.
+
+---
+
+## 1. The 1 MiB DMA bandwidth erratum
+
+Eileen Yoon's August 2026 post is the single most useful measurement in this file, because it is
+an alignment rule that costs a 2.4–3.2× on common LLM shapes and is free to test. The short
+version: on M3, **whenever the total kernel weights a single ANE core has to stream is an exact
+multiple of 1 MiB, DRAM throughput collapses from the nominal 45–60 GB/s to 17–19 GB/s.**
+
+**The trigger, precisely.** The DMA unit requests memory in 64-byte lines. A 1 MiB transfer is
+`1 MiB / 64 B = 16,384 = 0x4000` lines. The post's hypothesis is a speculative-prefetch ring whose
+head/tail arithmetic is 14 bits wide — exactly the offset width of Apple Silicon's 16 KiB VM page
+(`2^14`). With no epoch bit, a transfer that is an exact multiple of `0x4000` lines aliases
+"a full lap remaining" to "empty", so the prefetcher issues no lookahead and the transfer runs on
+the credit-starved path. This is a **performance bug, not a correctness bug**: the DMA completes
+and the data is right.
+
+**The bytes-per-core formula** (this is the part to carry into any shape design). For one linear
+op of shape `X[1,D] × W[D,N] = Y[1,N]`, with `N` output rows split across all 16 cores:
+
+```
+bytes/core = (N / 16)          # kernels/core
+           × D                 # weights/kernel
+           × 2                 # bytes/weight (fp16)
+```
+
+The notch fires when `bytes/core` is an integer multiple of 1 MiB — equivalently, when the kernel
+DMA task per core spans `k · 0x4000` lines. The post verified this is really about the per-core
+**byte count**, not `D` or `N` separately, by sweeping `D` and `N` inversely so every task had the
+same 1 MiB/core: every such task collapsed.
+
+**The measured numbers.** Static kernel-DMA medians at `N=4096` (µs per replica, three reps):
+
+| D | 576 | 768 | 1024 | 1280 | 1536 | 2048 |
+|---|---|---|---|---|---|---|
+| rep a | 150.4 | 196.8 | 238.1 | 293.8 | 310.9 | **997.6** |
+| rep b | 157.8 | 190.2 | 250.1 | 288.3 | 326.8 | **995.0** |
+| rep c | 148.7 | 189.6 | 249.4 | 275.2 | 316.5 | **995.4** |
+
+At `D=2048` throughput is 16.93 GB/s; at `D=2016` it is 44.5 GB/s — a 27.57 GB/s drop, 61.96 %.
+The notch repeats at every integer multiple of `D=2048` (i.e. every additional 1 MiB/core).
+
+**The recovery window.** Bandwidth recovers fully within `x = ±256 lines` of the notch.
+`256 lines × 64 B = 16 KiB = one VM page`, which is why the hypothesis is a prefetch window sized
+one page deep. Each additional lap `k` makes the latency curve ~`k×` steeper (measured ramp
+`3.18·k` µs/line, R² = 0.96–0.99) without changing the floor.
+
+**What does not explain it.** DRAM bank aliasing: randomly scrambling the weight address across
+the ~60 MiB IOVA arena changed median throughput only 31.37 → 32.29 GB/s — nowhere near the 2.6×
+needed. Cross-core contention: latency was constant from 1 to 16 active cores, so the throttle is
+a per-core state, replicated.
+
+**The software workaround.** Do not request 1 MiB kernel transfers. Split any kernel-DMA task that
+lands on a 1 MiB multiple into sub-1 MiB chunks — e.g. one `0x4000`-line task becomes two
+`0x2000`-line tasks. Measured:
+
+| task | throughput |
+|---|---|
+| one `0x4000`-line task | 17.25 GB/s |
+| two `0x2000`-line tasks | 45.52 GB/s (2.66×) |
+| four `0x1000`-line tasks | 44.83 GB/s (2.60×) |
+
+The clean **control** proves the gain is the prefetch bug and nothing else: splitting a transfer
+that was *not* a 1 MiB multiple (1 MiB − 16 KiB/core, which never hit the notch) gives **no**
+speedup at all.
+
+**Which layer shapes trigger it.** From the post's table of `anemll` models (`Cin×Cout`, and `k` =
+MiB/lane, i.e. 1 MiB-multiples per lane):
+
+| model | projection | Cin×Cout | k |
+|---|---|---|---|
+| Llama 3.2 1B | gate/up/down | 2048×8192 | 2 |
+| Llama 3.1 8B / DeepSeek / DeepHermes 8B | q, o | 4096² | 2 |
+| ″ | gate/up/down | 4096×14336 | 7 |
+| DeepHermes 3B | gate/up/down | 3072×8192 | 3 |
+| Qwen3-8B | q, o | 4096² | 2 |
+| ″ | gate/up/down | 4096×12288 | 6 |
+| Gemma 3 4B | lm_head shard | 2560×16384 | 5 |
+
+Across `anemll`, 7 of 15 models were affected. Splitting the Llama 3.2 1B MLP's three 1×1
+convolutions into two partial reductions (so the compiler emits two `0x2000` tasks instead of one
+`0x4000`) took decode from **10.0 → 24.3 tok/s** with DRAM streaming 24.7 → 60.0 GB/s; Qwen3-8B
+went **1.36 → 2.97 tok/s** (22.4 → 48.7 GB/s). Chunked vs unsplit, by `D`: 2048 17.3→43.5 (2.51×),
+4096 18.4→52.1 (2.84×), 8192 18.8→57.8 (3.07×), 12288 19.0→59.8 (3.15×), 16384 19.1→60.5 (3.16×).
+
+**Caveat — which chips.** The author measured on an M3 Air. In the HN thread, `anemll` states
+**M1 and M5 Max are not affected** (linking his own X post); no independent M1/M5 Max number was
+fetched here. Treat "M3 affected, M1 and M5 Max not" as *reported*, not measured, until we
+reproduce it on our own M4.
+
+**Why this matters to us.** The sweep flagged it as directly testable against our graphs, and it
+is: any linear projection whose per-core weight bytes are a power-of-two 1 MiB multiple is a
+candidate. It is a shape/compiler concern, not a runtime one.
+
+---
+
+## 2. Error codes and their real causes
+
+The general rule from the Core AI error index: **inside Apple's frameworks, match on the message,
+not the line number or op name.** `GPUMemrefOps.mm:687/700/707`, `NDArrayDescriptor.swift:139`,
+and the `.bc.mlir` filenames all move between builds.
+
+### `ANEProgramChainingPrepare` error 15 — wrong IOSurface factory, not firmware
+
+From `thebasedcapital/ane-infer`: the long-standing ANE chaining error 15 was **not** a firmware
+limitation. It was caused by using the wrong `_ANEIOSurfaceOutputSets` factory:
+
+```
+Before:  outputSetsWithBuffers:@[buf_out]                    -> error 15
+After:   objectWithstatsSurRef:ioStats outputBuffer:@[buf_out] -> SUCCESS
+```
+
+With the correct factory, both `prepareChainingWithModel:` (daemon path) and
+`doPrepareChainingWithModel:` (direct path) succeed. This is the canonical example of an ANE error
+number pointing at the wrong suspect.
+
+### ANE compilation that fails silently
+
+`xcrun coreai-build compile --preferred-compute neural-engine` can print an `Error:` block and
+**still exit 0**, writing a `.aimodelc` whose `main-<arch>-delegates/` holds only `MPSGraph`:
+
+```
+ANECCompileOffline() failed: OSStatus=0, aneCompileStatus=1, statusdict={ ErrorList = ( ); ... }
+```
+
+The `ErrorList` is empty, the real failure sits inside ~160–525 KB of MLIR warnings (with only
+`failed: ANE regionCall op not found` as a hint), and the bundle is GPU-only. Reproduced 4/4 on
+2026-08-27/28 for linear blockwise-INT4 static weights while the byte-identical palettized
+(`lut_to_dense`) control compiled to **31 ANE regions**.
+
+**Detect the fallback yourself:**
+
+```sh
+find <bundle>.aimodelc -name '*ANE_region*' | wc -l    # 0 == the ANE compiler rejected the graph
+```
+
+The same zero-region outcome appears with `… aneCompileStatus=1, statusdict={ … ErrorList =
+( CompilationFailure )` for a `4bit_weight_palettized_group8` preset on `--platform iOS
+--architecture h18p` — one region fails, the tool keeps going, exits 0, and the model lands wholly
+on the GPU. **Region count is the only trustworthy placement signal, and it must be counted after
+every AOT.**
+
+### `connection to service named com.apple.ANECompilerService` / Code=4097
+
+A 4B-class ANE bundle static-loads (31 regions, ~518 s cold) and then the *warmup inference* dies:
+
+```
+Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.ANECompilerService"
+ANE compile failed!
+LLVM ERROR: IO failure on output stream: No space left on device
+```
+
+The cause is **not isolated** — the same log ends in a disk-full `LLVM ERROR`, so which of the two
+killed the run is not established, and a `Code=16 "file not found"` at load is also unexplained
+(the load went on to succeed anyway). The operational answer at that size is to ship a GPU
+`.aimodelc` (`--preferred-compute gpu`). Related: on the beta, a 4B 4-bit bundle failed the same
+way as `ANECompilerService 4097`.
+
+### Compiler segfaults
+
+- **`GPU::anePreCompileBinary` SIGSEGV** — `coreai-build compile` runs ~5 min at 100 % CPU then
+  dies `SIGSEGV` (exit 139) with no diagnostic and no `.aimodelc`, on a static-shape LLM program
+  with linear blockwise-INT4 weights. **Fixed on current builds**: the exact repro re-runs clean
+  3/3 (2026-08-27) and now fails silently instead (the zero-region case above). The palettized
+  structure is the working control.
+- **`SIGSEGV` in `coreai-pre-compilation-rewrite`** — `program.optimize()`, the Python runtime's
+  `AIModel.load`, and `xcrun coreai-build compile` all segfault on the same graph, because the pass
+  is shared by every compile path. Cause: a swin block's no-shift path emits a degenerate all-zero
+  constant-mask subgraph. Workaround: build the constant mask outside `forward`.
+- **`ANECompilerOffline::~ANECompilerOffline → objc_release`** on the stack, ~0.9 s in, for six
+  Gemma 4 chunk graphs while the 35-layer monolith compiled fine. **Not isolated.**
+
+### `0x1d` from multi-input requests
+
+`maderix/ANE` reports that multi-input ANE requests cause a `0x1d` error; the workaround is to pack
+all inputs into one spatial dimension. This is a hard constraint on the direct MIL path, not a
+Core ML one.
+
+### W4 + ANE segfault
+
+Reported in the research sweep: a W4 (4-bit weight) + ANE combination segfaults at coremltools
+9.0. Source is the sweep's negative-report list, not a reproduced log here.
+
+---
+
+## 3. Silent failures — where "it ran" means nothing
+
+This is the highest-value category, because a silent fallback reads exactly like a pass.
+
+### `compute_units=ALL` routing to the GPU
+
+Reported in the sweep: on macOS 26.3, `compute_units=ALL` can **silently route to the GPU instead
+of the ANE, at ~0 W ANE power** — the same silent fallback this project hit on Granite fp32.
+`MLModelConfiguration.computeUnits = .all` is a *preference*, never a guarantee; if the device has
+no usable ANE path, Core ML falls back without complaint.
+
+### dtype gates placement before anything else
+
+Our own EXP-005 measured the dtype gate on a minimal ANE-shaped graph, dtype the only variable:
+**fp16 → 66 ANE regions; fp32 → 0**. On the real Granite-Embedding-97M graph, fp32 (as published)
+→ **0 regions**, fp16 → **14**. Apple's authoring rule is the reason: supported ANE dtypes are
+fp16, int8, int16; **a single fp32 buffer or Python float literal forces that op — and its
+neighbours — back to GPU/CPU**.
+
+### Even fp16 is not enough — f32-isms hide inside ops
+
+In EXP-005, an fp16 model with three f32-isms (`softmax(dtype=float32)`, a Python float scale,
+`.float()` before pooling) ran on the ANE but was **3× slower than the GPU path**: warm median
+13.14 ms vs 4.33 ms. Removing the fp32 softmax alone took it 13.14 → 5.18 ms and GPU power
+333 → 125 mW, because the fp32 buffer forced a GPU round-trip inside every attention layer.
+
+### `SpecializationOptions.default()` can land on CPU
+
+In the zero-sized-dim investigation, a bisection on `default()` "proved" five graph variants fine
+that all abort under an explicit `gpu`/`neural_engine` specialization; the wrong conclusion went
+out in a public PR comment before an explicit-unit rerun caught it. **`default()` is a scheduling
+decision, not a test target: it is allowed to fall back, and a fallback reads as a pass.** Pin the
+compute unit explicitly in any accelerator isolation.
+
+### Hardware-level scheduling (Core ML)
+
+Older but still relevant, from the community `neural-engine` notes: A12 and later have a "smart
+compute system" that decides placement. Anecdotally, **if the GPU is resting, Core ML will often
+choose the GPU even when all layers are ANE-compatible**; a heavily-loaded GPU pushes work to the
+NPU. And once a model exceeds some size, Core ML may prefer the GPU even if it could run wholly on
+the ANE. Treat all of this as anecdote, not contract.
+
+### How to detect placement
+
+- **`tools/enginemon`** (ours): reads IOReport unprivileged and reports `AMC Stats → ANE DCS RD`
+  (bytes moved) and the `ane 0` interrupt count. Idle = 0 B / 0 interrupts; a known-ANE Core ML
+  workload = 128–171 GB and ~24.5k–37.4k interrupts in the same window. **This is the tool to use.**
+- **`xctrace`'s `ane-hw-intervals` is blind to Core AI graphs** — measured: 0 intervals while a
+  Core ML control in the same session logged 1310.
+- **`powermetrics`** works for ANE power but needs `sudo`.
+- **Debugger**: a thread named `H11ANEServicesThread`, or a breakpoint on `-[_ANEModel program]`,
+  indicates *some* ANE use; Core ML may still split the model across engines.
+- **`computeUnits` A/B**: compare `.all` against `.cpuAndGPU` / `.cpuOnly`; no speed difference
+  means the ANE was not doing the work.
+- **There is no public runtime API to ask which processor ran the model.**
+
+---
+
+## 4. Numerical traps
+
+### fp16 gradient underflow (ANE training)
+
+`maderix/ANE`: backward matmuls underflow in fp16. The fix is **global loss scaling of
+`256 × NLAYERS`**. Without it, gradients silently become zero and the model does not learn.
+
+### fp16 softplus overflow
+
+Reported in the sweep as a distinct failure, alongside the W4+ANE segfault and state-mutation
+compile failures. No reproduced log here; treat as reported.
+
+### fp16 reductions collapse results
+
+`shershah1024/lfm2.5-vl-ane` keeps **RMSNorm reductions in fp32** on an otherwise fp16/int8 ANE
+model, because true-fp16 reductions "lose enough precision to break coordinate-precise generation
+(bounding boxes collapse, caption tails degrade)". A handful of cheap fp32 ops on the CPU buys
+correct grounding at a small speed cost (language residency ~92 %, not 100 %).
+
+### The ANE is 16-bit throughout
+
+From the community `16-bit` note: the ANE appears to use fp16 for **everything** — weights and
+intermediates. Activations relatively large (`> 1e2`) or small (`< 1e-4`) lose precision; very
+small numbers become 0. (The GPU, by contrast, uses fp16 storage but fp32 accumulation unless
+`allowLowPrecisionAccumulationOnGPU` is set.) Note the same file flags that 16-bit-float weights
+were *slower* than 32-bit weights on the ANE in one observation — vague and unverified, but do not
+assume narrow storage is automatically faster.
+
+### SDPA ignores `attn_mask`; softmax mishandles −inf
+
+- `maderix/ANE`: **ANE SDPA ignores `attn_mask` in hardware.** Causal attention is decomposed:
+  `Q@Kᵀ` (ANE) → mask + softmax (**CPU**) → `scores@V` (ANE).
+- Core AI authoring rules: the causal mask must use **`-40000.0`, not `-inf`** — the ANE softmax
+  mishandles IEEE −inf. Mask shape is `(1, key, 1, query)` (transposed vs GPU).
+
+### Quantization is not a free lever
+
+- int4 (linear or k-means) flips the next-token argmax; **int8 is the practical exactness floor**
+  for these LLMs, and the gate/up MLP must stay int8.
+- A 4-bit k-means-g32 MiniCPM5-2B ANE bundle passed the 3-prompt token gate and then **lost 20
+  points of GSM8K** (131/200 vs 172/200 fp32) — a token match on short prompts does not certify
+  task accuracy.
+- **`--disable-embedding-quantization-ios` is not an ANE arm**: a float32 embedding table makes
+  `coreai-build` emit **0 ANE regions** and the whole graph falls back to the GPU.
+- MPSGraph's fused SDPA takes **one** `head_dim`: a model with `qk_head_dim ≠ v_head_dim` fails to
+  lower (`query and value must have matching inner dimension but have 192 and 128`). Fix: zero-pad
+  V in the KV cache to `qk_head_dim` and slice the extra dims off the SDPA output.
+
+### Known fp16 NaN and fixed-graph traps
+
+- Pruned SD-2.1 UNet: fp16 attention overflows to NaN and `upcast_attention` has **no effect**
+  because the diffusers SDPA processor ignores it; fp32 is what ships.
+- A fixed-capacity KV cache must be **zero-initialised, never NaN-initialised** — `0 * NaN = NaN`
+  survives a masked SDPA, and a fixed graph cannot slice the unwritten tail off the way upstream
+  does.
+
+---
+
+## 5. Platform fragility
+
+### Private APIs break across OS updates
+
+Both the direct-API projects state it as a disclaimer: `_ANEClient` / `_ANECompiler` /
+`_ANEInMemoryModelDescriptor` "may change or break with any macOS update" (`maderix/ANE`);
+`ane-infer` says its private-API usage "breaks with macOS updates". This is not hypothetical — see
+the next entries.
+
+### OS build changes invalidate every specialization cache
+
+On iPhone, after a 24A435 → 24A437 update, every ANE bundle rebuilt its programs on first load
+(2B 8-bit 325 s; Qwen3-1.7B 6-bit **795 s**; 2B 4-bit > 15 min), and the old build's ~22 GB cache
+became dead weight. **"Load 0.2 s" is a warm-cache number**; budget minutes for the first load
+after any OS update.
+
+### Converter epochs affect the runtime
+
+Every asset converted with `coreai-torch` 0.4.0 stopped loading on iOS/macOS 27 beta 2+ (it runs on
+beta 1): `error: Failed to convert to versioned IR` / `LLVM ERROR: cannot unwrap empty
+odiec_module_t`, because 0.4.0 baked PyTorch stack traces into the IR as MLIR `fused` locations.
+The audit fingerprint: a 0.4.1 asset's `metadata.json` carries a `producer` field; a 0.4.0 one does
+not. Fix: re-convert, or strip debug info in place (weights byte-identical).
+
+### iOS differs from macOS for dynamic KV
+
+On iOS the on-device compiler **miscompiles dynamically-sized-KV specializations at sequence length
+≥ 2048**: corrupt from the first generated token, not degraded gradually. Shipped workaround caps
+the KV pre-grow at 1024.
+
+### Compile limit and leaks
+
+`~119 ANE compiles per process` before the compiler leaks resources (`maderix/ANE`), worked around
+with an `exec()` restart plus checkpoint. Plan for a process that must periodically restart.
+
+### Device resets from ANE timeouts
+
+The sweep records **Apple Watch S12 / Ultra 4 reboots** traced to an **ANE timeout** in
+`panic-full` logs. This is reported (secondary) and not reproduced here, but it establishes that
+ANE work can escalate to a device reset, not just an exception.
+
+### Background/entitlement behaviour
+
+The sweep records an **iOS 27 background-ANE entitlement change**, and a report that the **ANE is
+not revoked when an app backgrounds** — unlike the GPU, which kills llama.cpp/MLX — with **79 %
+throughput retained**. Reported, secondary; verify on our own device before relying on it.
+
+### State mutation and shape hints
+
+- The **data-indexed** `mutable_slice_update` write SIGSEGVs the WWDC26 beta on GPU+ANE; use a
+  shape-symint index or a host cache instead.
+- `expectFrequentReshapes` on a **fixed-shape** graph kills the AOT bundle on iOS: the runtime
+  abandons the AOT specialization, compiles on device, and segfaults in the MPSGraph AICode
+  compiler with **no error string**. Swift-only; not exposed in the Python runtime.
+- A data-indexed state write and "state-mutation compile failures" are likewise reported in the
+  sweep as capable of killing ANE lowering.
+
+### Weight-size boundary near 2 GB
+
+On the ANE path there is a hard weight-size wall. On one iPhone the boundary was between **1.70 GB
+of weights (runs) and 2.16 GB (loads, then the first generation never returns)** — a 2.5 GB 6-bit
+2B *bundle* worked, so the limit tracks weight bytes, not bundle size. Practical rule: stay under
+~1.7 GB of weights per static bundle. A 4B-class ANE bundle static-loads and then fails warmup
+(`ANECompilerService 4097`); the GPU AOT bundle is the only on-device path at that size.
+
+### Asset-wide statistics
+
+Only **10 of 652 Core AI assets** in one survey actually compile to the ANE; the other 642 target
+the GPU. And 4B-class models fail to load on iOS 27.0 (one `EXC_ARM_PAC_FAIL`, one 35-minute
+wedge). Reported in the sweep.
+
+---
+
+## 6. Our own scars
+
+These are ours, with `source_type: our-own`.
+
+### A disk-full AOT produced a correctly-sized, corrupt bundle (Von)
+
+`Von-1.0`'s `.aimodelc` segfaulted **in `m.load_function("main")`** — not in `AIModel.load`, which
+returned fine — with **no diagnostic**. Three hypotheses (an ODIE compiler defect, a load bug, an
+EXP-016 regression) were all wrong. The real chain:
+
+disk full → a Time Machine local snapshot pinned every freed block → AOT compiles failed with
+`No space left on device` → **one compile wrote a same-size-but-corrupt bundle** → `load_function`
+SIGSEGV.
+
+The corrupt file was the **correct size (758 MB)** and `coreai-build` exited 0, which is why no
+check caught it. Re-exported with **35 GiB free**, the identical code path loaded 5/5 with logits
+matching the CPU reference. The operational lesson: **a disk-full AOT can produce a
+correctly-sized, corrupt bundle, and only a load proves it.** Record the bundle hash and check free
+space before compiling.
+
+Two side findings from the same investigation remain useful: `coreai-build compile` exits 0 for
+*any* requested architecture (a successful compile does not validate the arch choice — only a
+device load does), and the architecture name tracks the device identifier, not the marketing name
+(M4 Max is `h16c`; `h16g` on an M4 Max raises `RuntimeError`).
+
+### EXP-005: dtype is the placement gate; fewer regions is not worse
+
+Our measured answer to "why did this stay on the GPU" was that fp32 forces the fallback. On the
+real Granite graph, fp32 → 0 ANE regions, straight `--dtype fp16` → 14. Patching three f32-isms one
+at a time took warm median 13.14 → 5.18 ms at the softmax step, and the final fp16 variant beat
+the published fp32 path outright (4.00 vs 4.33 ms; GPU power 83 vs 10,390 mW). Two lessons recorded
+in the experiment: **region count is a shape metric, not a quality metric** (v0 had 13 regions and
+122,832 interrupts; v3 had 1 region and 13,472 — fewer, larger regions means fewer ANE↔GPU
+boundaries), and **"it runs on the ANE" and "it runs well on the ANE" are different claims**.
+
+Honest limit we recorded: the fp8-can't-help conclusion rests on documentation, not measurement —
+exporting an fp8 arm failed at the torch level (`normal_kernel_cpu not implemented for
+'Float8_e4m3fn'`).
+
+### Two instrument traps that fabricate negatives (enginemon)
+
+While building our unprivileged IOReport monitor we hit two channels that produce *confident wrong
+answers*: `Energy Model → ANE` is **frozen** (reads a constant 10945781 and never changes, even
+under a provably-ANE Core ML workload), and `SoC Stats → ANE_*_TRIG` is a **free-running 24 MHz
+clock** that advances `elapsed × 24e6` regardless of load. Reporting either zero as "the ANE was
+not used" is a fabricated negative. Read `AMC Stats` bytes and the `ane 0` interrupt counts.
+
+### Sustained-load thermal drop (our iPhone A/B)
+
+On our own sustained run, the ANE arm fell from 75.8 to ~52 tok/s decode once the phone's thermal
+state went `fair → serious` — about −31 % — then plateaued. A first-minute benchmark number is not
+the sustained number; the ANE does not escape thermal throttling.
+
+### An unexplained slow tail (open question)
+
+In EXP-005 the fp16 v3 variant had a slow tail whose cause is unidentified. `enginemon` showed
+0 B / 0 interrupts on an idle system, so it is not a persistent background ANE consumer;
+candidates are ANE power-state transitions between dispatches or buffer recycling. Resolving it
+needs a trace correlating slow samples with `ane-hw-intervals` / `metal-gpu-intervals`. Recorded as
+an open question rather than guessed at.
+
+---
+
+## Records
+
+```jsonl
+{"id":"GOTCHAS-001","claim":"On M3, the ANE kernel-DMA prefetcher throttles DRAM weight streaming to a 17-19 GB/s floor whenever the per-core kernel transfer is an exact multiple of 1 MiB.","kind":"gotcha","confidence":"measured","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["memory-bandwidth","dma","performance"],"entities":["ANE","M3"],"evidence":"D=2048 at 997.6/995.0/995.4 us vs D=1536 at 310.9 us; nominal 45-60 GB/s falls to 17-19 GB/s","caveat":"Measured on an M3 Air; M1 and M5 Max are reported unaffected","contested":false,"split":"train"}
+{"id":"GOTCHAS-002","claim":"The nominal ANE DRAM weight-streaming bandwidth on M3 is 45-60 GB/s and the 1 MiB-multiple throttle pins it to 17-19 GB/s.","kind":"measurement","confidence":"measured","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["memory-bandwidth","dma"],"entities":["ANE","M3"],"evidence":"44.505062 - 16.930761 = 27.574301 GB/s (61.96% lower) at D=2048 vs D=2016","contested":false,"split":"train"}
+{"id":"GOTCHAS-003","claim":"The per-core bytes a kernel-DMA task moves for a linear op X[1,D] x W[D,N] is (N/16) x D x 2 bytes, and the DMA notch fires when that value is an integer multiple of 1 MiB.","kind":"definition","confidence":"documented","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","shape-design"],"entities":["ANE"],"evidence":"N=4096, D=2048: 256 kernels/core x 4 KiB/kernel = 1 MiB/core","contested":false,"split":"train"}
+{"id":"GOTCHAS-004","claim":"The ANE kernel DMA operates on 64-byte lines, so a 1 MiB transfer is exactly 0x4000 = 16384 lines, the period at which the bandwidth notch repeats.","kind":"fact","confidence":"documented","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","memory-bandwidth"],"entities":["ANE"],"evidence":"1 MiB / 64 B = 16384 lines = 0x4000 lines","contested":false,"split":"train"}
+{"id":"GOTCHAS-005","claim":"Bandwidth recovers fully within 256 DMA lines (16 KiB, one Apple Silicon VM page) either side of a 1 MiB-multiple notch, consistent with a page-deep prefetch window.","kind":"measurement","confidence":"measured","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","memory-bandwidth"],"entities":["ANE","M3"],"evidence":"64 B/line x 256 lines = 16 KiB = one 16 KiB page; the V notch recovers at x = +/-256 lines","contested":false,"split":"holdout"}
+{"id":"GOTCHAS-006","claim":"The 1 MiB DMA notch is a per-core state, not cross-core contention: latency was constant from 1 to 16 active ANE cores.","kind":"measurement","confidence":"measured","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","memory-bandwidth"],"entities":["ANE","M3"],"evidence":"latency-vs-active-cores sweep flat for both D=2016 and D=2048","contested":false,"split":"train"}
+{"id":"GOTCHAS-007","claim":"Randomly scrambling the ANE weight address across the IOVA arena does not recover the 1 MiB-multiple bandwidth collapse, ruling out DRAM bank aliasing as the cause.","kind":"measurement","confidence":"measured","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","memory-bandwidth"],"entities":["ANE","M3"],"evidence":"median 31.37 GB/s baseline vs 32.29 GB/s scrambled (about +1 GB/s)","contested":false,"split":"train"}
+{"id":"GOTCHAS-008","claim":"The suspected root cause of the 1 MiB notch is a 14-bit speculative-prefetch ring in the kernel DMA whose head/tail arithmetic omits an epoch bit, aliasing a full lap to empty.","kind":"open-question","confidence":"inferred","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","rtl"],"entities":["ANE","M3"],"evidence":"0x4000-line periodicity and a 256-line (one-page) recovery window match 14-bit line-pointer wraparound","caveat":"Hypothesis from a black-box measurement; the author does not have the RTL source","contested":false,"split":"train"}
+{"id":"GOTCHAS-009","claim":"The software workaround for the 1 MiB DMA notch is to split any 1 MiB-multiple kernel-DMA task into sub-1 MiB chunks, such as two 512 KiB transfers.","kind":"procedure","confidence":"measured","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","workaround"],"entities":["ANE","M3","anemll"],"evidence":"two 0x2000-line tasks reach 45.52 GB/s vs 17.25 GB/s for one 0x4000-line task","contested":false,"split":"train"}
+{"id":"GOTCHAS-010","claim":"Splitting 1 MiB-multiple ANE kernel-DMA transfers into 512 KiB chunks yields a 2.6x-3.2x speedup, and the control experiment shows no speedup when splitting a transfer that was already sub-1-MiB.","kind":"measurement","confidence":"measured","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","workaround"],"entities":["ANE","M3"],"evidence":"D=2048 1 MiB 17.3->43.5 GB/s (2.51x); D=16384 8 MiB 19.1->60.5 GB/s (3.16x); control (1 MiB - 16 KiB) no gain","contested":false,"split":"train"}
+{"id":"GOTCHAS-011","claim":"Splitting the affected Llama 3.2 1B MLP projections raised ANE decode from 10.0 to 24.3 tokens/s with DRAM streaming rising from 24.7 to 60.0 GB/s.","kind":"measurement","confidence":"measured","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","llm-inference"],"entities":["ANE","M3","Llama-3.2-1B","anemll"],"evidence":"10.0 -> 24.3 tok/s; DRAM 24.7 -> 60.0 GB/s","contested":false,"split":"train"}
+{"id":"GOTCHAS-012","claim":"The same DMA-chunking workaround raised Qwen3-8B ANE decode from 1.36 to 2.97 tokens/s with DRAM streaming rising from 22.4 to 48.7 GB/s.","kind":"measurement","confidence":"measured","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","llm-inference"],"entities":["ANE","M3","Qwen3-8B","anemll"],"evidence":"1.36 -> 2.97 tok/s; DRAM 22.4 -> 48.7 GB/s","contested":false,"split":"train"}
+{"id":"GOTCHAS-013","claim":"Common LLM projection shapes hit the 1 MiB-per-core DMA notch, including Llama 3.2 1B gate/up/down 2048x8192 (k=2) and Qwen3-8B q/o 4096x4096 (k=2).","kind":"fact","confidence":"documented","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","shape-design","llm-inference"],"entities":["ANE","Llama-3.2-1B","Qwen3-8B","Gemma-3-4B"],"evidence":"7 of anemll's 15 models affected; k = MiB/lane per projection","contested":false,"split":"train"}
+{"id":"GOTCHAS-014","claim":"Llama 3.1 8B q/o projections at 4096x4096 and gate/up/down at 4096x14336 correspond to k=2 and k=7 MiB-per-lane, both landing on DMA-notched sizes.","kind":"fact","confidence":"documented","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","shape-design"],"entities":["ANE","Llama-3.1-8B"],"evidence":"projection table in the post","contested":false,"split":"train"}
+{"id":"GOTCHAS-015","claim":"The 1 MiB kernel-DMA bandwidth collapse is a performance erratum, not a correctness bug: the transfer still completes with correct data.","kind":"gotcha","confidence":"measured","source":"https://eiln.github.io/posts/ane-dma.html","source_type":"primary","retrieved":"2026-09-23","topic":["dma","rtl"],"entities":["ANE","M3"],"evidence":"author states kernel DMA still completes the transfer correctly","contested":false,"split":"train"}
+{"id":"GOTCHAS-016","claim":"anemll reports that M1 and M5 Max ANE are not affected by the 1 MiB DMA bandwidth erratum while M3 is.","kind":"gotcha","confidence":"claimed","source":"https://news.ycombinator.com/item?id=49636479","source_type":"secondary","retrieved":"2026-09-23","topic":["dma","hardware-variation"],"entities":["ANE","M1","M3","M5-Max","anemll"],"evidence":"HN comment by anemll linking his own X post, 'M1 and M5MAX are OK'","caveat":"Reported by a third party; no independent M1/M5 Max measurement fetched","contested":false,"split":"train"}
+{"id":"GOTCHAS-017","claim":"ANEProgramChainingPrepare error 15 is caused by using the wrong _ANEIOSurfaceOutputSets factory, not by a firmware limitation.","kind":"gotcha","confidence":"measured","source":"https://github.com/thebasedcapital/ane-infer","source_type":"primary","retrieved":"2026-09-23","topic":["error-codes","private-api","chaining"],"entities":["ANE","_ANEIOSurfaceOutputSets","ane-infer"],"evidence":"outputSetsWithBuffers: -> error 15; objectWithstatsSurRef:ioBuffer: -> SUCCESS","contested":false,"split":"train"}
+{"id":"GOTCHAS-018","claim":"With the correct IOSurface factory, both prepareChainingWithModel (daemon path) and doPrepareChainingWithModel (direct path) succeed on the ANE.","kind":"fact","confidence":"measured","source":"https://github.com/thebasedcapital/ane-infer","source_type":"primary","retrieved":"2026-09-23","topic":["private-api","chaining"],"entities":["ANE","ane-infer"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-019","claim":"coreai-build compile with --preferred-compute neural-engine can print an ANECCompileOffline failure and still exit 0, writing a GPU-only .aimodelc with an empty ErrorList.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/coreai-error-index.md","source_type":"secondary","retrieved":"2026-09-23","topic":["error-codes","silent-failure","aot"],"entities":["coreai-build","ANE","MPSGraph"],"evidence":"'ANECCompileOffline() failed: OSStatus=0, aneCompileStatus=1, statusdict={ ErrorList = ( ... )'; 4/4 reproductions 2026-08-27/28","caveat":"Linear blockwise-INT4 static weights; the palettized control compiled to 31 ANE regions","contested":false,"split":"train"}
+{"id":"GOTCHAS-020","claim":"Counting ANE region files after an AOT compile is the reliable placement check: find <bundle>.aimodelc -name '*ANE_region*' | wc -l returns 0 when the ANE compiler rejected the graph.","kind":"procedure","confidence":"documented","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/coreai-error-index.md","source_type":"secondary","retrieved":"2026-09-23","topic":["detection","aot","silent-failure"],"entities":["coreai-build","ANE"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-021","claim":"A 4B-class ANE bundle can static-load and then die on the first inference with NSPOSIXErrorDomain Code=4097 'connection to service named com.apple.ANECompilerService'.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/coreai-error-index.md","source_type":"secondary","retrieved":"2026-09-23","topic":["error-codes","4b-wall"],"entities":["ANE","ANECompilerService","iPhone-17-Pro"],"evidence":"31 ANE regions, ~518 s cold load, warmup inference fails, 2026-06-27","caveat":"Cause not isolated: the same log ends in a disk-full LLVM ERROR and a Code=16 'file not found'","contested":false,"split":"train"}
+{"id":"GOTCHAS-022","claim":"coreai-build compile can SIGSEGV inside GPU::anePreCompileBinary with no diagnostic and no .aimodelc on a static-shape LLM with linear blockwise-INT4 weights, and this crash is fixed on current builds.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/coreai-error-index.md","source_type":"secondary","retrieved":"2026-09-23","topic":["error-codes","aot","crash"],"entities":["coreai-build","MPSGraph","ANE"],"evidence":"exact repro re-run 2026-08-27 exits 0 3/3; palettized control compiles to 31 ANE regions","caveat":"Now fails silently instead of crashing on the same configuration","contested":false,"split":"holdout"}
+{"id":"GOTCHAS-023","claim":"A graph with a degenerate all-zero constant-mask subgraph segfaults coreai-pre-compilation-rewrite, and because that pass is shared, program.optimize(), AIModel.load and coreai-build compile all crash on it.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/coreai-error-index.md","source_type":"secondary","retrieved":"2026-09-23","topic":["error-codes","crash","compiler"],"entities":["coreai-pre-compilation-rewrite","AIModel","swin"],"evidence":"faulthandler stack passes.py:261 apply_passes_sync <- asset.py:230 optimize","caveat":"Reproduced on a swin U-Net no-shift path; workaround builds the constant mask outside forward","contested":false,"split":"train"}
+{"id":"GOTCHAS-024","claim":"Multi-input ANE requests on the direct MIL path cause a 0x1d error, so inputs must be packed into one spatial dimension.","kind":"gotcha","confidence":"claimed","source":"https://github.com/maderix/ANE","source_type":"primary","retrieved":"2026-09-23","topic":["private-api","mil","error-codes"],"entities":["ANE","MIL","maderix-ANE"],"caveat":"Single-input constraint is a known limitation of the direct-API training code, not independently reproduced here","contested":false,"split":"train"}
+{"id":"GOTCHAS-025","claim":"MLModelConfiguration.computeUnits = .all is a preference, not a guarantee, and Core ML will fall back to GPU or CPU without error.","kind":"gotcha","confidence":"documented","source":"/Volumes/data/local_ai_stack/repos/neural-engine/docs/running-on-ane.md","source_type":"secondary","retrieved":"2026-09-23","topic":["silent-failure","placement","coreml"],"entities":["CoreML","MLModelConfiguration","ANE"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-026","claim":"On macOS 26.3, compute_units=ALL was reported to silently route a model to the GPU instead of the ANE at approximately 0 W of ANE power.","kind":"gotcha","confidence":"claimed","source":"/Volumes/data/local_ai_stack/results/RESEARCH-SWEEP.md","source_type":"secondary","retrieved":"2026-09-23","topic":["silent-failure","placement"],"entities":["CoreML","ANE","macOS-26.3"],"caveat":"Reported in a sweep of community negative reports, not reproduced on our hardware","contested":false,"split":"train"}
+{"id":"GOTCHAS-027","claim":"On a minimal ANE-shaped graph, fp16 placed 66 ANE regions while fp32 placed 0, making dtype the first placement gate.","kind":"measurement","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/EXP-005-ane-residency/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["silent-failure","dtype","placement"],"entities":["ANE","CoreAI","M4"],"evidence":"control probe bench/probe_ane_regions.py, dtype the only variable","contested":false,"split":"train"}
+{"id":"GOTCHAS-028","claim":"A GPU fallback leaves no error string when the ANE compiler is not the failure path; the only reliable signal is the ANE region count or a hardware activity counter.","kind":"gotcha","confidence":"documented","source":"/Volumes/data/local_ai_stack/tools/enginemon/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["detection","silent-failure"],"entities":["enginemon","IOReport","ANE"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-029","claim":"SpecializationOptions.default() can silently land on CPU, so using it to isolate an accelerator failure can read a fallback as a pass.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/coreai-zero-sized-dim-abort.md","source_type":"secondary","retrieved":"2026-09-23","topic":["silent-failure","testing","placement"],"entities":["SpecializationOptions","CoreAI"],"evidence":"five graph variants 'proved fine' on default() all aborted under explicit gpu/neural_engine","contested":false,"split":"holdout"}
+{"id":"GOTCHAS-030","claim":"Anecdotally, Core ML can choose the GPU even when every layer is ANE-compatible, especially when the GPU is idle, and may prefer the GPU once a model exceeds some size.","kind":"gotcha","confidence":"claimed","source":"/Volumes/data/local_ai_stack/repos/neural-engine/docs/other.md","source_type":"secondary","retrieved":"2026-09-23","topic":["placement","silent-failure"],"entities":["CoreML","ANE","GPU"],"caveat":"Community observation, no reproducible criterion given","contested":false,"split":"train"}
+{"id":"GOTCHAS-031","claim":"The Energy Model ANE power channel is frozen on M4 and reads a constant (10945781) regardless of ANE load, so reporting its zero as 'ANE unused' is a fabricated negative.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/tools/enginemon/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["detection","instrumentation"],"entities":["IOReport","enginemon","M4"],"evidence":"constant 10945781 under idle and under a provably-ANE Core ML workload","contested":false,"split":"train"}
+{"id":"GOTCHAS-032","claim":"The SoC Stats ANE_*_TRIG channel is a free-running 24 MHz clock that advances elapsed x 24e6 regardless of load, so it must not be read as activity.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/tools/enginemon/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["detection","instrumentation"],"entities":["IOReport","enginemon"],"evidence":"5.46 s advanced 131110395 ticks with no relation to load","contested":false,"split":"train"}
+{"id":"GOTCHAS-033","claim":"Unprivileged IOReport counters AMC Stats ANE DCS RD bytes and ane 0 interrupt counts distinguish 'the ANE worked' from 'the ANE was idle' without root.","kind":"procedure","confidence":"measured","source":"/Volumes/data/local_ai_stack/tools/enginemon/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["detection","instrumentation"],"entities":["enginemon","IOReport"],"evidence":"idle 0 B / 0 interrupts; Core ML compute_units=ALL 128-171 GB and 24538-37368 interrupts in the same window","contested":false,"split":"train"}
+{"id":"GOTCHAS-034","claim":"xctrace's ane-hw-intervals instrument is blind to Core AI graphs, logging 0 intervals while a Core ML control in the same session logged 1310.","kind":"measurement","confidence":"measured","source":"/Volumes/data/local_ai_stack/tools/enginemon/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["detection","instrumentation"],"entities":["xctrace","CoreAI","CoreML"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-035","claim":"There is no public runtime API to ask which processor Core ML or Core AI used for a model.","kind":"fact","confidence":"documented","source":"/Volumes/data/local_ai_stack/repos/neural-engine/docs/is-model-using-ane.md","source_type":"secondary","retrieved":"2026-09-23","topic":["detection","placement"],"entities":["CoreML","ANE"],"caveat":"Detection is via debugger breakpoints, Instruments, or power counters instead","contested":false,"split":"train"}
+{"id":"GOTCHAS-036","claim":"FP16 backward matmuls on the ANE underflow, and the fix in maderix/ANE is a global loss scale of 256 x NLAYERS.","kind":"gotcha","confidence":"documented","source":"https://github.com/maderix/ANE","source_type":"primary","retrieved":"2026-09-23","topic":["numerics","training","fp16"],"entities":["ANE","maderix-ANE"],"evidence":"Limitations section: 'FP16 gradient underflow ... fixed with global loss scaling (256 * NLAYERS)'","contested":false,"split":"holdout"}
+{"id":"GOTCHAS-037","claim":"ANE SDPA ignores attn_mask in hardware, so causal attention must be decomposed as Q@K^T on the ANE, mask+softmax on the CPU, then scores@V on the ANE.","kind":"gotcha","confidence":"documented","source":"https://github.com/maderix/ANE","source_type":"primary","retrieved":"2026-09-23","topic":["numerics","attention","sdpa"],"entities":["ANE","SDPA","maderix-ANE"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-038","claim":"The ANE softmax mishandles IEEE -inf, so a causal mask must use -40000.0 rather than -inf.","kind":"gotcha","confidence":"documented","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/compute-units-and-authoring.md","source_type":"secondary","retrieved":"2026-09-23","topic":["numerics","attention"],"entities":["ANE","CoreAI"],"evidence":"causal mask shape (1, key, 1, query), masked value -40000.0","contested":false,"split":"train"}
+{"id":"GOTCHAS-039","claim":"The ANE appears to use fp16 for all weights and intermediates, so activations larger than about 1e2 or smaller than about 1e-4 lose precision and very small values become 0.","kind":"gotcha","confidence":"documented","source":"/Volumes/data/local_ai_stack/repos/neural-engine/docs/16-bit.md","source_type":"secondary","retrieved":"2026-09-23","topic":["numerics","fp16"],"entities":["ANE"],"caveat":"Community observation; the same file flags 16-bit weight storage as sometimes slower than 32-bit on the ANE","contested":false,"split":"train"}
+{"id":"GOTCHAS-040","claim":"A 4-bit k-means-g32 MiniCPM5-2B ANE bundle passed the 3-prompt token gate and then scored 131/200 on GSM8K versus 172/200 for the fp32 checkpoint, a 20-point task-accuracy loss.","kind":"measurement","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/ane-quality-gate.md","source_type":"secondary","retrieved":"2026-09-23","topic":["numerics","quantization","evaluation"],"entities":["MiniCPM5-2B","ANE","GSM8K"],"evidence":"4-bit g32 phone 131; fp32 Mac 172; 6-bit g8 phone 173","contested":false,"split":"train"}
+{"id":"GOTCHAS-041","claim":"Keeping RMSNorm reductions in fp32 on an otherwise fp16/int8 ANE model is required to prevent bounding boxes collapsing and caption tails degrading because true-fp16 reductions lose too much precision.","kind":"gotcha","confidence":"documented","source":"https://github.com/shershah1024/lfm2.5-vl-ane","source_type":"primary","retrieved":"2026-09-23","topic":["numerics","reductions","fp16"],"entities":["ANE","LFM2.5-VL-450M","RMSNorm"],"evidence":"language residency ~92% of cost, not 100%, because the reductions stay fp32","contested":false,"split":"train"}
+{"id":"GOTCHAS-042","claim":"A float32 embedding table forces coreai-build to emit 0 ANE regions and the whole model falls back to the GPU, so --disable-embedding-quantization-ios is not an ANE arm.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/ane-vs-gpu-iphone-2026-09.md","source_type":"secondary","retrieved":"2026-09-23","topic":["dtype","placement","quantization"],"entities":["coreai-build","ANE","Qwen3-1.7B"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-043","claim":"MPSGraph's fused SDPA requires a single head_dim; a model whose qk_head_dim differs from v_head_dim fails to lower with 'query and value must have matching inner dimension but have 192 and 128'.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/compression-reference.md","source_type":"secondary","retrieved":"2026-09-23","topic":["numerics","sdpa","mla"],"entities":["MPSGraph","SDPA","Ling-3.0-tiny"],"evidence":"Ling-3.0-tiny qk 192, v 128, 2026-08-21; fix pads V in KV cache and slices the output","contested":false,"split":"train"}
+{"id":"GOTCHAS-044","claim":"A fixed-capacity KV cache must be zero-initialised rather than NaN-initialised because 0 * NaN = NaN survives a masked SDPA in a fixed graph.","kind":"gotcha","confidence":"documented","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/README.md","source_type":"secondary","retrieved":"2026-09-23","topic":["numerics","kv-cache"],"entities":["CoreAI","SDPA"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-045","claim":"Pruned SD-2.1 attention overflows to NaN in fp16 and upcast_attention has no effect because the diffusers SDPA processor ignores it, so fp32 is the shipped precision.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/adcsr-super-resolution.md","source_type":"secondary","retrieved":"2026-09-23","topic":["numerics","fp16"],"entities":["SD-2.1","CoreAI"],"evidence":"fp32 matches the torch reference at cosine 1.000012","contested":false,"split":"train"}
+{"id":"GOTCHAS-046","claim":"int4 weights (linear or k-means) flip the next-token argmax for these LLMs, making int8 the practical exactness floor and int8 mandatory for the gate/up MLP.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/performance-ceiling.md","source_type":"secondary","retrieved":"2026-09-23","topic":["numerics","quantization"],"entities":["CoreAI"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-047","claim":"FP16 softplus overflow was reported as a distinct ANE numerical failure alongside a W4+ANE segfault at coremltools 9.0.","kind":"gotcha","confidence":"claimed","source":"/Volumes/data/local_ai_stack/results/RESEARCH-SWEEP.md","source_type":"secondary","retrieved":"2026-09-23","topic":["numerics","fp16"],"entities":["ANE","coremltools"],"caveat":"Listed in a community negative-report sweep; no reproduced log in this corpus","contested":false,"split":"holdout"}
+{"id":"GOTCHAS-048","claim":"Using 16-bit-float weight storage in an mlmodel was observed to be slower on the ANE than 32-bit storage, though the cause was not established.","kind":"gotcha","confidence":"claimed","source":"/Volumes/data/local_ai_stack/repos/neural-engine/docs/other.md","source_type":"secondary","retrieved":"2026-09-23","topic":["numerics","performance"],"entities":["ANE","CoreML"],"caveat":"Author states he is not sure what is going on; anecdotal","contested":false,"split":"train"}
+{"id":"GOTCHAS-049","claim":"Direct use of _ANEClient and _ANECompiler private APIs may break with any macOS update because the APIs carry no public stability guarantee.","kind":"gotcha","confidence":"documented","source":"https://github.com/maderix/ANE","source_type":"primary","retrieved":"2026-09-23","topic":["platform","private-api"],"entities":["_ANEClient","_ANECompiler","ANE"],"evidence":"repository disclaimer","contested":false,"split":"train"}
+{"id":"GOTCHAS-050","claim":"The ane-infer project states its private-API usage breaks with macOS updates and is not production-ready.","kind":"gotcha","confidence":"documented","source":"https://github.com/thebasedcapital/ane-infer","source_type":"primary","retrieved":"2026-09-23","topic":["platform","private-api"],"entities":["ANE","ane-infer"],"evidence":"'Not production-ready. Private API usage means it breaks with macOS updates.'","contested":false,"split":"train"}
+{"id":"GOTCHAS-051","claim":"An OS build update invalidates every specialization cache, forcing ANE bundles to rebuild their programs on first load, measured at 325 s for a 2B 8-bit bundle and 795 s for a Qwen3-1.7B 6-bit bundle.","kind":"measurement","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/ane-vs-gpu-iphone-2026-09.md","source_type":"secondary","retrieved":"2026-09-23","topic":["platform","aot","cache"],"entities":["ANE","iPhone-17-Pro","coreai-cache"],"evidence":"24A435 -> 24A437 update; ~22 GB old cache became dead weight","contested":false,"split":"train"}
+{"id":"GOTCHAS-052","claim":"The ANE compiler leaks and allows roughly 119 compiles per process before failing, worked around in maderix/ANE with an exec() restart plus checkpoint.","kind":"gotcha","confidence":"documented","source":"https://github.com/maderix/ANE","source_type":"primary","retrieved":"2026-09-23","topic":["platform","compiler","limits"],"entities":["ANE","maderix-ANE"],"evidence":"Limitations: '~119 compile limit ... worked around via exec() restart with checkpoint'","caveat":"Exact count is a reported figure, not a published specification","contested":false,"split":"train"}
+{"id":"GOTCHAS-053","claim":"On iOS the on-device compiler miscompiles dynamically-sized-KV specializations at sequence length 2048 or greater, corrupting output from the first generated token.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/undocumented-answers.md","source_type":"secondary","retrieved":"2026-09-23","topic":["platform","kv-cache","correctness"],"entities":["CoreAI","iOS"],"evidence":"shipped workaround caps a pipelined turn's KV pre-grow at 1024 on iOS; coreai-kit#5","contested":false,"split":"train"}
+{"id":"GOTCHAS-054","claim":"Apple Watch S12 and Ultra 4 reboots were traced to an ANE timeout in panic-full logs.","kind":"gotcha","confidence":"claimed","source":"/Volumes/data/local_ai_stack/results/RESEARCH-SWEEP.md","source_type":"secondary","retrieved":"2026-09-23","topic":["platform","device-reset","ane-timeout"],"entities":["ANE","Apple-Watch"],"caveat":"Reported in a sweep of community reports; no primary log fetched or reproduced here","contested":false,"split":"holdout"}
+{"id":"GOTCHAS-055","claim":"An iOS 27 background-ANE entitlement change was reported, along with a report that the ANE is not revoked when an app backgrounds (unlike the GPU) and retains 79% throughput.","kind":"gotcha","confidence":"claimed","source":"/Volumes/data/local_ai_stack/results/RESEARCH-SWEEP.md","source_type":"secondary","retrieved":"2026-09-23","topic":["platform","ios","background"],"entities":["ANE","iOS-27","GPU"],"caveat":"Secondary sweep report; verify on our own device before relying on it","contested":false,"split":"train"}
+{"id":"GOTCHAS-056","claim":"A data-indexed mutable_slice_update write SIGSEGVs the WWDC26 beta on GPU+ANE, so a shape-symint index or host cache must be used instead.","kind":"gotcha","confidence":"documented","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/compute-units-and-authoring.md","source_type":"secondary","retrieved":"2026-09-23","topic":["platform","state","kv-cache"],"entities":["mutable_slice_update","CoreAI","GPU","ANE"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-057","claim":"expectFrequentReshapes on a fixed-shape graph kills an AOT bundle on iOS: the runtime abandons the specialization, compiles on device, and segfaults in the MPSGraph AICode compiler with no error string.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/von-ane-crash-research.md","source_type":"our-own","retrieved":"2026-09-23","topic":["platform","aot","crash"],"entities":["expectFrequentReshapes","AOT","MPSGraph","iOS"],"caveat":"Swift-only concern; not exposed in the Python runtime","contested":false,"split":"train"}
+{"id":"GOTCHAS-058","claim":"On the ANE path there is a hard weight-size wall located between about 1.70 GB of weights (runs) and 2.16 GB (loads but the first generation never returns) on one iPhone.","kind":"measurement","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/ane-vs-gpu-iphone-2026-09.md","source_type":"secondary","retrieved":"2026-09-23","topic":["platform","weight-size","limits"],"entities":["ANE","MiniCPM5-2B","iPhone-17-Pro"],"evidence":"the 6-bit 2B is a 2.5 GB bundle that works (1.70 GB weights); 8-bit 2.16 GB never returns","caveat":"Boundary is specific to this model/phone; practical rule is to stay under ~1.7 GB of weights per static bundle","contested":false,"split":"train"}
+{"id":"GOTCHAS-059","claim":"A 4B-class ANE bundle static-loads but the warmup inference fails (ANECompilerService Code=4097), leaving the GPU AOT bundle as the only on-device path at that size.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/undocumented-answers.md","source_type":"secondary","retrieved":"2026-09-23","topic":["platform","4b-wall"],"entities":["ANE","CoreAI","ANECompilerService"],"evidence":"31 ANE regions, about 518 s cold load, on-device runs 2026-06-27","contested":false,"split":"train"}
+{"id":"GOTCHAS-060","claim":"Only 10 of 652 Core AI assets in one survey compile to the ANE; the other 642 target the GPU.","kind":"measurement","confidence":"claimed","source":"/Volumes/data/local_ai_stack/results/RESEARCH-SWEEP.md","source_type":"secondary","retrieved":"2026-09-23","topic":["placement","measurement","silent-failure"],"entities":["CoreAI","ANE","GPU"],"caveat":"Survey reported in the sweep; the counting method is not stated here","contested":false,"split":"holdout"}
+{"id":"GOTCHAS-061","claim":"A disk-full AOT compile can produce a same-size but corrupt ANE bundle that segfaults at load_function with no diagnostic while the bundle size and ANE region count look healthy.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/von-ane-crash-research.md","source_type":"our-own","retrieved":"2026-09-23","topic":["aot","disk-space","crash"],"entities":["Von-1.0","AOT","ANE","load_function"],"evidence":"758 MB bundle identical in size to a good one; re-export with 35 GiB free loaded 5/5; was 0/8 with the disk-full bundle","contested":false,"split":"train"}
+{"id":"GOTCHAS-062","claim":"coreai-build compile exits 0 for any requested architecture, so a successful compile does not validate the architecture choice; only a device load does.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/von-ane-crash-research.md","source_type":"our-own","retrieved":"2026-09-23","topic":["aot","tooling"],"entities":["coreai-build","M4"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-063","claim":"Core AI architecture names track the device identifier, not the marketing name: M4 Max is h16c and h16g raises RuntimeError there, while a base M4 is h16g.","kind":"fact","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/von-ane-crash-research.md","source_type":"our-own","retrieved":"2026-09-23","topic":["aot","tooling","architecture"],"entities":["coreai-build","M4","M4-Max"],"contested":false,"split":"train"}
+{"id":"GOTCHAS-064","claim":"A published Core AI bundle with a neuralEngine preference can compile to 0 ANE regions and run entirely on the GPU, which is the project's definition of silent GPU fallback.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/EXP-005-ane-residency/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["silent-failure","placement"],"entities":["Granite-Embedding-97M","ANE","GPU","CoreAI"],"evidence":"fp32 published variant: 0 ANE regions, 0 GB ANE moved, 0 ANE interrupts, 10390 mW GPU","contested":false,"split":"train"}
+{"id":"GOTCHAS-065","claim":"An fp16 ANE graph carrying an fp32 softmax, a Python float scale, and a .float() pooling cast ran on the ANE but 3x slower than the GPU path until the f32-isms were removed.","kind":"measurement","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/EXP-005-ane-residency/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["numerics","dtype","performance"],"entities":["Granite-Embedding-97M","ANE","M4"],"evidence":"warm median 13.14 ms (v0) -> 5.18 ms (v1, fp16 softmax) -> 4.00 ms (v3); GPU 10,390 -> 83 mW","contested":false,"split":"train"}
+{"id":"GOTCHAS-066","claim":"Fewer, larger ANE regions is better, not worse: ANE region count is a shape metric and not a quality metric.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/EXP-005-ane-residency/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["placement","performance"],"entities":["ANE","Granite-Embedding-97M"],"evidence":"v0 13 regions/122832 interrupts vs v3 1 region/13472 interrupts at ~88 GB ANE moved both","contested":false,"split":"train"}
+{"id":"GOTCHAS-067","claim":"On our sustained iPhone run the ANE decode rate fell about 31% once the device thermal state went from fair to serious, from 75.8 to roughly 52 tok/s.","kind":"measurement","confidence":"measured","source":"/Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/ane-vs-gpu-iphone-2026-09.md","source_type":"secondary","retrieved":"2026-09-23","topic":["performance","thermal"],"entities":["ANE","MiniCPM5-1B","iPhone-17-Pro"],"evidence":"3 s 76.2 (fair) -> 119 s 55.6 (serious) -> plateau ~52 over 601 s","contested":false,"split":"train"}
+{"id":"GOTCHAS-068","claim":"An fp8-on-ANE conclusion can only be reached from documentation here because exporting an fp8 arm failed at the torch level with 'normal_kernel_cpu not implemented for Float8_e4m3fn'.","kind":"gotcha","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/EXP-005-ane-residency/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["numerics","dtype","tooling"],"entities":["torch","fp8","ANE"],"caveat":"The fp8 unsupported conclusion rests on documentation, not on our own measurement","contested":false,"split":"train"}
+{"id":"GOTCHAS-069","claim":"The cause of the slow tail in the EXP-005 fp16 ANE variant is unidentified, and enginemon showing 0 B / 0 interrupts on an idle system rules out a persistent background ANE consumer.","kind":"open-question","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/EXP-005-ane-residency/README.md","source_type":"our-own","retrieved":"2026-09-23","topic":["performance","open-question"],"entities":["ANE","Granite-Embedding-97M","enginemon"],"evidence":"candidates include ANE power-state transitions between dispatches or buffer recycling; needs a trace correlating slow samples with ane-hw-intervals","contested":false,"split":"train"}
+{"id":"GOTCHAS-070","claim":"An ANE run that produces a correct answer can still be architecturally pointlessly slow: an NLI-adapted model that makes one graph call per option stayed 2.5x slower than CPU on the ANE.","kind":"measurement","confidence":"measured","source":"/Volumes/data/local_ai_stack/results/von-ane-crash-research.md","source_type":"our-own","retrieved":"2026-09-23","topic":["performance","shape-design"],"entities":["ANE","Von-1.0","Laya"],"evidence":"Von 246 ms ANE vs 98 ms CPU for 5 sequential calls; Laya's single-pass head was 29x faster on the ANE","contested":false,"split":"train"}
+```
+
+---
+
+## Sources
+
+Licences are as declared where a file or page was read; where nothing was declared, that is said.
+
+| source | type | licence / terms |
+|---|---|---|
+| https://eiln.github.io/posts/ane-dma.html | blog post, primary | No licence declared; copyright belongs to the author. Read and cited; no verbatim prose redistributed. |
+| https://news.ycombinator.com/item?id=49636479 | HN thread, secondary | Hacker News user content under HN's terms; individual comments are their authors'. |
+| https://github.com/maderix/ANE | repository README, primary | **MIT** (repo declares MIT; `LICENSE` file present). |
+| https://github.com/thebasedcapital/ane-infer | repository README, primary | No licence file observed in the fetched repository listing; treated as unlicensed, cite-only. |
+| https://github.com/shershah1024/lfm2.5-vl-ane | repository README, primary | `LICENSE` and `MODEL_LICENSE` files present (not read this pass); model weight licence separate. |
+| /Volumes/data/local_ai_stack/repos/neural-engine/docs/ (is-model-using-ane.md, ane-vs-gpu.md, unsupported-layers.md, other.md, os-log.md, 16-bit.md, running-on-ane.md) | local community reference, secondary | Community documentation (hollance/neural-engine lineage); licence not verified this pass. |
+| /Volumes/data/local_ai_stack/repos/coreai-model-zoo/knowledge/ (coreai-error-index.md, coreai-zero-sized-dim-abort.md, coreai-torch-041-ir-incident.md, undocumented-answers.md, ane-quality-gate.md, ane-vs-gpu-iphone-2026-09.md, coreai-ane-partition-cost.md, compute-units-and-authoring.md, compression-reference.md, adcsr-super-resolution.md, performance-ceiling.md, README.md) | local knowledge base, secondary | Our own fork's knowledge base (coreai-model-zoo); internal, no external licence. |
+| /Volumes/data/local_ai_stack/tools/enginemon/README.md | our tool, our-own | Our project. |
+| /Volumes/data/local_ai_stack/results/RESEARCH-SWEEP.md | our sweep, secondary | Our project; aggregates community reports with inline citations. |
+| /Volumes/data/local_ai_stack/results/EXP-005-ane-residency/README.md | our experiment, our-own | Our project. |
+| /Volumes/data/local_ai_stack/results/von-ane-crash-research.md | our investigation, our-own | Our project. |
+| /Volumes/data/local_ai_stack/knowledge/ane/00-DESIGN.md | schema, our-own | Our project. |
+
+Unreachable or unverified this pass: the M1/M5 Max DMA claim was read only as an HN comment (the
+linked X post was not fetched); the iOS 27 background-ANE entitlement report, the Apple Watch ANE
+timeout, the 10-of-652 asset count, and the fp16-softplus / W4+ANE / state-mutation reports were
+read only inside `results/RESEARCH-SWEEP.md`, which does not cite a primary URL for each. They are
+marked `confidence: claimed` for that reason.

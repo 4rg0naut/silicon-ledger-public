@@ -1,0 +1,3 @@
+=== m5-final-coreai ===
+  ANE intervals      : 0
+  ANE busy (total)   : 0.00 ms

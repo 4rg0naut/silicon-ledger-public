@@ -1,0 +1,479 @@
+[
+  {
+    "id": "LANDSCAPE-008",
+    "gold": "partial",
+    "pred": "partial",
+    "conf": 0.6493,
+    "p_ent": 0.2818,
+    "p_neu": 0.6493,
+    "p_con": 0.0689
+  },
+  {
+    "id": "LANDSCAPE-016",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9866,
+    "p_ent": 0.9866,
+    "p_neu": 0.0104,
+    "p_con": 0.003
+  },
+  {
+    "id": "LANDSCAPE-023",
+    "gold": "yes",
+    "pred": "partial",
+    "conf": 0.9049,
+    "p_ent": 0.0006,
+    "p_neu": 0.9049,
+    "p_con": 0.0945
+  },
+  {
+    "id": "LANDSCAPE-025",
+    "gold": "no",
+    "pred": "partial",
+    "conf": 0.9762,
+    "p_ent": 0.0122,
+    "p_neu": 0.9762,
+    "p_con": 0.0116
+  },
+  {
+    "id": "LANDSCAPE-031",
+    "gold": "partial",
+    "pred": "partial",
+    "conf": 0.9756,
+    "p_ent": 0.0002,
+    "p_neu": 0.9756,
+    "p_con": 0.0242
+  },
+  {
+    "id": "LANDSCAPE-041",
+    "gold": "no",
+    "pred": "partial",
+    "conf": 0.8347,
+    "p_ent": 0.0206,
+    "p_neu": 0.8347,
+    "p_con": 0.1447
+  },
+  {
+    "id": "LANDSCAPE-061",
+    "gold": "yes",
+    "pred": "partial",
+    "conf": 0.4032,
+    "p_ent": 0.3479,
+    "p_neu": 0.4032,
+    "p_con": 0.249
+  },
+  {
+    "id": "API-011",
+    "gold": "partial",
+    "pred": "no",
+    "conf": 0.5586,
+    "p_ent": 0.2277,
+    "p_neu": 0.2136,
+    "p_con": 0.5586
+  },
+  {
+    "id": "API-022",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9999,
+    "p_ent": 0.9999,
+    "p_neu": 0.0,
+    "p_con": 0.0001
+  },
+  {
+    "id": "API-035",
+    "gold": "yes",
+    "pred": "no",
+    "conf": 0.6316,
+    "p_ent": 0.1724,
+    "p_neu": 0.196,
+    "p_con": 0.6316
+  },
+  {
+    "id": "API-042",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9994,
+    "p_ent": 0.9994,
+    "p_neu": 0.0003,
+    "p_con": 0.0003
+  },
+  {
+    "id": "API-055",
+    "gold": "partial",
+    "pred": "yes",
+    "conf": 0.8079,
+    "p_ent": 0.8079,
+    "p_neu": 0.0447,
+    "p_con": 0.1475
+  },
+  {
+    "id": "API-066",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9889,
+    "p_ent": 0.9889,
+    "p_neu": 0.0087,
+    "p_con": 0.0024
+  },
+  {
+    "id": "API-071",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9753,
+    "p_ent": 0.9753,
+    "p_neu": 0.0176,
+    "p_con": 0.0071
+  },
+  {
+    "id": "API-081",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9997,
+    "p_ent": 0.9997,
+    "p_neu": 0.0002,
+    "p_con": 0.0001
+  },
+  {
+    "id": "API-096",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9964,
+    "p_ent": 0.9964,
+    "p_neu": 0.0027,
+    "p_con": 0.001
+  },
+  {
+    "id": "FORMAT-006",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.6998,
+    "p_ent": 0.6998,
+    "p_neu": 0.2962,
+    "p_con": 0.004
+  },
+  {
+    "id": "FORMAT-016",
+    "gold": "partial",
+    "pred": "yes",
+    "conf": 0.9484,
+    "p_ent": 0.9484,
+    "p_neu": 0.0439,
+    "p_con": 0.0077
+  },
+  {
+    "id": "FORMAT-024",
+    "gold": "yes",
+    "pred": "partial",
+    "conf": 0.5657,
+    "p_ent": 0.0926,
+    "p_neu": 0.5657,
+    "p_con": 0.3417
+  },
+  {
+    "id": "FORMAT-043",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9959,
+    "p_ent": 0.9959,
+    "p_neu": 0.0013,
+    "p_con": 0.0028
+  },
+  {
+    "id": "FORMAT-051",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9743,
+    "p_ent": 0.9743,
+    "p_neu": 0.0072,
+    "p_con": 0.0185
+  },
+  {
+    "id": "FORMAT-065",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9989,
+    "p_ent": 0.9989,
+    "p_neu": 0.0007,
+    "p_con": 0.0004
+  },
+  {
+    "id": "FORMAT-074",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9972,
+    "p_ent": 0.9972,
+    "p_neu": 0.0013,
+    "p_con": 0.0015
+  },
+  {
+    "id": "FORMAT-084",
+    "gold": "yes",
+    "pred": "partial",
+    "conf": 0.8855,
+    "p_ent": 0.033,
+    "p_neu": 0.8855,
+    "p_con": 0.0815
+  },
+  {
+    "id": "FORMAT-093",
+    "gold": "partial",
+    "pred": "partial",
+    "conf": 0.4135,
+    "p_ent": 0.2093,
+    "p_neu": 0.4135,
+    "p_con": 0.3772
+  },
+  {
+    "id": "RUNTIME-001",
+    "gold": "partial",
+    "pred": "partial",
+    "conf": 0.8913,
+    "p_ent": 0.0,
+    "p_neu": 0.8913,
+    "p_con": 0.1087
+  },
+  {
+    "id": "RUNTIME-013",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9626,
+    "p_ent": 0.9626,
+    "p_neu": 0.0195,
+    "p_con": 0.0179
+  },
+  {
+    "id": "RUNTIME-020",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9997,
+    "p_ent": 0.9997,
+    "p_neu": 0.0002,
+    "p_con": 0.0001
+  },
+  {
+    "id": "RUNTIME-027",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9999,
+    "p_ent": 0.9999,
+    "p_neu": 0.0001,
+    "p_con": 0.0001
+  },
+  {
+    "id": "RUNTIME-031",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 1.0,
+    "p_ent": 1.0,
+    "p_neu": 0.0,
+    "p_con": 0.0
+  },
+  {
+    "id": "RUNTIME-042",
+    "gold": "yes",
+    "pred": "partial",
+    "conf": 0.4925,
+    "p_ent": 0.0817,
+    "p_neu": 0.4925,
+    "p_con": 0.4258
+  },
+  {
+    "id": "RUNTIME-051",
+    "gold": "partial",
+    "pred": "partial",
+    "conf": 0.8041,
+    "p_ent": 0.0538,
+    "p_neu": 0.8041,
+    "p_con": 0.1421
+  },
+  {
+    "id": "GOTCHAS-005",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.8147,
+    "p_ent": 0.8147,
+    "p_neu": 0.1658,
+    "p_con": 0.0194
+  },
+  {
+    "id": "GOTCHAS-022",
+    "gold": "partial",
+    "pred": "yes",
+    "conf": 0.9966,
+    "p_ent": 0.9966,
+    "p_neu": 0.0006,
+    "p_con": 0.0028
+  },
+  {
+    "id": "GOTCHAS-029",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9997,
+    "p_ent": 0.9997,
+    "p_neu": 0.0003,
+    "p_con": 0.0001
+  },
+  {
+    "id": "GOTCHAS-036",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.8025,
+    "p_ent": 0.8025,
+    "p_neu": 0.1459,
+    "p_con": 0.0517
+  },
+  {
+    "id": "GOTCHAS-047",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9927,
+    "p_ent": 0.9927,
+    "p_neu": 0.0036,
+    "p_con": 0.0037
+  },
+  {
+    "id": "GOTCHAS-054",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9764,
+    "p_ent": 0.9764,
+    "p_neu": 0.0157,
+    "p_con": 0.0078
+  },
+  {
+    "id": "GOTCHAS-060",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9296,
+    "p_ent": 0.9296,
+    "p_neu": 0.0566,
+    "p_con": 0.0138
+  },
+  {
+    "id": "MEASURE-023",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9996,
+    "p_ent": 0.9996,
+    "p_neu": 0.0002,
+    "p_con": 0.0002
+  },
+  {
+    "id": "MEASURE-038",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9987,
+    "p_ent": 0.9987,
+    "p_neu": 0.0008,
+    "p_con": 0.0005
+  },
+  {
+    "id": "MEASURE-045",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9877,
+    "p_ent": 0.9877,
+    "p_neu": 0.0094,
+    "p_con": 0.0029
+  },
+  {
+    "id": "MEASURE-051",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.992,
+    "p_ent": 0.992,
+    "p_neu": 0.0035,
+    "p_con": 0.0044
+  },
+  {
+    "id": "MEASURE-064",
+    "gold": "partial",
+    "pred": "yes",
+    "conf": 0.4835,
+    "p_ent": 0.4835,
+    "p_neu": 0.4191,
+    "p_con": 0.0973
+  },
+  {
+    "id": "MEASURE-073",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9996,
+    "p_ent": 0.9996,
+    "p_neu": 0.0002,
+    "p_con": 0.0002
+  },
+  {
+    "id": "MEASURE-081",
+    "gold": "yes",
+    "pred": "partial",
+    "conf": 0.9841,
+    "p_ent": 0.0011,
+    "p_neu": 0.9841,
+    "p_con": 0.0148
+  },
+  {
+    "id": "MEASURE-093",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9995,
+    "p_ent": 0.9995,
+    "p_neu": 0.0002,
+    "p_con": 0.0002
+  },
+  {
+    "id": "MEASURE-106",
+    "gold": "yes",
+    "pred": "partial",
+    "conf": 0.6879,
+    "p_ent": 0.2799,
+    "p_neu": 0.6879,
+    "p_con": 0.0323
+  },
+  {
+    "id": "MEASURE-114",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9975,
+    "p_ent": 0.9975,
+    "p_neu": 0.0023,
+    "p_con": 0.0002
+  },
+  {
+    "id": "MEASURE-118",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.9985,
+    "p_ent": 0.9985,
+    "p_neu": 0.0011,
+    "p_con": 0.0003
+  },
+  {
+    "id": "MEASURE-127",
+    "gold": "yes",
+    "pred": "partial",
+    "conf": 0.7738,
+    "p_ent": 0.2138,
+    "p_neu": 0.7738,
+    "p_con": 0.0124
+  },
+  {
+    "id": "MEASURE-142",
+    "gold": "yes",
+    "pred": "yes",
+    "conf": 0.999,
+    "p_ent": 0.999,
+    "p_neu": 0.0004,
+    "p_con": 0.0006
+  },
+  {
+    "id": "MEASURE-145",
+    "gold": "partial",
+    "pred": "partial",
+    "conf": 0.9551,
+    "p_ent": 0.0188,
+    "p_neu": 0.9551,
+    "p_con": 0.0261
+  }
+]
