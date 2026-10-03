@@ -25,3 +25,11 @@ FLEET GAP-3).
 
 Regeneration rule: re-run `tools/archive/inventory.py` + the manifest sweep;
 append new rows/dated lines here. Never rewrite existing rows.
+
+## Open threads (dated appends)
+
+- 2026-10-03: mini home tree (659 docs) and HUB/archive (3,957 docs to 2023-10)
+  undistilled; grounding-span re-derivation still mini-side (FLEET GAP-3); M5
+  energy sudo run pending (GAP-1); harness-era sweep drivers not yet in-tree
+  (GAP-2); P3 re-bake hash pins for Laya/Granite pending; raw.githubusercontent
+  propagation of new paths can lag ~minutes after a mirror push.
