@@ -46,6 +46,7 @@ python3 bench/import_bench_reports.py examples/2026-09-26T02-14-33Z-bda452aabd60
 ```
 
 Scripts and logs: `raw/` here, full (incl. traces) at `/Volumes/data/OpenFox/dev_m5max_re/exp022-raw/`.
+Integrity of that scratch tree: `cd exp022-raw && shasum -a 256 -c MANIFEST.sha256` (3486 files).
 
 ## Numbers
 
