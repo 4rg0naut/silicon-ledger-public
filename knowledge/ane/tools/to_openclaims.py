@@ -66,6 +66,12 @@ GROUND = ROOT / "grounding" / "cache"
 OUT = ROOT / "openclaims"
 NOW = "2026-09-23T12:00:00Z"
 
+
+def claimed_at(r: dict) -> str:
+    """Emission timestamps follow the record's own retrieved date, not one fixed
+    constant -- a fixed NOW backdated later batches ten days (found in review)."""
+    return f"{r.get('retrieved', '2026-09-23')}T12:00:00Z"
+
 import openclaims as oc
 
 SCHEMA_URL = "https://openclaims.org/schemas/openclaims/0.1/ClaimEvent.schema.json"
@@ -261,18 +267,18 @@ def main():
 
         ev = {
             "event_type": "claim.emitted",
-            "event_time": NOW,
+            "event_time": claimed_at(r),
             "spec_version": "0.1.0",
             "schema_url": SCHEMA_URL,
             "producer": WRITER,
             "claim": {
                 "claim_id": cid(r["id"]), "text": r["claim"],
                 "claim_type": CTYPE.get(r.get("kind"), "factual"),
-                "asserted_at": NOW, "derived_from_claims": [], "relations": [],
+                "asserted_at": claimed_at(r), "derived_from_claims": [], "relations": [],
                 "facets": {"silicon-ledger": facet},
             },
             "sources": [{"source_id": src_id, "uri": src,
-                         "retrieved_at": NOW, "license": r.get("license", "see SOURCES.md")}],
+                         "retrieved_at": claimed_at(r), "license": r.get("license", "see SOURCES.md")}],
             "evidence": [],
             "tool_runs": [{"tool_run_id": f"run_{_slug(r['id'])}", "tool_type": "knowledge_capture",
                            "tool": {"name": "kb-writing-agent", "provider": "local"}}],

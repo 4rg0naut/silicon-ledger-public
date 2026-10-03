@@ -40,10 +40,17 @@ field + raw `LICENSE` path), as recorded in LANDSCAPE-037 and neighbors.
 
 ## Tooling our bench imports (adapted where a row says so — nothing vendored)
 
+> The `bench/…` paths below are the driver names as recorded at capture time. If a
+> name is no longer under `bench/`, it is either a mini harness-era driver that was
+> never in this repo's history (archive-only: `bench_coreai.py`, `run_bench004.py`,
+> `run_bench003_005.py`, `coreai_bench002.py`, `build_fork_granite.py`,
+> `llama_real_bench.py`, `ane_real.py`) or a relocated port (`convert_encoder_coreml.py`
+> → `ports/`, P3 split) — verify any name with `git log --all -- "*<name>"`.
+
 | Tool | License | Where |
 |---|---|---|
 | `coremltools` 9 | BSD-3-Clause (Apple) | `bench/bench_coreai.py`, `bench/run_bench004.py` |
-| `coreai_torch` TorchConverter | upstream (see tool repo) | `bench/coreai_bench002.py` — header cites it |
+| `coreai_torch` TorchConverter | upstream (see tool repo) | `bench/coreai_bench002.py` — header cites it (archive-only driver name, no in-tree copy) |
 | `torch`, `transformers` | BSD-3 / Apache-2.0 | `bench/llama_real_bench.py` (via JevBench's tooling) |
 | `safetensors` | Apache-2.0 | `bench/run_bench003_005.py` |
 | JevBench | upstream (author's harness) | `bench/llama_real_bench.py` — header: "uses JevBench's tooling (imported)" |
