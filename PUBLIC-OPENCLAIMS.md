@@ -54,3 +54,9 @@ repository, as above.)
 - The converter (`knowledge/ane/tools/to_openclaims.py`) documents every
   mapping decision in its own header, including our confidence labels and
   where they went.
+- The digests in these files are self-referential hashes over each full
+  event. On this public mirror, private paths inside provenance fields were
+  rewritten by the publisher's redaction rules, and every affected event's
+  digest was then **re-pinned with the SDK's own `with_event_digest()`** at
+  publication time — so `--check` above verifies the bytes you actually
+  have. The private corpus's digests differ only by those path strings.

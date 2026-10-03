@@ -47,13 +47,16 @@ That resolution depends on the repository being **public**:
 
 - **`silicon-ledger-bench`** — public; its facet schema lands with the v0.1.x facet work and its
   URL then resolves.
-- **`silicon-ledger`** — **private until publication** (owner decision). Its URL
-  (`.../silicon-ledger/main/schemas/facets/silicon-ledger/1.json`) therefore returns **HTTP 404**
-  today. This is **declared, not asserted**: the schema file is committed in-repo at
-  `schemas/facets/silicon-ledger/1.json` and the URL becomes live at publication; no facet data
-  depends on URL reachability for local consumption (the schema travels with the corpus), and the
-  URL is a forward-pinned identifier, not evidence.
+- **`silicon-ledger`** — **private, stays private** (owner decision); logged out it returns
+  **HTTP 404**, which is correct. The published content lives in its public mirror
+  **`silicon-ledger-public`**, and this contract hereby declares the **mirror the canonical
+  public host** for the schema URL:
+  `https://raw.githubusercontent.com/4rg0naut/silicon-ledger-public/main/schemas/facets/silicon-ledger/1.json`
+  — it resolves (HTTP 200). The mirror is regenerated deterministically by
+  `tools/publish/publish.sh` (redaction rules in `tools/publish/redaction.json`), one squashed
+  commit at a time, each mirror commit naming the private commit it was generated from.
 
-Until the ledger repo is public, a consumer validating facets over the network will find a
-dangling identifier on the `silicon-ledger` side. That is the honest state; it changes in one
-action (publishing the repo), after which both URLs resolve and no record needs to change.
+Consumers validating facets over the network must pin the mirror URL above; the private-repo
+URL of the same path remains 404 by design. Publication log, 2026-10-03: mirror initialised at
+`36c44bb` from private `0d7f1f1` (259 files) — mirror schema URL → **200**, private repo
+logged out → **404**, both verified with `curl` at publication time.

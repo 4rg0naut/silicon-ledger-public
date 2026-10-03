@@ -13,7 +13,7 @@ never one convenient probe. (F-10, EXP-001)
 **2. "Prefers CPU" is not "cannot do it."** For tiny single-op models the
 compiler picks the CPU because moving data costs more than computing. That
 is an economics choice about one operation, not a statement about
-capability. Only the capability column of a probe means anything. (F-11)
+capability. Only the capability column of a probe means anything. (F-11, EXP-001)
 
 **3. Measure cold versus warm before blaming a cost.** A first launch showed
 372 ms of model loading and I called it a permanent 2.4× tax. It wasn't —
@@ -111,13 +111,13 @@ the request count cannot. (F-33, EXP-012)
 failure was "fixed" by downgrading PyTorch, then Transformers — two
 downgrades in an isolated environment built for a reason we later proved
 false — before checking the actual error: NumPy 2.4 changed one `int()`
-behaviour. Read the error before changing versions. (F-01/02/03)
+behaviour. Read the error before changing versions. (F-01/02/03, EXP-003)
 
 **18. Write the error to a file before you decide it is noise.** The most
 expensive mistake in this log is hiding suppressed `stderr` — a tool
 printed nothing, we assumed silence meant health, and the real failure
 surfaced hours later two layers away. Capture everything, decide later.
-(F-07)
+(F-07; pre-EXP record — FAILURES.md is the full trace here)
 
 ---
 *The meta-lesson, learned three separate times: a method that cannot fail

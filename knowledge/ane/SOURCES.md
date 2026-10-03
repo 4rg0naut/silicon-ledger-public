@@ -32,11 +32,13 @@ field + raw `LICENSE` path), as recorded in LANDSCAPE-037 and neighbors.
 |---|---|---|
 | [hollance/neural-engine](https://github.com/hollance/neural-engine) | MIT (docs) | Cited throughout `01-landscape.md`, `06-measurement.md` |
 | [nst/iOS-Runtime-Headers](https://github.com/nst/iOS-Runtime-Headers) | BSD-2 | Cited for `_ANEClient` & friends class shapes |
+| [mdaiter/ane](https://github.com/mdaiter/ane) | unverified | Consulted prior art — the entitlement findings behind the private-API route (cited at the end of `01-landscape.md`'s survey; not in §3's table). No text redistributed. |
+| [Eileen Yoon — "ANE DMA" post](https://eiln.github.io/posts/ane-dma.html) | author retains rights | The measurement our `bench/ane-dma-test.m` was written to reproduce (its header names the post); method cited in `03-program-format-and-compile.md` and `05-gotchas.md`. Register-level M3 findings cited, not copied. |
 | maderix.substack.com ANE series (Parts 1–5) | author retains rights | Cited (QoS ladder, MIL pipeline) |
 | arXiv:2606.22283 (AppleNeuralEngine direct-drive reference paper) | arXiv license | Cited with arXiv id inline wherever its findings appear |
-| coreai-model-zoo knowledge (`coreai-overview.md`) | upstream | Cited (Core AI pipeline stages, silent-fallback definition) |
+| [mechramc/Orion](https://github.com/mechramc/Orion) | MIT | `bench/ane-dma-test.m` follows its `core/mil_builder.m` generator **conventions** and `docs/ane_constraints.md` constraints — conventions, not code |
 
-## Tooling our bench imports (no code redistributed)
+## Tooling our bench imports (adapted where a row says so — nothing vendored)
 
 | Tool | License | Where |
 |---|---|---|
@@ -45,7 +47,9 @@ field + raw `LICENSE` path), as recorded in LANDSCAPE-037 and neighbors.
 | `torch`, `transformers` | BSD-3 / Apache-2.0 | `bench/llama_real_bench.py` (via JevBench's tooling) |
 | `safetensors` | Apache-2.0 | `bench/run_bench003_005.py` |
 | JevBench | upstream (author's harness) | `bench/llama_real_bench.py` — header: "uses JevBench's tooling (imported)" |
-| Orion's `mil_builder` | MIT (per its repo) | `bench/ane-dma-test.m` header: "conventions from" — conventions, not code |
+| `coreai-model-zoo` (Apple; no public URL pinned in this corpus — referenced via the local checkout as `coreai-model-zoo/knowledge/coreai-overview.md`) | license unverified | Cited in `01-landscape.md` and EXP-005 (Core AI pipeline stages, silent-fallback definition); **code adapted**: `bench/export_von_ane.py` is adapted from the zoo's `conversion/granite_embedding/_granite_model.py` — derivative, not vendored text; verify the zoo's license before redistributing that file |
+| [aac6fef/laya-multilingual-coreml-ane](https://github.com/aac6fef/laya-multilingual-coreml-ane) | unverified | EXP-017 reproduction target; the port and its published latencies are cited and attributed, no text redistributed (`results/EXP-017-laya-ane/README.md`, `bench/export_laya_ane.py` header) |
+| [NayaKishorM/laya](https://github.com/NayaKishorM/laya) | unverified | `bench/export_laya_ane.py` reproduces `laya/common.py::DecisionModel.forward` **semantics** faithfully (one ANE-legal substitution: `torch.gather` → selection matmul) — graph behaviour, not code text |
 
 ## Model weights referenced (measured, never redistributed)
 

@@ -4,6 +4,7 @@
 # Refuses a dirty tree. Output: ../silicon-ledger-public-staging (relative to repo root).
 # Determinism: same tracked content in => byte-identical staging out (verified by
 # running twice + diff -r). Scrub rules: tools/publish/redaction.json (personal only).
+# The openclaims gate needs the SDK: run as  PYTHON=.venv/bin/python sh tools/publish/publish.sh
 set -eu
 cd "$(git rev-parse --show-toplevel)"
 
@@ -12,7 +13,7 @@ if [ -n "$(git status --porcelain)" ]; then
     exit 1
 fi
 
-python3 - <<'PY'
+"${PYTHON:-python3}" - <<'PY'
 import json, os, subprocess, sys
 
 repo = os.getcwd()
@@ -75,6 +76,44 @@ if os.path.isdir(overlay):
         os.makedirs(os.path.dirname(out) or stage, exist_ok=True)
         open(out, "wb").write(data)
 
+# openclaims events are self-digested: scrubbing rewrites private paths inside
+# provenance fields, which breaks digests pinned in the private corpus. Re-pin
+# only the events that no longer validate, using the SDK's own function, then
+# run the public tree's own verification command as a hard gate.
+ocl_dir = os.path.join(stage, "knowledge", "ane", "openclaims")
+try:
+    import openclaims as oc
+except ImportError:
+    sys.exit("FAILED: openclaims SDK required (PYTHON=.venv/bin/python sh tools/publish/publish.sh)")
+
+repinned = 0
+for name in ("claims-emitted", "claims-verified", "claims-disputed"):
+    p = os.path.join(ocl_dir, name + ".jsonl")
+    if not os.path.exists(p):
+        continue
+    out = []
+    for raw in open(p, encoding="utf-8").read().splitlines():
+        if not raw.strip():
+            continue
+        try:
+            oc.validate_event(json.loads(raw))
+            out.append(raw)
+            continue
+        except Exception:
+            pass
+        ev = json.loads(raw)
+        ev.pop("digest", None)
+        out.append(json.dumps(oc.with_event_digest(ev)))
+        repinned += 1
+    open(p, "w", encoding="utf-8").write("\n".join(out) + "\n")
+
+gate = subprocess.run([sys.executable,
+                       os.path.join(stage, "knowledge", "ane", "tools", "to_openclaims.py"),
+                       "--check"], capture_output=True, text=True)
+openclaims_ok = gate.returncode == 0 and "0 INVALID" in gate.stdout
+print(f"repinned digests: {repinned}")
+print("openclaims gate : " + gate.stdout.strip().splitlines()[-1])
+
 leaks = 0
 for root, _, xs in os.walk(stage):
     for x in xs:
@@ -89,6 +128,10 @@ print(f"scrubbed        : {scrubbed} occurrences in {files_scrubbed} file-instan
 print(f"privacy grep    : {leaks}")
 if leaks:
     print("FAILED: personal tokens survived staging", file=sys.stderr)
+    sys.exit(1)
+if not openclaims_ok:
+    print("FAILED: openclaims --check gate on staging tree", file=sys.stderr)
+    print(gate.stdout + gate.stderr, file=sys.stderr)
     sys.exit(1)
 print(f"staging ready   : {stage}")
 PY
