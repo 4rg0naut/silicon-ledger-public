@@ -33,6 +33,8 @@ files = subprocess.run(["git", "ls-files"], capture_output=True, text=True, chec
 def keep(f):
     if "__pycache__" in f:
         return False
+    if f == "knowledge/ane/ARCHIVE-MAP.md":
+        return False  # machine-local paths inside; stays private by rule
     if f.startswith(OVERLAY_PREFIX):
         return False
     if f.startswith("results/"):

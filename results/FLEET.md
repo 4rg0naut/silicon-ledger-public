@@ -86,3 +86,42 @@ Asymmetry to close (known GAPs, em-dash policy):
 
 Regenerate matrix rows by running the cited commands on the cited machine and
 appending dated lines here; never overwrite history.
+
+---
+
+## Appendix (2026-10-03, P2 THE NEED): requirements ↔ instruments
+
+Every low-level need stated in `knowledge/ane/*.md` mapped to the instrument that
+answers it, with fleet status from the matrix above. Items without a working
+instrument are listed as GAPs — no hand-waving.
+
+| # | Need (knowledge source) | Instrument | Status |
+|---|---|---|---|
+| 1 | Private class/selector discovery — `_ANEClient`, `_ANEModel`, `_ANERequest`… (`02-private-api`) | `bench/ane-probe.m` class enumeration → CSV | run on M4 + M5 (rows above) |
+| 2 | MIL program text + BLOBFILE format, in-memory compile (`03-program-format`) | `bench/ane-dma-test.m` self-contained MIL generator (Orion/zoo-fork conventions) | M4 (EXP lineage); M5 buildable |
+| 3 | compile → load → evaluate chain in user space (`02`, `07-private-api-verified`) | `bench/ane-dma-test.m`; original M4 op-scan driver lived in the harness | PARTIAL — see GAP-2 |
+| 4 | IOSurface tensor passing, incl. 1 MiB streaming sizes (`04-runtime-and-memory`) | `bench/ane-dma-test.m` IOSurface arms | M4 (erratum verdict) |
+| 5 | Power-rail probing without dead-counter lies — F-24 (`06-measurement`) | `tools/enginemon` (IOReport) + `bench/power_ab.py`, `power_coreai.py`, `power_phase_probe.py` | enginemon rebuilt + run on M5 Max 2026-10-03 (identity + channel table emitted); power scripts M4-proven |
+| 6 | System-wide activity attribution — F-23 (`06`) | `bench/syswide_ane.py` (`--no-prompt` honoured; `--help` checked 2026-10-03) | M4-proven (EXP-004/005) |
+| 7 | Silent-fallback + region counting without glob double-count — F-25/26/27 (`03`, `05-gotchas`) | `bench/probe_ane_regions.py`, `bench/aot_verify.sh` | M4-proven (EXP-005) |
+| 8 | Controlled-arm contention with MUST-FIRE positive control — F-21 (`04`) | `bench/power_ab.py` arm control, `bench/interference_coreai.py` | M4-proven (EXP-004) |
+| 9 | Latency protocol, cold-vs-warm discipline — F-12/13 (`06`) | `bench/latency_protocol.py`, `bench/jevbench_ane.py` | M4 + M5 (EXP-022 rows) |
+| 10 | 1 MiB kernel-DMA erratum check (Yoon M3 → our M4/M5) (`05`) | `bench/ane-dma-test.m` | M4 negative result (EXP-001/022 lineage) |
+| 11 | QoS ladder arms (`01`, `02`) | `--qos` flag in `bench/ane-probe.m` + `bench/ane-dma-test.m` | arms exist; ladder sweep only run in harness era — see GAP-2 |
+| 12 | Oracle-fidelity gate for re-authored ports ("a port without gates is a guess") (`03`, `09-origins`) | `bench/gate_reranker_ane.py`, `bench/correctness_head.py`, `bench/jevbench_ane.py` | M4-proven (EXP-013 gate; EXP-018 230/231) |
+| 13 | Machine identity attribution on every instrument (`FLEET` hygiene) | `bench/identity.py`, wired into power probes + enginemon | both machines verified |
+| 14 | Bench-report import from external harness runs | `bench/import_bench_reports.py` + inbox (`HUB/bench`) | working (m5max-s* rows) |
+
+**GAPs (stated plainly):**
+- **GAP-1 — M5 energy rows**: `power_ab.py` never run with sudo on the Studio
+  (already a known GAP above; unchanged).
+- **GAP-2 — harness-era drivers not in-tree**: the original M4 op-scan driver and
+  the QoS-ladder sweep ran inside the old harness; their successors here cover
+  the primitives (`ane-probe.m` full scan, `--qos` arms) but the sweep scripts
+  themselves live only in the archive (`M4-Partage/local_ai_stack/work/ane_probe/`,
+  mapped in `ARCHIVE-MAP.md`). Porting them in-tree is a candidate follow-up.
+- **GAP-3 — grounding-span re-derivation**: `knowledge/ane/grounding/cache/`
+  lives on the mini only; a Studio re-emit cannot re-pin spans (observed 2026-10-03:
+  a cache-less re-emit rewrites 342 span-bearing lines — guarded against by
+  append-only emission; see `09-origins` commit). The instrument to close this is
+  a cache-sync pass from the mini clone (read-only side is safe).

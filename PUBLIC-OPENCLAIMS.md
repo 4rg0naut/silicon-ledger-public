@@ -13,7 +13,7 @@ models and checked against measurements. "An AI helped write it" is a fact
 worth stating, not hiding. So every claim in our knowledge base is recorded
 as a spine event, and every check is recorded too — with the checker named:
 
-- **554 claims emitted** — each with its source and, when a tool produced
+- **562 claims emitted** — each with its source and, when a tool produced
   it, the run that produced it.
 - **108 verification events** — all `model_check` (an AI model checked
   them against our measurement ledger).
@@ -34,7 +34,7 @@ python3 -m venv .venv-ocl && .venv-ocl/bin/pip install "git+https://github.com/o
 Expected final line:
 
 ```
-committed events : 679 valid, 0 INVALID (of 679)
+committed events : 687 valid, 0 INVALID (of 687)
 ```
 
 (The Python SDK is not on PyPI yet — install it from the upstream git
@@ -47,7 +47,9 @@ repository, as above.)
   downloads, not our work. Spans therefore cannot be re-derived from a
   fresh clone — the committed `knowledge/ane/openclaims/claims-*.jsonl`
   are canonical as emitted, and `--check` validates them against the
-  schema without the cache.
+  schema without the cache. The 8 origin claims (09-origins) were emitted
+  span-free on a machine without the cache; every older event keeps the
+  span it was first emitted with, and no commit rewrites them.
 - The upstream openclaims repository **has no LICENSE file yet** (we filed
   an issue upstream). We keep pointers to it and clean-room code, not
   redistributed prose.
