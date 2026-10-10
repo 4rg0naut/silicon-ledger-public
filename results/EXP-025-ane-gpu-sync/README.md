@@ -196,6 +196,23 @@ reachable from the two ObjC entry points is **attribute plumbing + per-unit conf
 numeric decision is delegated to unread callees (and may live at ObjC plan-assembly level, which a
 static scan cannot see).
 
+**P3f - dynamic: the decision is a preference, and the flip point re-derived (API-154/155).**
+Since a static scan cannot see `msgSend` callers, the question was taken to the API itself.
+New `harness/plan_devicesupport.m` walks a compiled model through the plan and dumps, per op, the
+preferred device, the supported device list, **and the private per-device support info**
+(`-deviceSupportInfoArray` / `-supportInfoForComputeDevice:` -> `MLComputePlanDeviceUsageSupportInfo`
+with `_state` + `_computeDevice`). Result: at **both** sides of the threshold (conv 1.89e7 FLOPs ->
+CPU, 1.21e9 -> ANE) both CPU and ANE are **supported** with `_state = 0`; only `preferred` moves.
+**So placement is not a support/eligibility gate - it is an internal cost/perf preference**, and
+the API exposes the decision but not the comparison. Running the oracle over a one-variable sweep
+re-derives the gate independently of the earlier route table: for C=256 conv3x3 the CPU->ANE flip
+sits between **1.416e8** (CPU, H=12 W=10) and **1.557e8** FLOPs (ANE, H=12 W=11) - corroborating
+API-147's ~1.5e8. SDK-27 API drift was also fixed on the way: the ObjC plan entry point is now
+**async** (`+loadContentsOfURL:configuration:completionHandler:`), devices are `id<MLComputeDeviceProtocol>`,
+`program.functions` is a dictionary - and a no-ARC harness must `retain` the plan handed to the
+handler or the next `[plan modelStructure]` segfaults. `coreml_plan.m` was stale and is fixed;
+both harnesses build and agree.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
@@ -236,6 +253,16 @@ ANE_ONE=1 ANE_SP=128 ./ane_sync_harness x        # single compile+eval
 sudo ./trace_primary.sh                          # dtrace -c runs → results/dtrace_primary.txt
 sudo ./trace_ane_attach.sh                       # -[_ANE*] pid-attach → results/dtrace_ane_methods.txt
 ./inspect.sh                                     # lldb live-instance dump (no sudo)
+
+# placement oracle + decision inputs (SDK 27; links CoreML)
+clang -O2 -framework Foundation -framework CoreML -o coreml_plan coreml_plan.m
+clang -O2 -framework Foundation -framework CoreML -o plan_devicesupport plan_devicesupport.m
+# a one-conv model, then read the decision + per-device support info:
+#   /Volumes/data/OpenFox/AI_dev/silicon-ledger-bench/tools/.venv/bin/python make_conv.py m.mlpackage 256 12
+#   ./plan_devicesupport m.mlpackage cpuAndNeuralEngine
+# reverse-reference scan of the loaded CoreML image (BL/B sites + pointer tables):
+clang -O2 -framework Foundation -o coreml_findcallers coreml_findcallers.m
+#   ./coreml_findcallers 191f7bc30 191f7adb4
 ```
 
 `ane_sync_harness.m` `#include`s `ane_bridge_mrr.m` (retain-fixed copy of the
