@@ -110,16 +110,17 @@ search API here, so absence of a hit is a *strong* negative, not a proof. Access
 | ANEPERF | [tmc/aneperf](https://github.com/tmc/aneperf) (`classify.go`, `ioreport.go`) | Reads `ANEXL`/`ANE UP`/`ANE0` via a name-substring filter (any channel containing "ANE"); groups `SOC-NI Util BW` as bandwidth; derives `ane_utilization_pct` from the Fast-Die CE histogram | The ANEXL **channel is public**. No exclusivity claim anywhere → our **calibrated exclusivity** is the new part |
 | SILICONSCOPE | [kennss/SiliconScope `docs/ioreport-channels.md`](https://github.com/kennss/SiliconScope/blob/main/docs/ioreport-channels.md) | Verified sudoless IOReport map (M1..M5 Max): Energy Model ANE power, PMP0 DCS/AF BW — **never names** `SOC-NI9 ANEXL U`/`SOC-NI8 ANE UP` nor claims ANE lane exclusivity | ANE power monitoring is public; an ANE **activity counter** is not |
 | STATS-2897 | [exelban/stats issue #2897](https://github.com/exelban/stats/issues/2897) (2026-01-04 → 2026-09-05) | Community position: macOS exposes **no usable ANE utilization**; mactop's "ANE%" is a watts/8.0 heuristic; Stats' own ANE-utilization attempt did not track ANE correctly | Strengthens the **ANEXL exclusivity** result as a genuinely new capability |
-| LLVM-MPS-RFC | (already, §Web-check 2026-10-08b) | `mpsgraphtool` produces MLIR bytecode; the `mps` dialect is Apple's, out-of-tree | The **format** is public; no parser/dialect published → our MLIR recovery is new |
+| COREAI-ZOO-PR36 | [john-rocky/coreai-model-zoo PR #36](https://github.com/john-rocky/coreai-model-zoo/pull/36) (our own, **merged** 2026-10-02) | States the M4 mini resolves to **h16g, not h16c (M4 Max)**, and that `coreai-build inspect` prints "This device's architecture" | The **M4 half** of our cross-chip finding is our own prior art — not new (see LANDSCAPE-076) |
+| LLVM-MPS-RFC | (already, §Web-check 2026-10-08b) | `mpsgraphtool` produces MLIR bytecode; the `mps` dialect is Apple's, out-of-tree | The **format** is public (LANDSCAPE-077); no parser/dialect published → our MLIR recovery technique is new |
 | ANE-GUIDE ch34 | (already, PAPER-ANE-RE+) | Predicted arch table | Our corrections stand (see issue link in `contrib/`) |
 
 Per-claim verdict (this session):
 
 | Claim | Verdict |
 |---|---|
-| M5 Max compiler target `h17c` / M4 mini `h16g`; private selector divergence | **Extension** — rule public (AI00AI-COREAI); our parts + the selector divergence are not |
+| M5 Max compiler target `h17c` / M4 mini `h16g`; private selector divergence | **Extension** — the rule is public (AI00AI-COREAI) and the **M4 half is our own merged PR #36** (LANDSCAPE-076); new: the M5 Max `h17c` target + the private-selector divergence (independently confirmed by a second reviewer, 2026-10-10) |
 | Core AI cache layout + `modelHash`/`optsHash` key derivation | **Likely new** — no public decode found |
-| Cached `mpsgraph` bytecode printed as readable MLIR | **Likely new** — file names public (AI00AI-COREAI); no parser/dialect published |
+| Cached `mpsgraph` bytecode printed as readable MLIR | **Extension** — "MPSGraph is MLIR bytecode" is public (LLVM RFC / `mpsgraphtool`, LANDSCAPE-077) and the file names are public (AI00AI-COREAI); **new**: the private `aicode`/`placement` dialects and the stub-plugin + rewrite printing technique |
 | `SOC-NI9 ANEXL U` lane-exclusive, calibrated ANE signal | **New as a discriminator** — channel known (ANEPERF); exclusivity/calibration new |
 | `ANE-DCS-BW` floor is *not* ANE-specific | **Likely new** (negative result) — monitors lump DCS Floor into ANE-ish sampling |
 

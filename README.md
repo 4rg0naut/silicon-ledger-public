@@ -17,7 +17,8 @@ evidence in [**WHATSNEW.md**](WHATSNEW.md):
   derivation (`modelHash` per model; `optsHash` a pure function of the compute-unit options).
   **New**.
 - **The compiled plan is readable** — the cached `mpsgraph` bytecode printed as real MLIR: the
-  op graph, `mps.aneArch`, and every ANE/GPU region function with its signature. **New**.
+  op graph, `mps.aneArch`, and every ANE/GPU region function with its signature. **New** technique
+  (that the format is MLIR is already public; the private dialects and the printing method are not).
 - **Which architecture your Mac actually targets** — measured `h17c` (M5 Max) vs `h16g` (M4
   mini); a correction to a published ANE table is filed upstream
   ([issue](https://github.com/sbryngelson/ane-guide/issues/1)). **Extends** published work.
