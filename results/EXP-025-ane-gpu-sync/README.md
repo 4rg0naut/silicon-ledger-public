@@ -274,6 +274,19 @@ capable group. P3i's "no mixed graphs" is therefore a property of *all-capable* 
 explains why none of the synthetic conv/pool/softmax/topk graphs split. Side benefit: this
 reproduces API-146's 1381/4 **and** its all-GPU swap from an independent harness.
 
+**P3k - and the real trigger is DTYPE, not op type (API-160).** Two follow-ups corrected P3j's
+wording. (i) *Instrument lesson:* a battery of 65 single-op models (`harness/ops_battery.py`) came
+back **all CPU** - including `relu` and `conv` - because a single small op is below the P3h
+threshold; the battery measured **size**, not capability. Re-run with three big convs in front of
+the op and *every* op (including `less`, `cast`, `topk`, `sort`) is ANE. (ii) *Causal A/B*
+(`harness/make_dtype_test.py`, MIL builder): the **same graph**, only the tail dtype changed -
+`fp16` tail → all ANE; `int32` tail → `cast`/`expand_dims`/`less` go **CPU** while the convs stay
+ANE; an `fp32` export cast stays ANE. That matches the real model's MIL, whose CPU path is exactly
+the lengths/mask plumbing: `cast → int32`, `expand_dims` on int32, `less(int32,int32) → bool`,
+`expand_dims` on bool. **The ANE is an fp16 data path**; ops that must *carry* int32/bool data are
+placed on CPU. (The file's other int32/bool entries are attributes - axes/strides/pads - i.e.
+constants, and are fine.)
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT

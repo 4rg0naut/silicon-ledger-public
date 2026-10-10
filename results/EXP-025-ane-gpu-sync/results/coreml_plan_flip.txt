@@ -218,3 +218,35 @@ them), so NOTHING is left on CPU.
 Cross-check value: this independently reproduces API-146's 1381/4 split AND its all-GPU swap from a
 second, independent harness, and it shows why a synthetic stack of conv/pool/softmax/topk never
 split (all of those are ANE-executable - even topk is reported ANE-preferred at 32x32/C=256).
+
+8. What actually forces CPU: int32/bool DATA paths, not op types (2026-10-10)
+---------------------------------------------------------------------------
+Section 7 named the op types (cast/expand_dims/less). Two follow-ups show the real trigger is DTYPE.
+
+(a) INSTRUMENT LESSON - the op battery measures SIZE, not capability. harness/ops_battery.py builds
+    one model per op (65 ops). With a single SMALL op, EVERY op - including relu and conv - comes
+    back CPU, because a small single-op model sits below the section-6 threshold. Re-run with three
+    big convs in front of the op, so the model is in the ANE regime, and EVERY op - less, cast,
+    expand_dims, topk, sort included - is ANE-preferred.
+
+(b) CAUSAL A/B (harness/make_dtype_test.py, MIL builder) - the same graph, only the tail DTYPE
+    changes; this is the load-bearing evidence:
+      fp16 tail : ... reduce_mean -> cast(fp16) -> expand_dims -> less   => ALL ANE
+      int32 tail: ... reduce_mean -> cast(int32) -> expand_dims -> less  => cast, expand_dims and
+                                                                           less go CPU, convs stay ANE
+      fp32 export cast at the end                                        => ANE (so the fp32 output
+                                                                           cast is NOT a CPU cause)
+    The int32 variant reproduces the real model's split pattern exactly.
+
+(c) The real model agrees: in Encoder.mlmodelc/model.mil the CPU path is the lengths/mask plumbing -
+      tensor<int32,[1]>      encoder_length = cast(...)
+      tensor<int32,[1,1]>    var_196        = expand_dims(x = encoder_length)
+      tensor<bool,[1,188]>   pad_mask_1     = less(x = ..., y = var_196)
+      tensor<bool,[1,1,188]> var_198        = expand_dims(x = pad_mask_1)
+    i.e. exactly the ops that must CARRY int32/bool data. (The hundreds of other int32/bool entries
+    in the file are ATTRIBUTES - axes/strides/pads/perms - which are constants and are fine.)
+
+=> The ANE is an fp16 DATA path: an op whose data is int32/bool cannot run there and is placed on
+   CPU. Section 7's "op types the ANE cannot execute" is corrected to this dtype rule (API-160).
+   Caveat on method: the COMPILED plan may differ op-for-op from the source MIL (optimisation
+   passes), so the synthetic A/B - not any op count - is what carries the claim.
