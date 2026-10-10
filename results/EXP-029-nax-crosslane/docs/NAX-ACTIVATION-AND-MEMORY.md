@@ -113,3 +113,18 @@ Implications for a **tailored multi-lane engine** (why this dossier exists):
    IOSurface-backed buffer; measure Δtime and peak bandwidth; then the zero-copy NAX→ANE question.
 5. **Lane decision table** [T]: for shapes {M=1,128,512,2048} × {fp16, fp8} — best lane and the
    NAX/SIMT crossover, all checksum-gated.
+
+## 6. Measurement gate — mandatory, before any arm (GOTCHAS-077)
+
+Measured on this box, 2026-10-10 (`results/QUIET-STATE.md`): GPU idle power swings **25 → 104 mW
+inside one 30 s window** (29 × 1 s samples: min 25.1 / median 26.9 / max 104.3), and three adjacent
+5 s windows with an *identical* process set read **118.96 / 85.19 / 119.84 mW** — so oMLX presence
+was **not** the variable, and each of those windows would have silently corrupted a benchmark.
+
+Protocol: run `harness/quiet_probe.sh <label>` before and after every arm; require GPU idle power in
+the **~25–30 mW** band for ≥10 s (and Δ ≤ ~20 % across the arm); run the **`-O0`** `canary` before
+and after (a moved canary means the machine changed, not the workload); discard rather than report
+any window with excursions. Background reality to expect: 18–20 Apple daemons resident
+(`mediaanalysisd`, `photoanalysisd`, `photolibraryd`, `cloudd`, `bird`, `backupd`, nine
+`mds_stores` + `corespotlightd`, `corespeechd`/`assistantd`, `aned`/`ANECompilerService`), with
+`VTEncoderXPCService` observed at 11.9 % CPU in one snapshot.
