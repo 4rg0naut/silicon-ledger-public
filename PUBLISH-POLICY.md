@@ -30,3 +30,9 @@ repo's equivalent (`tools/publish/rewrite_links.py`) and marks it `(source priva
 2. **Receipts** — `knowledge/ane/records/`, `knowledge/ane/openclaims/`, `results/measurements.json`,
    the large `results/**` evidence blobs: the verification layer. It is **verbose on purpose** —
    that is what makes the claims checkable. Read it when you want to verify, not to browse.
+
+**Known web-UI limits in the receipts layer (not defects):** `knowledge/ane/openclaims/claims-emitted.jsonl`
+is **1.10 MB**, and GitHub does not render blobs that large in the browser — it offers the raw file
+instead. For a readable view of the same thing use [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md)
+(counts, what a claim carries, and how to verify one). The other big evidence blobs
+(`results/measurements.json`, the `powermetrics_*.txt` captures) render normally.

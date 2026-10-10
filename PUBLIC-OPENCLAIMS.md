@@ -62,3 +62,7 @@ repository, as above.)
   digest was then **re-pinned with the SDK's own `with_event_digest()`** at
   publication time — so `--check` above verifies the bytes you actually
   have. The private corpus's digests differ only by those path strings.
+
+> **Reading the raw spine:** the machine-readable spine (`knowledge/ane/openclaims/claims-emitted.jsonl`)
+> is ~1.1 MB, which GitHub will not render in the browser — open it via *Raw* / download, or use the
+> counts and explanation above. This page is the readable view of the same data.

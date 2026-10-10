@@ -81,6 +81,66 @@ def check_novelty(stage: Path) -> list[str]:
                 bad.append(f"WHATSNEW row {num}: evidence link does not resolve -> {t}")
     return bad
 
+# --- case-sensitivity + anchor checks (added 2026-10-10 after a reader-reported dead link) ---------
+# macOS volumes are case-INSENSITIVE, so a link to "Results/FOO.md" resolves locally and 404s on
+# GitHub. And a link with a "#fragment" only checks the file, not the heading: a fragment that does
+# not exist scrolls nowhere. Both are invisible in-tree, so they are checked explicitly here.
+ANCHOR_LINK = re.compile(r"\[[^\]]*\]\(([^)\s]*#[^)\s]+)\)")
+
+
+def slugify(heading: str) -> str:
+    h = heading.strip().lstrip("#").strip().lower()
+    h = re.sub(r"[^\w\s-]", "", h)
+    return re.sub(r"[\s_]+", "-", h).strip("-")
+
+
+def _case_differs(stage: Path, rel: str) -> str | None:
+    """Return the real path when the link's spelling differs in case from disk."""
+    p = stage / rel
+    if p.exists():
+        return None                                     # exact case on disk
+    parent = (stage / rel).parent
+    if not parent.exists():
+        return None
+    want = os.path.basename(rel)
+    for entry in os.listdir(parent):
+        if entry.lower() == want.lower() and entry != want:
+            return os.path.join(os.path.relpath(parent, stage), entry)
+    return None
+
+
+def check_case_and_anchors(stage: Path) -> list[str]:
+    bad = []
+    for p in sorted(stage.rglob("*.md")):
+        rel = os.path.relpath(p, stage)
+        if "/raw/" in rel:
+            continue
+        text = p.read_text(errors="replace")
+        for target in LINK.findall(text):
+            if target.startswith(("http", "mailto:", "#", "tel:")):
+                continue
+            t = target.split("#")[0].split("?")[0]
+            if not t:
+                continue
+            t = t.lstrip("/") if t.startswith("/") else os.path.normpath(
+                os.path.join(os.path.dirname(rel), t)).lstrip("/")
+            real = _case_differs(stage, t)
+            if real:
+                bad.append(f"{rel}: link case differs from disk -> {target} (on disk: {real})")
+        # anchors
+        for target in ANCHOR_LINK.findall(text):
+            t, frag = target.split("#", 1)
+            if t.startswith("http") or not t:
+                continue
+            tgt = stage / (t.lstrip("/") if t.startswith("/") else
+                           os.path.normpath(os.path.join(os.path.dirname(rel), t)).lstrip("/"))
+            if not tgt.exists() or tgt.suffix != ".md":
+                continue
+            heads = {slugify(l) for l in tgt.read_text(errors="replace").splitlines() if l.startswith("#")}
+            if frag.strip().lower() not in heads:
+                bad.append(f"{rel}: anchor does not exist -> {target}")
+    return bad
+
 
 def main() -> int:
     ap = argparse.ArgumentParser()
@@ -91,7 +151,8 @@ def main() -> int:
         print(f"no staging tree at {stage}")
         return 1
     links, novelty = check_links(stage), check_novelty(stage)
-    for label, bad in (("LINKS", links), ("NOVELTY", novelty)):
+    case_anchor = check_case_and_anchors(stage)
+    for label, bad in (("LINKS", links), ("NOVELTY", novelty), ("CASE/ANCHORS", case_anchor)):
         if bad:
             print(f"FAIL {label}: {len(bad)} violation(s)")
             for b in bad[:15]:
@@ -100,7 +161,7 @@ def main() -> int:
                 print(f"  … {len(bad) - 15} more")
         else:
             print(f"OK   {label}")
-    return 1 if (links or novelty) else 0
+    return 1 if (links or novelty or case_anchor) else 0
 
 
 if __name__ == "__main__":
