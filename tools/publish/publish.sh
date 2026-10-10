@@ -135,5 +135,12 @@ if not openclaims_ok:
     print("FAILED: openclaims --check gate on staging tree", file=sys.stderr)
     print(gate.stdout + gate.stderr, file=sys.stderr)
     sys.exit(1)
-print(f"staging ready   : {stage}")
+print(f"staging built   : {stage}")
 PY
+
+# Publication gates (added 2026-10-10): rewrite private-path links in the published COPY, then
+# verify the public tree is self-consistent (no dead links) and that every headline finding carries
+# its NEW/EXT/KNOWN status + a resolving evidence link. Either gate failing aborts publication.
+"${PYTHON:-python3}" tools/publish/rewrite_links.py
+"${PYTHON:-python3}" tools/publish/check_public.py
+echo "staging ready   : ../silicon-ledger-public-staging (gates passed)"

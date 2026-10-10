@@ -28,6 +28,44 @@ evidence in [**WHATSNEW.md**](WHATSNEW.md):
   the ANE-side wrapper waits, content verified every iteration (~123/136 µs, 500/500).
   **New** (the wire is driven end-to-end; attaching a live ANE program is still blocked).
 
+### The GPU side (round 2)
+
+The M5 also has **Neural Accelerators inside its GPU cores** — one per core. We measured them
+against everything else, and filed the results with the same honesty labels:
+
+- **GPU vs the shader path** — the tensor path (`matmul2d`) is **2.26× faster than the hand-written
+  shader kernel at 4096² and uses ~2× less GPU energy** for the same work; at decode (M=1) all GPU
+  datapaths collapse to the same number, i.e. the tensor units buy nothing there. **New.**
+- **GPU vs the Neural Engine on identical GEMMs** — the GPU wins **5–10×**, including at decode;
+  and a plain matmul *does* reach the ANE at 2048³, while the 1×1-conv form of the same GEMM is
+  2.1× slower there. **New** (measured); that the ANE prefers conv shapes is **known**.
+- **A correction worth knowing** — the widespread "M5 multi-tile `matmul2d` silently no-ops, Apple's
+  compiler bug" is **refuted on this box**: third-party MetalHLO runs 8/8 GEMMs correct including
+  4096×4096. Our own earlier no-op was a *usage* artifact.
+- **Why joules lie here** — GPU idle power swings **25→104 mW inside 30 s**, and this machine's only
+  "display" is the screenshot-sharing **virtual display** (the headless floor is ≈0–3 mW). Both are
+  measured in [QUIET-STATE](results/EXP-029-nax-crosslane/results/QUIET-STATE.md).
+
+Details: [NAX activation and memory](results/EXP-029-nax-crosslane/docs/NAX-ACTIVATION-AND-MEMORY.md) ·
+[the lane matrix](results/EXP-029-nax-crosslane/results/NAX-LANE-MATRIX.md) ·
+[the tooling inventory](results/EXP-029-nax-crosslane/docs/TOOLING-INVENTORY.md).
+
+## How to use this repo
+Three layers, by what you came for:
+
+1. **Front door** (5 minutes) — this page, [**WHATSNEW.md**](WHATSNEW.md) (findings with a
+   NEW/EXT/KNOWN verdict each), and [PUBLIC-INDEX.md](PUBLIC-INDEX.md) (every experiment in plain words).
+2. **Reusable instruments** — [`bench/`](bench/) (identity probe, power A/B, latency protocol),
+   [`tools/`](tools/) (the `enginemon` engine monitor, the instrument registry), [`schemas/`](schemas/),
+   and [`CROSS-REPO-CONTRACT.md`](CROSS-REPO-CONTRACT.md) for the join with the benchmark repo.
+3. **Receipts** (verification, deliberately verbose) — [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md),
+   `knowledge/ane/` (the knowledge base *and* its machine-checkable records), and the raw evidence
+   under `results/`. Read this layer when you want to verify, not to browse.
+
+[**PUBLISH-POLICY.md**](PUBLISH-POLICY.md) states exactly what is published, what is private by
+design (harness sources, gzipped raw captures, private clones), and why a prose mention of a private
+path is a pointer, not a broken reference.
+
 ## Why this exists
 
 Apple's own toolchains quietly route "AI" workloads to the GPU even when you
@@ -52,12 +90,13 @@ cd bench && clang -O2 -o /tmp/ane-probe ane-probe.m -framework Foundation && /tm
 ## What's in here
 
 - `results/measurements.json` — every measurement ever taken, machine-checked (920 rows).
-- `results/EXP-001..028` — the experiment records, one folder each. `PUBLIC-INDEX.md` maps them in plain words.
+- `results/EXP-001..029` — the experiment records, one folder each. `PUBLIC-INDEX.md` maps them in plain words.
 - `results/LADDER.md` — the five-rung summary: silicon ceiling → official overhead → port fidelity → task quality → energy.
 - `results/FLEET.md` — which tool runs on which machine (and honestly, which don't).
 - `MINEFIELD.md` — 18 lessons from everything that broke. Read this before debugging.
 - `PUBLIC-OPENCLAIMS.md` — how our claims are recorded with receipts, and how you can verify them yourself.
 - `knowledge/ane/` — the reverse-engineering knowledge base behind all of it.
+- `tools/TOOLS.md` — the instrument registry: which tool is *the* one for a job (timing, joules, lane activity…).
 
 ## The house rules
 

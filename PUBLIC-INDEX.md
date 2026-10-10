@@ -31,3 +31,10 @@ is in the linked folder. Chronological — this is also the story order.
 | [EXP-021](results/EXP-021-ane-weight-budget/) | Discovering the ANE's model-size budget counts compiled files, not the operators we expected. |
 | [EXP-022](results/EXP-022-m5max-baseline/) | Moving to the Mac Studio: does the whole instrument suite reproduce on the M5 Max? Mostly yes, with a compiler regression documented. |
 | [EXP-023](results/EXP-023-small-llm-ane-pilot/) | First probe of a small language model on the M5's ANE: it lands in 2 regions — with one load-time bug carried forward. |
+
+| [EXP-024](results/EXP-024-engine-attribution/) | Which engine really ran it — and the counters that lie: calibrating the ANE/GPU lenses, and retiring the "UT means Neural Accelerator" myth. |
+| [EXP-025](results/EXP-025-ane-gpu-sync/) | The wire between the ANE and the GPU, driven end-to-end with data (500/500, ~123 µs) — and how Core ML actually chooses an engine. |
+| [EXP-026](results/EXP-026-ane-kitchen/) | Inside Apple's compiler: the Core AI specialization cache decoded from its own bytes, and the cached plan printed as readable MLIR. |
+| [EXP-027](results/EXP-027-nax/) | The M5 GPU's tensor units (NAX), first pass: what they are, how work reaches them, and which signals observe them — and which only pretend to. |
+| [EXP-028](results/EXP-028-apple-tracer/) | Apple's own tracer, used fairly: public lane fingerprints, and exactly where the privilege wall sits. |
+| [EXP-029](results/EXP-029-nax-crosslane/) | NAX vs the other lanes, measured: 2.26× over the shader path at 4096² with ~2× less energy; the GPU beats the ANE 5–10× on the same GEMMs; and the measurement hazards that make joules lie. |

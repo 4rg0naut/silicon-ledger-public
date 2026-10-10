@@ -384,7 +384,7 @@ error, not a crash: a plausible-looking "the model is uncertain" number. Average
 it would have looked like a working-but-mediocre reranker.
 
 **Cause — it was never authored for the ANE.** The bundle is a stock **macOS/GPU** export. Per the
-zoo's own [`knowledge/compute-units-and-authoring.md`](repos/coreai-model-zoo/knowledge/compute-units-and-authoring.md),
+zoo's own [`knowledge/compute-units-and-authoring.md`](https://github.com/john-rocky/coreai-model-zoo/blob/main/coreai-model-zoo/knowledge/compute-units-and-authoring.md),
 Apple's two modes are *"iOS/ANE = static-shape, BC1S, Conv2d, per-head, fp16-only; macOS/GPU =
 dynamic-shape, standard layout, fused, custom kernels."* The ANE dialect requires all of:
 
