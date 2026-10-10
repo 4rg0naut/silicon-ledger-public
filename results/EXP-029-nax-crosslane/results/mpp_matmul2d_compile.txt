@@ -1,0 +1,51 @@
+# MPP matmul2d — compile evidence, buffers-only (tensor_inline) route
+# captured 2026-10-10 on Mac17,14 / macOS 27.0.1 (26A434), toolchain MetalToolchain-v27.1.266.1
+# commands:
+#   xcrun -sdk macosx metal -std=metal4.0 -c harness/mm_inline.metal -o mm_inline.air      -> 10064 bytes
+#   xcrun -sdk macosx metal -std=metal4.0    harness/mm_inline.metal -o mm_inline.metallib -> 11072 bytes
+
+## Kernel source (verbatim)
+```metal
+#include <metal_stdlib>
+#include <MetalPerformancePrimitives/MetalPerformancePrimitives.h>
+using namespace metal;
+using namespace mpp::tensor_ops;
+
+kernel void mm_inline(device half  *A [[buffer(0)]],
+                      device half  *B [[buffer(1)]],
+                      device float *C [[buffer(2)]],
+                      constant uint &M [[buffer(3)]],
+                      constant uint &N [[buffer(4)]],
+                      constant uint &K [[buffer(5)]],
+                      uint2 tgid [[threadgroup_position_in_grid]])
+{
+    using half_t  = tensor<device half,  dextents<int32_t, 2>, tensor_inline>;
+    using float_t = tensor<device float, dextents<int32_t, 2>, tensor_inline>;
+
+    half_t  tA(A, dextents<int32_t,2>((int)K, (int)M), array<int32_t,2>{1, (int)K});
+    half_t  tB(B, dextents<int32_t,2>((int)N, (int)K), array<int32_t,2>{1, (int)N});
+    float_t tC(C, dextents<int32_t,2>((int)N, (int)M), array<int32_t,2>{1, (int)N});
+
+    constexpr auto desc = matmul2d_descriptor(64, 32, static_cast<int>(dynamic_extent),
+                                             false, false, false);
+    matmul2d<desc, execution_simdgroups<4>> op;
+    auto sA = tA.slice(0, tgid.y * 64);
+    auto sB = tB.slice(tgid.x * 32, 0);
+    auto sC = tC.slice(tgid.x * 32, tgid.y * 64);
+    op.run(sA, sB, sC);
+}
+```
+
+## Notes learned from Apple's own header (MPPTensorOpsMatMul2d.h, 664 lines)
+- supported dtype combinations are ENUMERATED (48 rows), incl. half x half -> half/float,
+  int8/uint8 x half -> half/float, int8 x int8 -> int32, bfloat mixes, and 4-bit/2-bit/fp4/fp8
+  (int4b_format, uint4b_format, int2b_format, uint2b_format, metal_fp4_e2m1_format,
+  metal_fp8_e4m3_format, metal_fp8_e5m2_format).
+- matmul2d_descriptor(m, n, k, transpose_left, transpose_right, relaxed_precision);
+  relaxed_precision=true trades accuracy for speed (the tf32 path).
+- slice() takes (cols, rows) - Apple's own example: A.slice(0, tgid.y*64), B.slice(tgid.x*32, 0).
+- dispatch geometry from the example: threadgroups ((M+63)/64, (N+31)/32, 1),
+  threads/threadgroup (simdgroupWidth*4, 1, 1), execution_simdgroups<4>.
+- op.run(left, right, dest) REQUIRES LVALUES: passing slice() temporaries fails to compile
+  ('expects an lvalue for 1st argument'); bind them to auto locals first.
+- A/B/C may be tensor_handle, tensor_offset or tensor_inline; only C may also be cooperative_tensor.
