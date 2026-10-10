@@ -257,6 +257,23 @@ real multi-layer model the "~150 MFLOPs per conv" rule of thumb is not a predict
 the actual model (`plan_devicesupport` / `coreml_plan`) or force the engines via the compute-unit
 configuration.
 
+**P3j - reconciliation: capability filter + group decision (API-159).** P3i's "no mixed graphs" sat
+uneasily with a real mixed plan already in this ledger (API-146). Resolved by reading that same
+local model with the new harness:
+
+| compute_units | plan |
+|---|---|
+| `cpuAndNeuralEngine` | **1381 ANE + 4 CPU** |
+| `all` | **1385 GPU + 0 CPU** |
+
+and the four CPU ops are `ios17.cast` (x2), `ios17.expand_dims`, `ios17.less` - type/shape plumbing
+and a comparison yielding a boolean mask, i.e. **exactly the ops the ANE cannot execute** (under
+`all` they run on the GPU, so nothing is left on CPU). So the split is a **capability filter**, not
+a cost decision; where every op is executable, P3i's single-device phase diagram applies to that
+capable group. P3i's "no mixed graphs" is therefore a property of *all-capable* graphs - which also
+explains why none of the synthetic conv/pool/softmax/topk graphs split. Side benefit: this
+reproduces API-146's 1381/4 **and** its all-GPU swap from an independent harness.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT

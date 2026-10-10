@@ -191,3 +191,30 @@ Single-scalar hypotheses tested and REFUTED (each has a counterexample pair):
 Practical consequence: for a real multi-layer model the per-op "~150 MFLOPs" rule is NOT a
 predictor. Placement must be read from the plan of the actual model (plan_devicesupport /
 coreml_plan), or forced with the compute-unit configuration.
+
+7. Reconciliation: a capability FILTER plus a group decision (real model, 2026-10-10)
+-----------------------------------------------------------------------------------
+Section 6 found no mixed graphs, but the ledger already held a real mixed plan (API-146). Resolved
+by reading the same local model with plan_devicesupport:
+
+  FluidAudio parakeet-tdt-0.6b-v3 Encoder.mlmodelc
+    compute_units = cpuAndNeuralEngine :  1381 ops preferred ANE  +  4 ops preferred CPU
+    compute_units = all                :  1385 ops preferred GPU  +  0 ops preferred CPU
+
+and the four CPU ops under cpuAndNeuralEngine are:
+
+    ios17.cast  (x2)      type plumbing
+    ios17.expand_dims     shape plumbing
+    ios17.less            comparison -> boolean mask
+
+i.e. exactly the ops the ANE cannot execute. Under `all` those same ops are GPU (the GPU can run
+them), so NOTHING is left on CPU.
+
+=> The plan splits at ops the candidate set cannot execute: a CAPABILITY FILTER, not a cost
+   decision. Where every op is executable, section 6's single-device phase diagram applies to that
+   capable group. Section 6's "no mixed graphs" therefore holds for all-capable graphs and is NOT a
+   general property - corrected by API-159.
+
+Cross-check value: this independently reproduces API-146's 1381/4 split AND its all-GPU swap from a
+second, independent harness, and it shows why a synthetic stack of conv/pool/softmax/topk never
+split (all of those are ANE-executable - even topk is reported ANE-preferred at 32x32/C=256).
