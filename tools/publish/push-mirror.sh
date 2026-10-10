@@ -31,6 +31,7 @@ if git diff --cached --quiet; then
     exit 0
 fi
 n=$(git diff --cached --numstat | wc -l | tr -d ' ')
-git -c user.name="$name" -c user.email="$email" commit -q -m "$msg"
+src=$(git -C "$repo" rev-parse HEAD)   # CROSS-REPO-CONTRACT: each mirror commit names its source
+git -c user.name="$name" -c user.email="$email" commit -q -m "$msg" -m "source-commit: $src"
 git push -q origin "$branch"
 echo "mirror pushed: $n files changed -> $remote ($branch)"

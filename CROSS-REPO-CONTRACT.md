@@ -53,8 +53,9 @@ That resolution depends on the repository being **public**:
   public host** for the schema URL:
   `https://raw.githubusercontent.com/4rg0naut/silicon-ledger-public/main/schemas/facets/silicon-ledger/1.json`
   — it resolves (HTTP 200). The mirror is regenerated deterministically by
-  `tools/publish/publish.sh` (redaction rules in `tools/publish/redaction.json`), one squashed
-  commit at a time, each mirror commit naming the private commit it was generated from.
+  `tools/publish/publish.sh` (redaction rules in `tools/publish/redaction.json`) and pushed by
+  `tools/publish/push-mirror.sh`, squashed per publication, each mirror commit carrying a
+  `source-commit:` trailer naming the private commit it was generated from.
 
 Consumers validating facets over the network must pin the mirror URL above; the private-repo
 URL of the same path remains 404 by design. Publication log, 2026-10-03: mirror initialised at
