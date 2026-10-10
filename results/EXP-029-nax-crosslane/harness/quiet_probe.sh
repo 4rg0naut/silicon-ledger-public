@@ -8,6 +8,7 @@
 # usage: sh quiet_probe.sh [label]        # label defaults to "unlabelled"
 # writes: results/quiet-<stamp>-<label>.txt  (and prints a QUIET-KEY block for diffing)
 set -u
+export LC_ALL=C   # fr_FR box: Apple CLIs emit comma decimals (ps "9,1", sysctl "3072,00M")
 label=${1:-unlabelled}
 here=$(cd "$(dirname "$0")" && pwd)
 root=$(cd "$here/../../.." && pwd)

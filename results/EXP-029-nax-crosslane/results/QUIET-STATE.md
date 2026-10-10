@@ -90,3 +90,72 @@ Re-run the canary before/after a benchmark: if it moved, the machine changed —
 - The spike sources are *not* attributed in this pass (the observation captured power, not
   per-process GPU time). Attribution is a follow-up: correlate spikes with `VTEncoderXPCService` /
   `mediaanalysisd` / WindowServer activity.
+
+## 7. CORRECTED: two GPU-power REGIMES under a continuous Screen-Share session (2026-10-10)
+
+**Correction.** An earlier version of this section called the difference "screen share vs not
+driving". That was wrong: the owner drives this Studio over Screen Share **throughout**
+(owner-confirmed). Both captures below were taken under Screen Share. The variable is *within* the
+sharing session, not sharing itself.
+
+| capture (1 Hz) | GPU median | min | max |
+|---|---:|---:|---:|
+| 14:52 (n=29) | **26.9 mW** | 25.1 | 104.3 |
+| 14:59 (n=43) | **85.0 mW** | 32.6 | 166.9 |
+| 15:0x re-check (n=29) | **82.7 mW** | — | — |
+
+Channel-level diff of the two regimes (medians per second):
+
+| channel | 26.9 mW regime | 82.7 mW regime | delta |
+|---|---:|---:|---:|
+| `DISP*` / `DISPEXT0-3 RT RW` (display) | 24,001,052 | 23,997,442 | **−0.02 %** |
+| `UT_EXT_THROTTLE_MGPU03/12` | 24,004,006 | 23,989,675 | **−0.06 %** |
+| `AGX RD/WR` events | 114.6 | **303.0** | **2.6×** |
+| `AGX.Count_UT_Engagement_Perf_State_1` | 127.1 | **316.2** | **2.5×** |
+| `GPU Energy` | 26.9 mW | **82.7 mW** | **3.1×** |
+
+So: **display/compositor traffic is identical across the regimes while real GPU engine activity
+triples.** The high regime is genuine GPU *work*, not display pinning, and not the ML daemons.
+
+- CPU hints in the worst second: `avconferenced` 13.3 % + `WindowServer` 13.2 % +
+  `VTEncoderXPCService` 8.1 % — consistent with a capture/encode + compositing path, but CPU% does
+  not prove GPU submission.
+- **Next instrument, needs one-shot sudo (repo policy: user-run):**
+  `sudo powermetrics -i 1000 -n 20 --show-process-gpu --samplers tasks` during a high regime, to
+  name the task that owns the GPU time.
+- Protocol consequence: gate each window on **its own** observed band; never compare numbers across
+  regimes. A true headless floor is still **unverified** and needs an SSH-only session.
+
+### Locale hazard found while arming the gate (same run)
+
+`LANG=fr_FR.UTF-8` on this box, and Apple CLIs emit comma decimals here: `ps` printed `9,1`,
+`sysctl` printed `3072,00M`. Consequences, both **silent**:
+1. `power_correlate.sh` (first version) died on `float("9,1")` — loud, easy.
+2. `bench/_power.py`, the single source of truth for every power A/B, matched `([\d.]+)` only, so a
+   localized `1234,56 mW` **failed to match and the sample was dropped** — no error, just fewer
+   samples. `_power.py` now accepts both separators (self-tested: `1234,56` → 1234.56; `1,234.56` →
+   1234.56), and all harnesses export `LC_ALL=C` as the belt to that braces.
+
+## 8. The Studio has NO physical display — the display is created BY Screen Sharing (2026-10-10)
+
+`system_profiler SPDisplaysDataType` on this box:
+
+```
+Displays:
+  Écran virtuel de partage d'écran:      Resolution: 2724 x 1532
+  UI Looks like: 1362 x 766 @ 60.00Hz    Main Display: Yes   Online: Yes
+```
+
+There is no monitor attached. The single Main Display is a **virtual display instantiated by the
+Screen-Sharing session**, scanned out at 60 Hz.
+
+Consequences:
+- The constant `DISP*` / `DISPEXT0-3 RT RD/WR` traffic measured earlier (~2.4001e7 events/s, and
+  the "connected display pins VMAX" note in file 10 Q1) is **that virtual display's composition**,
+  not a physical panel — and it exists **only while a Screen-Sharing client is connected**.
+- Disconnecting Screen Share should **remove the display entirely** (no scanout, no compositor
+  target). The true headless floor is therefore expected to be **lower than anything measured so
+  far** (both previous regimes, 26.9 and 82.7 mW, had the virtual display up). That is the cleanest
+  baseline for EXP-029 and it is still **unmeasured** [T].
+- Practical: for energy arms, SSH in and close Screen Share; then re-run `quiet_probe.sh` and the
+  canary and record the new band before trusting any joule number.
