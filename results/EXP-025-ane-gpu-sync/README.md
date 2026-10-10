@@ -44,6 +44,25 @@ primitive, and does the eval dispatch actually consume them?
   table's event column carries `PATHB_ONLY`, not numbers. Baseline CPU-completion
   floor: 0.10–0.63 ms/eval, events overhead 0.005–0.053 ms (`results/latency.md`).
 
+## Chaining result (2026-10-10) — data crosses the wire, both ways
+
+Follow-up that turns the counter proof (API-103) into a **data** chain, standalone
+(`harness/chain_harness.m`; public Metal + runtime-only `IOSurfaceSharedEvent`, no private
+ANE framework). Each iteration the GPU compute kernel writes a per-iteration pattern into an
+IOSurface and signals; the ANE-side wrapper waits and the CPU **verifies the surface content**.
+Reverse direction too.
+
+```
+C1 GPU->wrapper : waits=500/500 verified=500/500  median handoff 123.2 us
+C2 wrapper->GPU : waits=500/500 verified=500/500  median handoff 135.7 us
+VERDICT: data+sync crossed the boundary in BOTH directions
+```
+
+Evidence `results/chain_harness.txt`. **Scope:** this is the *wire the ANE uses* (API-102/103/
+104), driven end-to-end with data; it does NOT put a running ANE program on the other end —
+that integration stays blocked (Path-A crash on attached `_ANESharedEvents`; Path-B
+shared-event SIGSEGV, F-40). Record `API-141`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT

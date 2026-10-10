@@ -1,0 +1,54 @@
+FM LANE AUDIT — which lanes does Apple's on-device Foundation Model use? (2026-10-10)
+======================================================================================
+Machine: Mac17,14 M5 Max, macOS 27.0.1 / 26A434, unprivileged. enginemon --all, 500 ms.
+Driver: harness/p2_fm_lane_audit.sh. Windows: raw/lane-audit/{idle1,fm_respond,idle2}.jsonl.
+Follow-up to EXP-002 (which used xctrace + ane-hw-intervals: 20 intervals ~184 ms).
+
+WHAT RAN
+  idle1   12 s no workload
+  fm      25 x `/usr/bin/fm respond 'Reply with exactly one word: pong'` (new process each;
+          assets cached -> warm-class ~0.85 s/call), enginemon-wrapped
+  idle2   12 s no workload
+
+WINDOW TOTALS (per-channel deltas summed over the window)
+
+  channel                                  idle1        fm      idle2   verdict
+  PMP0/SOC-NI Util BW/SOC-NI9 ANEXL U          0     10862          0   ANE EXCLUSIVE
+  PMP0/SOC-NI Util BW/SOC-NI8 ANE UP           0     10839         25   near-exclusive
+  PMP0/DCS BW/ANE L0 RD+WR                     0     26732      41639   NON-exclusive
+  PMP0/AF BW/ANE L0 RD+WR                      0     26732      41639   NON-exclusive
+  PMP0/DCS Floor/ANE-DCS-BW            299242194 146971900  287138461   inverted (see GOTCHAS-072)
+  PMP0/Fast-Die CE/ANE0                        0         0          0   DEAD on M5 Max
+  Energy Model/ANE0 (mW)                       0         0          0   gated (known)
+  Energy Model/GPU Energy (nJ)            659.6M     245.2M     608.8M   see note
+  Energy Model/CPU Energy                       0         0          0   gated
+
+FINDINGS
+
+  1. **Apple's on-device model uses the Neural Engine** — measured with the calibrated
+     exclusive lens, no xctrace. The ANE-exclusive counter `SOC-NI9 ANEXL U` reads **0 in
+     both idle windows and 10,862 during the fm window** (ANE UP corroborates: 0/25 -> 10,839).
+     This upgrades EXP-002's xctrace-based observation ("20 ane-hw-intervals ~184 ms") to a
+     repeatable, unprivileged measurement on the same box.
+
+  2. **The `Fast-Die CE` compute-utilization histogram is dead on M5 Max**: the channel
+     `PMP0/Fast-Die CE/ANE0` (present in the subscription) reads **0 in every window** —
+     idle, confirmed-ANE (EXP-027 promotion matrix), GPU, and this fm window. This is the
+     channel `tmc/aneperf` derives `ane_utilization_pct` from (LANDSCAPE-073), so an
+     ANE-utilisation number built on it cannot work on this machine; ANEXL is the working
+     signal. (Caveat: one chip/OS build; other chips may deliver the histogram.)
+
+  3. **Lane mix**: FM is ANE-active and does not engage the GPU above the idle baseline
+     (GPU Energy is *not* higher during the fm window; UT shows only Perf_State_1, no
+     tensor/PS13 engagement). The ANE L0/L1 DCS+AF lanes move during FM but also in idle2
+     (non-exclusive) — consistent with EXP-027; do not use them as the ANE signal.
+
+NOTES / CAVEATS
+  - Window **durations differ** (idle 12 s vs the fm window); the energy columns are totals
+    and are NOT directly comparable across rows — only the zero-vs-nonzero structure is.
+    `ANEXL U` is zero regardless of duration, which is the load-bearing comparison.
+  - 25 calls x ~184 ms ANE (EXP-002) ~ 4.6 s of ANE work in the window -> a low duty cycle;
+    the point is presence/absence and lane identity, not a duty estimate.
+  - `Energy Model/ANE0` and CPU Energy stay 0 (gated, known). No mJ claim is made here.
+  - Per-op / per-asset attribution is NOT available: `fm` is an opaque server and the
+    guardrails' share of the ~150 ms warm cost remains unisolated (EXP-002 unknown).

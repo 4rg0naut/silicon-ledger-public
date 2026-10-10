@@ -1,0 +1,21 @@
+ANE<->GPU DIRECT-LINK CHAINING — data + sync across the shared kernel event (2026-10-10)
+====================================================================================
+Machine: Mac17,14 M5 Max, macOS 27.0.1 / 26A434, unprivileged.
+Harness: chain_harness.m (standalone; public Metal + runtime-only IOSurfaceSharedEvent).
+  build: clang -O2 -framework Foundation -framework Metal -framework IOSurface -o chain_harness chain_harness.m
+  run:   ./chain_harness 500
+
+Not a counter test: each iteration the GPU writes a per-iteration pattern into an
+IOSurface and the chain verifies the SURFACE CONTENT on the other side.
+
+C1  GPU compute kernel writes surface -> encodeSignalEvent -> ANE-side wrapper
+    (IOSurfaceSharedEvent initWithMachPort:) waitUntilSignaledValue -> CPU verifies.
+C2  wrapper setSignaledValue -> GPU encodeWaitForEvent -> kernel writes -> verify.
+
+RESULT (500 iterations):
+chain_harness: dev=Apple M5 Max eventPort=11347 wrapper=ok
+C1 GPU->wrapper : waits=500/500 verified=500/500  sample=0xFF000000  median handoff 123.2 us
+C2 wrapper->GPU : waits=500/500 verified=500/500  sample=0xFF800000  median handoff 135.7 us
+VERDICT: data+sync crossed the boundary in BOTH directions
+
+Also 200-iteration run: C1 200/200 verified median 132.7 us; C2 200/200 median 145.2 us.

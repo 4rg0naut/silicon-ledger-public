@@ -22,6 +22,11 @@ evidence in [**WHATSNEW.md**](WHATSNEW.md):
 - **Which architecture your Mac actually targets** — measured `h17c` (M5 Max) vs `h16g` (M4
   mini); a correction to a published ANE table is filed upstream
   ([issue](https://github.com/sbryngelson/ane-guide/issues/1)). **Extends** published work.
+- **Apple's Foundation Model on the ANE, measured unprivileged** — `ANEXL U` reads 0 at idle and
+  10,862 across an `fm` burst; no GPU engagement above idle.
+- **The ANE↔GPU link carries data, both ways** — a GPU kernel writes an IOSurface and signals,
+  the ANE-side wrapper waits, content verified every iteration (~123/136 µs, 500/500).
+  **New** (the wire is driven end-to-end; attaching a live ANE program is still blocked).
 
 ## Why this exists
 
