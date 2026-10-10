@@ -162,6 +162,12 @@ threshold** either ⇒ the ~1.5e8-FLOP gate is **derived** from other fields, no
 whole-`__TEXT` MOVZ/MOVK adjacency scan is too noisy; full recovery needs a decompiler on the
 extracted cache image or a directed walk. Record `API-150`.
 
+**P3c — full disassembly tooling (`ipsw`).** Homebrew `ipsw` (3.1.735) both **extracts** the
+cache-only CoreML image to a real Mach-O and **disassembles at cache addresses with labels**
+(`ipsw dyld disass --vaddr`). At the placement entry the path runs **double-precision**
+comparisons (`fcmp d0,#0.0` / `b.hi` / `csel`) — cost weights, not integer thresholds, exactly
+as API-150 concluded. Evidence `results/coreml_plan_disasm.txt`, record `API-151`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
