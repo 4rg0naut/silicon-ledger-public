@@ -62,3 +62,24 @@ CAVEATS
   - the ~150 MFLOP bound is a bracket (149.3-156.0M), one OS build, fp16;
   - plan != runtime: this is the planner's decision, not a runtime confirmation (see API-146 for
     the plan/runtime relationship and the ANEXL lens for ground truth).
+
+5. P2 — RUNTIME VALIDATION (does the plan hold at runtime?)
+-----------------------------------------------------------
+Built a just-below / just-above pair (conv3x3, H=W=8, fp16, cpuAndNeuralEngine):
+  route_below.mlpackage  C=352  71.4M MACs  plan = CPU
+  route_above.mlpackage  C=384  84.9M MACs  plan = ANE
+Ran 20000 predictions each under enginemon (ANEXL lens; harness/coreml_run.py, the ObjC runner
+being unusable for these mlprogram models — empty input shape -> E5 buffer alloc failure, so its
+first reading was compile-side and discarded):
+
+  arm     predictions   ANEXL U   ANE UP
+  below   20000             0        0
+  above   20000         12065    12094
+
+=> the planner's decision is HONOURED at runtime: above the ~1.5e8-FLOP threshold the conv runs
+on the ANE; below it there is no ANE activity at all. No silent fallback observed for this case.
+
+BUG NOTE: the first P2 attempt used the ObjC coreml_run.m, which built a zero-shape MLMultiArray
+for these models (MLE5 "Failed to allocate E5 buffer object"), crashed on the first predict, and
+its ANEXL delta was therefore specialization/compile-side, not inference. The Python runner
+(harness/coreml_run.py, coremltools) is the correct instrument here.

@@ -140,6 +140,12 @@ record `API-146`.
 
 Evidence `results/coreml_route_sweep.txt`, record `API-147`.
 
+**Plan == runtime (P2).** A just-below/just-above pair (C=352 → plan CPU; C=384 → plan ANE), 20000
+predictions each: `ANEXL U = 0` for the below model, **12065** for the above — so the threshold is
+honoured at runtime, no silent fallback for this case. (First attempt used the ObjC runner, which
+crashed on zero-shape inputs; its reading was compile-side and was discarded — the Python runner
+`harness/coreml_run.py` is the correct instrument.) Record `API-148`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
