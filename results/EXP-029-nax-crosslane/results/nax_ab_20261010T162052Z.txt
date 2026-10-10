@@ -1,0 +1,7 @@
+# NAX A/B via MetalHLO mlx-comparison (auto / FORCE_STEEL / NAX_GEMM)
+MAT-DOT-004  auto   
+MAT-DOT-004  steel  
+MAT-DOT-004  nax    
+MAT-DOT-005  auto   
+MAT-DOT-005  steel  
+MAT-DOT-005  nax    
