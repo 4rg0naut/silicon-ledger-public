@@ -287,6 +287,20 @@ the lengths/mask plumbing: `cast → int32`, `expand_dims` on int32, `less(int32
 placed on CPU. (The file's other int32/bool entries are attributes - axes/strides/pads - i.e.
 constants, and are fine.)
 
+**P3l - layer 3 resists (negative, API-161) + the practical rules fall out.** Two more attempts to
+reach the graph-level rule failed honestly: (a) the planner's *own* cost number is a **normalised
+equal share** - in a chain of N identical convs each conv reports `weight = 1/N` and every `relu`
+reports `0` - so it carries no decision signal; (b) `+computePlanOfModelStructure:modelAsset:
+configuration:error:` @`0x191f7c420` is a **wrapper/validation path** (no op loop, no cost
+comparison, no `msgSend` selector; it validates, calls a same-image boolean helper and delegates
+outward), so the decision sits in a callee outside that body; (c) an additive model
+(`ANE iff ΣMAC_i + β·N ≥ Θ`) is **refuted** by the phase diagram - `(5,5)` CPU and `(6,4)` ANE
+force β > 1.71e7, while `(3,7)` ANE and `(5,5)` CPU force β < 6.5e6. What *does* fall out is worth
+more than the formula: the measured rules are now a user-facing **GOTCHAS-075** - keep the data path
+fp16 (int32/bool plumbing forces CPU), read the plan instead of guessing per-op sizes, treat
+"~150 MFLOPs/conv" as a ±10% correlate only, and remember `computeUnits` caps (and can move) the
+whole model.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
