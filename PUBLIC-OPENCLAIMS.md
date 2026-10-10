@@ -13,7 +13,7 @@ models and checked against measurements. "An AI helped write it" is a fact
 worth stating, not hiding. So every claim in our knowledge base is recorded
 as a spine event, and every check is recorded too — with the checker named:
 
-- **622 claims emitted** — each with its source and, when a tool produced
+- **623 claims emitted** — each with its source and, when a tool produced
   it, the run that produced it.
 - **108 verification events** — all `model_check` (an AI model checked
   them against our measurement ledger).
@@ -34,7 +34,7 @@ python3 -m venv .venv-ocl && .venv-ocl/bin/pip install "git+https://github.com/o
 Expected final line:
 
 ```
-committed events : 747 valid, 0 INVALID (of 747)
+committed events : 748 valid, 0 INVALID (of 748)
 ```
 
 (The Python SDK is not on PyPI yet — install it from the upstream git

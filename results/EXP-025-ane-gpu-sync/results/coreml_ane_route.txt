@@ -1,0 +1,42 @@
+CoreML is the ANE-specific event route; Core AI is not (2026-10-10)
+==================================================================
+
+Machine: Mac17,14 M5 Max, macOS 27.0.1 / 26A434, unprivileged.
+
+Model:   conv_512x64_d8.mlpackage — 8x fp16 convolution, in/out shape [1,512,1,64],
+         268 MFLOP (from the m5max-ai-bench workspace models/coreml/, found in the
+         blind-spot sweep; it is the ANE-eligible CoreML graph this box was missing).
+Runner:  harness/coreml_run.m — MLModel, computeUnits = cpuAndNeuralEngine.
+Probe:   harness/join_chain.dylib via DYLD_INSERT_LIBRARIES (read-only interposition).
+
+A. The conv model runs on the ANE (ANEXL lens, sustained loop)
+-------------------------------------------------------------
+  PMP0/SOC-NI9 ANEXL U  = 18271
+  PMP0/SOC-NI8 ANE UP   = 18252
+  PMP0/DCS BW/ANE L0 RD+WR = 73442
+  (elapsed 17 s, 100000 predictions, 0.187 ms/call; Fast-Die CE/ANE0 still 0 — GOTCHAS-073)
+
+  => Core ML places this convolution graph on the Neural Engine.
+
+B. Route identification by interposition (same probe, two stacks)
+-----------------------------------------------------------------
+  stack      -[_ANERequest setSharedEvents:]   IOSurfaceSharedEvent created / signalled
+  Core ML    101 calls (all nil)               0 / 0
+  Core AI    0 calls                           13 created / 260 signalled   (arms-invariant)
+
+  => Core ML drives the ANE through the private _ANERequest path; Core AI does not
+     touch it at all (its 13 counters are generic MPSGraph/Metal counters — API-142).
+
+C. But a PURE-ANE workload attaches NO events
+---------------------------------------------
+  Every setSharedEvents: call was nil, and no IOSurfaceSharedEvent was created in-process,
+  so for this model there is no inter-engine chain to join. A live, non-nil chain needs a
+  MIXED ANE+GPU workload (so Apple must wire engines together), or capture of the events at
+  _ANERequest creation via its designated initializer (not hooked in join_chain.m).
+
+VERDICT
+-------
+The ANE-specific shared-event route is Core ML's e5rt path, as API-115 implied; Core AI is
+generic. The blind spot is now closed on WHERE the route is. What remains is a workload that
+makes Apple attach non-nil events — a mixed-engine model — at which point the live counter can
+be joined exactly as the Core AI counters were (API-142).

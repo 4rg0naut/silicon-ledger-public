@@ -76,6 +76,26 @@ generic MPSGraph/Metal-side counters; Core AI's ANE execution does not use the `
 shared-event route. Evidence `results/join_chain.txt`, record `API-142`. The ANE-specific
 e5rt/E5 route (API-115) is Core ML's ANE execution and needs an ANE-routed `.mlmodelc`.
 
+### Core ML *is* that route (2026-10-10)
+
+A blind-spot sweep of the workspace clones turned up the missing piece — an **ANE-eligible
+CoreML model** (`conv_512x64_d8.mlpackage`, 8× fp16 conv, `[1,512,1,64]`, in
+`m5max-ai-bench/models/coreml/`). Running it through `MLModel` (`cpuAndNeuralEngine`):
+
+- **it lands on the ANE** — `ANEXL U = 18271`, `ANE UP = 18252` over 100k predictions
+  (0.187 ms/call); and
+- interposition separates the stacks cleanly:
+
+| stack | `-[_ANERequest setSharedEvents:]` | `IOSurfaceSharedEvent` created/signalled |
+|---|---|---|
+| **Core ML** | **101 calls (all nil)** | 0 / 0 |
+| Core AI | 0 calls | 13 / 260 (generic, arms-invariant) |
+
+So **Core ML drives the ANE through `_ANERequest`**; Core AI does not. The gap that remains:
+a *pure-ANE* workload attaches **no events** (all nil), so there is no inter-engine chain to
+join yet — that needs a **mixed ANE+GPU model**. Evidence `results/coreml_ane_route.txt`,
+record `API-143`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
