@@ -152,3 +152,42 @@ harness/plan_hw_sweep.sh (explicit HxW). One conv per model; decision read by pl
     - weights:  ANE at 262,144 (k=1 C=512) and CPU at 147,456 (k=3 C=128);
     - spatial:  ANE at 12 (k=5 C=512) yet CPU at 2,025 (k=3 C=64);
     - intensity: ANE at ~32 MACs/element (k=1 C=64) and CPU at ~252 (k=3 C=64).
+
+6. Does the rule survive in a real network? NO - placement is decided for the GRAPH (2026-10-10)
+------------------------------------------------------------------------------------------------
+Tool: harness/make_graph.py (a padded-conv stack, spatial preserved, channels configurable), read
+per op by plan_devicesupport. All graphs here: conv3x3, C=256->256, N convs each followed by ReLU,
+input HxH. Every cell below is the device of EVERY op in that graph.
+
+PHASE DIAGRAM  (rows = number of conv layers N, columns = spatial size H; k=3, C=256)
+
+        H=4   H=6   H=8   H=11  H=16
+  N=1   CPU   CPU   CPU   CPU   ANE
+  N=2   CPU   CPU   CPU   ANE   ANE
+  N=3   CPU   CPU   ANE   ANE   ANE
+  N=4   CPU   ANE   ANE   ANE   ANE
+  N=5   CPU   ANE   ANE   ANE   ANE
+  N=6   ANE   ANE   ANE   ANE   ANE
+
+Findings:
+  (a) NO MIXED GRAPH was observed: within a graph, every op takes the SAME device. The decision is
+      taken at the graph level, not per op.
+  (b) The boundary is clean and monotone in both N and H, and deterministic ((5,4) CPU and (6,4)
+      ANE reproduced on re-runs).
+  (c) It CONTRADICTS the single-op rule: a graph of 6 convs at 9.44e6 MACs each (total 5.66e7) is
+      placed ENTIRELY on ANE, while a SINGLE conv at 7.14e7 MACs - seven times the per-op work - is
+      CPU. So "~150 MFLOPs per conv" does not predict a real network.
+
+Single-scalar hypotheses tested and REFUTED (each has a counterexample pair):
+  * total MACs:      (6,4) 5.66e7 -> ANE  vs  (2,8) 7.55e7 -> CPU
+  * per-op MACs:     (6,4) 9.44e6 -> ANE  vs  (5,4) 9.44e6 -> CPU     (same per-op work!)
+  * N*H:             (2,10) 20 -> ANE     vs  (5,5) 25 -> CPU
+  * op count:        (5,4) 10 ops -> CPU  vs  (4,6) 8 ops -> ANE
+  * weights (N*C^2k^2): depends on N only, and N=5 is CPU while N=6 is ANE
+  The per-op threshold apparently DROPS as layers are added (N=1 ~7.4e7 ... N=3 ~2.5e7 ...
+  N=6 <=9.4e6), i.e. the planner trades per-op size against graph length - but no single scalar of
+  (N, H) fits the whole table, so the aggregate it actually minimizes is still unidentified.
+
+Practical consequence: for a real multi-layer model the per-op "~150 MFLOPs" rule is NOT a
+predictor. Placement must be read from the plan of the actual model (plan_devicesupport /
+coreml_plan), or forced with the compute-unit configuration.

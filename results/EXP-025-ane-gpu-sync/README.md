@@ -233,6 +233,30 @@ rule of thumb for 3x3 but not the law**. Screening the obvious single-factor met
 table refutes each: output count, weight count, spatial size and arithmetic intensity all have an
 ANE row that sits on the wrong side of a CPU row.
 
+**P3i - and it does not survive in a network: placement is a GRAPH decision (API-158).** Real models
+are multi-op, and the planner normalises cost across the graph, so the single-op rule was tested
+against padded conv stacks (`harness/make_graph.py`). Result: **no graph was ever mixed** - every op
+in a graph takes the *same* device - and the CPU->ANE boundary is a clean, deterministic, monotone
+phase diagram in (layers N, spatial H):
+
+```
+        H=4   H=6   H=8   H=11  H=16
+  N=1   CPU   CPU   CPU   CPU   ANE
+  N=2   CPU   CPU   CPU   ANE   ANE
+  N=3   CPU   CPU   ANE   ANE   ANE
+  N=4   CPU   ANE   ANE   ANE   ANE
+  N=5   CPU   ANE   ANE   ANE   ANE
+  N=6   ANE   ANE   ANE   ANE   ANE
+```
+
+**This contradicts the single-op rule outright:** six convs of 9.44e6 MACs (5.66e7 total) go
+*entirely* to ANE, while a **single** conv of 7.14e7 MACs - seven times the per-op work - stays CPU.
+Every single-scalar explanation was screened and refuted (total MACs, per-op MACs, op count,
+weights, N*H - each has a counterexample pair in the results file). **Practical consequence:** for a
+real multi-layer model the "~150 MFLOPs per conv" rule of thumb is not a predictor; read the plan of
+the actual model (`plan_devicesupport` / `coreml_plan`) or force the engines via the compute-unit
+configuration.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
