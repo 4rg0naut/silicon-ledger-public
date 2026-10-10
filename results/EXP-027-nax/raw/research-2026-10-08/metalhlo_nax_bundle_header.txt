@@ -1,0 +1,48 @@
+// Auto-bundled from MLX (mlx-swift Cmlx mlx-generated/gemm_nax.cpp).
+// Flattened metal source for the NAX cooperative-tensor GEMM dependency chain:
+// defines / utils / transforms / type_traits / integral_constant / nax.h /
+// params / gemm_nax (gemm_loop). Appended with a thin wrapper kernel that uses
+// our buffer ABI (A=0,B=1,C=2,M=3,N=4,K=5). Reaches MLX-grade tf32 throughput
+// on M5's matrix coprocessor. Do not hand-edit — regenerate from MLX source.
+enum NAXGemmBundle {
+    static let metalSource = ##"""
+
+// Copyright © 2025 Apple Inc.
+
+// Auto generated source for mlx/backend/metal/kernels/steel/gemm/gemm_nax.h
+  constexpr short FM = FMc;
+  constexpr short FN = FNc;
+  constexpr short FK = FKa;
+
+  constexpr int TM = FM / 16;
+  constexpr int TN = FN / 16;
+  constexpr int TK = FK / 16;
+
+  // Create Matmul descriptor
+  constexpr auto desc = mpp::tensor_ops::matmul2d_descriptor(
+      FM,
+      FN,
+      FK,
+      transpose_a,
+      transpose_b,
+      true,
+      mpp::tensor_ops::matmul2d_descriptor::mode::multiply_accumulate);
+
+  // Create matmul op
+  mpp::tensor_ops::matmul2d<desc, metal::execution_simdgroup> gemm_op;
+
+  // Create matmul operands in registers
+  auto ct_a =
+      gemm_op.template get_left_input_cooperative_tensor<AType, BType, CType>();
+  auto ct_b =
+      gemm_op
+          .template get_right_input_cooperative_tensor<AType, BType, CType>();
+
+  // Create matmul output in register
+  auto ct_c = gemm_op.template get_destination_cooperative_tensor<
+      decltype(ct_a),
+      decltype(ct_b),
+      CType>();
+
+  // Load A in to left operand registers
+  STEEL_PRAGMA_UNROLL

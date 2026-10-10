@@ -1,0 +1,8 @@
+arch: h17c
+available units: cpu,gpu,neuralEngine
+load+specialize: 127.2 ms (preferred=gpu)
+functions: main
+function: main | inputs: x | outputs: out
+prepared inputs: x[1, 512, 1, 64]xfloat32
+run n=6 median=3.892 ms min=3.296 max=13.207
+DONE

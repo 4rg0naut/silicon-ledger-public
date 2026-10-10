@@ -1,0 +1,22 @@
+# machine=Mac17,14 os=27.0.1 build=26A434 date=2026-10-07T21:42:29+0200
+# A2 cross-produce: public +[MLModel compileModelAtURL:error:] on minilm128.mlpackage (CLT-only box, no Xcode, no Go).
+# input: /Volumes/M4-Partage/local_ai_stack/models/minilm128.mlpackage
+compileModelAtURL? 1
+compile ok=1
+drwxr-xr-x    6 <user>  staff        192  6 oct.  09:08 minilm128_C19CBE69-A01D-4244-9E40-D1D1F2C9D930.mlmodelc
+drwxr-xr-x    6 <user>  staff        192  7 oct.  21:28 minilm128_E6303825-CC27-4CA2-A101-12F81205B897.mlmodelc
+BUNDLE (fresh, compiled on 27.0.1 this run):
+/tmp/fresh128.mlmodelc:
+total 176
+drwxr-xr-x    6 <user>  wheel    192  7 oct.  21:29 .
+drwxrwxrwt  314 root   wheel  10048  7 oct.  21:41 ..
+drwxr-xr-x    3 <user>  wheel     96  7 oct.  21:29 analytics
+-rw-r--r--    1 <user>  wheel    408  7 oct.  21:29 coremldata.bin
+-rw-r--r--    1 <user>  wheel  85615  7 oct.  21:29 model.mil
+drwxr-xr-x    3 <user>  wheel     96  7 oct.  21:29 weights
+
+/tmp/fresh128.mlmodelc/weights:
+total 87776
+drwxr-xr-x  3 <user>  wheel        96  7 oct.  21:29 .
+drwxr-xr-x  6 <user>  wheel       192  7 oct.  21:29 ..
+-rw-r--r--  1 <user>  wheel  44939136  7 oct.  21:29 weight.bin

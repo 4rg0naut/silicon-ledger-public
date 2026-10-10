@@ -1,0 +1,122 @@
+# p2b_model_src_region_llir.txt — 2026-10-08 — ANE-region LLIR decode (model.src ANE-side continuation)
+# A: full string dictionary of raw/p2b_model_src/granite_region0.mlir.bc.gz (ANE region 0, h17c)
+
+# producer=MLIR22.0.0git bytecode_version=6
+# section 1 at 0x15 len 94
+# section 3 at 0x76 len 505
+# section 2 at 0x273 len 61656
+# section 4 at 0xf34e len 7077
+# section 6 at 0x10ef5 len 1
+# section 5 at 0x10ef8 len 0
+# string section at 0x10efb len 1949
+# num_strings=95
+0	builtin
+1	memref
+2	raster
+3	llir
+4	anehlo
+5	arith
+6	async
+7	bufferization
+8	module
+9	reinterpret_cast
+10	alloc
+11	subview
+12	transpose
+13	global
+14	get_global
+15	view
+16	cast
+17	call
+18	kernel
+19	func
+20	raster_params
+21	rasterize_packed
+22	l2_alias
+23	l2_source_dependency
+24	dma_dependency
+25	dtid
+26	bind
+27	l2_access_mode
+28	cache_hint
+29	coeff_dma_offset_size
+30	yield
+31	pe
+32	ne
+33	load
+34	binary_point
+35	add
+36	l2_src_dependency
+37	broadcast
+38	unicast
+39	fifo
+40	store
+41	mul
+42	pe_scale
+43	fill_lower_ne_first
+44	cmp
+45	l2_barrier
+46	kload
+47	kernel_shape
+48	conv
+49	detect_zeros
+50	scale_bias
+51	negate
+52	reduce
+53	reduction_result
+54	seg
+55	proc
+56	get_config
+57	lambda
+58	enqueue
+59	pe_bias
+60	post_scale
+61	groups
+62	ocg_stride
+63	group_stride
+64	sumsqr
+65	epsilon
+66	rsqrt
+67	constant
+68	to_tensor
+69	engine.io.type
+70	anehlo.name
+71	private
+72	resource_12034524162413747906
+73	__func_main_HASH_0_ANE_region_0_0____mps.constant_4279880
+74	__func_main_HASH_0_ANE_region_0_0____mps.constant_4279881
+75	resource_11857580575457953160
+76	resource_13891831815890816820
+77	TT__func_main_HASH_0_ANE_region_0_0____anec.scaled_elementwise_4279900_ew_to_goc_xfm_3_fuse_goc_const_xfm_0
+78	KernelRaster_func_main_HASH_0_ANE_region_0_0_main_conv_OO__func_main_HASH_0_ANE_region_0_0____anec.linear_4279903__0_0_fuse_neconv_xfm_cw_ne_xfm_clone_neconv_xfm
+79	func_main_HASH_0_ANE_region_0_0_cf_graphs_0
+80	MasterKernelRaster_main_HASH_0_ANE_region_0_0
+81	anehlo.branch_version
+82	anehlo.version
+83	llir.extern_constant
+84	llir.param_name
+85	llir.num_tasks
+86	main_HASH_0_ANE_region_0_0__arg0
+87	main_HASH_0_ANE_region_0_0__arg1
+88	main_HASH_0_ANE_region_0_0__out:0
+89	main_HASH_0_ANE_region_0_0__out:1
+90	main_HASH_0_ANE_region_0_0__out:2
+91	main_HASH_0_ANE_region_0_0__out:3
+92	main_HASH_0_ANE_region_0_0__out:4
+93	main_HASH_0_ANE_region_0_0
+94	llir.bss
+
+B: per-region fused-kernel matrix (from live cache, 13 regions; entry function name redacted HASH)
+region_0 kernels: anec.linear anec.scaled_elementwise 
+region_1 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_10 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_11 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_12 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_2 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_3 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_4 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_5 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_6 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_7 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_8 kernels: anec.linear anec.scaled_elementwise anec.swish 
+region_9 kernels: anec.linear anec.scaled_elementwise anec.swish 

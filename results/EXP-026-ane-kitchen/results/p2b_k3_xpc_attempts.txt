@@ -1,0 +1,12 @@
+# K3 XPC direct-drive attempts (consolidated) — 2026-10-07 22:37:58
+== NSXPCConnection as user (svc NOT running):
+2026-10-07 22:37:58.244 p2b_xpc_client[56330:4099189] invalidated
+2026-10-07 22:37:58.244 p2b_xpc_client[56330:4099183] [try 1] withReply variant, plist=nil optionsFilename=nil
+2026-10-07 22:37:58.244 p2b_xpc_client[56330:4099189] XPC error: Error Domain=NSCocoaErrorDomain Code=4099 "The connection to service named com.apple.ANECompilerService was invalidated: Connection init failed at lookup with error 3 - No such process." UserInfo={NSDebugDescription=The connection to service named com.apple.ANECompilerService was invalidated: Connection init failed at lookup with error 3 - No such process.}
+2026-10-07 22:38:58.250 p2b_xpc_client[56330:4099183] try1 49
+== launchd system domain:
+Bad request.
+Could not find service "com.apple.ANECompilerService" in domain for system
+== Info.plist MachServices: both absent (v6 confirmed; launchd cannot auto-spawn)
+== direct exec as user: stays alive (pid observed); as root (v6): exited rc=1
+== Conclusion: no launchd registration in any domain; the service is spawned on-demand by the CoreML client stack. NSXPC handshake requires the exported protocol to match exactly; both compileModelAt: variants accepted by the interface (no coding error) -> signature shape plausible but unproven without a live service.

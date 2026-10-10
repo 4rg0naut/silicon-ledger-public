@@ -1,0 +1,31 @@
+EXP-024 C7 — NA matched A/B window energy, M5 Max h17c, quiet window 2026-10-06 18:06–18:11Z (oMLX off)
+================================================================================
+phase      mean_mW   med_clkMHz  samples
+idle        172.7       338.0     120
+armA       1670.4       951.0     360
+armB       1791.4       976.0     360
+idle2       172.8       338.0     120
+idle-drift floor: 0.1 mW (idle vs idle2) — window is clean
+
+armA tensorops(matmul2d 64x32 K=64): 16 launches x 3 rounds, 48 round-lines, 240000 predicts
+  med 237.0 us/tile -> 1.11 GFLOPS; checksum PASS x16; boost 951 MHz
+  dmean = +1497.6 mW  vs idle base
+  dE over window = 1497.6 mW x 90 s = 134.8 J
+  dMJ_per_million_tiles = 561,612   (window energy / completed tiles, duty incl.)
+
+armB simdgroup(SIMT fp16 matched): 15 launches x 3 rounds, 45 round-lines, 225000 predicts
+  med 262.0 us/tile -> 1.00 GFLOPS; checksum PASS x15; boost 976 MHz
+  dmean = +1618.6 mW
+  dE = 145.7 J
+  dMJ_per_million_tiles = 647,457
+
+DELTA (armA - armB): -85,845 mJ/Mtile = -13.3% (signal 1500x idle-drift floor)
+
+CEILING CHECK: HAL-32 fp16 @ 951 MHz = 32 x 1024 x 951e6 = 31.16 TF measured/ceiling = 1.11 GF / 31.16 TF = 0.0036%
+  -> dispatch-bound; this delta is the launch+memory path at single-tile size.
+  NA-pipe throughput share UNPROVEN (C6 note: both arms may ride shader pipes at 64x32).
+
+Ledger rows: m5-naab-tensorops-tile-energy, m5-naab-simdgroup-tile-energy, m5-naab-tile-energy-delta
+Method: relauncher loop (IOSurface leak F-39: <=15000 predicts/process); analyzer arithmetic
+spelled in row scope strings. Original window printout lacked summary.txt (analyzer printed
+to terminal only) — this file reconstructs it verbatim from the capture.

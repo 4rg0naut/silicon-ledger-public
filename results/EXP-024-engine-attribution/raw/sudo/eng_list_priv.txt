@@ -1,0 +1,767 @@
+group                            subgroup                                 channel                                    unit       engine
+Energy Model                                                              CPU Energy                                 mJ         cpu
+Energy Model                                                              GPU0                                       mJ         gpu
+Energy Model                                                              ANE0                                       mJ         ane
+Energy Model                                                              GPU Energy                                 nJ         gpu
+Interrupt Statistics (by index)  dart-ane0 0                              First Level Interrupt Handler Count                   ane
+Interrupt Statistics (by index)  dart-ane0 0                              Second Level Interrupt Handler Count                  ane
+Interrupt Statistics (by index)  dart-ane0 0                              First Level Interrupt Handler Time (MATUs)            ane
+Interrupt Statistics (by index)  dart-ane0 0                              Second Level Interrupt Handler CPU Time (MATUs)            ane
+Interrupt Statistics (by index)  dart-ane0 0                              Second Level Interrupt Handler System Time (MATUs)            ane
+PMP0                             IOP State                                status                                     24Mticks   soc
+PMP0                             IO Reporting statistics                  update count                                          soc
+PMP0                             IO Reporting statistics                  last update                                           soc
+PMP0                             Power                                    Duty cycle                                            soc
+PMP0                             Power                                    Sleep count                                events     soc
+PMP0                             Power                                    Wake count                                 events     soc
+PMP0                             Power                                    Power state                                us         soc
+PMP0                             Power                                    Free heap                                  B          soc
+PMP0                             Power                                    Total heap                                 B          soc
+PMP0                             Power                                    Peak heap alloc                            B          soc
+PMP0                             Used stack                               Used stack(0)                              B          soc
+PMP0                             Used stack                               Used stack(1)                              B          soc
+PMP0                             Used stack                               Used stack(2)                              B          soc
+PMP0                             Used stack                               Used stack(3)                              B          soc
+PMP0                             Used stack                               Used stack(4)                              B          soc
+PMP0                             Used stack                               Used stack(5)                              B          soc
+PMP0                             Used stack                               Used stack(6)                              B          soc
+PMP0                             Used stack                               Used stack(7)                              B          soc
+PMP0                             Used stack                               Used stack(8)                              B          soc
+PMP0                             Used stack                               Used stack(9)                              B          soc
+PMP0                             Used stack                               Used stack(10)                             B          soc
+PMP0                             Used stack                               Used stack(11)                             B          soc
+PMP0                             Used stack                               Used stack(12)                             B          soc
+PMP0                             Used stack                               Used stack(13)                             B          soc
+PMP0                             Used stack                               Used stack(14)                             B          soc
+PMP0                             Used stack                               Used stack(15)                             B          soc
+PMP0                             Used stack                               Used stack(16)                             B          soc
+PMP0                             Used stack                               Used stack(17)                             B          soc
+PMP0                             Used stack                               Used stack(18)                             B          soc
+PMP0                             Used stack                               Used stack(19)                             B          soc
+PMP0                             Used stack                               Used stack(20)                             B          soc
+PMP0                             Used stack                               Used stack(21)                             B          soc
+PMP0                             Used stack                               Used stack(22)                             B          soc
+PMP0                             Used stack                               Used stack(23)                             B          soc
+PMP0                             Used stack                               Used stack(24)                             B          soc
+PMP0                             Used stack                               Used stack(25)                             B          soc
+PMP0                             Used stack                               Used stack(26)                             B          soc
+PMP0                             Used stack                               Used stack(27)                             B          soc
+PMP0                             Used stack                               Used stack(28)                             B          soc
+PMP0                             Used stack                               Used stack(29)                             B          soc
+PMP0                             Used stack                               Used stack(30)                             B          soc
+PMP0                             Used stack                               Used stack(31)                             B          soc
+PMP0                             Total stack                              Total stack(0)                             B          soc
+PMP0                             Total stack                              Total stack(1)                             B          soc
+PMP0                             Total stack                              Total stack(2)                             B          soc
+PMP0                             Total stack                              Total stack(3)                             B          soc
+PMP0                             Total stack                              Total stack(4)                             B          soc
+PMP0                             Total stack                              Total stack(5)                             B          soc
+PMP0                             Total stack                              Total stack(6)                             B          soc
+PMP0                             Total stack                              Total stack(7)                             B          soc
+PMP0                             Total stack                              Total stack(8)                             B          soc
+PMP0                             Total stack                              Total stack(9)                             B          soc
+PMP0                             Total stack                              Total stack(10)                            B          soc
+PMP0                             Total stack                              Total stack(11)                            B          soc
+PMP0                             Total stack                              Total stack(12)                            B          soc
+PMP0                             Total stack                              Total stack(13)                            B          soc
+PMP0                             Total stack                              Total stack(14)                            B          soc
+PMP0                             Total stack                              Total stack(15)                            B          soc
+PMP0                             Total stack                              Total stack(16)                            B          soc
+PMP0                             Total stack                              Total stack(17)                            B          soc
+PMP0                             Total stack                              Total stack(18)                            B          soc
+PMP0                             Total stack                              Total stack(19)                            B          soc
+PMP0                             Total stack                              Total stack(20)                            B          soc
+PMP0                             Total stack                              Total stack(21)                            B          soc
+PMP0                             Total stack                              Total stack(22)                            B          soc
+PMP0                             Total stack                              Total stack(23)                            B          soc
+PMP0                             Total stack                              Total stack(24)                            B          soc
+PMP0                             Total stack                              Total stack(25)                            B          soc
+PMP0                             Total stack                              Total stack(26)                            B          soc
+PMP0                             Total stack                              Total stack(27)                            B          soc
+PMP0                             Total stack                              Total stack(28)                            B          soc
+PMP0                             Total stack                              Total stack(29)                            B          soc
+PMP0                             Total stack                              Total stack(30)                            B          soc
+PMP0                             Total stack                              Total stack(31)                            B          soc
+PMP0                             Power                                    CPU count                                  events     soc
+PMP0                             DCS Floor                                DIE1                                       events     soc
+PMP0                             AFR Floor                                DIE1                                       events     soc
+PMP0                             SOC Floor                                DIE1                                       events     soc
+PMP0                             DISP_INT Floor                           DIE1                                       events     soc
+PMP0                             DISP_EXT Floor                           DIE1                                       events     soc
+PMP0                             DCS BW                                   AMCC RD                                    events     soc
+PMP0                             DCS BW                                   AMCC WR                                    events     soc
+PMP0                             DCS BW                                   AMCC RD+WR                                 events     soc
+PMP0                             AFI BW                                   AMCC RD                                    events     soc
+PMP0                             AFI BW                                   AMCC WR                                    events     soc
+PMP0                             AFI BW                                   AMCC RD+WR                                 events     soc
+PMP0                             AFR BW                                   AMCC RD                                    events     soc
+PMP0                             AFR BW                                   AMCC WR                                    events     soc
+PMP0                             AFR BW                                   AMCC RD+WR                                 events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI0 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI0 JPEG                               events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI0 AVE0                               events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI2 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI2 AVE1                               events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI3 RT                                 events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI3 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI3 ATC0 UP                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI3 ATC0 DN                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI3 ATC1 UP                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI3 ATC1 DN                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI4 RT                                 events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI4 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI5 RT                                 events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI5 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI5 ATC2 UP                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI5 ATC2 DN                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI5 ATC3 UP                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI5 ATC3 DN                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI5 ATCUSS                             events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI6 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI6 PCIEGP                             events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI6 PCIEGP                             events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI6 ANS SL                             events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI6 ANS RAI                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI6 ANS SL                             events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI6 ANS RAO                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI6 ANS NAN                            events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI7 RT                                 events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI7 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI8 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI8 ANE UP                             events     ane
+PMP0                             SOC-NI Util BW                           SOC-NI9 RT                                 events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI9 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI9 ANEXL U                            events     ane
+PMP0                             AF BW                                    MACC0 RD                                   events     cpu
+PMP0                             AF BW                                    MACC0 WR                                   events     cpu
+PMP0                             AF BW                                    MACC0 RD+WR                                events     cpu
+PMP0                             DCS BW                                   MACC0 RD                                   events     cpu
+PMP0                             DCS BW                                   MACC0 WR                                   events     cpu
+PMP0                             DCS BW                                   MACC0 RD+WR                                events     cpu
+PMP0                             Energy                                   MACC0                                      events     cpu
+PMP0                             Energy                                   MACC0 SRAM                                 events     cpu
+PMP0                             SOC Floor                                MACC0                                      events     cpu
+PMP0                             DCS Floor                                MACC0                                      events     cpu
+PMP0                             Volt-Temp HM                             MACC0_V_T                                  events     cpu
+PMP0                             MACC0                                    Core Block Slot                            events     soc
+PMP0                             MACC0                                    M$ Stall                                   events     soc
+PMP0                             MACC0                                    DRAM Stall                                 events     soc
+PMP0                             AF BW                                    MACC1 RD                                   events     cpu
+PMP0                             AF BW                                    MACC1 WR                                   events     cpu
+PMP0                             AF BW                                    MACC1 RD+WR                                events     cpu
+PMP0                             DCS BW                                   MACC1 RD                                   events     cpu
+PMP0                             DCS BW                                   MACC1 WR                                   events     cpu
+PMP0                             DCS BW                                   MACC1 RD+WR                                events     cpu
+PMP0                             Energy                                   MACC1                                      events     cpu
+PMP0                             Energy                                   MACC1 SRAM                                 events     cpu
+PMP0                             SOC Floor                                MACC1                                      events     cpu
+PMP0                             DCS Floor                                MACC1                                      events     cpu
+PMP0                             Volt-Temp HM                             MACC1_V_T                                  events     cpu
+PMP0                             MACC1                                    Core Block Slot                            events     soc
+PMP0                             MACC1                                    M$ Stall                                   events     soc
+PMP0                             MACC1                                    DRAM Stall                                 events     soc
+PMP0                             AF BW                                    PACC RD                                    events     cpu
+PMP0                             AF BW                                    PACC WR                                    events     cpu
+PMP0                             AF BW                                    PACC RD+WR                                 events     cpu
+PMP0                             DCS BW                                   PACC RD                                    events     cpu
+PMP0                             DCS BW                                   PACC WR                                    events     cpu
+PMP0                             DCS BW                                   PACC RD+WR                                 events     cpu
+PMP0                             Energy                                   PACC                                       events     cpu
+PMP0                             Energy                                   PACC SRAM                                  events     cpu
+PMP0                             SOC Floor                                PACC                                       events     cpu
+PMP0                             DCS Floor                                PACC                                       events     cpu
+PMP0                             Volt-Temp HM                             PACC0_V_T                                  events     cpu
+PMP0                             PACC                                     Core Block Slot                            events     soc
+PMP0                             PACC                                     M$ Stall                                   events     soc
+PMP0                             PACC                                     DRAM Stall                                 events     soc
+PMP0                             AF BW                                    AGX RD                                     events     gpu
+PMP0                             AF BW                                    AGX WR                                     events     gpu
+PMP0                             AF BW                                    AGX RD+WR                                  events     gpu
+PMP0                             DCS BW                                   AGX RD                                     events     gpu
+PMP0                             DCS BW                                   AGX WR                                     events     gpu
+PMP0                             DCS BW                                   AGX RD+WR                                  events     gpu
+PMP0                             Energy                                   AGX                                        events     gpu
+PMP0                             Energy                                   AGX AFR                                    events     gpu
+PMP0                             AFR Floor                                AGX                                        events     gpu
+PMP0                             SOC Floor                                AGX                                        events     gpu
+PMP0                             DCS Floor                                AGX                                        events     gpu
+PMP0                             Volt-Temp HM                             AGX_V_T                                    events     gpu
+PMP0                             AGX                                      Mem Latency                                events     soc
+PMP0                             AGX                                      #Mem Trans                                 events     soc
+PMP0                             SOC Floor                                ANE                                        events     ane
+PMP0                             DCS Floor                                ANE                                        events     ane
+PMP0                             AF BW                                    ANE L0 RD                                  events     ane
+PMP0                             AF BW                                    ANE L0 WR                                  events     ane
+PMP0                             AF BW                                    ANE L0 RD+WR                               events     ane
+PMP0                             DCS BW                                   ANE L0 RD                                  events     ane
+PMP0                             DCS BW                                   ANE L0 WR                                  events     ane
+PMP0                             DCS BW                                   ANE L0 RD+WR                               events     ane
+PMP0                             AF BW                                    ANE L1 RD                                  events     ane
+PMP0                             AF BW                                    ANE L1 WR                                  events     ane
+PMP0                             AF BW                                    ANE L1 RD+WR                               events     ane
+PMP0                             DCS BW                                   ANE L1 RD                                  events     ane
+PMP0                             DCS BW                                   ANE L1 WR                                  events     ane
+PMP0                             DCS BW                                   ANE L1 RD+WR                               events     ane
+PMP0                             AF BW                                    ISP RD                                     events     soc
+PMP0                             AF BW                                    ISP WR                                     events     soc
+PMP0                             AF BW                                    ISP RD+WR                                  events     soc
+PMP0                             DCS BW                                   ISP RD                                     events     soc
+PMP0                             DCS BW                                   ISP WR                                     events     soc
+PMP0                             DCS BW                                   ISP RD+WR                                  events     soc
+PMP0                             SOC Floor                                ISP                                        events     soc
+PMP0                             DCS Floor                                ISP                                        events     soc
+PMP0                             BWR                                      ISP RT RD                                  events     soc
+PMP0                             BWR                                      ISP RT WR                                  events     soc
+PMP0                             BWR                                      ISP RT RW                                  events     soc
+PMP0                             AF BW                                    ISP RT WR                                  events     soc
+PMP0                             AF BW                                    ISP RT RD+WR                               events     soc
+PMP0                             DCS BW                                   ISP RT WR                                  events     soc
+PMP0                             DCS BW                                   ISP RT RD+WR                               events     soc
+PMP0                             AF BW                                    DISPINT RD                                 events     soc
+PMP0                             AF BW                                    DISPINT WR                                 events     soc
+PMP0                             AF BW                                    DISPINT RD+WR                              events     soc
+PMP0                             DCS BW                                   DISPINT RD                                 events     soc
+PMP0                             DCS BW                                   DISPINT WR                                 events     soc
+PMP0                             DCS BW                                   DISPINT RD+WR                              events     soc
+PMP0                             DISP_INT Floor                           DISPINT                                    events     soc
+PMP0                             SOC Floor                                DISPINT                                    events     soc
+PMP0                             DCS Floor                                DISPINT                                    events     soc
+PMP0                             BWR                                      DISP RT RD                                 events     soc
+PMP0                             BWR                                      DISP RT WR                                 events     soc
+PMP0                             BWR                                      DISP RT RW                                 events     soc
+PMP0                             AF BW                                    DISPINT RT RD                              events     soc
+PMP0                             AF BW                                    DISPINT RT WR                              events     soc
+PMP0                             AF BW                                    DISPINT RT RD+W                            events     soc
+PMP0                             DCS BW                                   DISPINT RT RD                              events     soc
+PMP0                             DCS BW                                   DISPINT RT WR                              events     soc
+PMP0                             DCS BW                                   DISPINT RT RD+W                            events     soc
+PMP0                             AF BW                                    DISPEXT0 RD                                events     soc
+PMP0                             AF BW                                    DISPEXT0 WR                                events     soc
+PMP0                             AF BW                                    DISPEXT0 RD+WR                             events     soc
+PMP0                             DCS BW                                   DISPEXT0 RD                                events     soc
+PMP0                             DCS BW                                   DISPEXT0 WR                                events     soc
+PMP0                             DCS BW                                   DISPEXT0 RD+WR                             events     soc
+PMP0                             DISP_EXT Floor                           DISPEXT0                                   events     soc
+PMP0                             SOC Floor                                DISPEXT0                                   events     soc
+PMP0                             DCS Floor                                DISPEXT0                                   events     soc
+PMP0                             BWR                                      DISPEXT0 RT RD                             events     soc
+PMP0                             BWR                                      DISPEXT0 RT WR                             events     soc
+PMP0                             BWR                                      DISPEXT0 RT RW                             events     soc
+PMP0                             AF BW                                    DISPEXT0 RT RD                             events     soc
+PMP0                             AF BW                                    DISPEXT0 RT RD+                            events     soc
+PMP0                             DCS BW                                   DISPEXT0 RT RD                             events     soc
+PMP0                             DCS BW                                   DISPEXT0 RT RD+                            events     soc
+PMP0                             AF BW                                    DISPEXT1 RD                                events     soc
+PMP0                             AF BW                                    DISPEXT1 WR                                events     soc
+PMP0                             AF BW                                    DISPEXT1 RD+WR                             events     soc
+PMP0                             DCS BW                                   DISPEXT1 RD                                events     soc
+PMP0                             DCS BW                                   DISPEXT1 WR                                events     soc
+PMP0                             DCS BW                                   DISPEXT1 RD+WR                             events     soc
+PMP0                             DISP_EXT Floor                           DISPEXT1                                   events     soc
+PMP0                             SOC Floor                                DISPEXT1                                   events     soc
+PMP0                             DCS Floor                                DISPEXT1                                   events     soc
+PMP0                             BWR                                      DISPEXT1 RT RD                             events     soc
+PMP0                             BWR                                      DISPEXT1 RT WR                             events     soc
+PMP0                             BWR                                      DISPEXT1 RT RW                             events     soc
+PMP0                             AF BW                                    DISPEXT1 RT RD                             events     soc
+PMP0                             AF BW                                    DISPEXT1 RT RD+                            events     soc
+PMP0                             DCS BW                                   DISPEXT1 RT RD                             events     soc
+PMP0                             DCS BW                                   DISPEXT1 RT RD+                            events     soc
+PMP0                             AF BW                                    DISPEXT2 RD                                events     soc
+PMP0                             AF BW                                    DISPEXT2 WR                                events     soc
+PMP0                             AF BW                                    DISPEXT2 RD+WR                             events     soc
+PMP0                             DCS BW                                   DISPEXT2 RD                                events     soc
+PMP0                             DCS BW                                   DISPEXT2 WR                                events     soc
+PMP0                             DCS BW                                   DISPEXT2 RD+WR                             events     soc
+PMP0                             DISP_EXT Floor                           DISPEXT2                                   events     soc
+PMP0                             SOC Floor                                DISPEXT2                                   events     soc
+PMP0                             DCS Floor                                DISPEXT2                                   events     soc
+PMP0                             BWR                                      DISPEXT2 RT RD                             events     soc
+PMP0                             BWR                                      DISPEXT2 RT WR                             events     soc
+PMP0                             BWR                                      DISPEXT2 RT RW                             events     soc
+PMP0                             AF BW                                    DISPEXT2 RT RD                             events     soc
+PMP0                             AF BW                                    DISPEXT2 RT RD+                            events     soc
+PMP0                             DCS BW                                   DISPEXT2 RT RD                             events     soc
+PMP0                             DCS BW                                   DISPEXT2 RT RD+                            events     soc
+PMP0                             AF BW                                    DISPEXT3 RD                                events     soc
+PMP0                             AF BW                                    DISPEXT3 WR                                events     soc
+PMP0                             AF BW                                    DISPEXT3 RD+WR                             events     soc
+PMP0                             DCS BW                                   DISPEXT3 RD                                events     soc
+PMP0                             DCS BW                                   DISPEXT3 WR                                events     soc
+PMP0                             DCS BW                                   DISPEXT3 RD+WR                             events     soc
+PMP0                             DISP_EXT Floor                           DISPEXT3                                   events     soc
+PMP0                             SOC Floor                                DISPEXT3                                   events     soc
+PMP0                             DCS Floor                                DISPEXT3                                   events     soc
+PMP0                             BWR                                      DISPEXT3 RT RD                             events     soc
+PMP0                             BWR                                      DISPEXT3 RT WR                             events     soc
+PMP0                             BWR                                      DISPEXT3 RT RW                             events     soc
+PMP0                             AF BW                                    DISPEXT3 RT RD                             events     soc
+PMP0                             AF BW                                    DISPEXT3 RT RD+                            events     soc
+PMP0                             DCS BW                                   DISPEXT3 RT RD                             events     soc
+PMP0                             DCS BW                                   DISPEXT3 RT RD+                            events     soc
+PMP0                             SOC Floor                                AVE0                                       events     soc
+PMP0                             DCS Floor                                AVE0                                       events     soc
+PMP0                             SOC Floor                                AVE1                                       events     soc
+PMP0                             DCS Floor                                AVE1                                       events     soc
+PMP0                             AF BW                                    AVD RD                                     events     soc
+PMP0                             AF BW                                    AVD WR                                     events     soc
+PMP0                             AF BW                                    AVD RD+WR                                  events     soc
+PMP0                             DCS BW                                   AVD RD                                     events     soc
+PMP0                             DCS BW                                   AVD WR                                     events     soc
+PMP0                             DCS BW                                   AVD RD+WR                                  events     soc
+PMP0                             SOC Floor                                AVD                                        events     soc
+PMP0                             DCS Floor                                AVD                                        events     soc
+PMP0                             AF BW                                    MSR0 RD                                    events     soc
+PMP0                             AF BW                                    MSR0 WR                                    events     soc
+PMP0                             AF BW                                    MSR0 RD+WR                                 events     soc
+PMP0                             DCS BW                                   MSR0 RD                                    events     soc
+PMP0                             DCS BW                                   MSR0 WR                                    events     soc
+PMP0                             DCS BW                                   MSR0 RD+WR                                 events     soc
+PMP0                             SOC Floor                                MSR0                                       events     soc
+PMP0                             DCS Floor                                MSR0                                       events     soc
+PMP0                             AF BW                                    MSR1 RD                                    events     soc
+PMP0                             AF BW                                    MSR1 WR                                    events     soc
+PMP0                             AF BW                                    MSR1 RD+WR                                 events     soc
+PMP0                             DCS BW                                   MSR1 RD                                    events     soc
+PMP0                             DCS BW                                   MSR1 WR                                    events     soc
+PMP0                             DCS BW                                   MSR1 RD+WR                                 events     soc
+PMP0                             SOC Floor                                MSR1                                       events     soc
+PMP0                             DCS Floor                                MSR1                                       events     soc
+PMP0                             SOC Floor                                JPEG                                       events     soc
+PMP0                             DCS Floor                                JPEG                                       events     soc
+PMP0                             AF BW                                    SCODEC RD                                  events     soc
+PMP0                             AF BW                                    SCODEC WR                                  events     soc
+PMP0                             AF BW                                    SCODEC RD+WR                               events     soc
+PMP0                             DCS BW                                   SCODEC RD                                  events     soc
+PMP0                             DCS BW                                   SCODEC WR                                  events     soc
+PMP0                             DCS BW                                   SCODEC RD+WR                               events     soc
+PMP0                             SOC Floor                                SCODEC                                     events     soc
+PMP0                             DCS Floor                                SCODEC                                     events     soc
+PMP0                             BWR                                      SCODEC RT RD                               events     soc
+PMP0                             BWR                                      SCODEC RT WR                               events     soc
+PMP0                             BWR                                      SCODEC RT RW                               events     soc
+PMP0                             AF BW                                    SCODEC RT RD                               events     soc
+PMP0                             AF BW                                    SCODEC RT WR                               events     soc
+PMP0                             AF BW                                    SCODEC RT RD+WR                            events     soc
+PMP0                             DCS BW                                   SCODEC RT RD                               events     soc
+PMP0                             DCS BW                                   SCODEC RT WR                               events     soc
+PMP0                             DCS BW                                   SCODEC RT RD+WR                            events     soc
+PMP0                             AF BW                                    PRORES RD                                  events     soc
+PMP0                             AF BW                                    PRORES WR                                  events     soc
+PMP0                             AF BW                                    PRORES RD+WR                               events     soc
+PMP0                             DCS BW                                   PRORES RD                                  events     soc
+PMP0                             DCS BW                                   PRORES WR                                  events     soc
+PMP0                             DCS BW                                   PRORES RD+WR                               events     soc
+PMP0                             SOC Floor                                PRORES                                     events     soc
+PMP0                             DCS Floor                                PRORES                                     events     soc
+PMP0                             BWR                                      AUSBC0 ISOC RD                             events     soc
+PMP0                             BWR                                      AUSBC0 ISOC WR                             events     soc
+PMP0                             BWR                                      AUSBC0 ISOC RW                             events     soc
+PMP0                             BWR                                      AUSBC1 ISOC RD                             events     soc
+PMP0                             BWR                                      AUSBC1 ISOC WR                             events     soc
+PMP0                             BWR                                      AUSBC1 ISOC RW                             events     soc
+PMP0                             BWR                                      AUSBC2 ISOC RD                             events     soc
+PMP0                             BWR                                      AUSBC2 ISOC WR                             events     soc
+PMP0                             BWR                                      AUSBC2 ISOC RW                             events     soc
+PMP0                             BWR                                      AUSBC3 ISOC RD                             events     soc
+PMP0                             BWR                                      AUSBC3 ISOC WR                             events     soc
+PMP0                             BWR                                      AUSBC3 ISOC RW                             events     soc
+PMP0                             BWR                                      AUSS ISOC RD                               events     soc
+PMP0                             BWR                                      AUSS ISOC WR                               events     soc
+PMP0                             BWR                                      AUSS ISOC RW                               events     soc
+PMP0                             AF BW                                    ANS RD                                     events     soc
+PMP0                             AF BW                                    ANS WR                                     events     soc
+PMP0                             AF BW                                    ANS RD+WR                                  events     soc
+PMP0                             SOC Floor                                ANS                                        events     soc
+PMP0                             DCS Floor                                ANS                                        events     soc
+PMP0                             Fast-Die CE                              ANE0                                       events     ane
+PMP0                             Fast-Die CE                              MACC0                                      events     cpu
+PMP0                             Fast-Die CE                              PACC                                       events     cpu
+PMP0                             Fast-Die CE                              MACC1                                      events     cpu
+PMP0                             Fast-Die Delay                           DELAY                                      events     soc
+PMP0                             DCS Floor                                DCS-BW                                     events     soc
+PMP0                             SOC Floor                                AFI-BW                                     events     soc
+PMP0                             SOC Floor                                AGX-AF-BW                                  events     gpu
+PMP0                             DCS Floor                                AGX-DCS-BW                                 events     gpu
+PMP0                             AFR Floor                                AGX-AFR-BW                                 events     gpu
+PMP0                             SOC Floor                                SOC-NI0-BW                                 events     soc
+PMP0                             SOC Floor                                SOC-NI1-BW                                 events     soc
+PMP0                             SOC Floor                                SOC-NI2-BW                                 events     soc
+PMP0                             SOC Floor                                SOC-NI3-BW                                 events     soc
+PMP0                             SOC Floor                                SOC-NI4-BW                                 events     soc
+PMP0                             SOC Floor                                SOC-NI5-BW                                 events     soc
+PMP0                             SOC Floor                                SOC-NI6-BW                                 events     soc
+PMP0                             SOC Floor                                SOC-NI7-BW                                 events     soc
+PMP0                             SOC Floor                                SOC-NI8-BW                                 events     soc
+PMP0                             SOC Floor                                SOC-NI9-BW                                 events     soc
+PMP0                             SOC Floor                                ANE-LNK0-AF-BW                             events     ane
+PMP0                             SOC Floor                                ANE-LNK1-AF-BW                             events     ane
+PMP0                             SOC Floor                                ANS-NAND-AF-BW                             events     soc
+PMP0                             SOC Floor                                ANS-DMA-AF-BW                              events     soc
+PMP0                             SOC Floor                                ATC0-AF-BW                                 events     soc
+PMP0                             SOC Floor                                ATC1-AF-BW                                 events     soc
+PMP0                             SOC Floor                                ATC2-AF-BW                                 events     soc
+PMP0                             SOC Floor                                ATC3-AF-BW                                 events     soc
+PMP0                             SOC Floor                                AVE0-AF-BW                                 events     soc
+PMP0                             SOC Floor                                AVE1-AF-BW                                 events     soc
+PMP0                             SOC Floor                                AUSS-AF-BW                                 events     soc
+PMP0                             SOC Floor                                JPEG-AF-BW                                 events     soc
+PMP0                             SOC Floor                                ANE-AF-BW                                  events     ane
+PMP0                             DCS Floor                                ANE-DCS-BW                                 events     ane
+PMP0                             DCS Floor                                ANS-DCS-BW                                 events     soc
+PMP0                             PWC Window 0                             DELAY                                      events     soc
+PMP0                             PWC Window 0                             BUSY                                       events     soc
+PMP0                             PWC Window 0                             IDLE                                       events     soc
+PMP0                             PWC Window 0                             SPILL                                      events     soc
+PMP0                             PWRS0                                    TICKS                                      events     soc
+PMP0                             PWRS0                                    STRESS-0-LIM0                              events     soc
+PMP0                             PWRS0                                    STRESS-0-LIM1                              events     soc
+PMP0                             PWRS0                                    STRESS-0-LIM2                              events     soc
+PMP0                             PWRS0                                    STRESS-0-LIM3                              events     soc
+PMP0                             PWRS0                                    STRESS-1-LIM0                              events     soc
+PMP0                             PWRS0                                    STRESS-1-LIM1                              events     soc
+PMP0                             PWRS0                                    STRESS-1-LIM2                              events     soc
+PMP0                             PWRS0                                    STRESS-1-LIM3                              events     soc
+PMP0                             PWRS0                                    STRESS-2-LIM0                              events     soc
+PMP0                             PWRS0                                    STRESS-2-LIM1                              events     soc
+PMP0                             PWRS0                                    STRESS-2-LIM2                              events     soc
+PMP0                             PWRS0                                    STRESS-2-LIM3                              events     soc
+PMP0                             PWRS0                                    STRESS-3-LIM0                              events     soc
+PMP0                             PWRS0                                    STRESS-3-LIM1                              events     soc
+PMP0                             PWRS0                                    STRESS-3-LIM2                              events     soc
+PMP0                             PWRS0                                    STRESS-3-LIM3                              events     soc
+PMP0                             PWRS0                                    Q-TICKS-0                                  events     soc
+PMP0                             PWRS0                                    Q-TICKS-1                                  events     soc
+PMP0                             PWRS0                                    THROT-ALL-SUM                              events     soc
+PMP0                             PWRS0                                    THROT-ACC-SUM                              events     soc
+PMP0                             PWRS0                                    THROT-GPU-SUM                              events     soc
+PMP0                             PWRS0                                    THROT-ANE-SUM                              events     ane
+PMP0                             PWRS0                                    THROT-SOC-SUM                              events     soc
+PMP0                             PWRS0                                    STRESS_LIM0                                events     soc
+PMP0                             PWRS0                                    STRESS_LIM1                                events     soc
+PMP0                             PWRS0                                    STRESS_LIM2                                events     soc
+PMP0                             PWRS0                                    STRESS_LIM3                                events     soc
+PMP0                             PWRS1                                    TICKS                                      events     soc
+PMP0                             PWRS1                                    STRESS-0-LIM0                              events     soc
+PMP0                             PWRS1                                    STRESS-0-LIM1                              events     soc
+PMP0                             PWRS1                                    STRESS-0-LIM2                              events     soc
+PMP0                             PWRS1                                    STRESS-0-LIM3                              events     soc
+PMP0                             PWRS1                                    STRESS-1-LIM0                              events     soc
+PMP0                             PWRS1                                    STRESS-1-LIM1                              events     soc
+PMP0                             PWRS1                                    STRESS-1-LIM2                              events     soc
+PMP0                             PWRS1                                    STRESS-1-LIM3                              events     soc
+PMP0                             PWRS1                                    STRESS-2-LIM0                              events     soc
+PMP0                             PWRS1                                    STRESS-2-LIM1                              events     soc
+PMP0                             PWRS1                                    STRESS-2-LIM2                              events     soc
+PMP0                             PWRS1                                    STRESS-2-LIM3                              events     soc
+PMP0                             PWRS1                                    STRESS-3-LIM0                              events     soc
+PMP0                             PWRS1                                    STRESS-3-LIM1                              events     soc
+PMP0                             PWRS1                                    STRESS-3-LIM2                              events     soc
+PMP0                             PWRS1                                    STRESS-3-LIM3                              events     soc
+PMP0                             PWRS1                                    Q-TICKS-0                                  events     soc
+PMP0                             PWRS1                                    Q-TICKS-1                                  events     soc
+PMP0                             PWRS1                                    THROT-ALL-SUM                              events     soc
+PMP0                             PWRS1                                    THROT-ACC-SUM                              events     soc
+PMP0                             PWRS1                                    THROT-GPU-SUM                              events     soc
+PMP0                             PWRS1                                    THROT-ANE-SUM                              events     ane
+PMP0                             PWRS1                                    THROT-SOC-SUM                              events     soc
+PMP0                             PWRS1                                    STRESS_LIM0                                events     soc
+PMP0                             PWRS1                                    STRESS_LIM1                                events     soc
+PMP0                             PWRS1                                    STRESS_LIM2                                events     soc
+PMP0                             PWRS1                                    STRESS_LIM3                                events     soc
+PMP0                             BWR                                      RT RD                                      events     soc
+PMP0                             BWR                                      RT WR                                      events     soc
+PMP0                             BWR                                      RT RW                                      events     soc
+PMP0                             PMC DCS Floor                            PMP                                        events     soc
+PMP0                             PMC SOC Floor                            PMP                                        events     soc
+PMP0                             PMC DISP_INT Fl                          PMP                                        events     soc
+PMP0                             PMC DISP_EXT Fl                          PMP                                        events     soc
+PMP0                             PMC DCS Floor                            CLPC                                       events     soc
+PMP0                             PMC SOC Floor                            CLPC                                       events     soc
+PMP0                             PMC DISP_INT Fl                          CLPC                                       events     soc
+PMP0                             PMC DISP_EXT Fl                          CLPC                                       events     soc
+PMP0                             PMC DCS Floor                            GFX                                        events     soc
+PMP0                             PMC SOC Floor                            GFX                                        events     soc
+PMP0                             PMC DISP_INT Fl                          GFX                                        events     soc
+PMP0                             PMC DISP_EXT Fl                          GFX                                        events     soc
+PMP0                             PMC DCS Floor                            AP                                         events     soc
+PMP0                             PMC SOC Floor                            AP                                         events     soc
+PMP0                             PMC DISP_INT Fl                          AP                                         events     soc
+PMP0                             PMC DISP_EXT Fl                          AP                                         events     soc
+PMP0                             PMC DCS Floor                            BWR                                        events     soc
+PMP0                             PMC SOC Floor                            BWR                                        events     soc
+PMP0                             PMC DISP_INT Fl                          BWR                                        events     soc
+PMP0                             PMC DISP_EXT Fl                          BWR                                        events     soc
+PMP0                             PMC DCS Floor                            RMBS                                       events     soc
+PMP0                             PMC SOC Floor                            RMBS                                       events     soc
+PMP0                             PMC DISP_INT Fl                          RMBS                                       events     soc
+PMP0                             PMC DISP_EXT Fl                          RMBS                                       events     soc
+PMP0                             PMC DCS Floor                            BOOST                                      events     soc
+PMP0                             PMC SOC Floor                            BOOST                                      events     soc
+PMP0                             PMC DISP_INT Fl                          BOOST                                      events     soc
+PMP0                             PMC DISP_EXT Fl                          BOOST                                      events     soc
+PMP0                             PMC DCS Floor                            MISC                                       events     soc
+PMP0                             PMC SOC Floor                            MISC                                       events     soc
+PMP0                             PMC DISP_INT Fl                          MISC                                       events     soc
+PMP0                             PMC DISP_EXT Fl                          MISC                                       events     soc
+PMP0                             PMC DISP_INT Fl                          DISP0                                      events     soc
+PMP0                             PMC DISP_EXT Fl                          DISPEXT0                                   events     soc
+PMP0                             PMC DISP_EXT Fl                          DISPEXT1                                   events     soc
+PMP0                             PMC DISP_EXT Fl                          DISPEXT2                                   events     soc
+PMP0                             PMC DISP_EXT Fl                          DISPEXT3                                   events     soc
+PMP0                             PMC SOC Floor                            ANS                                        events     soc
+PMP0                             PMC Keep Alive                           Level                                      events     soc
+PMP0                             PMC Driver                               PMP DCS                                    24Mticks   soc
+PMP0                             PMC Driver                               CLPC DCS                                   24Mticks   soc
+PMP0                             PMC Driver                               GFX DCS                                    24Mticks   soc
+PMP0                             PMC Driver                               AP DCS                                     24Mticks   soc
+PMP0                             PMC Driver                               PMP1 DCS                                   24Mticks   soc
+PMP0                             PMC Driver                               BWR DCS                                    24Mticks   soc
+PMP0                             PMC Driver                               RMBS DCS                                   24Mticks   soc
+PMP0                             PMC Driver                               BOOST DCS                                  24Mticks   soc
+PMP0                             PMC Driver                               MISC DCS                                   24Mticks   soc
+PMP0                             PMC Driver                               PMP SOC                                    24Mticks   soc
+PMP0                             PMC Driver                               CLPC SOC                                   24Mticks   soc
+PMP0                             PMC Driver                               GFX SOC                                    24Mticks   soc
+PMP0                             PMC Driver                               AP SOC                                     24Mticks   soc
+PMP0                             PMC Driver                               PMP1 SOC                                   24Mticks   soc
+PMP0                             PMC Driver                               BWR SOC                                    24Mticks   soc
+PMP0                             PMC Driver                               RMBS SOC                                   24Mticks   soc
+PMP0                             PMC Driver                               BOOST SOC                                  24Mticks   soc
+PMP0                             PMC Driver                               MISC SOC                                   24Mticks   soc
+PMP0                             PMC Driver                               PMP DISP_INT                               24Mticks   soc
+PMP0                             PMC Driver                               CLPC DISP_INT                              24Mticks   soc
+PMP0                             PMC Driver                               GFX DISP_INT                               24Mticks   soc
+PMP0                             PMC Driver                               AP DISP_INT                                24Mticks   soc
+PMP0                             PMC Driver                               PMP1 DISP_INT                              24Mticks   soc
+PMP0                             PMC Driver                               BWR DISP_INT                               24Mticks   soc
+PMP0                             PMC Driver                               RMBS DISP_INT                              24Mticks   soc
+PMP0                             PMC Driver                               BOOST DISP_INT                             24Mticks   soc
+PMP0                             PMC Driver                               MISC DISP_INT                              24Mticks   soc
+PMP0                             PMC Driver                               PMP DISP_EXT                               24Mticks   soc
+PMP0                             PMC Driver                               CLPC DISP_EXT                              24Mticks   soc
+PMP0                             PMC Driver                               GFX DISP_EXT                               24Mticks   soc
+PMP0                             PMC Driver                               AP DISP_EXT                                24Mticks   soc
+PMP0                             PMC Driver                               PMP1 DISP_EXT                              24Mticks   soc
+PMP0                             PMC Driver                               BWR DISP_EXT                               24Mticks   soc
+PMP0                             PMC Driver                               RMBS DISP_EXT                              24Mticks   soc
+PMP0                             PMC Driver                               BOOST DISP_EXT                             24Mticks   soc
+PMP0                             PMC Driver                               MISC DISP_EXT                              24Mticks   soc
+PMP0                             PMC 2D State                             SOCxDCS                                    events     soc
+PMP0                             PMC Driver                               COP SOC                                    24Mticks   soc
+PMP0                             PMC Driver                               COP DCS                                    24Mticks   soc
+PMP0                             PMC BWR latency                          DCS F2                                     us         soc
+PMP0                             PMC BWR latency                          DCS F3                                     us         soc
+PMP0                             PMC BWR latency                          DCS F5                                     us         soc
+PMP0                             PMC BWR latency                          DCS F6                                     us         soc
+PMP0                             PMC BWR latency                          DCS F7                                     us         soc
+PMP0                             PMC BWR latency                          DCS F8                                     us         soc
+PMP0                             PMC BWR latency                          SOC VNOM                                   us         soc
+PMP0                             PMC BWR latency                          SOC VMAX                                   us         soc
+PMP0                             PMC BWR latency                          SOC VOVD                                   us         soc
+PMP0                             PMC BWR latency                          SOC VOVD_TYP                               us         soc
+PMP0                             PMC BWR latency                          RESOLVING                                  us         soc
+PMP0                             PMC RMBS                                 LTR                                        events     soc
+PMP0                             DSID Stats                               Grp0 Hits                                  B          soc
+PMP0                             DSID Stats                               Grp0 Misses                                B          soc
+PMP0                             DSID Stats                               Grp1 Hits                                  B          soc
+PMP0                             DSID Stats                               Grp1 Misses                                B          soc
+PMP0                             DSID Stats                               Grp2 Hits                                  B          soc
+PMP0                             DSID Stats                               Grp2 Misses                                B          soc
+PMP0                             DSID Stats                               Grp3 Hits                                  B          soc
+PMP0                             DSID Stats                               Grp3 Misses                                B          soc
+PMP0                             DSID Stats                               Grp4 Hits                                  B          soc
+PMP0                             DSID Stats                               Grp4 Misses                                B          soc
+PMP0                             DSID Stats                               Grp5 Hits                                  B          soc
+PMP0                             DSID Stats                               Grp5 Misses                                B          soc
+PMP0                             DSID Stats                               Grp6 Hits                                  B          soc
+PMP0                             DSID Stats                               Grp6 Misses                                B          soc
+PMP0                             DSID Stats                               Grp7 Hits                                  B          soc
+PMP0                             DSID Stats                               Grp7 Misses                                B          soc
+PMP0                             DSID Stats                               Grp8 Hits                                  B          soc
+PMP0                             DSID Stats                               Grp8 Misses                                B          soc
+PMP0                             DSID Stats                               Grp9 Hits                                  B          soc
+PMP0                             DSID Stats                               Grp9 Misses                                B          soc
+PMP0                             DSID Stats                               Grp11 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp11 Misses                               B          soc
+PMP0                             DSID Stats                               Grp12 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp12 Misses                               B          soc
+PMP0                             DSID Stats                               Grp13 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp13 Misses                               B          soc
+PMP0                             DSID Stats                               Grp14 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp14 Misses                               B          soc
+PMP0                             DSID Stats                               Grp15 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp15 Misses                               B          soc
+PMP0                             DSID Stats                               Grp16 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp16 Misses                               B          soc
+PMP0                             DSID Stats                               Grp17 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp17 Misses                               B          soc
+PMP0                             DSID Stats                               Grp19 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp19 Misses                               B          soc
+PMP0                             DSID Stats                               Grp20 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp20 Misses                               B          soc
+PMP0                             DSID Stats                               Grp21 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp21 Misses                               B          soc
+PMP0                             DSID Stats                               Grp22 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp22 Misses                               B          soc
+PMP0                             DSID Stats                               Grp23 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp23 Misses                               B          soc
+PMP0                             DSID Stats                               Grp24 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp24 Misses                               B          soc
+PMP0                             DSID Stats                               Grp25 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp25 Misses                               B          soc
+PMP0                             DSID Stats                               Grp26 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp26 Misses                               B          soc
+PMP0                             DSID Stats                               Grp27 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp27 Misses                               B          soc
+PMP0                             DSID Stats                               Grp28 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp28 Misses                               B          soc
+PMP0                             DSID Stats                               Grp29 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp29 Misses                               B          soc
+PMP0                             DSID Stats                               Grp30 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp30 Misses                               B          soc
+PMP0                             DSID Stats                               Grp31 Hits                                 B          soc
+PMP0                             DSID Stats                               Grp31 Misses                               B          soc
+SoC Stats                        Events                                   VDD_SOC_CI_VOLTAGE_CHANGE_COMPLETION       24Mticks   soc
+SoC Stats                        Events                                   VDD_PCPU_VOLTAGE_CHANGE_COMPLETION         24Mticks   soc
+SoC Stats                        Events                                   VDD_MCPU0_VOLTAGE_CHANGE_COMPLETION        24Mticks   soc
+SoC Stats                        Events                                   VDD_MCPU1_VOLTAGE_CHANGE_COMPLETION        24Mticks   soc
+SoC Stats                        Events                                   VDD_PCPU_SRAM_VOLTAGE_CHANGE_COMPLETION    24Mticks   soc
+SoC Stats                        Events                                   VDD_MCPU0_SRAM_VOLTAGE_CHANGE_COMPLETIO    24Mticks   soc
+SoC Stats                        Events                                   VDD_MCPU1_SRAM_VOLTAGE_CHANGE_COMPLETIO    24Mticks   soc
+SoC Stats                        Events                                   VDD_DISP_VOLTAGE_CHANGE_COMPLETION         24Mticks   soc
+SoC Stats                        Events                                   VDD_DISP2_VOLTAGE_CHANGE_COMPLETION        24Mticks   soc
+SoC Stats                        Events                                   VDD_B2B_C_VOLTAGE_CHANGE_COMPLETION        24Mticks   soc
+SoC Stats                        Events                                   UT_EXT_THROTTLE_MGPU03                     24Mticks   gpu
+SoC Stats                        Events                                   UT_EXT_THROTTLE_MGPU12                     24Mticks   gpu
+SoC Stats                        Events                                   VDD_SOC_GM_VOLTAGE_CHANGE_COMPLETION       24Mticks   soc
+SoC Stats                        Events                                   VDD_B2B_D_VOLTAGE_CHANGE_COMPLETION        24Mticks   soc
+SoC Stats                        Events                                   VDD_DCS0_VOLTAGE_CHANGE_COMPLETION         24Mticks   soc
+SoC Stats                        Events                                   VDD_DCS1_VOLTAGE_CHANGE_COMPLETION         24Mticks   soc
+SoC Stats                        Events                                   VDD_DRAM_VOLTAGE_CHANGE_COMPLETION         24Mticks   soc
+SoC Stats                        Events                                   VDD_DRAM1_VOLTAGE_CHANGE_COMPLETION        24Mticks   soc
+SoC Stats                        Events                                   VDD_GPU03_VOLTAGE_CHANGE_COMPLETION        24Mticks   gpu
+SoC Stats                        Events                                   VDD_GPU12_VOLTAGE_CHANGE_COMPLETION        24Mticks   gpu
+SoC Stats                        Events                                   VDD_AFR_VOLTAGE_CHANGE_COMPLETION          24Mticks   soc
+GPU Stats                        Power Zone Filters                       GPU Power Zone Filter 0                    events     gpu
+GPU Stats                        Power Zone Filters                       GPU Power Zone Filter 1                    events     gpu
+GPU Stats                        Power Zone Filters                       GPU Power Zone Filter 2                    events     gpu
+GPU Stats                        Power Zone Filters                       GPU Power Zone Filter 3                    events     gpu
+GPU Stats                        Power Zone Filters                       GPU Power Zone Filter 4                    events     gpu
+GPU Stats                        Power Zone Filters                       GPU Power Filter                           events     gpu
+GPU Stats                        GPU Performance States                   GPUPH                                      24Mticks   gpu
+GPU Stats                        GPU Boost Controller Performance States  BSTGPUPH                                   24Mticks   gpu
+GPU Stats                        DVD Request States                       GPUDVDH                                    24Mticks   gpu
+GPU Stats                        CLTM-induced GPU Performance States      GPU_CLTM                                   24Mticks   gpu
+GPU Stats                        Active Time Histogram                    GPU Active Time                            24Mticks   gpu
+GPU Stats                        Idle Time Histogram                      GPU Idle Time                              24Mticks   gpu
+GPU Stats                        GPU Discrete Power Zone Residency        PZRSDNCY                                   24Mticks   gpu
+GPU Stats                        GPU Power Controller States              PWRCTRL                                    24Mticks   gpu
+GPU Stats                        PPM Target as % of Max GPU Power         GPU_PPM                                    24Mticks   gpu
+GPU Stats                        UT Engagement centi-% Histogram          GPU UT Engagement centi-%                             gpu-na
+GPU Stats                        GPU Throttler Counters                   Throttle Counter HWPI                                 gpu
+GPU Stats                        GPU Throttler Counters                   Throttle Counter DPE                                  gpu
+GPU Stats                        GPU Throttler Counters                   Throttle Counter Misc                                 gpu
+GPU Stats                        GPU Throttler Counters                   Throttle Counter IVDM                                 gpu
+GPU Stats                        GPU Throttler Counters                   Throttle Counter Total                                gpu
+GPU Stats                        GPU Throttler Counters                   Throttle Counter C1PPT                                gpu
+GPU Stats                        GPU Throttler Counters                   Throttle Counter ExtAsync                             gpu
+GPU Stats                        GPU Throttler Counters                   Throttle Counter UT                                   gpu-na
+GPU Stats                        GPU Throttler Counters                   IVDM: Min Active Throttle Percent                     gpu
+GPU Stats                        GPU Throttler Counters                   IVDM: Max Throttle Percent                            gpu
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 0 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 1 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 2 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 3 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 4 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 5 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 6 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 7 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 8 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 9 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 10 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 11 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 12 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 13 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 14 GPU UT Engagement centi-%                             gpu-na
+GPU UT Engagement                UT Engagement centi-% Histogram for perf state 15 GPU UT Engagement centi-%                             gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_0                    gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_1                    gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_2                    gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_3                    gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_4                    gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_5                    gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_6                    gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_7                    gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_8                    gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_9                    gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_10                   gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_11                   gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_12                   gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_13                   gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_14                   gpu-na
+GPU UT AggD Stats                Min                                      AGX.Min_UT_Engagement_Perf_State_15                   gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_0                    gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_1                    gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_2                    gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_3                    gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_4                    gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_5                    gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_6                    gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_7                    gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_8                    gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_9                    gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_10                   gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_11                   gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_12                   gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_13                   gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_14                   gpu-na
+GPU UT AggD Stats                Max                                      AGX.Max_UT_Engagement_Perf_State_15                   gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_0                    gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_1                    gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_2                    gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_3                    gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_4                    gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_5                    gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_6                    gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_7                    gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_8                    gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_9                    gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_10                   gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_11                   gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_12                   gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_13                   gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_14                   gpu-na
+GPU UT AggD Stats                Sum                                      AGX.Sum_UT_Engagement_Perf_State_15                   gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_0                  gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_1                  gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_2                  gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_3                  gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_4                  gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_5                  gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_6                  gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_7                  gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_8                  gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_9                  gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_10                 gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_11                 gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_12                 gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_13                 gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_14                 gpu-na
+GPU UT AggD Stats                Count                                    AGX.Count_UT_Engagement_Perf_State_15                 gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_0                       gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_1                       gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_2                       gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_3                       gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_4                       gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_5                       gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_6                       gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_7                       gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_8                       gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_9                       gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_10                      gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_11                      gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_12                      gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_13                      gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_14                      gpu-na
+GPU UT AggD Stats                Not_Engaged_Count                        AGX.UT_Not_Engaged_Perf_State_15                      gpu-na

@@ -1,0 +1,102 @@
+{
+  "url": "https://api.github.com/repos/ml-explore/mlx/issues/2693",
+  "repository_url": "https://api.github.com/repos/ml-explore/mlx",
+  "labels_url": "https://api.github.com/repos/ml-explore/mlx/issues/2693/labels{/name}",
+  "comments_url": "https://api.github.com/repos/ml-explore/mlx/issues/2693/comments",
+  "events_url": "https://api.github.com/repos/ml-explore/mlx/issues/2693/events",
+  "html_url": "https://github.com/ml-explore/mlx/issues/2693",
+  "id": 3540803657,
+  "node_id": "I_kwDOKzRn187TDGBJ",
+  "number": 2693,
+  "title": "Metal 4 / M5 support (Tensor APIs to program GPU Neural Accelerators)",
+  "user": {
+    "login": "reneleonhardt",
+    "id": 65483435,
+    "node_id": "MDQ6VXNlcjY1NDgzNDM1",
+    "avatar_url": "https://avatars.githubusercontent.com/u/65483435?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/reneleonhardt",
+    "html_url": "https://github.com/reneleonhardt",
+    "followers_url": "https://api.github.com/users/reneleonhardt/followers",
+    "following_url": "https://api.github.com/users/reneleonhardt/following{/other_user}",
+    "gists_url": "https://api.github.com/users/reneleonhardt/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/reneleonhardt/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/reneleonhardt/subscriptions",
+    "organizations_url": "https://api.github.com/users/reneleonhardt/orgs",
+    "repos_url": "https://api.github.com/users/reneleonhardt/repos",
+    "events_url": "https://api.github.com/users/reneleonhardt/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/reneleonhardt/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "labels": [
+
+  ],
+  "state": "closed",
+  "locked": false,
+  "assignees": [
+
+  ],
+  "milestone": null,
+  "comments": 1,
+  "created_at": "2025-10-22T12:23:03Z",
+  "updated_at": "2025-10-22T13:08:36Z",
+  "closed_at": "2025-10-22T13:08:35Z",
+  "assignee": null,
+  "author_association": "NONE",
+  "issue_field_values": [
+
+  ],
+  "type": null,
+  "active_lock_reason": null,
+  "sub_issues_summary": {
+    "total": 0,
+    "completed": 0,
+    "percent_completed": 0
+  },
+  "issue_dependencies_summary": {
+    "blocked_by": 0,
+    "total_blocked_by": 0,
+    "blocking": 0,
+    "total_blocking": 0
+  },
+  "body": "Is the current Metal 4 already implemented to support the new Tensor APIs for Neural Accelerators?\n\nhttps://developer.apple.com/metal/whats-new/\n\n> ### Metal 4 machine learning\n> \n> Tensors are now a native resource type you can use to operate on data.\n\nhttps://www.macrumors.com/guide/m4-vs-m5-chip/\n\n> - 4×+ peak GPU compute performance for AI\n> - 3.6× faster time to first token (LLM)\n\n[Demystifying Apple’s AMX AI accelerator: when and why it outperforms the GPU](https://www.youtube.com/watch?v=TjfA9LVgHXk)",
+  "closed_by": {
+    "login": "awni",
+    "id": 1542805,
+    "node_id": "MDQ6VXNlcjE1NDI4MDU=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/1542805?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/awni",
+    "html_url": "https://github.com/awni",
+    "followers_url": "https://api.github.com/users/awni/followers",
+    "following_url": "https://api.github.com/users/awni/following{/other_user}",
+    "gists_url": "https://api.github.com/users/awni/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/awni/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/awni/subscriptions",
+    "organizations_url": "https://api.github.com/users/awni/orgs",
+    "repos_url": "https://api.github.com/users/awni/repos",
+    "events_url": "https://api.github.com/users/awni/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/awni/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "reactions": {
+    "url": "https://api.github.com/repos/ml-explore/mlx/issues/2693/reactions",
+    "total_count": 0,
+    "+1": 0,
+    "-1": 0,
+    "laugh": 0,
+    "hooray": 0,
+    "confused": 0,
+    "heart": 0,
+    "rocket": 0,
+    "eyes": 0
+  },
+  "timeline_url": "https://api.github.com/repos/ml-explore/mlx/issues/2693/timeline",
+  "performed_via_github_app": null,
+  "state_reason": "completed",
+  "pinned_comment": null
+}

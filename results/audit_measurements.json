@@ -1,7 +1,7 @@
 {
- "_note": "Standing re-check of every measurements.json row against its source EXP report. verified = value (+latency_ms/ane_regions/date when set) literally appears in an attributable report (separator-blind). unattributable = no report found \u2014 declared, never asserted. value-missing = a report was found but a field does not occur in it. Coverage: all 920 ledger rows audited this run (895 attributed to an EXP report, 25 declared unattributable); regenerate with --json after any ledger change.",
+ "_note": "Standing re-check of every measurements.json row against its source EXP report. verified = value (+latency_ms/ane_regions/date when set) literally appears in an attributable report (separator-blind). unattributable = no report found \u2014 declared, never asserted. value-missing = a report was found but a field does not occur in it. Coverage: all 966 ledger rows audited this run (941 attributed to an EXP report, 25 declared unattributable); regenerate with --json after any ledger change.",
  "totals": {
-  "verified": 877,
+  "verified": 923,
   "value-missing": 18,
   "unattributable": 25
  },
@@ -5446,9 +5446,11 @@
   },
   {
    "id": "m5max-s1-cpu-read",
-   "status": "unattributable",
-   "report": null,
-   "missing": []
+   "status": "value-missing",
+   "report": "EXP-027-nax",
+   "missing": [
+    "date"
+   ]
   },
   {
    "id": "m5max-s1-cpu-write",
@@ -5466,11 +5468,9 @@
   },
   {
    "id": "m5max-s1-tensor-copy",
-   "status": "value-missing",
-   "report": "EXP-005-ane-residency",
-   "missing": [
-    "date"
-   ]
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
   },
   {
    "id": "m5max-s2-gemm8192-fp16-mps",
@@ -5540,27 +5540,303 @@
   },
   {
    "id": "t8-m5-reranker-ane-latency",
-   "status": "value-missing",
-   "report": "EXP-012-reranker",
-   "missing": [
-    "date"
-   ]
+   "status": "verified",
+   "report": "EXP-023-small-llm-ane-pilot",
+   "missing": []
   },
   {
    "id": "t8-m5-reranker-gpu-latency",
+   "status": "verified",
+   "report": "EXP-023-small-llm-ane-pilot",
+   "missing": []
+  },
+  {
+   "id": "t8-m5-reranker-cpu-latency",
+   "status": "verified",
+   "report": "EXP-023-small-llm-ane-pilot",
+   "missing": []
+  },
+  {
+   "id": "granite97m-ane-scifact",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite97m-ane-nfcorpus",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite97m-ane-french",
    "status": "value-missing",
-   "report": "EXP-012-reranker",
+   "report": "EXP-007-mteb-retrieval-quality",
    "missing": [
     "date"
    ]
   },
   {
-   "id": "t8-m5-reranker-cpu-latency",
+   "id": "e5-small-french",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "qwen3-reranker-ane",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "pipeline-ours-reranked",
+   "status": "verified",
+   "report": "EXP-013-ane-reauthor",
+   "missing": []
+  },
+  {
+   "id": "pipeline-bgebase-reranked",
+   "status": "verified",
+   "report": "EXP-014-competitive-position",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-cpu",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "minilm-coreml-gpu",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "granite97m-fp16-13reg",
+   "status": "verified",
+   "report": "EXP-005-ane-residency",
+   "missing": []
+  },
+  {
+   "id": "granite97m-fp16-1reg",
+   "status": "verified",
+   "report": "EXP-001-ane-op-map",
+   "missing": []
+  },
+  {
+   "id": "granite97m-fp32-0reg",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "granite97m-w6",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "granite97m-w4",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "laya-ml-ane-s256",
+   "status": "verified",
+   "report": "EXP-017-laya-ane",
+   "missing": []
+  },
+  {
+   "id": "von-ane-v0",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "von-ane-v1",
+   "status": "verified",
+   "report": "EXP-016-von-ane",
+   "missing": []
+  },
+  {
+   "id": "granite97m-coreai-cpuonly",
+   "status": "verified",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": []
+  },
+  {
+   "id": "granite97m-coreai-gpu",
+   "status": "verified",
+   "report": "EXP-002-apple-fm-baseline",
+   "missing": []
+  },
+  {
+   "id": "granite97m-coreai-ane",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "tiny-fp16",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "tiny-fp32",
+   "status": "verified",
+   "report": "EXP-004-coreai-ane",
+   "missing": []
+  },
+  {
+   "id": "m5-minilm-all-rate",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5-minilm-cpu-only-rate",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5-minilm-all-gpu-power-mean",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "m5-minilm-cpu-only-gpu-power-mean",
    "status": "value-missing",
-   "report": "EXP-012-reranker",
+   "report": "EXP-005-ane-residency",
    "missing": [
     "date"
    ]
+  },
+  {
+   "id": "m5-minilm-all-energy-per-embedding",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5-minilm-cpu-only-energy-per-embedding",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5-minilm-energy-per-embedding-ratio",
+   "status": "value-missing",
+   "report": "EXP-003-minilm-coreml-ane",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "m5-granite-ane-ane-rail",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5-granite-gpu-gpu-power",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "m5-granite-cpu-gpu-power",
+   "status": "verified",
+   "report": "EXP-022-m5max-baseline",
+   "missing": []
+  },
+  {
+   "id": "grid-64",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "grid-128",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "grid-256",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "grid-512",
+   "status": "verified",
+   "report": "EXP-007-mteb-retrieval-quality",
+   "missing": []
+  },
+  {
+   "id": "grid-1024",
+   "status": "verified",
+   "report": "EXP-009-grid-sweep",
+   "missing": []
+  },
+  {
+   "id": "m5-naab-tensorops-tile-energy",
+   "status": "verified",
+   "report": "EXP-024-engine-attribution",
+   "missing": []
+  },
+  {
+   "id": "m5-naab-simdgroup-tile-energy",
+   "status": "verified",
+   "report": "EXP-024-engine-attribution",
+   "missing": []
+  },
+  {
+   "id": "m5-naab-tile-energy-delta",
+   "status": "verified",
+   "report": "EXP-024-engine-attribution",
+   "missing": []
+  },
+  {
+   "id": "xval-m5-gpu-compute-roof-fp16",
+   "status": "verified",
+   "report": "EXP-027-nax",
+   "missing": []
+  },
+  {
+   "id": "xval-m5-gpu-bandwidth-roof",
+   "status": "verified",
+   "report": "EXP-027-nax",
+   "missing": []
+  },
+  {
+   "id": "xval-m5-cpu-bandwidth-roof",
+   "status": "verified",
+   "report": "EXP-027-nax",
+   "missing": []
+  },
+  {
+   "id": "xval-m5-ane-matmul-roof",
+   "status": "verified",
+   "report": "EXP-027-nax",
+   "missing": []
+  },
+  {
+   "id": "xval-m5-ane-dispatch-floor",
+   "status": "verified",
+   "report": "EXP-027-nax",
+   "missing": []
+  },
+  {
+   "id": "xval-h17c-num-nes",
+   "status": "verified",
+   "report": "EXP-027-nax",
+   "missing": []
   }
  ]
 }

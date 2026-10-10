@@ -1,0 +1,321 @@
+# p2b_model_src_hwx.txt — 2026-10-08 — first self-parsed Apple-emitted hwx on M5 Max
+# source: raw/p2b_model_src/na_tiles_binary_0.hwx.gz (binary_0.hwx of the bench/na_tiles.py
+# coreai JIT plan from EXP-024, ~/Library/Caches/coreai-cache/3.12.15/BB3ED9D4.../main-h17c-delegates/)
+# parser: tools/vendor/coreml_to_ane_hwx/hwx_dump/hwx_parsing (K2 build, freedomtan format impl)
+# provenance of the 10 cached hwx (all distinct, all single-ANE-task, all InDim W=32 H=1 C=64 fp16):
+#   find ~/Library/Caches/coreai-cache -name binary_0.hwx | shasum -a 256 -> 10 unique hashes
+
+Magic verified: 0xbeefface
+CPU Type: 0x0080
+CPU Subtype: 0x0009
+File Type: 0x0002
+Number of Load Commands: 0x000f
+Size of Load Commands: 0x40e0
+Flags: 0x200000
+
+Load Command 0:
+  Cmd: 0x19 (LC_SEGMENT_64)
+  Size: 72
+  Segment Name: __PAGEZERO
+  VM Addr: 0x0
+  VM Size: 0x4000
+  File Off: 0x0
+  File Size: 0x0
+  Num Sections: 0
+
+Load Command 1:
+  Cmd: 0x19 (LC_SEGMENT_64)
+  Size: 152
+  Segment Name: __FVMLIB
+  VM Addr: 0x30000000
+  VM Size: 0x4000
+  File Off: 0x0
+  File Size: 0x0
+  Num Sections: 1
+    Section 0:
+      Name: __const
+      Segment: __FVMLIB
+      Addr: 0x30000000
+      Size: 0x2000
+      Offset: 0x0
+      Flags: 0x21
+
+Load Command 2:
+  Cmd: 0x19 (LC_SEGMENT_64)
+  Size: 152
+  Segment Name: __FVMLIB
+  VM Addr: 0x30004000
+  VM Size: 0x4000
+  File Off: 0x0
+  File Size: 0x0
+  Num Sections: 1
+    Section 0:
+      Name: __const
+      Segment: __FVMLIB
+      Addr: 0x30004000
+      Size: 0x1000
+      Offset: 0x0
+      Flags: 0x21
+
+Load Command 3:
+  Cmd: 0x19 (LC_SEGMENT_64)
+  Size: 152
+  Segment Name: __FVMLIB
+  VM Addr: 0x30008000
+  VM Size: 0x4000
+  File Off: 0x0
+  File Size: 0x0
+  Num Sections: 1
+    Section 0:
+      Name: __data
+      Segment: __FVMLIB
+      Addr: 0x30008000
+      Size: 0x1000
+      Offset: 0x0
+      Flags: 0x23
+
+Load Command 4:
+  Cmd: 0x19 (LC_SEGMENT_64)
+  Size: 232
+  Segment Name: __TEXT
+  VM Addr: 0x3000c000
+  VM Size: 0x8000
+  File Off: 0x8000
+  File Size: 0x8000
+  Num Sections: 2
+    Section 0:
+      Name: __text
+      Segment: __TEXT
+      Addr: 0x3000c000
+      Size: 0x214
+      Offset: 0x8000
+      Flags: 0x28
+
+[H17 (A18 Pro/M5)] Detected Dense HWX Format (CPU Subtype 0x9)
+      [ANE Task 0 (Stream 0) @ 0x10] (Size: 0x204 bytes)
+        TID: 0x0000 TaskSize: 0x81 ExeCycles: 0 ENE: 5 DTID: 0x1540
+        LogEvents: 0x000068 Exceptions: 0x000000
+        LiveOuts: 0x00000000 TSR: 1 TDE: 0
+        --- Common (0x0000) ---
+        InDim     : W=32 H=1 C=64 D=0 Type=float16 (Src2Type=float16)
+        OutDim    : W=32 H=1 C=64 D=0 Type=float16
+        TileOvlp  : Ovlp=0 Pad(T/B)=0x0
+        MacCfg    : TaskType=0 ((None)) ActiveNE=4 SmSrc=1 ReluType=0 OutTrans=0 FillLowerNE=1
+        NECfg     : OCGSize=0 FatTileEn=0 WUStack=0
+        NID       : 0x00200000
+        --- Neural Engine (0x4900) ---
+        KernelCfg: Fmt=fp16 Pal=0(8bit) SparseEn=0 Reuse=0 SBS=0 Asym=0 DetectZeros=1
+        MacCfg: Op=0 (Conv) KMode=0 BiasEn=0 PassEn=0 MVBiasEn=0
+                BinPoint=60 PostEn=0 NLMode=0 MaxPoolEn=0 ArgSel=1 DblInt8=0
+        PostScale: 0x00003c00
+        --- Planar Engine (0x4500) [H17] ---
+        --- L2 Cache Control (0x4100) [H17] ---
+        L2_Src1Cfg: 0x00500172
+        L2_Src2Cfg: 0x00500130
+        L2_Src1: Base=0x00 RS=0x400 CS=0x10000 DS=0x10000 GS=0x10000
+        L2_Result: Base=0x10000 CS=0x00 RS=0x00 DS=0x00 GS=0x00 Type=0x50017a
+        --- TileDMASrc (0x4D00) ---
+        Src1DMAConfig : En=1 (Enabled) DSID/Hint=1 Tag=0 DepInt=0 DepMode=0
+        Src1WrapCfg    : Dim=0 Static=0x0
+        Src1Base       : 0x0000000000000000
+        Src1Strides    : Row=0x0 Chan=0x40 Depth=0x0 Group=0x0
+        Src1Fmt     : Mode=1 MemFmt=2 Trunc=3 Shift=0 -> FLOAT16
+                 Intrlv=1 OffCh=0 CmpVec=0
+        --- TileDMADst (0x5100) ---
+        DstDMAConfig: En=1 (Enabled) DSID=0 Tag=0
+        DstFmt: Mode=1 MemFmt=2 Trunc=3 Shift=0 -> FLOAT16
+                OffCh=0 ZeroPad (F=1, L=1) Intrlv=1 CmpVec=0
+        --- KernelDMASrc (0x5500) [H17] ---
+        MasterCfg: En=1 Sparse=0 Reuse=0
+        StrideY  : 2048
+        CoeffCfg[0] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[1] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[2] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[3] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[4] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[5] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[6] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[7] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[8] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[9] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[10] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[11] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[12] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[13] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[14] : Hint=2 DSID=0 Tag=0
+        CoeffCfg[15] : Hint=2 DSID=0 Tag=0
+        CoeffBase[1]: 0x00000080
+        CoeffBase[2]: 0x00000100
+        CoeffBase[3]: 0x00000180
+        CoeffBase[4]: 0x00000200
+        CoeffBase[5]: 0x00000280
+        CoeffBase[6]: 0x00000300
+        CoeffBase[7]: 0x00000380
+        CoeffBase[8]: 0x00000400
+        CoeffBase[9]: 0x00000480
+        CoeffBase[10]: 0x00000500
+        CoeffBase[11]: 0x00000580
+        CoeffBase[12]: 0x00000600
+        CoeffBase[13]: 0x00000680
+        CoeffBase[14]: 0x00000700
+        CoeffBase[15]: 0x00000780
+        CoeffSize[0]: 0x00000080
+        CoeffSize[1]: 0x00000080
+        CoeffSize[2]: 0x00000080
+        CoeffSize[3]: 0x00000080
+        CoeffSize[4]: 0x00000080
+        CoeffSize[5]: 0x00000080
+        CoeffSize[6]: 0x00000080
+        CoeffSize[7]: 0x00000080
+        CoeffSize[8]: 0x00000080
+        CoeffSize[9]: 0x00000080
+        CoeffSize[10]: 0x00000080
+        CoeffSize[11]: 0x00000080
+        CoeffSize[12]: 0x00000080
+        CoeffSize[13]: 0x00000080
+        CoeffSize[14]: 0x00000080
+        CoeffSize[15]: 0x00000080
+        --- CacheDMASrc (0x5900) ---
+        Control: Flush=0 En=1 (Enabled) TaskSync=0x0 ET=0x1 FL=0 Thresh=0x0000
+        Pre0: BWLimit=160 Sieve2=0 AgeOut=10
+        DSID: DSID_Size=0x0
+        ET_Args34: Arg3=0x00 Arg4=0x7f
+        BackOff: En=1 Delay=0 Min=7 Max=1 Scale=32
+    Section 1:
+      Name: __const
+      Segment: __TEXT
+      Addr: 0x3000c240
+      Size: 0x4000
+      Offset: 0x8240
+      Flags: 0x26
+
+Load Command 5:
+  Cmd: 0x40 (LC_ANE_MAPPED_REGION)
+  Size: 80
+  (LC_ANE_MAPPED_REGION)
+    Region: 0x30000000 Name: main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0__arg0
+
+Load Command 6:
+  Cmd: 0x40 (LC_ANE_MAPPED_REGION)
+  Size: 80
+  (LC_ANE_MAPPED_REGION)
+    Region: 0x30004000 Name: main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0__arg1
+
+Load Command 7:
+  Cmd: 0x40 (LC_ANE_MAPPED_REGION)
+  Size: 48
+  (LC_ANE_MAPPED_REGION)
+    Region: 0x30008000 Name: __anec.matmul_4279877
+
+Load Command 8:
+  Cmd: 0x4 (LC_THREAD)
+  Size: 2248
+
+Load Command 9:
+  Cmd: 0x4 (LC_THREAD)
+  Size: 3536
+
+Load Command 10:
+  Cmd: 0x4 (LC_THREAD)
+  Size: 3536
+
+Load Command 11:
+  Cmd: 0x4 (LC_THREAD)
+  Size: 3504
+
+Load Command 12:
+  Cmd: 0x8 (LC_IDENT)
+  Size: 2744
+  Ident: ANEC v1
+zin_ane_compiler v10.26.6
+
+ Module ANEC: 
+	 ModuleBundleName: com.apple.ANECompilerFramework
+	 ModuleVersion: 10.26.6
+	 ModuleCompilationFlags: 
+	-t h17c
+	--fno-fold-scale=true
+	--fdram-allocator=ffreuse
+	--fdram-tensor-priority=sizebyliverange
+	--fl2-allocator=ffreuse
+	--fl3-allocator=ffreuse
+	--fl2-cache-mode=resident
+	--fsignature=ident
+	--fdisable-bonded-networks=true
+	--enable-param-and-map-rtgraph-refactor=false
+	--enable-work-stealing-for-bonded-networks=false
+	--memcache-size=4194304
+	--fspatial-split=disabled
+	--fenable-circular-buffer-in-spatial-split=-1
+	--fkernel-rewind=enabled
+	--fuse-runtime-matmul-scaling=false
+	--max-td-latency=10000.000000
+	--ne-frequency=-1.000000
+	--pstate-dcs=-1
+	--pstate-soc=-1
+	--bss-limit=-1
+	--foptimize-ne-utilization=true
+	--disable-cache-prefetch-mask=1
+	--optimize-mutable-kernel-section=true
+	--enable-summary-performance-stats=false
+	--split-kernel-section=true
+	--max-kernel-section-size=134217728
+	--enable-context-switch-events=false
+	--fdisable-ne-width-slicing=false
+	--disable-hard-swish-opt=false
+	--preserve-texture-fraction=false
+	--max-td-count=-1
+	--max-segment-size=-1
+	--e4m3-overflow-setting=Saturate
+	--enable-dram-inplace-allocation=false
+	--enable-l2-batch-splitting=true
+	--enable-global-cw-optimization=true
+	--suppress-math-exception=false
+	--enable-l2-cached-buffer=true
+	--enable-low-effort-cp-allocation=false
+	--enable-noise-reduction-tiling=false
+	--dump-parallel-score=false
+	--enable-function-inlining=true
+	--fdisable-weight-file-size-check=false
+	--compile_time_mutable=false
+	--enable-afm-mlir-features=true
+	--enable-stable-precision=false
+	--enable-kernel-split-for-multi-palette-lut=false
+	--enable-non-self-replaceable-persistence=false
+	--enable-memcache-kernel-allocation=false
+	--cost-model-cluster-threshold=85
+	--enforce-user-slot-table-alloc-for-standard-cc
+	--enable-matmul-kernel-pad-insertion=true
+	--use-dp-allocator=false
+	--enable-nonbonded-networks=false
+	--generate-model-debug-data=true
+	--enable-ne-input-transpose-fusion=true
+	--llir-emit-bytecode=true
+	--tmem-size=-1
+	--Wl-undefined=fvmlib
+	-p /var/folders/m8/3t601d9x0ygczs1yl9vzmgpc0000gn/T/com.apple.MetalPerformanceShadersGraph/mpsgraph-88536-2026-10-06_18_40_11-476534167/compiler_options_main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0.plist
+	-i /var/folders/m8/3t601d9x0ygczs1yl9vzmgpc0000gn/T/com.apple.MetalPerformanceShadersGraph/mpsgraph-88536-2026-10-06_18_40_11-476534167/main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0.hwx.main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0.plist
+	-o /var/folders/m8/3t601d9x0ygczs1yl9vzmgpc0000gn/T/com.apple.MetalPerformanceShadersGraph/mpsgraph-88536-2026-10-06_18_40_11-476534167/main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0.hwx
+
+
+Load Command 13:
+  Cmd: 0x31 (LC_NOTE)
+  Size: 48
+  Data Owner: rt.version
+  Offset: 0x28
+  Size: 0x4
+  Content:
+__PA
+
+Load Command 14:
+  Cmd: 0x2 (LC_SYMTAB)
+  Size: 24
+  Symbol Table Offset: 0x4100
+  Num Symbols: 29
+  String Table Offset: 0x42d0
+    (Printing first 5 symbols - use -s to see all)
+    [0] __main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0__main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0__arg1 @ 0x30004000
+    [1] __main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_1244018434245326492 @ 0x30008000
+    [2] __main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0__main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0__arg0 @ 0x30000000
+    [3] void:t1=1 @ 0x0
+    [4] int8:t2=r2;0;127 @ 0x0

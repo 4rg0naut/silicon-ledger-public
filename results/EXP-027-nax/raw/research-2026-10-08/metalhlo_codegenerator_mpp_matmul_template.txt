@@ -1,0 +1,75 @@
+    private func generateMatMul2dMPPSource(
+        batchSize: Int,
+        inputElementType: ElementType,
+        outputElementType: ElementType,
+        transA: Bool = false,
+        transB: Bool = false,
+        tileSize: Int = 128
+    ) -> (String, String, TuningConfig?) {
+        // Tile size: BM == BN. Defaults to 128 (8 simdgroups, 256 threads).
+        // A 64-tile variant (4 simdgroups, 128 threads) is used for shapes
+        // with too few 128-tiles to fill the GPU — the matrix coprocessor's
+        // throughput per TG is unchanged, but more TGs improves occupancy
+        // on shapes like (M=1536, N=384, K=4096) where (M/128)*(N/128) = 36
+        // only covers ~0.5 of the M5 Pro's ~64 concurrent-TG capacity.
+        let numSimdgroups = (tileSize == 64) ? 4 : 8
+        let blockSize = numSimdgroups * 32
+        let tuning = TuningConfig(
+            tileM: tileSize,
+            tileN: tileSize,
+            tileK: nil,
+            blockSize: blockSize,
+            useSharedMemory: false,
+            useSIMDGroups: true
+        )
+
+        let inputMetalType = metalTypeName(for: inputElementType)
+        let outputMetalType = metalTypeName(for: outputElementType)
+        let isBatched = batchSize > 1
+        // The bindings layer adds buffer(6) = batchCount when batchSize > 1
+        // (see CodeGenerator.swift "Add batchCount for batched matmul").
+        let batchCountParam = isBatched
+            ? "constant uint& batchCount [[buffer(6)]],"
+            : ""
+        let batchOffsetSetup = isBatched ? """
+                // Skip out-of-range batches in case the dispatch grid was rounded up.
+                // A and B per-batch byte counts are M*K and K*N regardless of transpose
+                // (the buffer is the same size; only the interpretation changes).
+                if (tgid.z >= batchCount) return;
+                A_ptr += uint(tgid.z) * M * K;
+                B_ptr += uint(tgid.z) * K * N;
+                C_ptr += uint(tgid.z) * M * N;
+        """ : ""
+
+        // dextents follow the (cols, rows) convention — cols is the
+        // faster-varying / inner-stride dim of the row-major buffer.
+        //
+        //   transA=false → A in [M, K]  → dextents{cols=K, rows=M}
+        //   transA=true  → A in [K, M]  → dextents{cols=M, rows=K}
+        //   transB=false → B in [K, N]  → dextents{cols=N, rows=K}
+        //   transB=true  → B in [N, K]  → dextents{cols=K, rows=N}
+        //
+        // Slices use (col_origin, row_origin). For each operand, the M/N tile
+        // origin lives on whichever dim is the *non-contracting* one. K is
+        // not sliced (full reduction).
+        let aDExtents = transA
+            ? "dextents<int32_t, 2>{int32_t(M), int32_t(K)}"
+            : "dextents<int32_t, 2>{int32_t(K), int32_t(M)}"
+        let bDExtents = transB
+            ? "dextents<int32_t, 2>{int32_t(K), int32_t(N)}"
+            : "dextents<int32_t, 2>{int32_t(N), int32_t(K)}"
+        let aSlice = transA
+            ? "A.slice(tgid.y * BM, 0)"
+            : "A.slice(0, tgid.y * BM)"
+        let bSlice = transB
+            ? "B.slice(0, tgid.x * BN)"
+            : "B.slice(tgid.x * BN, 0)"
+        let descTransposeFlags = "\(transA ? "true" : "false"), \(transB ? "true" : "false")"
+
+        // tf32 fast path. For fp32 inputs, `relaxed_precision = true` lets the
+        // matrix coprocessor round operands to tf32 (10-bit mantissa) and run
+        // the multiply at ~5× the exact-fp32 throughput — exactly what MLX does
+        // by default (matmul.cpp gate `enable_tf32() || dtype != float32`, with
+        // enable_tf32 defaulting true). On M5 Pro this takes fp32 matmul from
+        // ~3.6 TF (exact) toward ~18 TF (tf32). For fp16/bf16 inputs the
+        // mantissa is already ≤10 bits so relaxed has no effect; keep it off.

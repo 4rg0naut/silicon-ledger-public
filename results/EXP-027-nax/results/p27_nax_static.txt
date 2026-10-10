@@ -1,0 +1,82 @@
+# NX-A NAX static inventory — Mac17,14 M5 Max, macOS 27.0.1 (26A434), CLT-only, 2026-10-08
+
+## 1. runtime capability probe (harness/p27_nax_probe.m)
+device: Apple M5 Max
+families:
+  family Apple7   1
+  family Apple8   1
+  family Apple9   1
+classes present:
+  MTL4MachineLearningCommandEncoder        PROTOCOL
+  MTLTensorDescriptor                      CLASS
+  MTLTensorExtents                         CLASS
+  MTLTensorAuxiliaryPlaneDescriptor        CLASS
+  MTLTensorBufferAttachments               CLASS
+  MTL4ComputeCommandEncoder                PROTOCOL
+device tensor selectors responds:
+  newTensorWithDescriptor:error:                     YES
+  tensorSizeAndAlignWithDescriptor:                  YES
+  newTensorWithDescriptor:attachments:error:         YES
+step: desc ok, dims rank=2 dt=16
+step: strides set
+calling sizeAndAlign
+back from sizeAndAlign
+step: sizeAndAlign done
+tensorSizeAndAlign fp16 [64,32]: size=4096 align=2
+newTensor device-backed: FAIL err=Error Domain=MTLTensorDomain Code=2 "Tensor Descriptor Validation
+Strides should be nil when using [MTLDevice newTensorWithDescriptor:error:]
+" UserInfo={NSLocalizedDescription=Tensor Descriptor Validation
+Strides should be nil when using [MTLDevice newTensorWithDescriptor:error:]
+}
+newTensor buffer-backed: OK
+newTensor fp8e4m3: OK
+
+## 2. key findings (measured)
+- M5 Max = MTLGPUFamilyApple9 (supportsFamily YES; Apple7/8 also YES).
+- MTLTensorDescriptor / MTLTensorExtents / MTLTensorBufferAttachments: CLASSES present.
+- MTL4MachineLearningCommandEncoder + MTL4ComputeCommandEncoder: PROTOCOLS present
+  (class lookup fails; NSProtocolFromString hits) — submission encoders are live.
+- Driver selectors on MTLDevice: newTensorWithDescriptor:error: YES,
+  tensorSizeAndAlignWithDescriptor: YES, newTensorWithDescriptor:attachments:error: YES.
+- PITFALL (SIGSEGV, then fix): tensorSizeAndAlignWithDescriptor: SEGFAULTS on a
+  descriptor with dimensions+dataType+usage but strides=nil; with explicit strides
+  it returns size=4096 align=2 for fp16 [64,32]; BUT newTensorWithDescriptor:
+  then rejects the same non-nil strides ("Strides should be nil", Code=2):
+  sizeAndAlign WANTS strides, creation wants them NIL. Asymmetric validation,
+  unguarded deref. Driver AGXMetalG17P 360.34.5 (build 874).
+- Buffer-backed tensor creation OK: MTLTensorBufferAttachments
+  setBuffer:offset:forPlane:MTLTensorPlaneTypeData +
+  newTensorWithDescriptor:attachments:error: -> OUR MTLBuffer backs the tensor
+  = the data-submission path (user question answered at API level; timing in NX-C).
+- fp8e4m3 (macos27.0 enum) tensor creation OK on this device.
+
+## 3. driver bundle inventory (on-disk, not shared-cache)
+416 .
+224 ..
+316438 AGXMetalPerfCountersExternal.plist
+4738800 Archive_release_gen2.metallib
+7222336 Archive_release.metallib
+30193264 ds.binary.metallib.g17p-a0
+340533 ei_rt_hal200.metallib
+1349881 raytracing_runtime_ria2.metallib
+46514 runtime.gen12.metallib
+1517454 runtime.gen15.metallib
+474003 tensor.metallib
+870460 tex_atomic_emu_g16.metallib
+18559 vft_rt_gen1_agx3.metallib
+
+## 4. tensor.metallib = AIR tensor runtime builtins (sample):
+air.get_block_size_global_tensor
+air.get_block_size_private_tensor
+air.get_block_size_private_tensor32023.921.5air64_v29-apple-macosx27.0.0
+air.get_data_pointer_global_tensor.s.i16.constant
+air.get_data_pointer_global_tensor.s.i16.generic
+air.get_data_pointer_global_tensor.s.i16.global
+air.get_data_pointer_global_tensor.s.i16.local
+air.get_data_pointer_global_tensor.s.i16.private
+air.get_data_pointer_global_tensor.s.i32.constant
+air.get_data_pointer_global_tensor.s.i32.generic
+air.get_data_pointer_global_tensor.s.i32.global
+air.get_data_pointer_global_tensor.s.i32.local
+
+## 5. compiler side: 'metal' CLI absent (CLT-only, unchanged toolchain GAP); GPUCompiler.framework Versions/*/Frameworks absent; AGXMetalG17P Info.plist version above.

@@ -1,0 +1,93 @@
+# EXP-026 K1 recon — ANECompilerService.xpc (on-disk binary) — 2026-10-07 22:11:35 machine=Mac17,14 os=27.0.1
+## otool -L (arm64e slice)
+	/System/Library/PrivateFrameworks/PowerLog.framework/Versions/A/PowerLog (compatibility version 1.0.0, current version 1.0.0, weak)
+	/usr/lib/libcompression.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/System/Library/Frameworks/IOSurface.framework/Versions/A/IOSurface (compatibility version 1.0.0, current version 1.0.0)
+	/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit (compatibility version 1.0.0, current version 275.0.0)
+	/System/Library/PrivateFrameworks/CoreAnalytics.framework/Versions/A/CoreAnalytics (compatibility version 1.0.0, current version 1.0.0)
+	/System/Library/PrivateFrameworks/ANECompiler.framework/Versions/A/ANECompiler (compatibility version 1.0.0, current version 1.0.0)
+	/System/Library/PrivateFrameworks/MIL.framework/Versions/A/MIL (compatibility version 3600.16.0, current version 3600.16.1)
+	/usr/lib/libMobileGestalt.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/usr/lib/libsandbox.1.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/System/Library/Frameworks/Security.framework/Versions/A/Security (compatibility version 1.0.0, current version 62460.1.2)
+	/System/Library/PrivateFrameworks/Espresso.framework/Versions/A/Espresso (compatibility version 1.0.0, current version 123.0.0)
+	/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 5027.0.69)
+	/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)
+	/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.27.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)
+	/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.0.69)
+
+## classes + log strings (_ANE*/_ANEC*)
+_ANEC_ESPRESSO_TRANSLATE
+_ANEC_MODEL_COMPILE
+_ANEC_QUEUE_WAIT
+_ANECompiler
+_ANECompiler : ANECCompile() FAILED
+_ANECompilerService
+_ANECompilerServiceProtocol
+_ANECoreMLModelCompiler
+_ANECoreMLModelCompiler : error %@
+_ANECVAIRCompiler
+_ANECVAIRCompiler: for %@ FAILED: lAttr=%@ : lErr=%@
+_ANED_MODEL_READ_ADVISE
+_ANED_MODELCACHE_GC
+_ANED_PURGE_COMPILED_MODEL
+_ANED_WEIGHT_READ_ADVISE
+_ANEDebugUtils
+_ANEEspressoIRTranslator
+_ANEEspressoIRTranslator : error %s
+_ANEF_JIT_ANEC_COMPILE
+_ANEInMemoryModelCacheManager
+_ANEMaintenanceProtocol
+_ANEMILCompiler
+_ANEMILCompiler: for %@ FAILED: lAttr=%@ : lErr=%@
+_ANEMLIRCompiler
+_ANEMLIRCompiler: for %@ FAILED: lAttr=%@ : lErr=%@
+_ANEModelCacheManager
+_ANEPatchManager
+_ANESandboxingHelper
+_ANEStorageHelper
+_ANEStorageMaintainerProtocol
+_ANETask
+_ANETaskManager
+
+## XPC selector inventory
+compileModel:options:ok:error:
+compileModelAt:csIdentity:key:optionsFilename:tempDirectory:outputURL:saveSourceModelPath:aotModelBinaryPath:isEncryptedModel:options:ok:error:
+compileModelAt:csIdentity:plistFilename:optionsFilename:outputURL:saveSourceURL:aotModelBinaryPath:isEncryptedModel:options:ok:error:
+compileModelAt:csIdentity:sandboxExtension:options:tempDirectory:cloneDirectory:outputURL:aotModelBinaryPath:maxModelMemorySize:withReply:
+compileModelAt:modelName:csIdentity:optionsFilename:outputURL:saveSourceURL:aotModelBinaryPath:isEncryptedModel:options:maxModelMemorySize:ok:error:
+compileModelAt:modelName:csIdentity:optionsFilename:outputURL:saveSourceURL:aotModelBinaryPath:isEncryptedModel:options:mpsConstants:externConstants:maxModelMemorySize:ok:error:
+compileModelJIT: FAILED: lAttr=%@ : lErr=%@
+compileModelJIT:ok:error:
+getAccessTimeForFilePath:
+getDiskSpaceForBundleID:
+getDiskSpaceItemizedByBundleIDAndPurge:
+getModelBinaryPathFromURLIdentifier:bundleID:
+getResourceValue:forKey:error:
+registerTask:
+setAccessTime:forModelFilePath:
+setAttributes:ofItemAtPath:error:
+setByAddingObjectsFromArray:
+setDataVaultBaseURLForTesting:
+setDelegate:
+setExportedInterface:
+setExportedObject:
+setExternConstants:
+setObject:forKey:
+setObject:forKeyedSubscript:
+setRemoteObjectInterface:
+setWithArray:
+
+## compilerRequest fields line
+%@: compilerRequest fields - modelFilename=%@ inputModelPath=%@ optionsFilePath=%@ outputFilename=%@ outputModelPath=%@ aotModelBinaryPath=%@ sourceModelPath=%@ isJITModel=%d isEncryptedModel=%d isMILModel=%d mpsConstants=%@ maxModelMemorySize=0x%llx
+
+## mach service names
+com.apple.ANECompilerService
+com.apple.ANELargeModelCompilerService
+
+## embedded entitlements
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>com.apple.PerfPowerServices.data-donation</key><true/><key>com.apple.developer.hardened-process</key><true/><key>com.apple.private.coreml.decypt_allowed</key><true/><key>com.apple.private.security.storage.MobileAssetGenerativeModels</key><true/><key>com.apple.rootless.storage.ane_model_cache</key><true/><key>com.apple.rootless.storage.triald</key><true/><key>com.apple.security.exception.mach-lookup.global-name</key><array><string>com.apple.powerlog.plxpclogger.xpc</string><string>com.apple.PerfPowerTelemetryClientRegistrationService</string></array><key>com.apple.security.temporary-exception.mach-lookup.global-name</key><array><string>com.apple.powerlog.plxpclogger.xpc</string><string>com.apple.PerfPowerTelemetryClientRegistrationService</string></array><key>platform-application</key><true/><key>seatbelt-profiles</key><array><string>ANECompilerService</string></array></dict></plist>
+
+## Info.plist keys
+  "CFBundleIdentifier" => "com.apple.ANECompilerService"

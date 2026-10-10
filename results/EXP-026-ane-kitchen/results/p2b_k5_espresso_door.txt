@@ -1,0 +1,50 @@
+# espresso bundle breakthrough — MobileNetV2 via compileModelAtURL (.mlmodel legacy input) 2026-10-07T22:36
+total 47856
+drwxr-xr-x    9 <user>  staff       288  7 oct.  22:35 .
+drwxrwxrwt  357 root   wheel     11424  7 oct.  22:36 ..
+drwxr-xr-x    3 <user>  staff        96  7 oct.  22:35 analytics
+-rw-r--r--    1 <user>  staff     29726  7 oct.  22:35 coremldata.bin
+drwxr-xr-x    3 <user>  staff        96  7 oct.  22:35 model
+-rw-r--r--    1 <user>  staff     92017  7 oct.  22:35 model.espresso.net
+-rw-r--r--    1 <user>  staff     22653  7 oct.  22:35 model.espresso.shape
+-rw-r--r--    1 <user>  staff  24350144  7 oct.  22:35 model.espresso.weights
+drwxr-xr-x    3 <user>  staff        96  7 oct.  22:35 neural_network_optionals
+
+# pkgb_harness pathb (chain-shape surfaces -> expected 0x1D MAP_FAIL; load itself SUCCEEDED):
+128 MAP_FAIL: mapIOSurfacesWithModel:request:cacheInference:error:: Program IOSurfaces map failed (underlying=0x1D)
+512 MAP_FAIL: mapIOSurfacesWithModel:request:cacheInference:error:: Program IOSurfaces map failed (underlying=0x1D)
+2048 MAP_FAIL: mapIOSurfacesWithModel:request:cacheInference:error:: Program IOSurfaces map failed (underlying=0x1D)
+8192 MAP_FAIL: mapIOSurfacesWithModel:request:cacheInference:error:: Program IOSurfaces map failed (underlying=0x1D)
+32768 MAP_FAIL: mapIOSurfacesWithModel:request:cacheInference:error:: Program IOSurfaces map failed (underlying=0x1D)
+
+# ADDENDUM 2026-10-08 (verifier writeback; format + geometry measured from the
+# surviving /tmp/mnv2.mlmodelc, source .mlmodel still at /tmp/MobileNetV2.mlmodel):
+
+Emitted bundle is a REAL espresso program, not the 1 KB preview stub seen in
+.mlpackage-pipeline bundles: model.espresso.net is JSON text starting
+`{"layers": [...` (92,017 B, 170 layers: 53 convolution / 70 activation /
+45 elementwise / 1 pool / 1 softmax — batchnorm folded), model.espresso.shape
+carries layer_shapes, model.espresso.weights = 23 MB.
+
+Measured input geometry (model.espresso.shape -> layer_shapes.image):
+    {"k": 3, "h": 224, "w": 224, "n": 1}
+i.e. the loaded program demands a 1x3x224x224 input surface; the harness fed
+chain-64-shaped surfaces from the EXP-025 recipe → 0x1D at mapIOSurfaces.
+
+Fix recipe (derived; not yet executed — filling event_extra_ms is next slice):
+1. Authoritative dims after load: read modelAttributes from _ANEClient
+   loadModel: — networkStatusList[0].liveInputList / liveOutputList entries
+   carry batchStride/planeStride + dims (KB API-068, measured in EXP-025).
+2. Cross-check offline before load: parse model.espresso.shape JSON
+   layer_shapes[<inputName>] -> {k,h,w,n} (inputName matches the model's
+   MLModelDescription input, here "image"); build IOSurfaces with
+   width=w, height=h and plane bytes = k*h*stride per liveInputList strides
+   (libane-style surface construction, EXP-025 path-A surface builder).
+3. Same for outputs (softmax out in layer_shapes) so inference + event
+   timestamps land on mapped buffers, then attach _ANESharedEvents
+   eventPort bridge (EXP-025 harness/ane_sync_harness.m porttest) and fill
+   the PATHB_ONLY event_extra_ms column vs CPU floor 0.02–0.05 ms.
+
+Selector-count clarification for the service dump (p2b_recon_xpc.txt L55-62):
+compileModel: 1 + compileModelAt: variants 5 + compileModelJIT:ok:error: 1 =
+7 compileModel* selectors total (criterion's "6 variants" counted At:+JIT).

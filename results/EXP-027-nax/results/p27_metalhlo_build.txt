@@ -1,0 +1,85 @@
+p27_metalhlo_build — clone + build record (WX-3, 2026-10-08)
+=============================================================
+Machine: Mac17,14 (M5 Max), macOS 27.0.1 (26A434), CLT 27 (default),
+Xcode 27.0 (27A266a) at /Applications/Xcode.app.
+
+CLONE (hub-side vendored, gitignored per EXP-026 convention)
+------------------------------------------------------------
+  cd /Volumes/data/OpenFox/dev_m5max_re
+  git clone https://github.com/pedronahum/MetalHLO tools/vendor/MetalHLO
+  git checkout 44b3a04be0095296f9be95ce060e93045b69c367
+  -> 44b3a04 "README: document experimental distributed (data-parallel
+     shard_map) support" — matches SOURCES.md METALHLO pin.
+
+BUILD ATTEMPT 1 — CLT-only (default developer dir), FAILED as expected
+----------------------------------------------------------------------
+  cd tools/vendor/MetalHLO && swift build
+  SwiftPM resolution + most targets compile on CLT Swift 6.4; death at
+  CompileMetalFile of mlx-swift's vendored .metal sources:
+      error: unable to spawn process 'metal' (No such file or directory)
+  (CLT ships no `metal` CLI — same wall NX-B recorded for
+  `xcrun metal`; the MPP-matmul generators themselves are Swift and
+  compile fine — the wall is the vendored MLX Metal build step.)
+
+BUILD ATTEMPT 2 — Xcode 27 via DEVELOPER_DIR (no sudo), PASS
+------------------------------------------------------------
+  DEVELOPER_DIR=/Applications/Xcode.app swift build
+  -> [792/792] Build complete! (18,93 s)   (fresh .build at hub path)
+  xcrun under DEVELOPER_DIR resolves
+  /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v27.1.266.1.Pjy1Nw/Metal.xctoolchain/usr/bin/metal
+  (MetalToolchain GPUCompiler 32023 — same compiler version the system
+  runtime uses, now reachable with a CLI + SDK headers.)
+
+HEADLINE: matmul2d compiles on THIS box through the Xcode 27 toolchain
+-----------------------------------------------------------------------
+This refines the NX-B wall: "system GPUCompiler 32023 has no matmul2d"
+was CLT-include-tree-specific. The Xcode 27 SDK ships the headers:
+  .../MacOSX27.0.sdk/System/Library/Frameworks/MetalPerformancePrimitives.framework/
+      Headers/MPPTensorOpsMatMul2d.h   (mpp::tensor_ops::matmul2d_descriptor)
+Probe harness/p27_m2d_xcode_probe.metal (single-tile 64x32 matmul2d,
+4 simdgroups, buffer-backed metal::tensor, dextents (cols,rows)):
+  DEVELOPER_DIR=/Applications/Xcode.app xcrun metal -std=metal4.0 \
+      -c harness/p27_m2d_xcode_probe.metal -o /tmp/p27_m2d_probe.air
+  -> exit 0, 8656-byte .air (re-verified from the committed harness copy).
+  MSL 4.0 accepted; no energy numbers claimed.
+Runtime dispatch of this AIR (multi-tile completion => R8 rerun) is the
+next slice, correctness-gated per protocol — NOT claimed here.
+
+LINE-LEVEL SOURCE INDEX (clone @44b3a04; pack pin excerpts in
+raw/research-2026-10-08/metalhlo_codegenerator_*.txt)
+-----------------------------------------------------------------------
+Sources/MetalHLOCore/Compiler/CodeGenerator.swift:
+  3945        gate comment: matmul2d "Requires Metal language 4.0 and
+              Apple9 GPU family (M3+)"
+  4013        naxEligible = naxEnabled && supports && isFp32 && !coopExactFp32
+  4030-4034   MPP tile pick: use128 iff M%128==0 && N%128==0 &&
+              tg128>=128 (tg128=(M/128)*(N/128)*batch); else 64-tile
+  4054-4070   route dispatch NAX -> coop -> steel -> MPP(chosenTile)
+  4395-4398   NAX kernel includes: metal_stdlib, metal_tensor,
+              metal_cooperative_tensor, MetalPerformancePrimitives.h
+  4408-4409   dextents convention comment: (cols, rows), cols =
+              faster-varying; A[M,K]->(K,M) B[K,N]->(N,K) C[M,N]->(N,M)
+  4426-4431   matmul2d_descriptor(BM,BN,TILEK,tl,tr,relaxed tf32, madd)
+              + matmul2d<desc, execution_simdgroups<NSG>> op
+  4466        generateMatMul2dMPPSource(batchSize, in/out types, transA/B,
+              tileSize=128)
+  4475-4481   tile comment: 128-tile = 8 simdgroups/256 threads; 64-tile
+              = 4 simdgroups/128 threads for shapes whose 128-tile count
+              underfills GPU (~64 concurrent TGs on M5 Pro)
+  4481-4490   numSimdgroups/blockSize + TuningConfig(tileM=tileN=tileSize,
+              blockSize=numSimdgroups*32, useSIMDGroups=true)
+  4595-4608   generated tensor ctor (dynamic K via dynamic_extent) +
+              desc with transpose flags + relaxed_precision (tf32 for
+              fp32; METALHLO_EXACT_FP32=1 override)
+  4612        matmul2d<desc, execution_simdgroups<NUM_SIMDGROUPS>> op
+  4614-4619   grid mapping comment (width=N_tiles, height=M_tiles) and
+              per-TG slices A.slice(0,tgid.y*BM) B.slice(tgid.x*BN,0)
+              C.slice(tgid.x*BN,tgid.y*BM)
+  7091-7092   launch grid: gridWidth=ceil(N/tileN), gridHeight=ceil(M/tileM)
+              (tile from tuning.tileM/tileN, default 32x32 SIMT)
+  7124        threadgroupSize = tuning.blockSize (256 for MPP-128)
+  7128-7134   batched: depth=batchSize 3D grid + buffer(6) batchCount,
+              kernel-side `if (tgid.z >= batchCount) return;` guard
+Sources/MetalHLOCore/Compiler/CodeGenerator.swift:4266-4268 comment:
+  MPP kernels runtime-compile to MTLLanguageVersion.version4_0 (other
+  kernels stay lower) — matches our probe flag.

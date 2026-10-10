@@ -1,0 +1,39 @@
+EXP-028 E3 — channel dictionary diff: espresso-window census vs EXP-027 lens set + Instruments plugin strings
+
+Vocabulary: 764 distinct channels surfaced by enginemon --all user-mode across the
+three EXP-028 windows (raw/p28_e3/census_channel_names.txt; subset of the owner's
+full --all dictionary of 4606 lines — window coverage ≠ dictionary coverage).
+
+1. Plugin strings harvest (Instruments/Xcode, read-only):
+   - GPUPlugin.xrplugin binaries expose ONLY AGX/GPU counter naming:
+     com.apple.gpusw.AGXProfilingSupport, gpu-aps-stream, gpu-counter-info,
+     gpu-counter-value, gpu-performance-state-info, gpu-shader-profiler-interval/-sample
+     (+GPUCounterGraph.plist metric descriptions, no ANE/PMP0 tokens).
+   - ktracePlugin: zero ANE/NEX/channel tokens of interest.
+   - IOKitPlugin.xrplugin: zero ANE/SOC-NI/DCS/UT tokens (ObjC plumbing only).
+   - Conclusion: the PMP0 / "DCS Floor" / "SOC Floor" / "SOC-NI Util BW" / ANE L0/L1
+     naming is NOT shipped inside Instruments user-space — it is kernel kext-side
+     (sealed; ApplePMP.kext binary not readable outside cryptex path) surfaced to
+     user mode only through IOReport plumbing (our enginemon). Instruments' Core AI
+     surface covers ops/graph (E2), not NoC/cache counters.
+
+2. Espresso-window channels moving that were ABSENT from the EXP-027 anpos lens set
+   (which enumerated ANEXL U + ANE UP as the ANE lenses):
+   - PMP0 SOC Floor: ANE-LNK0-AF-BW, ANE-LNK1-AF-BW, ANS-DMA-AF-BW, ANS-NAND-AF-BW
+   - PMP0 DCS Floor: ANE-DCS-BW, ANS-DCS-BW; PMC SOC Floor: ANS
+   - PMP0 AF/DCS BW: ANE L0 RD/WR, ANE L1 RD/WR, ANS RD/WR
+   - SOC-NI6 ANS NAN / RAI / RAO / SL (four ANS NoC ports — NI6 family)
+   - Full AGX UT Engagement perf-state family (Count/Sum/Not_Engaged for PS1..PS13)
+     + GPU residency kdims (GPUPH, PWRCTRL, BSTGPUPH, GPUDVDH, PZRSDNCY, GPU_PPM,
+     GPU_CLTM) + interrupt tokens (UT_EXT_THROTTLE_MGPU03/12,
+     VDD_GPU03/12_VOLTAGE_CHANGE_COMPLETION).
+   Meaning: espresso ANE eval with a Metal-device harness lights the whole ANE
+   bandwidth hierarchy (L0/L1 caches, LNK0/1 ANE-to-SoC links, ANS DMA/NAND paths,
+   NI6 ports) and drags the GPU DVFS/UT-engagement ladder along (PS13 engages;
+   voltage-change interrupts fire). The ANEXL/ANE-UP pair from EXP-027 is a
+   strictly smaller slice than what one ANE workload actually moves.
+
+3. Proposal for enginemon owner (NOT touching the harness): keep a dedicated
+   "espresso-only" (no MPSGraph) profile key set = the 28 channels in
+   analysis_es_vs_idle.txt; it cleanly separates ANE traffic from GPU-compute
+   confounds that the ANE-through-CoreAI path always carries.

@@ -1,0 +1,11 @@
+{
+  "device": "Apple M5 Max",
+  "counterSamplingPoints": {"AtStageBoundary": true, "AtDrawBoundary": false, "AtDispatchBoundary": false, "AtTileDispatchBoundary": false, "AtBlitBoundary": false},
+  "counterSets": [
+    {"name": "timestamp", "counters": ["GPUTimestamp"]}
+  ],
+  "samplingAttempt": {"counterSet": "timestamp", "encoderSamplingCalled": false, "supportsDispatch": false, "supportsStage": true,
+    "sample0": {"bytes": 8, "values": [{"counter": "GPUTimestamp", "value": 0}]},
+    "sample1": {"bytes": 8, "values": [{"counter": "GPUTimestamp", "value": 0}]}},
+  "note": "raw bytes; values are u64 LE aligned to counter order per resolveCounterRange doc"
+}

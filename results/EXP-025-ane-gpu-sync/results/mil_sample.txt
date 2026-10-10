@@ -1,0 +1,31 @@
+program(1.3)
+[buildInfo = dict<string, string>({{"coremlc-component-MIL", "3510.2.1"}, {"coremlc-version", "3505.4.1"}, {"coremltools-component-milinternal", ""}, {"coremltools-version", "9.0"}})]
+{
+    func main<ios18>(tensor<fp32, [1, 64, 1, 128]> x) {
+string c_pad_type = const()[name = string("c_pad_type"), val = string("valid")];
+tensor<int32, [2]> c_strides = const()[name = string("c_strides"), val = tensor<int32, [2]>([1, 1])];
+tensor<int32, [4]> c_pad = const()[name = string("c_pad"), val = tensor<int32, [4]>([0, 0, 0, 0])];
+tensor<int32, [2]> c_dilations = const()[name = string("c_dilations"), val = tensor<int32, [2]>([1, 1])];
+int32 c_groups = const()[name = string("c_groups"), val = int32(1)];
+string x_to_fp16 = const()[name = string("x_to_fp16"), val = string("fp16")];
+tensor<fp16, [1, 64, 1, 128]> h0 = cast(dtype = x_to_fp16, x = x)[name = string("cast_in")];
+tensor<fp16, [64, 64, 1, 1]> W0 = const()[name = string("W0"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(64)))];
+tensor<fp16, [1, 64, 1, 128]> c0 = conv(dilations = c_dilations, groups = c_groups, pad = c_pad, pad_type = c_pad_type, strides = c_strides, weight = W0, x = h0)[name = string("c0")];
+tensor<fp16, [64, 64, 1, 1]> W1 = const()[name = string("W1"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(8320)))];
+tensor<fp16, [1, 64, 1, 128]> c1 = conv(dilations = c_dilations, groups = c_groups, pad = c_pad, pad_type = c_pad_type, strides = c_strides, weight = W1, x = c0)[name = string("c1")];
+tensor<fp16, [64, 64, 1, 1]> W2 = const()[name = string("W2"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(16576)))];
+tensor<fp16, [1, 64, 1, 128]> c2 = conv(dilations = c_dilations, groups = c_groups, pad = c_pad, pad_type = c_pad_type, strides = c_strides, weight = W2, x = c1)[name = string("c2")];
+tensor<fp16, [64, 64, 1, 1]> W3 = const()[name = string("W3"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(24832)))];
+tensor<fp16, [1, 64, 1, 128]> c3 = conv(dilations = c_dilations, groups = c_groups, pad = c_pad, pad_type = c_pad_type, strides = c_strides, weight = W3, x = c2)[name = string("c3")];
+tensor<fp16, [64, 64, 1, 1]> W4 = const()[name = string("W4"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(33088)))];
+tensor<fp16, [1, 64, 1, 128]> c4 = conv(dilations = c_dilations, groups = c_groups, pad = c_pad, pad_type = c_pad_type, strides = c_strides, weight = W4, x = c3)[name = string("c4")];
+tensor<fp16, [64, 64, 1, 1]> W5 = const()[name = string("W5"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(41344)))];
+tensor<fp16, [1, 64, 1, 128]> c5 = conv(dilations = c_dilations, groups = c_groups, pad = c_pad, pad_type = c_pad_type, strides = c_strides, weight = W5, x = c4)[name = string("c5")];
+tensor<fp16, [64, 64, 1, 1]> W6 = const()[name = string("W6"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(49600)))];
+tensor<fp16, [1, 64, 1, 128]> c6 = conv(dilations = c_dilations, groups = c_groups, pad = c_pad, pad_type = c_pad_type, strides = c_strides, weight = W6, x = c5)[name = string("c6")];
+tensor<fp16, [64, 64, 1, 1]> W7 = const()[name = string("W7"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(57856)))];
+tensor<fp16, [1, 64, 1, 128]> c7 = conv(dilations = c_dilations, groups = c_groups, pad = c_pad, pad_type = c_pad_type, strides = c_strides, weight = W7, x = c6)[name = string("c7")];
+string to_fp32 = const()[name = string("to_fp32"), val = string("fp32")];
+tensor<fp32, [1, 64, 1, 128]> o = cast(dtype = to_fp32, x = c7)[name = string("cast_out")];
+    } -> (o);
+}

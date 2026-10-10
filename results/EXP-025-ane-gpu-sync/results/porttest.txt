@@ -1,0 +1,6 @@
+porttest: MTLSharedEvent value=0 handle=ok eventPort=12299
+porttest: wrapper created, signaledValue=0
+T1 CPU-signal -> wrapper-wait : PASS
+T2 GPU-encodeSignal -> wrapper-wait : PASS (gpu commit->wait 62us)
+T3 wrapper-signal -> MTLSharedEvent : PASS (value=3)
+porttest overall: PASS

@@ -1,0 +1,78 @@
+{
+  "url": "https://api.github.com/repos/hollance/neural-engine/issues/44",
+  "repository_url": "https://api.github.com/repos/hollance/neural-engine",
+  "labels_url": "https://api.github.com/repos/hollance/neural-engine/issues/44/labels{/name}",
+  "comments_url": "https://api.github.com/repos/hollance/neural-engine/issues/44/comments",
+  "events_url": "https://api.github.com/repos/hollance/neural-engine/issues/44/events",
+  "html_url": "https://github.com/hollance/neural-engine/issues/44",
+  "id": 4084942600,
+  "node_id": "I_kwDOD0Hw_M7ze0cI",
+  "number": 44,
+  "title": "Espresso: production ANE inference framework + new MIL gotchas to contribute",
+  "user": {
+    "login": "<user>topherkarani",
+    "id": 13857475,
+    "node_id": "MDQ6VXNlcjEzODU3NDc1",
+    "avatar_url": "https://avatars.githubusercontent.com/u/13857475?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/<user>topherkarani",
+    "html_url": "https://github.com/<user>topherkarani",
+    "followers_url": "https://api.github.com/users/<user>topherkarani/followers",
+    "following_url": "https://api.github.com/users/<user>topherkarani/following{/other_user}",
+    "gists_url": "https://api.github.com/users/<user>topherkarani/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/<user>topherkarani/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/<user>topherkarani/subscriptions",
+    "organizations_url": "https://api.github.com/users/<user>topherkarani/orgs",
+    "repos_url": "https://api.github.com/users/<user>topherkarani/repos",
+    "events_url": "https://api.github.com/users/<user>topherkarani/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/<user>topherkarani/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "labels": [
+
+  ],
+  "state": "open",
+  "locked": false,
+  "assignees": [
+
+  ],
+  "milestone": null,
+  "comments": 0,
+  "created_at": "2026-03-16T21:45:47Z",
+  "updated_at": "2026-03-16T21:45:47Z",
+  "closed_at": null,
+  "assignee": null,
+  "author_association": "NONE",
+  "active_lock_reason": null,
+  "sub_issues_summary": {
+    "total": 0,
+    "completed": 0,
+    "percent_completed": 0
+  },
+  "issue_dependencies_summary": {
+    "blocked_by": 0,
+    "total_blocked_by": 0,
+    "blocking": 0,
+    "total_blocking": 0
+  },
+  "body": "Hi @hollance,\n\nYour \"Everything we actually know about the Apple Neural Engine\" repo has been an invaluable reference — thank you for documenting all of that. It's been essential to our research.\n\nI'm building **Espresso** (https://github.com/<user>topherkarani/Espresso), a pure-Swift inference framework for Apple Silicon that uses the private ANE APIs you've documented to achieve 4.76x faster inference than CoreML (519 tok/s on M3 Max).\n\nWe've validated much of what you've documented and discovered a few additional gotchas we'd love to contribute back:\n\n- `softmax` on non-power-of-2 dimensions → `InvalidMILProgram` at compile time\n- `slice_by_index` on function inputs combined with RMSNorm+convs → `InvalidMILProgram` (workaround: prepare data in the right layout before passing to the function)\n- Lane-packed attention kernels (spatial=32) necessary for stable ANE eval across M1-M4\n- `reduce_mean` does NOT exist in raw MIL text format — use `reduce_sum` + `mul` by 1/N\n- ANE eval unstable on some hosts even for single-input identity kernels\n\nWould you be open to:\n1. Adding a reference to Espresso in the README as a production inference usage example?\n2. A PR contributing these findings to your docs?\n\nHappy to submit the PR regardless of the README link. This community benefits from shared knowledge, and your docs deserve to stay current.\n\n— <User>\nhttps://github.com/<user>topherkarani/Espresso",
+  "closed_by": null,
+  "reactions": {
+    "url": "https://api.github.com/repos/hollance/neural-engine/issues/44/reactions",
+    "total_count": 1,
+    "+1": 0,
+    "-1": 0,
+    "laugh": 0,
+    "hooray": 0,
+    "confused": 0,
+    "heart": 1,
+    "rocket": 0,
+    "eyes": 0
+  },
+  "timeline_url": "https://api.github.com/repos/hollance/neural-engine/issues/44/timeline",
+  "performed_via_github_app": null,
+  "state_reason": null,
+  "pinned_comment": null
+}

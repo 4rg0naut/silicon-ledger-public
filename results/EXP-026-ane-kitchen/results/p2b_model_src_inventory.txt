@@ -1,0 +1,102 @@
+# p2b_model_src_inventory.txt — 2026-10-08 — SU: where model.src lives on 27.0.1 (user-mode capture)
+
+## Verdict
+
+K4's expectation ("ANECompilerService drops model.src text into its sandbox; capture with sudo
+before cleanup") does NOT hold on macOS 27.0.1 for the CoreAI/MPSGraph JIT route:
+
+1. v7 window lost to a co-tenant fs_usage holding ktrace (system-wide single consumer) — FAILURES F-50.
+2. v8 window (watcher over aned sandboxes, /private/var/folders/*/*/{T,0,C}/com.apple.aned/*):
+   trigger lanes ran (JIT median 77.2 ms n=235, mutated-bundle reload rc=0), ZERO aned activity —
+   service never appeared. Corroborates K4: ANE compilation for this route happens IN-PROCESS
+   (ANECompiler.framework dlopened in the client, K1), never spawning aned; there is no
+   model.src TEXT file at all. The source persists as MLIR BYTECODE (magic 4D 4C EF 52,
+   producer "MLIR22.0.0git", bytecode version 6) in the user-readable client-side cache
+   ~/Library/Caches/coreai-cache (~3.5 GB, -rw-r--r-- <user>) — no sudo needed, ever.
+
+The persisted mpsExecutable.mpsGraphpackage IS the model.src lineage:
+  original_model_N.mpsgraph   mps-dialect MLIR "model source" (what a MIL text was for CoreML)
+  specialized_model_N.mpsgraph placement-specialized plan (ANE/GPU region partition, folding)
+  binary_0.llir.bundle/       ANECompiler output: per-ANE-region h17c LLIR MLIR bitcode
+                              (Manifest.json: ANECompiler 10.26.4, LLIRVersion 0.1b)
+  binary_0.hwx                ANE hardware task. Container magic 0x4D... first u32 LE = 0xBEEFFACE
+                              (freedomtan hwx_dump "Magic verified"), Mach-O-shaped load
+                              commands (__PAGEZERO/__FVMLIB/__TEXT segments, file magic bytes
+                              CE FA EF BE), CPU Type 0x0080 Subtype 0x0009 -> "[H17 (A18 Pro/M5)]
+                              Detected Dense HWX Format" — parses clean with freedomtan
+                              hwx_parsing, first Apple-emitted hwx decoded on this machine.
+  manifest.plist              full compileDescriptor JSON (opt-in flags, device descriptor,
+                              input shapes, attribute symbols mps.aneAlignedIO etc.)
+  resources.bin (~weights), main-this.odix, main-this.dbginfo (torch-python call stack!)
+
+## Census (measured 2026-10-08; paths relative to ~/Library/Caches/coreai-cache/)
+
+Layout: <OSBUILD-or-PYVER>/<process-name>/<IDENT64>/<plan-hash64>/{model.aimodelx|X.aimodel}/
+  26A434/        — macOS 27.0.1 builds (process-name keyed)
+  3.12.15/       — Python-version keyed (coreai python client), <uuid64>/<X>.aimodel/
+  sync/          — lock files
+  tmp/<hash64>/  — 11 EMPTY staging dirs (compile scratch, cleaned) — the closest this route
+                   ever gets to a sandbox temp; captured empty in v8 watcher too.
+
+| entry (proc/hash)                | date (mtime)       | model (from dbginfo / string dict)                                        | artifacts |
+|----------------------------------|--------------------|----------------------------------------------------------------------------|-----------|
+| 26A434/bench/<7 plans>           | Oct 1–2            | gen_models.py synthetic bench models (torch export; AI_dev/silicon-ledger-bench) | specialized_model_0 + resources.bin (MPSGraph) |
+| 26A434/granite-runner/<3 plans>  | Oct 6 12:29        | granite_embedding _granite_model.py (Swift runner)                          | 1x BNNS/bnns.ir delegate (195 MB) + 2x MPSGraph packages; NO ANE region bc |
+| 26A434/python/6f30dc61.../<1>    | dir Oct 5 23:21 (inner files Oct 3 22:58) | granite embedding w8 export, inputs [1,128]x2 fp16         | **original_model_0 + specialized_model_1 + binary_0.llir.bundle (13 h17c ANE regions) — useANELLIR true, GPU adapter NO** |
+| 26A434/org.python.python/3bd166b6.../<2> | Oct 8 10:17/10:19 | RerankerANE$1 (bench/export_reranker_ane.py, qwen3 sdpa/mlp — EXP-013 model) | specialized_model_0 only; useANELLIR FALSE, no ANE regions |
+| 3.12.15/<10 uuid>/<X>.aimodel    | Oct 6 12:41–18:40  | bench/na_tiles.py (EXP-024 matmul2d/NAX tile ladder)                        | **main-h17c-delegates/.../binary_0.hwx (10 distinct, each 65536 B) + specialized_model_0** |
+
+Reading notes:
+- plan-hash64 suffixes repeat across processes (14371356.../6C51FA69... = shape-specialization
+  variants of the same exported graph, shapes visible in manifest inputShapes).
+- bnns.ir = BNNS delegate IR, binary, no string dictionary in MLIR format (different container).
+- The hwx in 3.12.15 rows proves the ANE compiler was invoked for the na_tiles coreai bench
+  too: every cached plan carries a decoded ANE task InDim W=32 H=1 C=64 float16 — follow-on
+  for the NX ledger (matmul2d-family fragments also land on h17c; see p2b_model_src_hwx.txt).
+
+## Decoded schema pointers (this pack)
+
+- p2b_model_src_granite_ops.txt — full string dictionary of the model.src-equivalent
+  (mps dialect op set: constant/multiply/matmul/reshape/add/strided_slice/split/cast/
+  layer_norm/permute/concat/softmax/swish/select/subtract/broadcast_to/gather_nd/square/
+  reduction_sum/maximum/reciprocal_square_root + python call_stack provenance).
+- p2b_model_src_region_llir.txt — ANE region LLIR schema: dialects builtin/memref/raster/
+  llir/anehlo/arith/async/bufferization + engine verbs (rasterize_packed, pe/ne, dma_dependency,
+  dtid, l2_alias, kload, fifo, unicast...) and per-region kernel matrix: all 13 regions carry
+  fused anec.linear kernels ("neconv"), 12 also anec.swish, region 0 anec.scaled_elementwise.
+- p2b_model_src_diff.txt — original->specialized diff: placement adds 13 main_*_ANE_region_*
+  + 14 main_*_GPU_region_* symbols, ane/gpu dialects, ane_family "A18", ANE dtype whitelist
+  error text "expected fp16, f8E4M3, si8, ui8, si16, or ui16"; folds away layer_norm,
+  broadcast_to, concat, permute. Granite embedding JIT = HYBRID plan (13 ANE + 14 GPU regions),
+  not pure-ANE; "GPU adapter present: NO" means no GPU-compiler fallback was compiled into the
+  package on this route.
+- p2b_model_src_hwx.txt — freedomtan-format decode of a real Apple hwx: Mach-O fat (0xcefaefbe)
+  wrapping CPU type 0x0080 subtype 0x9 (h17), segments __PAGEZERO/__FVMLIB/__TEXT,
+  1 ANE task: TID 0 TaskSize 0x81 ENE 5 DTID 0x1540, InDim/OutDim W=32 H=1 C=64 float16,
+  MacCfg ActiveNE=4, L2 src/result config, TileDMA Src1Strides Row=0 Chan=0x40, FLOAT16 fmt,
+  16 CoeffBase/CoeffSize entries (stride 0x80) — the field inventory SU asked for, in layers/
+  strides/dtype terms.
+- raw/p2b_model_src/*.gz — the source artifacts themselves (self-contained; parse with
+  harness/p2b_mlir_bc_strings.py, which is dependency-free and gunzips transparently).
+
+## Repro
+
+  # string dictionary of any cached plan artifact (text-form model.src equivalent):
+  python3 harness/p2b_mlir_bc_strings.py raw/p2b_model_src/granite_original_model_0.mpsgraph.gz
+  # hardware task fields of a cached hwx:
+  tools/vendor/coreml_to_ane_hwx/hwx_dump/hwx_parsing /path/to/binary_0.hwx
+  # full-IR text (needs LLVM-22 mlir-opt; the private mps/anehlo/raster dialects are not
+  # registered in stock mlir-opt, which fails AFTER a successful container parse with
+  # "dialect 'mps' ... version entry" — the parse itself proves container fidelity):
+  mlir-opt -allow-unregistered-dialect original_model_0.mpsgraph
+
+## Honest gaps
+
+- op ORDERS/operand wiring (IR SSA graph) not printed: stock mlir-opt cannot instantiate the
+  private dialects; a DialectPlugin (--load-dialect-plugin, DialectPluginLibraryInfo per
+  mlir/Tools/Plugins/DialectPlugin.h) that registers allow-unknown-ops stubs for mps/anehlo/
+  raster/ane/gpu would emit full generic-op text — next slice if wanted.
+- attribute/type binary payloads (types with strides) parsed only via the string dictionary
+  (affine_map/strided<...> strings survive verbatim there).
+- "model.src" as a filename exists only in the ANECCompile(XPC) world (K2 InvalidMILProgram
+  door); the JIT world's equivalent is this package. The route itself differs: K2 sent text.

@@ -1,0 +1,764 @@
+Energy Model//ANE0
+Energy Model//CPU Energy
+Energy Model//GPU Energy
+Energy Model//GPU0
+GPU Stats/Active Time Histogram/GPU Active Time
+GPU Stats/CLTM-induced GPU Performance States/GPU_CLTM
+GPU Stats/DVD Request States/GPUDVDH
+GPU Stats/GPU Boost Controller Performance States/BSTGPUPH
+GPU Stats/GPU Discrete Power Zone Residency/PZRSDNCY
+GPU Stats/GPU Performance States/GPUPH
+GPU Stats/GPU Power Controller States/PWRCTRL
+GPU Stats/GPU Throttler Counters/IVDM: Max Throttle Percent
+GPU Stats/GPU Throttler Counters/IVDM: Min Active Throttle Percent
+GPU Stats/GPU Throttler Counters/Throttle Counter C1PPT
+GPU Stats/GPU Throttler Counters/Throttle Counter DPE
+GPU Stats/GPU Throttler Counters/Throttle Counter ExtAsync
+GPU Stats/GPU Throttler Counters/Throttle Counter HWPI
+GPU Stats/GPU Throttler Counters/Throttle Counter IVDM
+GPU Stats/GPU Throttler Counters/Throttle Counter Misc
+GPU Stats/GPU Throttler Counters/Throttle Counter Total
+GPU Stats/GPU Throttler Counters/Throttle Counter UT
+GPU Stats/Idle Time Histogram/GPU Idle Time
+GPU Stats/PPM Target as % of Max GPU Power/GPU_PPM
+GPU Stats/Power Zone Filters/GPU Power Filter
+GPU Stats/Power Zone Filters/GPU Power Zone Filter 0
+GPU Stats/Power Zone Filters/GPU Power Zone Filter 1
+GPU Stats/Power Zone Filters/GPU Power Zone Filter 2
+GPU Stats/Power Zone Filters/GPU Power Zone Filter 3
+GPU Stats/Power Zone Filters/GPU Power Zone Filter 4
+GPU Stats/UT Engagement centi-% Histogram/GPU UT Engagement centi-%
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_0
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_1
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_10
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_11
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_12
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_13
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_14
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_15
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_2
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_3
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_4
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_5
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_6
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_7
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_8
+GPU UT AggD Stats/Count/AGX.Count_UT_Engagement_Perf_State_9
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_0
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_1
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_10
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_11
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_12
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_13
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_14
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_15
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_2
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_3
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_4
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_5
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_6
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_7
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_8
+GPU UT AggD Stats/Max/AGX.Max_UT_Engagement_Perf_State_9
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_0
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_1
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_10
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_11
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_12
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_13
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_14
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_15
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_2
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_3
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_4
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_5
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_6
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_7
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_8
+GPU UT AggD Stats/Min/AGX.Min_UT_Engagement_Perf_State_9
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_0
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_1
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_10
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_11
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_12
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_13
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_14
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_15
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_2
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_3
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_4
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_5
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_6
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_7
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_8
+GPU UT AggD Stats/Not_Engaged_Count/AGX.UT_Not_Engaged_Perf_State_9
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_0
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_1
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_10
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_11
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_12
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_13
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_14
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_15
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_2
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_3
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_4
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_5
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_6
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_7
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_8
+GPU UT AggD Stats/Sum/AGX.Sum_UT_Engagement_Perf_State_9
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 0/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 1/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 10/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 11/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 12/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 13/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 14/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 15/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 2/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 3/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 4/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 5/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 6/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 7/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 8/GPU UT Engagement centi-%
+GPU UT Engagement/UT Engagement centi-% Histogram for perf state 9/GPU UT Engagement centi-%
+Interrupt Statistics (by index)/dart-ane0 0/First Level Interrupt Handler Count
+Interrupt Statistics (by index)/dart-ane0 0/First Level Interrupt Handler Time (MATUs)
+Interrupt Statistics (by index)/dart-ane0 0/Second Level Interrupt Handler CPU Time (MATUs)
+Interrupt Statistics (by index)/dart-ane0 0/Second Level Interrupt Handler Count
+Interrupt Statistics (by index)/dart-ane0 0/Second Level Interrupt Handler System Time (MATUs)
+PMP0/AF BW/AGX RD
+PMP0/AF BW/AGX RD+WR
+PMP0/AF BW/AGX WR
+PMP0/AF BW/ANE L0 RD
+PMP0/AF BW/ANE L0 RD+WR
+PMP0/AF BW/ANE L0 WR
+PMP0/AF BW/ANE L1 RD
+PMP0/AF BW/ANE L1 RD+WR
+PMP0/AF BW/ANE L1 WR
+PMP0/AF BW/ANS RD
+PMP0/AF BW/ANS RD+WR
+PMP0/AF BW/ANS WR
+PMP0/AF BW/AVD RD
+PMP0/AF BW/AVD RD+WR
+PMP0/AF BW/AVD WR
+PMP0/AF BW/DISPEXT0 RD
+PMP0/AF BW/DISPEXT0 RD+WR
+PMP0/AF BW/DISPEXT0 RT RD
+PMP0/AF BW/DISPEXT0 RT RD+
+PMP0/AF BW/DISPEXT0 WR
+PMP0/AF BW/DISPEXT1 RD
+PMP0/AF BW/DISPEXT1 RD+WR
+PMP0/AF BW/DISPEXT1 RT RD
+PMP0/AF BW/DISPEXT1 RT RD+
+PMP0/AF BW/DISPEXT1 WR
+PMP0/AF BW/DISPEXT2 RD
+PMP0/AF BW/DISPEXT2 RD+WR
+PMP0/AF BW/DISPEXT2 RT RD
+PMP0/AF BW/DISPEXT2 RT RD+
+PMP0/AF BW/DISPEXT2 WR
+PMP0/AF BW/DISPEXT3 RD
+PMP0/AF BW/DISPEXT3 RD+WR
+PMP0/AF BW/DISPEXT3 RT RD
+PMP0/AF BW/DISPEXT3 RT RD+
+PMP0/AF BW/DISPEXT3 WR
+PMP0/AF BW/DISPINT RD
+PMP0/AF BW/DISPINT RD+WR
+PMP0/AF BW/DISPINT RT RD
+PMP0/AF BW/DISPINT RT RD+W
+PMP0/AF BW/DISPINT RT WR
+PMP0/AF BW/DISPINT WR
+PMP0/AF BW/ISP RD
+PMP0/AF BW/ISP RD+WR
+PMP0/AF BW/ISP RT RD+WR
+PMP0/AF BW/ISP RT WR
+PMP0/AF BW/ISP WR
+PMP0/AF BW/MACC0 RD
+PMP0/AF BW/MACC0 RD+WR
+PMP0/AF BW/MACC0 WR
+PMP0/AF BW/MACC1 RD
+PMP0/AF BW/MACC1 RD+WR
+PMP0/AF BW/MACC1 WR
+PMP0/AF BW/MSR0 RD
+PMP0/AF BW/MSR0 RD+WR
+PMP0/AF BW/MSR0 WR
+PMP0/AF BW/MSR1 RD
+PMP0/AF BW/MSR1 RD+WR
+PMP0/AF BW/MSR1 WR
+PMP0/AF BW/PACC RD
+PMP0/AF BW/PACC RD+WR
+PMP0/AF BW/PACC WR
+PMP0/AF BW/PRORES RD
+PMP0/AF BW/PRORES RD+WR
+PMP0/AF BW/PRORES WR
+PMP0/AF BW/SCODEC RD
+PMP0/AF BW/SCODEC RD+WR
+PMP0/AF BW/SCODEC RT RD
+PMP0/AF BW/SCODEC RT RD+WR
+PMP0/AF BW/SCODEC RT WR
+PMP0/AF BW/SCODEC WR
+PMP0/AFI BW/AMCC RD
+PMP0/AFI BW/AMCC RD+WR
+PMP0/AFI BW/AMCC WR
+PMP0/AFR BW/AMCC RD
+PMP0/AFR BW/AMCC RD+WR
+PMP0/AFR BW/AMCC WR
+PMP0/AFR Floor/AGX
+PMP0/AFR Floor/AGX-AFR-BW
+PMP0/AFR Floor/DIE1
+PMP0/AGX/#Mem Trans
+PMP0/AGX/Mem Latency
+PMP0/BWR/AUSBC0 ISOC RD
+PMP0/BWR/AUSBC0 ISOC RW
+PMP0/BWR/AUSBC0 ISOC WR
+PMP0/BWR/AUSBC1 ISOC RD
+PMP0/BWR/AUSBC1 ISOC RW
+PMP0/BWR/AUSBC1 ISOC WR
+PMP0/BWR/AUSBC2 ISOC RD
+PMP0/BWR/AUSBC2 ISOC RW
+PMP0/BWR/AUSBC2 ISOC WR
+PMP0/BWR/AUSBC3 ISOC RD
+PMP0/BWR/AUSBC3 ISOC RW
+PMP0/BWR/AUSBC3 ISOC WR
+PMP0/BWR/AUSS ISOC RD
+PMP0/BWR/AUSS ISOC RW
+PMP0/BWR/AUSS ISOC WR
+PMP0/BWR/DISP RT RD
+PMP0/BWR/DISP RT RW
+PMP0/BWR/DISP RT WR
+PMP0/BWR/DISPEXT0 RT RD
+PMP0/BWR/DISPEXT0 RT RW
+PMP0/BWR/DISPEXT0 RT WR
+PMP0/BWR/DISPEXT1 RT RD
+PMP0/BWR/DISPEXT1 RT RW
+PMP0/BWR/DISPEXT1 RT WR
+PMP0/BWR/DISPEXT2 RT RD
+PMP0/BWR/DISPEXT2 RT RW
+PMP0/BWR/DISPEXT2 RT WR
+PMP0/BWR/DISPEXT3 RT RD
+PMP0/BWR/DISPEXT3 RT RW
+PMP0/BWR/DISPEXT3 RT WR
+PMP0/BWR/ISP RT RD
+PMP0/BWR/ISP RT RW
+PMP0/BWR/ISP RT WR
+PMP0/BWR/RT RD
+PMP0/BWR/RT RW
+PMP0/BWR/RT WR
+PMP0/BWR/SCODEC RT RD
+PMP0/BWR/SCODEC RT RW
+PMP0/BWR/SCODEC RT WR
+PMP0/DCS BW/AGX RD
+PMP0/DCS BW/AGX RD+WR
+PMP0/DCS BW/AGX WR
+PMP0/DCS BW/AMCC RD
+PMP0/DCS BW/AMCC RD+WR
+PMP0/DCS BW/AMCC WR
+PMP0/DCS BW/ANE L0 RD
+PMP0/DCS BW/ANE L0 RD+WR
+PMP0/DCS BW/ANE L0 WR
+PMP0/DCS BW/ANE L1 RD
+PMP0/DCS BW/ANE L1 RD+WR
+PMP0/DCS BW/ANE L1 WR
+PMP0/DCS BW/AVD RD
+PMP0/DCS BW/AVD RD+WR
+PMP0/DCS BW/AVD WR
+PMP0/DCS BW/DISPEXT0 RD
+PMP0/DCS BW/DISPEXT0 RD+WR
+PMP0/DCS BW/DISPEXT0 RT RD
+PMP0/DCS BW/DISPEXT0 RT RD+
+PMP0/DCS BW/DISPEXT0 WR
+PMP0/DCS BW/DISPEXT1 RD
+PMP0/DCS BW/DISPEXT1 RD+WR
+PMP0/DCS BW/DISPEXT1 RT RD
+PMP0/DCS BW/DISPEXT1 RT RD+
+PMP0/DCS BW/DISPEXT1 WR
+PMP0/DCS BW/DISPEXT2 RD
+PMP0/DCS BW/DISPEXT2 RD+WR
+PMP0/DCS BW/DISPEXT2 RT RD
+PMP0/DCS BW/DISPEXT2 RT RD+
+PMP0/DCS BW/DISPEXT2 WR
+PMP0/DCS BW/DISPEXT3 RD
+PMP0/DCS BW/DISPEXT3 RD+WR
+PMP0/DCS BW/DISPEXT3 RT RD
+PMP0/DCS BW/DISPEXT3 RT RD+
+PMP0/DCS BW/DISPEXT3 WR
+PMP0/DCS BW/DISPINT RD
+PMP0/DCS BW/DISPINT RD+WR
+PMP0/DCS BW/DISPINT RT RD
+PMP0/DCS BW/DISPINT RT RD+W
+PMP0/DCS BW/DISPINT RT WR
+PMP0/DCS BW/DISPINT WR
+PMP0/DCS BW/ISP RD
+PMP0/DCS BW/ISP RD+WR
+PMP0/DCS BW/ISP RT RD+WR
+PMP0/DCS BW/ISP RT WR
+PMP0/DCS BW/ISP WR
+PMP0/DCS BW/MACC0 RD
+PMP0/DCS BW/MACC0 RD+WR
+PMP0/DCS BW/MACC0 WR
+PMP0/DCS BW/MACC1 RD
+PMP0/DCS BW/MACC1 RD+WR
+PMP0/DCS BW/MACC1 WR
+PMP0/DCS BW/MSR0 RD
+PMP0/DCS BW/MSR0 RD+WR
+PMP0/DCS BW/MSR0 WR
+PMP0/DCS BW/MSR1 RD
+PMP0/DCS BW/MSR1 RD+WR
+PMP0/DCS BW/MSR1 WR
+PMP0/DCS BW/PACC RD
+PMP0/DCS BW/PACC RD+WR
+PMP0/DCS BW/PACC WR
+PMP0/DCS BW/PRORES RD
+PMP0/DCS BW/PRORES RD+WR
+PMP0/DCS BW/PRORES WR
+PMP0/DCS BW/SCODEC RD
+PMP0/DCS BW/SCODEC RD+WR
+PMP0/DCS BW/SCODEC RT RD
+PMP0/DCS BW/SCODEC RT RD+WR
+PMP0/DCS BW/SCODEC RT WR
+PMP0/DCS BW/SCODEC WR
+PMP0/DCS Floor/AGX
+PMP0/DCS Floor/AGX-DCS-BW
+PMP0/DCS Floor/ANE
+PMP0/DCS Floor/ANE-DCS-BW
+PMP0/DCS Floor/ANS
+PMP0/DCS Floor/ANS-DCS-BW
+PMP0/DCS Floor/AVD
+PMP0/DCS Floor/AVE0
+PMP0/DCS Floor/AVE1
+PMP0/DCS Floor/DCS-BW
+PMP0/DCS Floor/DIE1
+PMP0/DCS Floor/DISPEXT0
+PMP0/DCS Floor/DISPEXT1
+PMP0/DCS Floor/DISPEXT2
+PMP0/DCS Floor/DISPEXT3
+PMP0/DCS Floor/DISPINT
+PMP0/DCS Floor/ISP
+PMP0/DCS Floor/JPEG
+PMP0/DCS Floor/MACC0
+PMP0/DCS Floor/MACC1
+PMP0/DCS Floor/MSR0
+PMP0/DCS Floor/MSR1
+PMP0/DCS Floor/PACC
+PMP0/DCS Floor/PRORES
+PMP0/DCS Floor/SCODEC
+PMP0/DISP_EXT Floor/DIE1
+PMP0/DISP_EXT Floor/DISPEXT0
+PMP0/DISP_EXT Floor/DISPEXT1
+PMP0/DISP_EXT Floor/DISPEXT2
+PMP0/DISP_EXT Floor/DISPEXT3
+PMP0/DISP_INT Floor/DIE1
+PMP0/DISP_INT Floor/DISPINT
+PMP0/DSID Stats/Grp0 Hits
+PMP0/DSID Stats/Grp0 Misses
+PMP0/DSID Stats/Grp1 Hits
+PMP0/DSID Stats/Grp1 Misses
+PMP0/DSID Stats/Grp11 Hits
+PMP0/DSID Stats/Grp11 Misses
+PMP0/DSID Stats/Grp12 Hits
+PMP0/DSID Stats/Grp12 Misses
+PMP0/DSID Stats/Grp13 Hits
+PMP0/DSID Stats/Grp13 Misses
+PMP0/DSID Stats/Grp14 Hits
+PMP0/DSID Stats/Grp14 Misses
+PMP0/DSID Stats/Grp15 Hits
+PMP0/DSID Stats/Grp15 Misses
+PMP0/DSID Stats/Grp16 Hits
+PMP0/DSID Stats/Grp16 Misses
+PMP0/DSID Stats/Grp17 Hits
+PMP0/DSID Stats/Grp17 Misses
+PMP0/DSID Stats/Grp19 Hits
+PMP0/DSID Stats/Grp19 Misses
+PMP0/DSID Stats/Grp2 Hits
+PMP0/DSID Stats/Grp2 Misses
+PMP0/DSID Stats/Grp20 Hits
+PMP0/DSID Stats/Grp20 Misses
+PMP0/DSID Stats/Grp21 Hits
+PMP0/DSID Stats/Grp21 Misses
+PMP0/DSID Stats/Grp22 Hits
+PMP0/DSID Stats/Grp22 Misses
+PMP0/DSID Stats/Grp23 Hits
+PMP0/DSID Stats/Grp23 Misses
+PMP0/DSID Stats/Grp24 Hits
+PMP0/DSID Stats/Grp24 Misses
+PMP0/DSID Stats/Grp25 Hits
+PMP0/DSID Stats/Grp25 Misses
+PMP0/DSID Stats/Grp26 Hits
+PMP0/DSID Stats/Grp26 Misses
+PMP0/DSID Stats/Grp27 Hits
+PMP0/DSID Stats/Grp27 Misses
+PMP0/DSID Stats/Grp28 Hits
+PMP0/DSID Stats/Grp28 Misses
+PMP0/DSID Stats/Grp29 Hits
+PMP0/DSID Stats/Grp29 Misses
+PMP0/DSID Stats/Grp3 Hits
+PMP0/DSID Stats/Grp3 Misses
+PMP0/DSID Stats/Grp30 Hits
+PMP0/DSID Stats/Grp30 Misses
+PMP0/DSID Stats/Grp31 Hits
+PMP0/DSID Stats/Grp31 Misses
+PMP0/DSID Stats/Grp4 Hits
+PMP0/DSID Stats/Grp4 Misses
+PMP0/DSID Stats/Grp5 Hits
+PMP0/DSID Stats/Grp5 Misses
+PMP0/DSID Stats/Grp6 Hits
+PMP0/DSID Stats/Grp6 Misses
+PMP0/DSID Stats/Grp7 Hits
+PMP0/DSID Stats/Grp7 Misses
+PMP0/DSID Stats/Grp8 Hits
+PMP0/DSID Stats/Grp8 Misses
+PMP0/DSID Stats/Grp9 Hits
+PMP0/DSID Stats/Grp9 Misses
+PMP0/Energy/AGX
+PMP0/Energy/AGX AFR
+PMP0/Energy/MACC0
+PMP0/Energy/MACC0 SRAM
+PMP0/Energy/MACC1
+PMP0/Energy/MACC1 SRAM
+PMP0/Energy/PACC
+PMP0/Energy/PACC SRAM
+PMP0/Fast-Die CE/ANE0
+PMP0/Fast-Die CE/MACC0
+PMP0/Fast-Die CE/MACC1
+PMP0/Fast-Die CE/PACC
+PMP0/Fast-Die Delay/DELAY
+PMP0/IO Reporting statistics/last update
+PMP0/IO Reporting statistics/update count
+PMP0/IOP State/status
+PMP0/MACC0/Core Block Slot
+PMP0/MACC0/DRAM Stall
+PMP0/MACC0/M$ Stall
+PMP0/MACC1/Core Block Slot
+PMP0/MACC1/DRAM Stall
+PMP0/MACC1/M$ Stall
+PMP0/PACC/Core Block Slot
+PMP0/PACC/DRAM Stall
+PMP0/PACC/M$ Stall
+PMP0/PMC 2D State/SOCxDCS
+PMP0/PMC BWR latency/DCS F2
+PMP0/PMC BWR latency/DCS F3
+PMP0/PMC BWR latency/DCS F5
+PMP0/PMC BWR latency/DCS F6
+PMP0/PMC BWR latency/DCS F7
+PMP0/PMC BWR latency/DCS F8
+PMP0/PMC BWR latency/RESOLVING
+PMP0/PMC BWR latency/SOC VMAX
+PMP0/PMC BWR latency/SOC VNOM
+PMP0/PMC BWR latency/SOC VOVD
+PMP0/PMC BWR latency/SOC VOVD_TYP
+PMP0/PMC DCS Floor/AP
+PMP0/PMC DCS Floor/BOOST
+PMP0/PMC DCS Floor/BWR
+PMP0/PMC DCS Floor/CLPC
+PMP0/PMC DCS Floor/GFX
+PMP0/PMC DCS Floor/MISC
+PMP0/PMC DCS Floor/PMP
+PMP0/PMC DCS Floor/RMBS
+PMP0/PMC DISP_EXT Fl/AP
+PMP0/PMC DISP_EXT Fl/BOOST
+PMP0/PMC DISP_EXT Fl/BWR
+PMP0/PMC DISP_EXT Fl/CLPC
+PMP0/PMC DISP_EXT Fl/DISPEXT0
+PMP0/PMC DISP_EXT Fl/DISPEXT1
+PMP0/PMC DISP_EXT Fl/DISPEXT2
+PMP0/PMC DISP_EXT Fl/DISPEXT3
+PMP0/PMC DISP_EXT Fl/GFX
+PMP0/PMC DISP_EXT Fl/MISC
+PMP0/PMC DISP_EXT Fl/PMP
+PMP0/PMC DISP_EXT Fl/RMBS
+PMP0/PMC DISP_INT Fl/AP
+PMP0/PMC DISP_INT Fl/BOOST
+PMP0/PMC DISP_INT Fl/BWR
+PMP0/PMC DISP_INT Fl/CLPC
+PMP0/PMC DISP_INT Fl/DISP0
+PMP0/PMC DISP_INT Fl/GFX
+PMP0/PMC DISP_INT Fl/MISC
+PMP0/PMC DISP_INT Fl/PMP
+PMP0/PMC DISP_INT Fl/RMBS
+PMP0/PMC Driver/AP DCS
+PMP0/PMC Driver/AP DISP_EXT
+PMP0/PMC Driver/AP DISP_INT
+PMP0/PMC Driver/AP SOC
+PMP0/PMC Driver/BOOST DCS
+PMP0/PMC Driver/BOOST DISP_EXT
+PMP0/PMC Driver/BOOST DISP_INT
+PMP0/PMC Driver/BOOST SOC
+PMP0/PMC Driver/BWR DCS
+PMP0/PMC Driver/BWR DISP_EXT
+PMP0/PMC Driver/BWR DISP_INT
+PMP0/PMC Driver/BWR SOC
+PMP0/PMC Driver/CLPC DCS
+PMP0/PMC Driver/CLPC DISP_EXT
+PMP0/PMC Driver/CLPC DISP_INT
+PMP0/PMC Driver/CLPC SOC
+PMP0/PMC Driver/COP DCS
+PMP0/PMC Driver/COP SOC
+PMP0/PMC Driver/GFX DCS
+PMP0/PMC Driver/GFX DISP_EXT
+PMP0/PMC Driver/GFX DISP_INT
+PMP0/PMC Driver/GFX SOC
+PMP0/PMC Driver/MISC DCS
+PMP0/PMC Driver/MISC DISP_EXT
+PMP0/PMC Driver/MISC DISP_INT
+PMP0/PMC Driver/MISC SOC
+PMP0/PMC Driver/PMP DCS
+PMP0/PMC Driver/PMP DISP_EXT
+PMP0/PMC Driver/PMP DISP_INT
+PMP0/PMC Driver/PMP SOC
+PMP0/PMC Driver/PMP1 DCS
+PMP0/PMC Driver/PMP1 DISP_EXT
+PMP0/PMC Driver/PMP1 DISP_INT
+PMP0/PMC Driver/PMP1 SOC
+PMP0/PMC Driver/RMBS DCS
+PMP0/PMC Driver/RMBS DISP_EXT
+PMP0/PMC Driver/RMBS DISP_INT
+PMP0/PMC Driver/RMBS SOC
+PMP0/PMC Keep Alive/Level
+PMP0/PMC RMBS/LTR
+PMP0/PMC SOC Floor/ANS
+PMP0/PMC SOC Floor/AP
+PMP0/PMC SOC Floor/BOOST
+PMP0/PMC SOC Floor/BWR
+PMP0/PMC SOC Floor/CLPC
+PMP0/PMC SOC Floor/GFX
+PMP0/PMC SOC Floor/MISC
+PMP0/PMC SOC Floor/PMP
+PMP0/PMC SOC Floor/RMBS
+PMP0/PWC Window 0/BUSY
+PMP0/PWC Window 0/DELAY
+PMP0/PWC Window 0/IDLE
+PMP0/PWC Window 0/SPILL
+PMP0/PWRS0/Q-TICKS-0
+PMP0/PWRS0/Q-TICKS-1
+PMP0/PWRS0/STRESS-0-LIM0
+PMP0/PWRS0/STRESS-0-LIM1
+PMP0/PWRS0/STRESS-0-LIM2
+PMP0/PWRS0/STRESS-0-LIM3
+PMP0/PWRS0/STRESS-1-LIM0
+PMP0/PWRS0/STRESS-1-LIM1
+PMP0/PWRS0/STRESS-1-LIM2
+PMP0/PWRS0/STRESS-1-LIM3
+PMP0/PWRS0/STRESS-2-LIM0
+PMP0/PWRS0/STRESS-2-LIM1
+PMP0/PWRS0/STRESS-2-LIM2
+PMP0/PWRS0/STRESS-2-LIM3
+PMP0/PWRS0/STRESS-3-LIM0
+PMP0/PWRS0/STRESS-3-LIM1
+PMP0/PWRS0/STRESS-3-LIM2
+PMP0/PWRS0/STRESS-3-LIM3
+PMP0/PWRS0/STRESS_LIM0
+PMP0/PWRS0/STRESS_LIM1
+PMP0/PWRS0/STRESS_LIM2
+PMP0/PWRS0/STRESS_LIM3
+PMP0/PWRS0/THROT-ACC-SUM
+PMP0/PWRS0/THROT-ALL-SUM
+PMP0/PWRS0/THROT-ANE-SUM
+PMP0/PWRS0/THROT-GPU-SUM
+PMP0/PWRS0/THROT-SOC-SUM
+PMP0/PWRS0/TICKS
+PMP0/PWRS1/Q-TICKS-0
+PMP0/PWRS1/Q-TICKS-1
+PMP0/PWRS1/STRESS-0-LIM0
+PMP0/PWRS1/STRESS-0-LIM1
+PMP0/PWRS1/STRESS-0-LIM2
+PMP0/PWRS1/STRESS-0-LIM3
+PMP0/PWRS1/STRESS-1-LIM0
+PMP0/PWRS1/STRESS-1-LIM1
+PMP0/PWRS1/STRESS-1-LIM2
+PMP0/PWRS1/STRESS-1-LIM3
+PMP0/PWRS1/STRESS-2-LIM0
+PMP0/PWRS1/STRESS-2-LIM1
+PMP0/PWRS1/STRESS-2-LIM2
+PMP0/PWRS1/STRESS-2-LIM3
+PMP0/PWRS1/STRESS-3-LIM0
+PMP0/PWRS1/STRESS-3-LIM1
+PMP0/PWRS1/STRESS-3-LIM2
+PMP0/PWRS1/STRESS-3-LIM3
+PMP0/PWRS1/STRESS_LIM0
+PMP0/PWRS1/STRESS_LIM1
+PMP0/PWRS1/STRESS_LIM2
+PMP0/PWRS1/STRESS_LIM3
+PMP0/PWRS1/THROT-ACC-SUM
+PMP0/PWRS1/THROT-ALL-SUM
+PMP0/PWRS1/THROT-ANE-SUM
+PMP0/PWRS1/THROT-GPU-SUM
+PMP0/PWRS1/THROT-SOC-SUM
+PMP0/PWRS1/TICKS
+PMP0/Power/CPU count
+PMP0/Power/Duty cycle
+PMP0/Power/Free heap
+PMP0/Power/Peak heap alloc
+PMP0/Power/Power state
+PMP0/Power/Sleep count
+PMP0/Power/Total heap
+PMP0/Power/Wake count
+PMP0/SOC Floor/AFI-BW
+PMP0/SOC Floor/AGX
+PMP0/SOC Floor/AGX-AF-BW
+PMP0/SOC Floor/ANE
+PMP0/SOC Floor/ANE-AF-BW
+PMP0/SOC Floor/ANE-LNK0-AF-BW
+PMP0/SOC Floor/ANE-LNK1-AF-BW
+PMP0/SOC Floor/ANS
+PMP0/SOC Floor/ANS-DMA-AF-BW
+PMP0/SOC Floor/ANS-NAND-AF-BW
+PMP0/SOC Floor/ATC0-AF-BW
+PMP0/SOC Floor/ATC1-AF-BW
+PMP0/SOC Floor/ATC2-AF-BW
+PMP0/SOC Floor/ATC3-AF-BW
+PMP0/SOC Floor/AUSS-AF-BW
+PMP0/SOC Floor/AVD
+PMP0/SOC Floor/AVE0
+PMP0/SOC Floor/AVE0-AF-BW
+PMP0/SOC Floor/AVE1
+PMP0/SOC Floor/AVE1-AF-BW
+PMP0/SOC Floor/DIE1
+PMP0/SOC Floor/DISPEXT0
+PMP0/SOC Floor/DISPEXT1
+PMP0/SOC Floor/DISPEXT2
+PMP0/SOC Floor/DISPEXT3
+PMP0/SOC Floor/DISPINT
+PMP0/SOC Floor/ISP
+PMP0/SOC Floor/JPEG
+PMP0/SOC Floor/JPEG-AF-BW
+PMP0/SOC Floor/MACC0
+PMP0/SOC Floor/MACC1
+PMP0/SOC Floor/MSR0
+PMP0/SOC Floor/MSR1
+PMP0/SOC Floor/PACC
+PMP0/SOC Floor/PRORES
+PMP0/SOC Floor/SCODEC
+PMP0/SOC Floor/SOC-NI0-BW
+PMP0/SOC Floor/SOC-NI1-BW
+PMP0/SOC Floor/SOC-NI2-BW
+PMP0/SOC Floor/SOC-NI3-BW
+PMP0/SOC Floor/SOC-NI4-BW
+PMP0/SOC Floor/SOC-NI5-BW
+PMP0/SOC Floor/SOC-NI6-BW
+PMP0/SOC Floor/SOC-NI7-BW
+PMP0/SOC Floor/SOC-NI8-BW
+PMP0/SOC Floor/SOC-NI9-BW
+PMP0/SOC-NI Util BW/SOC-NI0 ALL
+PMP0/SOC-NI Util BW/SOC-NI0 AVE0
+PMP0/SOC-NI Util BW/SOC-NI0 JPEG
+PMP0/SOC-NI Util BW/SOC-NI2 ALL
+PMP0/SOC-NI Util BW/SOC-NI2 AVE1
+PMP0/SOC-NI Util BW/SOC-NI3 ALL
+PMP0/SOC-NI Util BW/SOC-NI3 ATC0 DN
+PMP0/SOC-NI Util BW/SOC-NI3 ATC0 UP
+PMP0/SOC-NI Util BW/SOC-NI3 ATC1 DN
+PMP0/SOC-NI Util BW/SOC-NI3 ATC1 UP
+PMP0/SOC-NI Util BW/SOC-NI3 RT
+PMP0/SOC-NI Util BW/SOC-NI4 ALL
+PMP0/SOC-NI Util BW/SOC-NI4 RT
+PMP0/SOC-NI Util BW/SOC-NI5 ALL
+PMP0/SOC-NI Util BW/SOC-NI5 ATC2 DN
+PMP0/SOC-NI Util BW/SOC-NI5 ATC2 UP
+PMP0/SOC-NI Util BW/SOC-NI5 ATC3 DN
+PMP0/SOC-NI Util BW/SOC-NI5 ATC3 UP
+PMP0/SOC-NI Util BW/SOC-NI5 ATCUSS
+PMP0/SOC-NI Util BW/SOC-NI5 RT
+PMP0/SOC-NI Util BW/SOC-NI6 ALL
+PMP0/SOC-NI Util BW/SOC-NI6 ANS NAN
+PMP0/SOC-NI Util BW/SOC-NI6 ANS RAI
+PMP0/SOC-NI Util BW/SOC-NI6 ANS RAO
+PMP0/SOC-NI Util BW/SOC-NI6 ANS SL
+PMP0/SOC-NI Util BW/SOC-NI6 PCIEGP
+PMP0/SOC-NI Util BW/SOC-NI7 ALL
+PMP0/SOC-NI Util BW/SOC-NI7 RT
+PMP0/SOC-NI Util BW/SOC-NI8 ALL
+PMP0/SOC-NI Util BW/SOC-NI8 ANE UP
+PMP0/SOC-NI Util BW/SOC-NI9 ALL
+PMP0/SOC-NI Util BW/SOC-NI9 ANEXL U
+PMP0/SOC-NI Util BW/SOC-NI9 RT
+PMP0/Total stack/Total stack(0)
+PMP0/Total stack/Total stack(1)
+PMP0/Total stack/Total stack(10)
+PMP0/Total stack/Total stack(11)
+PMP0/Total stack/Total stack(12)
+PMP0/Total stack/Total stack(13)
+PMP0/Total stack/Total stack(14)
+PMP0/Total stack/Total stack(15)
+PMP0/Total stack/Total stack(16)
+PMP0/Total stack/Total stack(17)
+PMP0/Total stack/Total stack(18)
+PMP0/Total stack/Total stack(19)
+PMP0/Total stack/Total stack(2)
+PMP0/Total stack/Total stack(20)
+PMP0/Total stack/Total stack(21)
+PMP0/Total stack/Total stack(22)
+PMP0/Total stack/Total stack(23)
+PMP0/Total stack/Total stack(24)
+PMP0/Total stack/Total stack(25)
+PMP0/Total stack/Total stack(26)
+PMP0/Total stack/Total stack(27)
+PMP0/Total stack/Total stack(28)
+PMP0/Total stack/Total stack(29)
+PMP0/Total stack/Total stack(3)
+PMP0/Total stack/Total stack(30)
+PMP0/Total stack/Total stack(31)
+PMP0/Total stack/Total stack(4)
+PMP0/Total stack/Total stack(5)
+PMP0/Total stack/Total stack(6)
+PMP0/Total stack/Total stack(7)
+PMP0/Total stack/Total stack(8)
+PMP0/Total stack/Total stack(9)
+PMP0/Used stack/Used stack(0)
+PMP0/Used stack/Used stack(1)
+PMP0/Used stack/Used stack(10)
+PMP0/Used stack/Used stack(11)
+PMP0/Used stack/Used stack(12)
+PMP0/Used stack/Used stack(13)
+PMP0/Used stack/Used stack(14)
+PMP0/Used stack/Used stack(15)
+PMP0/Used stack/Used stack(16)
+PMP0/Used stack/Used stack(17)
+PMP0/Used stack/Used stack(18)
+PMP0/Used stack/Used stack(19)
+PMP0/Used stack/Used stack(2)
+PMP0/Used stack/Used stack(20)
+PMP0/Used stack/Used stack(21)
+PMP0/Used stack/Used stack(22)
+PMP0/Used stack/Used stack(23)
+PMP0/Used stack/Used stack(24)
+PMP0/Used stack/Used stack(25)
+PMP0/Used stack/Used stack(26)
+PMP0/Used stack/Used stack(27)
+PMP0/Used stack/Used stack(28)
+PMP0/Used stack/Used stack(29)
+PMP0/Used stack/Used stack(3)
+PMP0/Used stack/Used stack(30)
+PMP0/Used stack/Used stack(31)
+PMP0/Used stack/Used stack(4)
+PMP0/Used stack/Used stack(5)
+PMP0/Used stack/Used stack(6)
+PMP0/Used stack/Used stack(7)
+PMP0/Used stack/Used stack(8)
+PMP0/Used stack/Used stack(9)
+PMP0/Volt-Temp HM/AGX_V_T
+PMP0/Volt-Temp HM/MACC0_V_T
+PMP0/Volt-Temp HM/MACC1_V_T
+PMP0/Volt-Temp HM/PACC0_V_T
+SoC Stats/Events/UT_EXT_THROTTLE_MGPU03
+SoC Stats/Events/UT_EXT_THROTTLE_MGPU12
+SoC Stats/Events/VDD_AFR_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_B2B_C_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_B2B_D_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_DCS0_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_DCS1_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_DISP2_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_DISP_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_DRAM1_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_DRAM_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_GPU03_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_GPU12_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_MCPU0_SRAM_VOLTAGE_CHANGE_COMPLETIO
+SoC Stats/Events/VDD_MCPU0_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_MCPU1_SRAM_VOLTAGE_CHANGE_COMPLETIO
+SoC Stats/Events/VDD_MCPU1_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_PCPU_SRAM_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_PCPU_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_SOC_CI_VOLTAGE_CHANGE_COMPLETION
+SoC Stats/Events/VDD_SOC_GM_VOLTAGE_CHANGE_COMPLETION

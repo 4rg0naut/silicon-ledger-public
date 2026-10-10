@@ -1,0 +1,92 @@
+EXP-027 NX-D — M5 IOReport NAX-lens inventory + calibration (2026-10-08)
+===========================================================================
+Method
+  1) Inventory: /tmp/p27_enginemon --list --unfiltered -> 4606 channel rows
+     (harness rebuilt from tools/enginemon, tree untouched).
+  2) Windows (user-mode, --interval 1000):
+       unfiltered set: raw/p27_nxd_{idle1,load,idle2}.jsonl.gz (4096 ch/window)
+       default set:    raw/p27_nxd_*_default.jsonl             (248 idle / 281 load)
+     Load child = /tmp/p27_load_msl 30 (plain MSL simdgroup matmul dispatch,
+     1,317,400 dispatches in 30.0s, structure gate pass). CoreAI matmul2d load
+     could NOT be used as the window child today: see INTERFERENCE below.
+
+INVENTORY ANSWERS
+  - TENSOR/NAX-named IOReport channels on M5 Max: ZERO (0 matches over full
+    unfiltered enumeration; 68 NAX-keyword-adjacent = AGX/GFX/DCS/UT lanes).
+  - enginemon JSON subscription caps at 4096 channels: --unfiltered DROPS the
+    AGX.Count_UT_* gpu-na set that default mode carries. Use default for UT
+    engagement, unfiltered for PMP0/SOC breadth; union needs both runs.
+
+CALIBRATION (idle-sum 12s+12s vs load ~30s; units as labeled)
+idle=     2722206899 load=   150485649261 ratio=     55.3  Energy Model |  | GPU Energy (nJ,gpu)
+idle=       60586448 load=      725549207 ratio=     12.0  GPU Stats | GPU Boost Controller Performance States | BSTGPUPH (24Mticks,gpu)
+idle=      311831137 load=      742625792 ratio=      2.4  SoC Stats | Events | VDD_GPU03_VOLTAGE_CHANGE_COMPLETION (24Mticks,gpu)
+idle=      311831234 load=      742625844 ratio=      2.4  SoC Stats | Events | VDD_GPU12_VOLTAGE_CHANGE_COMPLETION (24Mticks,gpu)
+idle=      312009756 load=      742724110 ratio=      2.4  GPU Stats | DVD Request States | GPUDVDH (24Mticks,gpu)
+idle=      312012315 load=      742726439 ratio=      2.4  GPU Stats | PPM Target as % of Max GPU Power | GPU_PPM (24Mticks,gpu)
+idle=      312008780 load=      742702728 ratio=      2.4  GPU Stats | GPU Power Controller States | PWRCTRL (24Mticks,gpu)
+idle=      312008780 load=      742702728 ratio=      2.4  GPU Stats | GPU Performance States | GPUPH (24Mticks,gpu)
+idle=      312008780 load=      742702728 ratio=      2.4  GPU Stats | GPU Discrete Power Zone Residency | PZRSDNCY (24Mticks,gpu)
+idle=      312008780 load=      742702728 ratio=      2.4  GPU Stats | CLTM-induced GPU Performance States | GPU_CLTM (24Mticks,gpu)
+idle=      312182243 load=      742833911 ratio=      2.4  PMP0 | DCS Floor | AGX-DCS-BW (events,gpu)
+idle=      312182254 load=      742833909 ratio=      2.4  PMP0 | SOC Floor | AGX-AF-BW (events,gpu)
+idle=      312182253 load=      742833904 ratio=      2.4  PMP0 | AFR Floor | AGX-AFR-BW (events,gpu)
+idle=      312182259 load=      742833909 ratio=      2.4  PMP0 | SOC Floor | ANE-LNK1-AF-BW (events,ane)
+idle=      312182259 load=      742833909 ratio=      2.4  PMP0 | SOC Floor | ANE-LNK0-AF-BW (events,ane)
+idle=      312207121 load=      742854921 ratio=      2.4  PMP0 | SOC Floor | AGX (events,gpu)
+idle=      312185867 load=      742829848 ratio=      2.4  PMP0 | DCS Floor | ANE-DCS-BW (events,ane)
+idle=           5961 load=         132258 ratio=     22.2  PMP0 | AGX | Mem Latency (events,soc)
+idle=              0 load=         125798 ratio= 125798.0  GPU UT AggD Stats | Sum | AGX.Sum_UT_Engagement_Perf_State_13 (,gpu-na)
+idle=          10008 load=         132754 ratio=     13.3  PMP0 | AGX | #Mem Trans (events,soc)
+idle=          10009 load=         132754 ratio=     13.3  PMP0 | Energy | AGX AFR (events,gpu)
+idle=          10009 load=         132754 ratio=     13.3  PMP0 | Energy | AGX (events,gpu)
+idle=          10009 load=         132754 ratio=     13.3  PMP0 | DCS BW | AGX WR (events,gpu)
+idle=          10009 load=         132754 ratio=     13.3  PMP0 | DCS BW | AGX RD+WR (events,gpu)
+idle=          10009 load=         132754 ratio=     13.3  PMP0 | DCS BW | AGX RD (events,gpu)
+idle=          10009 load=         132754 ratio=     13.3  PMP0 | AF BW | AGX WR (events,gpu)
+idle=          10009 load=         132754 ratio=     13.3  PMP0 | AF BW | AGX RD+WR (events,gpu)
+idle=          10009 load=         132754 ratio=     13.3  PMP0 | AF BW | AGX RD (events,gpu)
+idle=              0 load=         115473 ratio= 115473.0  GPU UT AggD Stats | Count | AGX.Count_UT_Engagement_Perf_State_13 (,gpu-na)
+idle=              0 load=          85307 ratio=  85307.0  GPU UT AggD Stats | Not_Engaged_Count | AGX.UT_Not_Engaged_Perf_State_13 (,gpu-na)
+
+PMP0 wall-clock channels (PWRSS/TICKS/STRESS_LIM*, GPUPH/GPU_CLTM/AF-BW floors,
+24Mticks units) rose exactly with window time in BOTH lanes — they are time
+residency, not activity lenses (their idle baseline is non-zero and load ratio
+~ window ratio). Flag any lens whose idle value is nonzero *seconds* worth.
+
+FINDINGS
+ 1. PS13 is NOT matmul2d-exclusive. AGX.Count_UT_Engagement_Perf_State_13
+    idle=0 -> load=125,798 under PLAIN MSL simdgroup dispatch. NX-C correctly
+    showed PS13 counts under matmul2d and idle=0 elsewhere; NX-D shows any
+    high-rate small-kernel GPU stream at VMAX engagement drives it. Semantics:
+    "UT engaged while GPU in top perf state 13" = saturated-GPU-compute lens.
+    It remains disjoint from ANE (AN-POS: PS13=0 during full-ANE reranker run),
+    so PS13 stays a valid GPU-vs-ANE discriminator, but cannot separate
+    matmul2d (NAX) from simdgroup (classic tensor) work.
+ 2. Per-unit NAX counter: STILL NONE at user level (gate stamp). Best proxy =
+    matched-A/B Δ on `GPU Energy` nJ (idle 2.7 J -> load 150.5 J, 55.3x here).
+ 3. Secondary NAX-reactive lanes worth adding to enginemon GPU view:
+    PMP0 AGX Mem Latency (5,961 -> 132,258), PMP0 AGX #Mem Trans /
+    Energy|AGX / DCS BW AGX RD+WR / AF BW AGX RD+WR (10,009 -> 132,754),
+    GPU Boost Controller BSTGPUPH (12.0x). AGX.Floor/BW floor channels are
+    wall-clock, not load — do not use as lenses.
+
+INTERFERENCE (measured today, blocks coreai-window captures while oMLX loaded)
+  enginemon subscription (any mode) + coreai NDArray ioSurface path =
+    "CoreAIRuntime/NDArray+Pool.swift:77: Fatal error: Failed to allocate
+     storage for NDArray with byteCount: 4096, sk: ioSurface, st: float16"
+    - reproduced 3/3 wrapped, 1/1 concurrent-side-by-side (separate processes),
+      passes standalone every time (median 241.1 us floor).
+  - System context: ioreg shows 0 IOMetalResource instances system-wide while
+    oMLX server holds ~18% RAM (~25 GB); surface pool has no headroom, and
+    enginemon's per-channel surface churn is the straw.
+  - Rule: on the Studio, coreai-harness windows under enginemon require the
+    user to unload oMLX models first (user policy: never touch oMLX); the MSL
+    harness (MTLBuffer only) is immune and serves as calib load in the meantime.
+
+REPRO (from silicon-ledger root)
+  clang -O2 -o /tmp/p27_enginemon tools/enginemon/enginemon.c -framework CoreFoundation   # README build line; tree read-only this session
+  clang -o /tmp/p27_load_msl results/EXP-027-nax/harness/p27_load_msl.m -framework Metal -framework Foundation
+  /tmp/p27_enginemon --list --unfiltered > inventory.txt                      # 4606 rows
+  /tmp/p27_enginemon --interval 1000 --duration 50 --json --out results/EXP-027-nax/raw/p27_nxd_load_default.jsonl -- /tmp/p27_load_msl 30
+  python3 results/EXP-027-nax/harness/p27_nxd_analyze.py <idle1> <load> <idle2>

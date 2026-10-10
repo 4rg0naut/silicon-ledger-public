@@ -1,0 +1,18 @@
+# K2 — legacy C-door (ANECCompile in-process) rejection evidence — 2026-10-08 06:22:57
+# tool: tools/vendor/coreml_to_ane_hwx @0da81de, patched P2B_SRCNAME/P2B_ISMIL env hooks, CLT-built (mil && make; hwx_dump && make both OK on 27.0.1/M5)
+
+== real bundle (minilm128 fresh128) ==
+    CompiledInputSourceFileName = "/tmp/fresh128.mlmodelc/model.mil";
+    ErrorList =     (
+        InvalidMILProgram
+Error: ANECCompile failed with code 1
+
+== env-hook matrix (chain64; model.src copy present) ==
+-- P2B_SRCNAME=model.mil
+InvalidMILProgram
+-- P2B_SRCNAME=model.src
+InvalidCompilationParam
+-- P2B_ISMIL=1
+InvalidMILProgram
+-- P2B_SRCNAME=model.src P2B_ISMIL=1
+InvalidCompilationParam

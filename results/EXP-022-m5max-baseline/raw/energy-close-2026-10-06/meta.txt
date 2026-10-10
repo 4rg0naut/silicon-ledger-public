@@ -1,0 +1,5 @@
+== date
+2026-10-06T07:30:13Z
+== euid
+0
+AMC lines privileged: 0

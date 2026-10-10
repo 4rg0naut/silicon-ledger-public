@@ -1,0 +1,48 @@
+EXP-028 E3/E4 — espresso↔user-engine: live wire map through unprivileged enginemon + runtime kANEF knobs
+
+Harnesses: ../EXP-027-nax/harness/p27_es_harness.m (rebuilt → raw/p28_e4/es_harness,
+CLT clang), /tmp/p27_enginemon (user-mode, no sudo). Raw: raw/p28_e3/ (census jsonl),
+raw/p28_e4/ (stage logs). Diff: raw/p28_e3/analysis_es_vs_idle.txt.
+
+A) ESPRESSO STAGES REPRODUCED ON 26A434 (EXP-027 battery, fresh series; unprivileged):
+   dlopen ANEClient → ANEModelCompilerClient alloc → modelCalled → loadModel(espresso
+   bundle /tmp/mnv2.mlmodelc) → attrs (5264 B: ANEFModelDescription net/image/
+   classLabelProbs@output, LiveInputList 224x224x3 Float16, LiveOutputList 1001
+   Float16, RUsageBefore/After) → IOSurfaceCreate x2 (strategies lin and stack BOTH
+   ok on M5) → mapIOSurfaces: ok → 9 evals: **median 0.40–0.43 ms** (lin 0.422/0.425/
+   0.402, stack 0.413) → mapIOSurfaces(events, IOSurfaceSharedEvent): ok.
+   rc=139 after final stage on every run = teardown segfault, cosmetic; all stages
+   logged (2 strategies x 2 repeats identical).
+
+B) RUNTIME kANEF KNOB PROBES (reproduction, matching EXP-027 medians within noise):
+   - kANEFDisableIOFencesUseSharedEvents: accepted, 9/9 ok, median 0.412/0.407 ms
+   - kANEFEnableFWToFWSignal: accepted, 9/9 ok, median 0.429/0.402 ms
+   (same keys EXP-025 harvested from strings, EXP-027 first probed; E1's manifest
+   shows their compile-side twins aneCompilerSpatialSplitting/FWToFWSignal.)
+   Energy key also visible: attrs RUsage carries ri_billed_energy (delta after load:
+   +0 — billed energy did not accrue for this compile service call interval).
+
+C) WIRE MAP (E3+E4 combined): enginemon --all user-mode census during 45 es_harness
+   processes (pure espresso ANE evals; zero CoreAI, zero MPSGraph in-process),
+   diffed against idle1/idle2 windows. 298 channels moved; ANE-relevant subset:
+   - PMP0 AF BW + DCS BW: ANE L0 RD/WR, ANE L1 RD/WR (50 841 events each)
+     and ANS RD/WR (12 146) — ANE-local L0/L1 cache traffic visible in USER mode.
+   - PMP0 SOC Floor: ANE-LNK0-AF-BW, ANE-LNK1-AF-BW, ANS-DMA-AF-BW, ANS-NAND-AF-BW.
+   - PMP0 DCS Floor: ANE-DCS-BW, ANS-DCS-BW.
+   - SOC-NI Util BW: SOC-NI6 ANS NAN/RAI/RAO/SL, SOC-NI8 ANE UP (2502),
+     SOC-NI9 ANEXL U (2384) — the AN-POS-validated ANE lenses fire under espresso
+     load with NO concurrent GPU compute — cleanest ANE attribution to date.
+   - GPU side engaged anyway: AGX UT Engagement perf-state counters (PS13 dominates:
+     29 025 counts/27 ticks), GPU CLTM/GPUPH/BSTGPUPH residency 24Mticks ≈ full
+     window, GPU Energy mJ nJ spike — the harness creates a Metal device +
+     IOSurfaces; ANE surface rendezvous keeps AGX off idle. Invisible-wire evidence:
+     an ANE-only workload still engages GPU power/UT engagement counters.
+   - PMP0 PMP DCS 24Mticks + PWRS stress limiters moved (power-management response).
+
+D) E4 verdict: the IOSurface rendezvous (mapIOSurfaces + IOSurfaceSharedEvent
+   attach) works live on h17c at 0.4 ms/eval, and its traffic is observable
+   end-to-end from user space (ANE L0/L1 + SOC-NI6/8/9 lenses), without sudo and
+   without odie. NAX→ANE direct (matmul2d output into espresso input) still GAP:
+   needs the multi-tile NAX harness input written into an ANE-strided surface;
+   stage named: LiveInputList stride contract (224x224 fp16, RowStride 448) is the
+   exact producer-side spec to match — now measured and recorded.

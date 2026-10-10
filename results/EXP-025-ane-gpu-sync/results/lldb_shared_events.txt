@@ -1,0 +1,73 @@
+# lldb live-instance inspection of _ANESharedSignalEvent/_ANESharedWaitEvent
+# machine=Mac17,14 os=27.0.1 build=26A434 date=2026-10-07 19:22:19 +0200
+# target: harness/ane_sync_harness porttest; stopped at exit() breakpoint; every object below was created live inside the inferior
+# message-send casts taken from results/class_dump.txt type encodings (no SDK headers exist for these private classes)
+# finding: a SECOND IOSurfaceSharedEvent wrapper attached to a port already held by MTLSharedEventHandle reads fine,
+#   but setSignaledValue: from it raised an ObjC exception in the inferior (process rewound); cross-write path is
+#   instead proven by results/porttest.txt T3/T2 in-process tests.
+(lldb) target create "./harness/ane_sync_harness"
+Current executable set to '/Volumes/data/OpenFox/AI_dev/clm-run/ane-sync/harness/ane_sync_harness' (arm64).
+(lldb) break set -n exit
+Breakpoint 1: 5 locations.
+(lldb) run porttest
+porttest: MTLSharedEvent value=0 handle=ok eventPort=14091
+porttest: wrapper created, signaledValue=0
+T1 CPU-signal -> wrapper-wait : PASS
+T2 GPU-encodeSignal -> wrapper-wait : PASS (gpu commit->wait 80us)
+T3 wrapper-signal -> MTLSharedEvent : PASS (value=3)
+porttest overall: PASS
+Process 42261 launched: '/Volumes/data/OpenFox/AI_dev/clm-run/ane-sync/harness/ane_sync_harness' (arm64)
+Process 42261 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.2
+       frame #0: 0x0000000186a12d20 libdyld.dylib`dyld4::LibSystemHelpers::exit(int) const
+libdyld.dylib`dyld4::LibSystemHelpers::exit:
+->  0x186a12d20 <+0>:  pacibsp 
+    0x186a12d24 <+4>:  stp    x29, x30, [sp, #-0x10]!
+    0x186a12d28 <+8>:  mov    x29, sp
+    0x186a12d2c <+12>: mov    x0, x1
+Target 0: (ane_sync_harness) stopped.
+(lldb) expr -l objc++ -- id $dev = ((id (*)(void))MTLCreateSystemDefaultDevice)()
+(lldb) expr -l objc++ -- id $sev = (id)[$dev newSharedEvent]
+(lldb) expr -l objc++ -- id $hdl = (id)[$sev newSharedEventHandle]
+(lldb) expr -l objc++ -- unsigned int $port = (unsigned int)[$hdl eventPort]
+(lldb) expr -l objc++ -- id $sw = (id)[(id)[((Class (*)(const char*))objc_getClass)("IOSurfaceSharedEvent") alloc] initWithMachPort:$port]
+(lldb) expr -l objc++ -- (unsigned int)[$sw eventPort]
+(unsigned int) $0 = 12339
+(lldb) expr -l objc++ -- id $sig = (id)[(id)[((Class (*)(const char*))objc_getClass)("_ANESharedSignalEvent") alloc] initWithValue:42ULL symbolIndex:7u eventType:1LL sharedEvent:$sw agentMask:1ULL]
+(lldb) expr -l objc++ -- id $wt = (id)[(id)[((Class (*)(const char*))objc_getClass)("_ANESharedWaitEvent") alloc] initWithValue:43ULL sharedEvent:$sw eventType:1ULL]
+(lldb) expr -l objc++ -- (unsigned long long)[$sig value]
+(unsigned long long) $1 = 42
+(lldb) expr -l objc++ -- (unsigned int)[$sig symbolIndex]
+(unsigned int) $2 = 7
+(lldb) expr -l objc++ -- (long long)[$sig eventType]
+(long long) $3 = 1
+(lldb) expr -l objc++ -- (unsigned long long)[$sig agentMask]
+(unsigned long long) $4 = 1
+(lldb) expr -l objc++ -- (id)[$sig sharedEvent]
+(IOSurfaceSharedEvent *) $5 = 0x00000075c9018420
+(lldb) expr -l objc++ -- (unsigned long long)[(id)[$sig sharedEvent] signaledValue]
+(unsigned long long) $6 = 0
+(lldb) expr -l objc++ -- (unsigned int)[(id)[$sig sharedEvent] eventPort]
+(unsigned int) $7 = 12339
+(lldb) expr -l objc++ -- (unsigned long long)[$wt value]
+(unsigned long long) $8 = 43
+(lldb) expr -l objc++ -- (unsigned long long)[$wt eventType]
+(unsigned long long) $9 = 1
+(lldb) expr -l objc++ -- (id)[$wt sharedEvent]
+(IOSurfaceSharedEvent *) $10 = 0x00000075c9018420
+(lldb) expr -- *(unsigned long long *)((char *)$sig + 16)
+(unsigned long long) $11 = 42
+(lldb) expr -- *(unsigned long long *)((char *)$sig + 40)
+(unsigned long long) $12 = 505883493408
+(lldb) expr -l objc++ -O -- $sig
+_ANESharedSignalEvent: { value=42 : symbolIndex=7 : eventType=1 : sharedEvent=<IOSurfaceSharedEvent: 0x75c9018420> agentMask=1 } 
+
+(lldb) expr -l objc++ -O -- $wt
+_ANESharedWaitEvent: { value=43 : sharedEvent=<IOSurfaceSharedEvent: 0x75c9018420> } 
+
+(lldb) expr -l objc++ -O -- $sw
+<IOSurfaceSharedEvent: 0x75c9018420>
+
+(lldb) detach
+Process 42261 detached
+(lldb) quit

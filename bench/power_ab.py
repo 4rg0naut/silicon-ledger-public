@@ -18,7 +18,6 @@ from __future__ import annotations
 
 import argparse
 import os
-import re
 import subprocess
 import sys
 import time
@@ -35,16 +34,7 @@ TEXTS = [
     "A semantic cache stores relations between concepts rather than plain text.",
 ]
 
-POWER_RE = re.compile(r"(ANE|GPU|CPU|Combined)\s+Power[^:]*:\s*([\d.]+)\s*(mW|W)")
-
-
-def parse_power(text: str) -> dict[str, list[float]]:
-    """Collect power samples in milliwatts, keyed by rail."""
-    out: dict[str, list[float]] = {}
-    for rail, value, unit in POWER_RE.findall(text):
-        mw = float(value) * (1000.0 if unit == "W" else 1.0)
-        out.setdefault(rail, []).append(mw)
-    return out
+from _power import POWER_RE, parse_power  # single source: bench/_power.py
 
 
 def main() -> int:

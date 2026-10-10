@@ -31,7 +31,7 @@ OUT = ROOT / "results" / "measurements.json"
 # These claim rows are machine-specific: the fingerprint/chip check below
 # rejects any report that is not the declared machine.
 EXPECTED_CHIP = "Apple M5 Max"
-HARDWARE = "Apple M5 Max (h17g), 128 GB"
+HARDWARE = "Apple M5 Max (h17c), 128 GB"  # 2026-10-06: CoreAI arch correction, EXP-023
 MODEL = "Apple M5 Max"
 CHECKPOINT = "silicon-ledger-bench v0.1"
 

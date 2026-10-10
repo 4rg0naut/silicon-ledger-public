@@ -1,0 +1,156 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://raw.githubusercontent.com/4rg0naut/silicon-ledger/main/schemas/facets/silicon-ledger-enginemon/1.json",
+ "title": "silicon-ledger-enginemon facet + capture-record schema, version 1",
+ "description": "Instrument schema for enginemon v2 (tools/enginemon): the unprivileged per-engine IOReport sampler whose calibration is the subject of EXP-024. Two consumers: (1) as an OpenClaims facet, the required keys are _producer and _schemaURL and the fields below describe what a capture pointer attaches to a claim; (2) the JSONL capture stream itself (the 's' records) is described under x_stream_record, so any consumer can validate a raw file without reading the C source. Producer naming, declared honestly: the cross-repo contract pins _producer to a bare repository name. enginemon is an instrument INSIDE silicon-ledger, not a repo; this facet therefore uses the compound name 'silicon-ledger-enginemon' rather than the bare 'silicon-ledger', so the instrument stream and the ledger's claim facet can never collide on a merge. The deviation from the literal rule is deliberate and is the only way to keep facet keys one-per-instrument, which is the contract's actual purpose. Reachability, declared honestly: the private repo returns 404 for this URL by design (owner decision, see CROSS-REPO-CONTRACT.md 'Launch state'); the public mirror host 4rg0naut/silicon-ledger-public serves this same path (schemas/ is in the publish allowlist); no local consumer depends on URL resolution. Field set DISJOINT from both companion facets (silicon-ledger: kind/topic/entities/caveat/split/legacy_confidence/evidence_status; silicon-ledger-bench: suite/report/fingerprint/window/validation/band): a merged ledger stays filterable by facet key alone.",
+ "type": "object",
+ "required": [
+  "_producer",
+  "_schemaURL"
+ ],
+ "additionalProperties": false,
+ "properties": {
+  "_producer": {
+   "const": "silicon-ledger-enginemon",
+   "description": "Compound instrument name (repo-instrument); see the schema description for why the bare-repo-name rule is deliberately bent for an in-repo instrument."
+  },
+  "_schemaURL": {
+   "type": "string",
+   "format": "uri",
+   "description": "Pinned raw URL of this file. Private repo: 404 by design until publication; public mirror: resolves. Declared, not asserted."
+  },
+  "capture": {
+   "type": "string",
+   "description": "Repo- or HUB-relative path of the JSONL capture this claim points at. The capture is the evidence; the facet pins the pointer."
+  },
+  "window": {
+   "type": "string",
+   "enum": [
+    "unloaded-machine",
+    "in-session",
+    "sudo-session"
+   ],
+   "default": "in-session",
+   "description": "Contamination label, same spirit as the bench facet's window. 'in-session' = an agentic session (oMLX resident, GPU-active) shared the machine; the 2026-10-05 M5 Max calibration windows are ALL in-session by construction and must be read with their idle-baseline deltas, not as absolute floors."
+  },
+  "tool_version": {
+   "type": "string",
+   "description": "enginemon version string emitted in the hdr record (e.g. '2.0'); counter naming migrations are driver-version-dependent, so a capture without its tool version is a pointer without a referent."
+  },
+  "hw_model": {
+   "type": "string",
+   "description": "hw.model from the hdr record (e.g. 'Mac17,14'). Cross-machine join guard, same role as the bench fingerprint: M4 channel names and M5 channel names differ structurally (AMC 'ANE DCS RD' vs per-client 'PRIM GFX DCS RD'; interrupt subgroup 'ane 0' vs 'ane0 0'/'dart-ane0 0'); an M4 number must never be compared to an M5 number on channel name alone."
+  },
+  "os_build": {
+   "type": "string",
+   "description": "kern.osversion from the hdr record (e.g. '26A434'); the IOReport surface changes with OS updates (EXP-022 captured 26A428; this calibration ran on 26A434 with a changed AMC surface)."
+  },
+  "privilege": {
+   "type": "string",
+   "enum": [
+    "user",
+    "root"
+   ],
+   "description": "Which IOReport surface the capture sees. Measured 2026-10-05: at user level the M5 Max subscription omits the AMC Stats group entirely and CPU/ANE0 energy deltas are frozen at zero; the GPU rail (Energy Model 'GPU Energy') and the GPU tensor-unit groups (GPU UT Engagement / GPU UT AggD Stats) are live at user level. A zero from a user capture is only meaningful for channels proven live at user level."
+  },
+  "engines_covered": {
+   "type": "array",
+   "items": {
+    "type": "string",
+    "enum": [
+     "cpu",
+     "gpu",
+     "gpu-na",
+     "ane",
+     "soc"
+    ]
+   },
+   "description": "Engines the capture's calibration matrix certifies for cross-arm attribution. An engine with no CALIBRATED positive signal may not appear here even if channels carry its tag."
+  }
+ },
+ "x_stream_record": {
+  "description": "Schema for one 't':'s' line of a JSONL capture. The full stream is: one hdr record (identity, matches the facet keys above), N sample records, one 't':'sum' aggregate.",
+  "type": "object",
+  "required": [
+   "t",
+   "dt",
+   "ch"
+  ],
+  "additionalProperties": false,
+  "properties": {
+   "t": {
+    "const": "s"
+   },
+   "dt": {
+    "type": "number",
+    "description": "Seconds since the previous sample; rates are computed as delta/dt, never from wall-clock assumptions."
+   },
+   "ch": {
+    "type": "array",
+    "items": {
+     "type": "object",
+     "required": [
+      "g",
+      "n",
+      "e",
+      "d"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "g": {
+       "type": "string",
+       "description": "IOReport group"
+      },
+      "sg": {
+       "type": "string",
+       "description": "IOReport subgroup"
+      },
+      "n": {
+       "type": "string",
+       "description": "Channel name as published by the driver (never renamed by the tool)."
+      },
+      "u": {
+       "type": "string",
+       "description": "Driver unit label (mJ, nJ, 24Mticks, events, or empty)."
+      },
+      "e": {
+       "type": "string",
+       "enum": [
+        "cpu",
+        "gpu",
+        "gpu-na",
+        "ane",
+        "soc"
+       ],
+       "description": "Engine tag: which engine this channel evidences. A TAG, not a verdict; calibration (see facet engines_covered) decides."
+      },
+      "d": {
+       "type": "integer",
+       "description": "Delta accumulated over this interval (IOReportCreateSamplesDelta; state/histogram channels summed across states). VERSION NOTE: v2.0 captures (exp024 r1-r3, exp022) emitted the since-start CUMULATIVE total in this field despite this description — divide successive values or use the sum record's energy_mw; from v2.1 the field is per-interval as documented. State entries ('s') follow the same version rule for 'r'."
+      },
+      "s": {
+       "type": "array",
+       "description": "Per-state/per-bucket residency for state and histogram channels (e.g. the UT engagement centi-% buckets); absent otherwise.",
+       "items": {
+        "type": "object",
+        "required": [
+         "n",
+         "r"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "n": {
+          "type": "string"
+         },
+         "r": {
+          "type": "integer"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

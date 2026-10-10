@@ -1,0 +1,72 @@
+# probed: ane=1 iosurface=1 metal=1
+
+##### TARGET CLASSES #####
+=== IOSurfaceSharedEvent
+  image: /System/Library/Frameworks/IOSurface.framework/Versions/A/IOSurface
+  superclass: NSObject
+  methods (13):
+    + initWithOptions:                                                       @24@0:8Q16
+    + initWithCoder:                                                         @24@0:8@16
+    + init                                                                   @16@0:8
+    + dealloc                                                                v16@0:8
+    + encodeWithCoder:                                                       v24@0:8@16
+    + globalTraceObjectID                                                    Q16@0:8
+    + notifyListener:atValue:block:                                          v40@0:8@16Q24@?32
+    + setSignaledValue:                                                      v24@0:8Q16
+    + signaledValue                                                          Q16@0:8
+    + supportsRollback                                                       B16@0:8
+    + waitUntilSignaledValue:timeoutMS:                                      B32@0:8Q16Q24
+    + initWithMachPort:                                                      @20@0:8I16
+    + eventPort                                                              I16@0:8
+  ivars (4):
+    _eventPort                               I
+    _signaledValue                           r^Q
+    _globalTraceObjectID                     Q
+    _eventOptions                            Q
+  (class not present)
+=== MTLSharedEventHandle
+  image: /System/Library/Frameworks/Metal.framework/Versions/A/Metal
+  superclass: NSObject
+  methods (7):
+    + initWithCoder:                                                         @24@0:8@16
+    + label                                                                  @16@0:8
+    + dealloc                                                                v16@0:8
+    + encodeWithCoder:                                                       v24@0:8@16
+    + eventPort                                                              I16@0:8
+    + initWithSharedEvent:                                                   @24@0:8@16
+    + labelTraceID                                                           Q16@0:8
+  ivars (1):
+    _priv                                    ^{MTLSharedEventHandlePrivate=I@Q}
+
+##### dlsym: IOSurface C API shared-event entry points #####
+  IOSurfaceSharedEventCreate                    PRESENT
+  IOSurfaceSharedEventCreateWithHandle          absent
+  IOSurfaceSharedEventGetHandle                 absent
+  IOSurfaceSharedEventGetSurface                absent
+  IOSurfaceSharedEventEncodeSignal              absent
+  IOSurfaceSharedEventEncodeWait                absent
+  IOSurfaceSharedEventSignaledValue             absent
+  IOSurfaceEncodeSharedEventWait                absent
+  IOSurfaceEncodeSharedEventSignal              absent
+  IOSurfaceCreateSharedEvent                    absent
+  IOSurfaceGetSharedEventSupported              absent
+  IOSurfaceSharedEventSignal                    absent
+  IOSurfaceSharedEventWait                      absent
+
+##### CONSUMER SCAN: AppleNeuralEngine classes referencing shared-event types #####
+  _ANESharedWaitEvent +sharedEvent  @16@0:8
+  _ANESharedWaitEvent +initWithValue:sharedEvent:eventType:  @40@0:8Q16@24Q32
+  _ANESharedSignalEvent +sharedEvent  @16@0:8
+  _ANESharedSignalEvent +initWithValue:symbolIndex:eventType:sharedEvent:agentMask:  @52@0:8Q16I24q28@36Q44
+  _ANESharedSignalEvent +waitEvent  @16@0:8
+  _ANESharedEvents +initWithSignalEvents:waitEvents:  @32@0:8@16@24
+  _ANESharedEvents +setSignalEvents:  v24@0:8@16
+  _ANESharedEvents +setWaitEvents:  v24@0:8@16
+  _ANESharedEvents +signalEvents  @16@0:8
+  _ANESharedEvents +waitEvents  @16@0:8
+  _ANEChainingRequest +initWithInputs:outputs:lbInputSymbolId:lbOutputSymbolId:procedureIndex:signalEvents:transactionHandle:fwEnqueueDelay:memoryPoolId:  @88@0:8@16@24@32@40@48@56@64@72@80
+  _ANEChainingRequest +signalEvents  @16@0:8
+  _ANERequest +sharedEvents  @16@0:8
+  _ANERequest +setSharedEvents:  v24@0:8@16
+  _ANERequest +initWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents:transactionHandle:  @88@0:8@16@24@32@40@48@56@64@72@80
+# consumer hits: 15

@@ -1,0 +1,100 @@
+EXP-028 E3/E4: enginemon user-mode deltas — pure espresso-ANE load (45x es_harness, no CoreAI/MPSGraph)
+windows: idle1 8x1s, es_load 30s@250ms, idle2 8x1s (chip M5 Max 26A434)
+moving channels: 298 | ANE-related: 28 | GPU/AGX-related: 65
+
+ANE-related:
+  ('PMP0', 'AF BW', 'ANE L0 RD', 'events') es_delta=50841 idle=0
+  ('PMP0', 'AF BW', 'ANE L0 RD+WR', 'events') es_delta=50841 idle=0
+  ('PMP0', 'AF BW', 'ANE L0 WR', 'events') es_delta=50841 idle=0
+  ('PMP0', 'AF BW', 'ANE L1 RD', 'events') es_delta=50841 idle=0
+  ('PMP0', 'AF BW', 'ANE L1 RD+WR', 'events') es_delta=50841 idle=0
+  ('PMP0', 'AF BW', 'ANE L1 WR', 'events') es_delta=50841 idle=0
+  ('PMP0', 'AF BW', 'ANS RD', 'events') es_delta=12146 idle=2429
+  ('PMP0', 'AF BW', 'ANS RD+WR', 'events') es_delta=12146 idle=2429
+  ('PMP0', 'AF BW', 'ANS WR', 'events') es_delta=12146 idle=2429
+  ('PMP0', 'DCS BW', 'ANE L0 RD', 'events') es_delta=50841 idle=0
+  ('PMP0', 'DCS BW', 'ANE L0 RD+WR', 'events') es_delta=50841 idle=0
+  ('PMP0', 'DCS BW', 'ANE L0 WR', 'events') es_delta=50841 idle=0
+  ('PMP0', 'DCS BW', 'ANE L1 RD', 'events') es_delta=50841 idle=0
+  ('PMP0', 'DCS BW', 'ANE L1 RD+WR', 'events') es_delta=50841 idle=0
+  ('PMP0', 'DCS BW', 'ANE L1 WR', 'events') es_delta=50841 idle=0
+  ('PMP0', 'DCS Floor', 'ANE-DCS-BW', 'events') es_delta=721162844 idle=210910622
+  ('PMP0', 'DCS Floor', 'ANS-DCS-BW', 'events') es_delta=721162856 idle=210906644
+  ('PMP0', 'PMC SOC Floor', 'ANS', 'events') es_delta=720990788 idle=210818461
+  ('PMP0', 'SOC Floor', 'ANE-LNK0-AF-BW', 'events') es_delta=721158370 idle=210905726
+  ('PMP0', 'SOC Floor', 'ANE-LNK1-AF-BW', 'events') es_delta=721158379 idle=210905735
+  ('PMP0', 'SOC Floor', 'ANS-DMA-AF-BW', 'events') es_delta=721158399 idle=210905753
+  ('PMP0', 'SOC Floor', 'ANS-NAND-AF-BW', 'events') es_delta=721158389 idle=210905744
+  ('PMP0', 'SOC-NI Util BW', 'SOC-NI6 ANS NAN', 'events') es_delta=12146 idle=2429
+  ('PMP0', 'SOC-NI Util BW', 'SOC-NI6 ANS RAI', 'events') es_delta=12146 idle=2429
+  ('PMP0', 'SOC-NI Util BW', 'SOC-NI6 ANS RAO', 'events') es_delta=12146 idle=2429
+  ('PMP0', 'SOC-NI Util BW', 'SOC-NI6 ANS SL', 'events') es_delta=24292 idle=4858
+  ('PMP0', 'SOC-NI Util BW', 'SOC-NI8 ANE UP', 'events') es_delta=2502 idle=6
+  ('PMP0', 'SOC-NI Util BW', 'SOC-NI9 ANEXL U', 'events') es_delta=2384 idle=0
+
+GPU/AGX-related (espresso eval surfaces engage AGX):
+  ('Energy Model', '', 'GPU Energy', 'nJ') es_delta=357358479345 idle=328028184
+  ('GPU Stats', 'CLTM-induced GPU Performance States', 'GPU_CLTM', '24Mticks') es_delta=720757283 idle=210554397
+  ('GPU Stats', 'DVD Request States', 'GPUDVDH', '24Mticks') es_delta=720758153 idle=210576418
+  ('GPU Stats', 'GPU Boost Controller Performance States', 'BSTGPUPH', '24Mticks') es_delta=220825262 idle=15691206
+  ('GPU Stats', 'GPU Discrete Power Zone Residency', 'PZRSDNCY', '24Mticks') es_delta=720757283 idle=210554397
+  ('GPU Stats', 'GPU Performance States', 'GPUPH', '24Mticks') es_delta=720757283 idle=210554397
+  ('GPU Stats', 'GPU Power Controller States', 'PWRCTRL', '24Mticks') es_delta=720757283 idle=210554397
+  ('GPU Stats', 'PPM Target as % of Max GPU Power', 'GPU_PPM', '24Mticks') es_delta=720760995 idle=210579941
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_1', '') es_delta=5120 idle=2078
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_10', '') es_delta=16 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_11', '') es_delta=9 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_12', '') es_delta=6 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_13', '') es_delta=29025 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_2', '') es_delta=5 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_3', '') es_delta=5 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_4', '') es_delta=42 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_5', '') es_delta=1 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_6', '') es_delta=5 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_7', '') es_delta=27 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_8', '') es_delta=12 idle=0
+  ('GPU UT AggD Stats', 'Count', 'AGX.Count_UT_Engagement_Perf_State_9', '') es_delta=5 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_1', '') es_delta=3997 idle=1607
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_10', '') es_delta=9 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_11', '') es_delta=4 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_12', '') es_delta=3 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_13', '') es_delta=21941 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_2', '') es_delta=2 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_3', '') es_delta=1 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_4', '') es_delta=23 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_6', '') es_delta=2 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_7', '') es_delta=19 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_8', '') es_delta=6 idle=0
+  ('GPU UT AggD Stats', 'Not_Engaged_Count', 'AGX.UT_Not_Engaged_Perf_State_9', '') es_delta=3 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_1', '') es_delta=10304 idle=3670
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_10', '') es_delta=163 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_11', '') es_delta=60 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_12', '') es_delta=27 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_13', '') es_delta=32323 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_2', '') es_delta=64 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_3', '') es_delta=81 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_4', '') es_delta=153 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_5', '') es_delta=17 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_6', '') es_delta=136 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_7', '') es_delta=53 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_8', '') es_delta=132 idle=0
+  ('GPU UT AggD Stats', 'Sum', 'AGX.Sum_UT_Engagement_Perf_State_9', '') es_delta=54 idle=0
+  ('PMP0', 'AF BW', 'AGX RD', 'events') es_delta=38376 idle=2033
+  ('PMP0', 'AF BW', 'AGX RD+WR', 'events') es_delta=38376 idle=2033
+  ('PMP0', 'AF BW', 'AGX WR', 'events') es_delta=38376 idle=2033
+  ('PMP0', 'AFR Floor', 'AGX-AFR-BW', 'events') es_delta=721158246 idle=210895436
+  ('PMP0', 'AGX', '#Mem Trans', 'events') es_delta=38374 idle=2033
+  ('PMP0', 'AGX', 'Mem Latency', 'events') es_delta=33127 idle=1298
+  ('PMP0', 'DCS BW', 'AGX RD', 'events') es_delta=38376 idle=2033
+  ('PMP0', 'DCS BW', 'AGX RD+WR', 'events') es_delta=38376 idle=2033
+  ('PMP0', 'DCS BW', 'AGX WR', 'events') es_delta=38376 idle=2033
+  ('PMP0', 'DCS Floor', 'AGX-DCS-BW', 'events') es_delta=721153475 idle=210895414
+  ('PMP0', 'Energy', 'AGX', 'events') es_delta=38376 idle=2033
+  ('PMP0', 'Energy', 'AGX AFR', 'events') es_delta=38376 idle=2033
+  ('PMP0', 'SOC Floor', 'AGX', 'events') es_delta=721022096 idle=210835775
+  ('PMP0', 'SOC Floor', 'AGX-AF-BW', 'events') es_delta=721153467 idle=210895385
+  ('PMP0', 'Volt-Temp HM', 'AGX_V_T', 'events') es_delta=721022107 idle=210835795
+  ('SoC Stats', 'Events', 'UT_EXT_THROTTLE_MGPU03', '24Mticks') es_delta=720591562 idle=210355753
+  ('SoC Stats', 'Events', 'UT_EXT_THROTTLE_MGPU12', '24Mticks') es_delta=720591630 idle=210355801
+  ('SoC Stats', 'Events', 'VDD_GPU03_VOLTAGE_CHANGE_COMPLETION', '24Mticks') es_delta=720607591 idle=210371943
+  ('SoC Stats', 'Events', 'VDD_GPU12_VOLTAGE_CHANGE_COMPLETION', '24Mticks') es_delta=720607718 idle=210372069

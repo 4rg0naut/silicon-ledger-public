@@ -1,0 +1,104 @@
+== kane_gate_probe (h17c recon) ==
+classes loaded: 10398
+  SEL updatePerformanceStats:                              [_ANEVirtualClient (inst)]
+  SEL updatePerformanceStats:performanceStatsLength:perfStatsRawIOSurfaceRef:performanceStatsRawLength:hwExecutionTime: [_ANEVirtualClient (class)]
+  SEL perfCounterData                                      [_ANEPerformanceStats (inst)]
+  SEL emitPerfcounterSignpostsWithModelStringID:           [_ANEPerformanceStats (inst)]
+  SEL initWithHardwareExecution:perfCounterData:ANEStatsRawData: [_ANEPerformanceStats (inst)]
+  SEL initWithRequestPerformanceBuffer:statsBufferSize:    [_ANEPerformanceStats (inst)]
+  SEL pStatsRawData                                        [_ANEPerformanceStats (inst)]
+  SEL performanceCounters                                  [_ANEPerformanceStats (inst)]
+  SEL stringForPerfCounter:                                [_ANEPerformanceStats (inst)]
+  SEL decodeDescriptor:perTdPerfCounters:                  [_ANEPerformanceStats (class)]
+  SEL decodePerformanceStats:withOptions:                  [_ANEPerformanceStats (class)]
+  SEL decodeRawStatsData:                                  [_ANEPerformanceStats (class)]
+  SEL dumpPerformanceStatsRawData:                         [_ANEPerformanceStats (class)]
+  SEL statsWithHardwareExecutionNS:                        [_ANEPerformanceStats (class)]
+  SEL statsWithReconstructed:hardwareExecutionNS:aneStatsRawData: [_ANEPerformanceStats (class)]
+  SEL statsWithRequestPerformanceBuffer:statsBufferSize:   [_ANEPerformanceStats (class)]
+  SEL setPerfStatsMask:                                    [_ANEInMemoryModel (inst)]
+  SEL perfStatsMask                                        [_ANEInMemoryModel (inst)]
+  SEL initWithstatsSurRef:outputBuffer:                    [_ANEIOSurfaceOutputSets (inst)]
+  SEL statsSurRef                                          [_ANEIOSurfaceOutputSets (inst)]
+  SEL objectWithstatsSurRef:outputBuffer:                  [_ANEIOSurfaceOutputSets (class)]
+  SEL initWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents:transactionHandle: [_ANERequest (inst)]
+  SEL perfStatsArray                                       [_ANERequest (inst)]
+  SEL perfStats                                            [_ANERequest (inst)]
+  SEL setPerfStats:                                        [_ANERequest (inst)]
+  SEL requestWithInputs:inputIndices:outputs:outputIndices:perfStats:procedureIndex: [_ANERequest (class)]
+  SEL requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex: [_ANERequest (class)]
+  SEL requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents: [_ANERequest (class)]
+  SEL requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents:transactionHandle: [_ANERequest (class)]
+  SEL initWithModelAtURL:sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:mpsConstants:externConstants:programHandle:intermediateBufferHandle:queueDepth:perfStatsMask:state: [_ANEModel (inst)]
+  SEL setPerfStatsMask:                                    [_ANEModel (inst)]
+  SEL perfStatsMask                                        [_ANEModel (inst)]
+  SEL stats                                                [_ANEPerformanceStatsIOSurface (inst)]
+stats-like selectors found: 33
+C sym ANE_ProgramCreate            framework: absent
+C sym ANE_ProgramLoad              framework: absent
+C sym ANE_ProgramCreate2           framework: absent
+C sym ANEClientCreateWithContext   framework: absent
+C sym ANE_NewXPCConnection         framework: absent
+lib /usr/lib/libANECompiler.dylib: absent
+lib /System/Library/PrivateFrameworks/ANEServices.framework/ANEServices: loads
+lib /System/Library/DriverExtensions/com.apple.DriverKit-AppleANS3CG.explicitcatmatch/com.apple.DriverKit-AppleANS3CG: absent
+kANE_* names (paper Table 33.1): 24 documented; local symbol resolution: 0/24 (enum constants, not exported symbols — expected 0)
+PS class: found | instance-method: 1
+instance: ok (designated init)
+live enumeration via -[stringForPerfCounter:] (unshared instance):
+  [ 0] kANE_AF_TO_L2_DATA               (in paper)
+  [ 1] kANE_AF_TO_KM_DATA               (in paper)
+  [ 2] kANE_L2_TO_AF_DATA               (in paper)
+  [ 3] kANE_L2_TO_NE_DATA               (in paper)
+  [ 4] kANE_NE_TO_L2_DATA               (in paper)
+  [ 5] kANE_INT8_CYCLES                 (in paper)
+  [ 6] kANE_FP16_CYCLES:                (in paper)
+  [ 7] kANE_L2_READ_STALL_CYCLES        (in paper)
+  [ 8] kANE_L2_WRITE_STALL_CYCLES       (in paper)
+  [ 9] kANE_KM_STALL_CYCLES             (in paper)
+  [10] kANE_NE_NOMINAL_CYCLES           (in paper)
+  [11] kANE_NE_THROTTLE_CYCLES          (in paper)
+  [12] kANE_L2_THROTTLE_CYCLES          (in paper)
+  [13] kANE_NE_COMPUTE_CYCLES           (in paper)
+  [14] kANE_NE_INPUT_STALL_CYCLES       (in paper)
+  [15] kANE_NE_OUTPUT_STALL_CYCLES      (in paper)
+  [16] kANE_NE_KERNEL_STALL_CYCLES      (in paper)
+  [17] kANE_DMA_READWRITE_BYTES         (in paper)
+  [18] kANE_DMA_READ_BYTES              (in paper)
+  [19] kANE_DPE_ENERGY                  (in paper)
+  [20] kANE_L2_NOMINAL_CYCLES           (in paper)
+  [21] kANE_L2PE_COMPUTE_CYCLES         (in paper)
+  [22] kANE_L2PE_INPUT_STALL_CYCLES     (in paper)
+  [23] kANE_L2PE_OUTPUT_STALL_CYCLES    (in paper)
+  [24] kANE_UKNOWN                      (padding, Apple's typo)
+  [25] kANE_UKNOWN                      (padding, Apple's typo)
+  [26] kANE_UKNOWN                      (padding, Apple's typo)
+  [27] kANE_UKNOWN                      (padding, Apple's typo)
+  [28] kANE_UKNOWN                      (padding, Apple's typo)
+  [29] kANE_UKNOWN                      (padding, Apple's typo)
+  [30] kANE_UKNOWN                      (padding, Apple's typo)
+  [31] kANE_UKNOWN                      (padding, Apple's typo)
+  [32] kANE_UKNOWN                      (padding, Apple's typo)
+  [33] kANE_UKNOWN                      (padding, Apple's typo)
+  [34] kANE_UKNOWN                      (padding, Apple's typo)
+  [35] kANE_UKNOWN                      (padding, Apple's typo)
+  [36] kANE_UKNOWN                      (padding, Apple's typo)
+  [37] kANE_UKNOWN                      (padding, Apple's typo)
+  [38] kANE_UKNOWN                      (padding, Apple's typo)
+  [39] kANE_UKNOWN                      (padding, Apple's typo)
+  [40] kANE_UKNOWN                      (padding, Apple's typo)
+  [41] kANE_UKNOWN                      (padding, Apple's typo)
+  [42] kANE_UKNOWN                      (padding, Apple's typo)
+  [43] kANE_UKNOWN                      (padding, Apple's typo)
+  [44] kANE_UKNOWN                      (padding, Apple's typo)
+  [45] kANE_UKNOWN                      (padding, Apple's typo)
+  [46] kANE_UKNOWN                      (padding, Apple's typo)
+  [47] kANE_UKNOWN                      (padding, Apple's typo)
+paper-named counters enumerable on h17c: 24/24
+--create mask-forcing stage (control then forced):
+mask=0x0 (set->0): compile=1 
+mask=0x0: load=1 mask_after=0 
+mask=0xf (set->15): compile=1 
+mask=0xf: load=1 mask_after=0 
+MASK-VERDICT control(load)=0 forced(load)=0 (0=load-ok 1=load-fails 2=compile-fails)
+VERDICT: recon only; gate reproduction status in knowledge/ane/10 B5 addendum

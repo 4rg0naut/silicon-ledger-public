@@ -1,0 +1,48 @@
+# K6b enginemon during MobileNetV2 public predict loop — 2026-10-08 06:27:34
+# method identical to EXP-025 p2_enginemon_loop.sh (GPU-routing baseline)
+[probe] load ok=1 err=-
+[probe] predict ok=0 err=Feature image is required but not specified.
+--- ANE channels:
+SOC-NI8 ANE UP                             PMP0                             14     events ane
+ANE L0 RD                                  PMP0                          16292     events ane
+ANE L0 WR                                  PMP0                          16292     events ane
+ANE L0 RD+WR                               PMP0                          16292     events ane
+ANE L0 RD                                  PMP0                          16291     events ane
+ANE L0 WR                                  PMP0                          16290     events ane
+ANE L0 RD+WR                               PMP0                          16290     events ane
+ANE L1 RD                                  PMP0                          16290     events ane
+ANE L1 WR                                  PMP0                          16290     events ane
+ANE L1 RD+WR                               PMP0                          16290     events ane
+ANE L1 RD                                  PMP0                          16290     events ane
+ANE L1 WR                                  PMP0                          16289     events ane
+ANE L1 RD+WR                               PMP0                          16289     events ane
+DCS-BW                                     PMP0                      131932884     events soc
+AGX-DCS-BW                                 PMP0                      131928581     events gpu
+ANE-LNK0-AF-BW                             PMP0                      131928552     events ane
+ANE-LNK1-AF-BW                             PMP0                      131928553     events ane
+ANE-DCS-BW                                 PMP0                      131928531     events ane
+ANS-DCS-BW                                 PMP0                      131928532     events soc
+PMP DCS                                    PMP0                        1248262   24Mticks soc
+CLPC DCS                                   PMP0                        5804569   24Mticks soc
+SOCxDCS                                    PMP0                      132297389     events soc
+COP DCS                                    PMP0                        2250958   24Mticks soc
+VDD_DCS0_VOLTAGE_CHANGE_COMPLETION         SoC Stats                 131835091   24Mticks soc
+VDD_DCS1_VOLTAGE_CHANGE_COMPLETION         SoC Stats                 131835219   24Mticks soc
+  ANE0                  0.0 mW   (frozen-or-idle: this channel's movement is only meaningful once calibration says so -- see README)
+  ANE handlers            0 interrupts
+  ANE DCS traffic          0 B (M4 names) + 0 B (M5 TOTAL DCS)
+  GFX DCS                 0 B (GPU<->ANE client lane)
+  ANE floor      F>=2 duty    0.0% (0/131928531 ticks) | LNK hi 0.0% (0/263857105)
+--- GPU lines:
+GPU Energy                                 Energy Model              246805637         nJ gpu
+AGX RD                                     PMP0                           1496     events gpu
+AGX WR                                     PMP0                           1496     events gpu
+AGX RD+WR                                  PMP0                           1496     events gpu
+AGX RD                                     PMP0                           1496     events gpu
+AGX WR                                     PMP0                           1496     events gpu
+AGX RD+WR                                  PMP0                           1496     events gpu
+AGX                                        PMP0                           1496     events gpu
+
+# VERDICT K6b: MobileNetV2 (conv family, 400 predicts) shows GPU Energy 246.8 mJ / AGX activity, ANE 0.0 mW, 0 handler interrupts, 0 B DCS, 0 B GFX<->ANE lane.
+# => first two model families (transformer MiniLM + conv MobileNet) BOTH route GPU on 27.0.1/M5 CLT-pipeline loads; the GPU routing seen in EXP-025 is not family-specific.
+# caveat: ANE energy channel notes 'frozen-or-idle until calibrated' (enginemon README); handler-interrupt and DCS counters are independent and also zero.

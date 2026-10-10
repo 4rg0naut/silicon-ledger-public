@@ -101,6 +101,68 @@ working route is JIT-specializing the `.aimodel`; (2) the ANE lane's absolute ca
 drifts on borderline pairs (rank-safe, magnitude-unsafe for score thresholds — threshold
 on CPU/GPU scores, or calibrate on the ANE). MPSGraph → ANE remains NO-GO (EXP-022).
 
+## Retry — 2026-10-05 (fresh open-source stack, macOS 27.0.1 / 26A434)
+
+Retested the AOT-bundle load regression with a completely fresh toolchain to rule out a
+stale-env artifact: new `uv` venv (Python 3.13) with the PyPI `coreai` wheel
+(`coreai.runtime` — API moved from the old coreai-kit path; `AIModel.load` is now async).
+
+**Regression persists, with two distinct failure signatures:**
+
+| call | result |
+|---|---|
+| `AIModel.load(.aimodelc)` (plain) | `RuntimeError … No such file or directory` (ENOENT during asset load) |
+| `AIModel.load(.aimodelc, specialization_options=…)` — CPU, Neural Engine, GPU | `CoreAIDelegates.AIModelError error 0` — identical to 2026-09-27 |
+| `AIModel.load(.aimodel)` JIT control | **LOAD OK** (~0.1 s warm) |
+
+**Layout forensics (new finding):** the open-source runtime's binary looks for
+`main-unspecialized.odix`, `main-aggregate-delegates`, `aggregatedSoC.json`; the Sept
+`coreai-build-3600.83.1` bundle contains `main-h17g.mlirb` + `main-h17g-delegates/`
+(assetVersion 2.0). Symlinking the renamed files does not satisfy the loader — the ENOENT
+survives. So the plain-load failure is a *bundle-layout mismatch* between coreai-build
+3600.83.1 and the current runtime, not just an opaque delegate error. The specialization
+path still dies inside `CoreAIDelegates` with error 0 (no localized description).
+
+**ANE payload confirmed present:** `main-h17g-delegates/MPSGraph/mpsExecutable.mpsgraphpackage/
+binary_0.llir.bundle/…_ANE_region_0_0.bc/h17g/…mlir.bc` — the ANE region bytecode is in the
+bundle; the failure is at runtime load, not compilation (consistent with "reaches the ANE"
+above).
+
+Runtime cache is `~/Library/Caches/coreai-cache/` (buckets `26A434/` and `unknown/`; the
+JIT control caches under `unknown` — the current runtime does not resolve this machine's
+SoC to a named bucket, worth watching in a later build).
+
+**Verdict unchanged:** JIT-specializing the `.aimodel` remains the working route on M5 Max;
+AOT `.aimodelc` from coreai-build 3600.83.1 is unloadable by both the Sept coreai-kit
+runtime and the current open-source runtime. Re-export with the current open-source
+compiler would likely produce loadable bundles — not re-run in this session (timebox).
+
+### Root-cause correction (same session, minutes later)
+
+The `error 0` at specialization is an **architecture mismatch**, caught with a different model in
+the same build family. Granite rebake-p3 bundles (same `coreai-build-3600.83.1`, one per arch)
+run on this machine through the Swift CoreAI delegate: the `h17g` bundle fails with
+
+    CoreAIDelegates.AIModelError.incompatibleCompiledAssetArchitecture(device: "h17c", asset: ["h17g"])
+
+— the M5 Max's CoreAI delegate identifies as **h17c**, not h17g. The matching `h17c` bundle
+loads through the python runtime via `AIModel.load(..., specialization_options=…)` (log shows the
+ANE pass rejecting the fp32 embedding table — `Incompatible element type for ANE: expected fp16,
+f8E4M3, …` — then falling back internally). Plain `AIModel.load(.aimodelc)` still ENOENTs for
+h17c too: the layout gap above is real and independent.
+
+**Corrected verdict for this machine:** the 2026-09-27 reranker AOT bundle was compiled with
+`--architecture h17g`, which this OS build (`26A434`) does not accept — the `CoreAIDelegates
+error 0` was the opaque surface of that mismatch, not a universal AOT-load death. An h17c
+reranker re-export should load. The `.aimodel` JIT route stays the robust path; the layout gap
+for plain (unspecialized) `.aimodelc` load remains open.
+
+**Post-fix confirmation 2026-10-06 (quiet sudo window):** the h17c-compatible Core AI route
+(`bench/power_coreai.py` + granite97m) produced a **lane-specific ANE rail of 261.1 mW**
+(0.0 on the gpu/cpuOnly lanes, gates PASS 35/35) — the first directly metered ANE energy on
+this machine. MiniLM on M5 by contrast: ANE rail 0.0 with ANE-DCS duty 0% — GPU placement
+confirmed on both meters. Rows `m5-granite-*`/`m5-minilm-*`; see EXP-022 "Energy close".
+
 ## Reproduce
 
 ```

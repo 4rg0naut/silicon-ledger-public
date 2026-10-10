@@ -1,0 +1,174 @@
+{
+  "Package Version" => {
+    "7.0.63" => {
+      "Adapters by rank" => {
+      }
+      "ANERegionsHash" => {
+        "h17c" => "BDE3DCBCBE3FF29F9670AFE5BAD7BEB25F4D1B3ACA8BF56ADA19126AB1565DBA_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+      "Binary File Resources" => {
+      }
+      "Callables" => {
+      }
+      "CallablesHash" => 0
+      "Data File Names" => [
+      ]
+      "GPU adapter present" => "NO"
+      "Optimized Modules" => {
+        "[
+  "{\n  \"entryFunctionName\" : \"main_9wemocz7YmEwKSHhsD5JpQ\",\n  \"deviceDescriptor\" : [\n    0,\n    40,\n    \"h17c\"\n  ],\n  \"compilationDescriptor\" : {\n    \"enableANECValidationWorkflow\" : true,\n    \"reducedPrecisionFastMath\" : 0,\n    \"entryFunctionName\" : \"\",\n    \"enableCompileResourcesForPackage\" : false,\n    \"useANELLIR\" : false,\n    \"shapeShifterCacheThreads\" : 1,\n    \"disableShapeFolding\" : false,\n    \"optimizationProfile\" : 0,\n    \"enableANEFWToFWSignal\" : false,\n    \"optimizationLevel\" : 1,\n    \"includeDebugInfo\" : false,\n    \"addUniqueIdToMLIRLocations\" : true,\n    \"maximumNumberOfParallelEncodingRegions\" : 1,\n    \"aneCompilerSpatialSplitting\" : 3,\n    \"compilerOptions\" : 1691023,\n    \"preferredDevice\" : 2,\n    \"enableMLIRDiagnostics\" : false,\n    \"enableShapeEquivalence\" : false,\n    \"enableShapeShifter\" : true,\n    \"enableShapeShifterCache\" : false,\n    \"shapeShifterTILevel\" : 0,\n    \"verifyTypeInference\" : false,\n    \"printANEPlacementAnalysis\" : false,\n    \"inputShapeRanges\" : null,\n    \"enableANELateLatch\" : false,\n    \"minimumNumberOfOpsInParallelRegion\" : 100,\n    \"enableANECHWRankPromotion\" : true,\n    \"enableParallelEncode\" : true,\n    \"allowedComputeDevices\" : 7,\n    \"aneBondedCompileMode\" : 0,\n    \"enableMemrefBufferization\" : true\n  },\n  \"inputShapesCount\" : 6,\n  \"inputShapes\" : [\n    268435488,\n    4,\n    1,\n    512,\n    1,\n    64\n  ],\n  \"callablesHash\" : 0\n}"
+]" => {
+          "Entry Function Attributes" => {
+            "main_9wemocz7YmEwKSHhsD5JpQ_0" => [
+              0 => "mps.aneAlignedIO"
+              1 => "mps.disablePreAllocate"
+              2 => "mps.disableNDX"
+            ]
+          }
+          "File Name" => "specialized_model_0.mpsgraph"
+          "Key to Symbol Name" => {
+            "{
+  "entryFunctionName" : "main_9wemocz7YmEwKSHhsD5JpQ",
+  "deviceDescriptor" : [
+    0,
+    40,
+    "h17c"
+  ],
+  "compilationDescriptor" : {
+    "enableANECValidationWorkflow" : true,
+    "reducedPrecisionFastMath" : 0,
+    "entryFunctionName" : "",
+    "enableCompileResourcesForPackage" : false,
+    "useANELLIR" : false,
+    "shapeShifterCacheThreads" : 1,
+    "disableShapeFolding" : false,
+    "optimizationProfile" : 0,
+    "enableANEFWToFWSignal" : false,
+    "optimizationLevel" : 1,
+    "includeDebugInfo" : false,
+    "addUniqueIdToMLIRLocations" : true,
+    "maximumNumberOfParallelEncodingRegions" : 1,
+    "aneCompilerSpatialSplitting" : 3,
+    "compilerOptions" : 1691023,
+    "preferredDevice" : 2,
+    "enableMLIRDiagnostics" : false,
+    "enableShapeEquivalence" : false,
+    "enableShapeShifter" : true,
+    "enableShapeShifterCache" : false,
+    "shapeShifterTILevel" : 0,
+    "verifyTypeInference" : false,
+    "printANEPlacementAnalysis" : false,
+    "inputShapeRanges" : null,
+    "enableANELateLatch" : false,
+    "minimumNumberOfOpsInParallelRegion" : 100,
+    "enableANECHWRankPromotion" : true,
+    "enableParallelEncode" : true,
+    "allowedComputeDevices" : 7,
+    "aneBondedCompileMode" : 0,
+    "enableMemrefBufferization" : true
+  },
+  "inputShapesCount" : 6,
+  "inputShapes" : [
+    268435488,
+    4,
+    1,
+    512,
+    1,
+    64
+  ],
+  "callablesHash" : 0
+}" => "main_9wemocz7YmEwKSHhsD5JpQ_0"
+          }
+          "Used In Cache" => [
+            0 => "{
+  "entryFunctionName" : "main_9wemocz7YmEwKSHhsD5JpQ",
+  "deviceDescriptor" : [
+    0,
+    40,
+    "h17c"
+  ],
+  "compilationDescriptor" : {
+    "enableANECValidationWorkflow" : true,
+    "reducedPrecisionFastMath" : 0,
+    "entryFunctionName" : "",
+    "enableCompileResourcesForPackage" : false,
+    "useANELLIR" : false,
+    "shapeShifterCacheThreads" : 1,
+    "disableShapeFolding" : false,
+    "optimizationProfile" : 0,
+    "enableANEFWToFWSignal" : false,
+    "optimizationLevel" : 1,
+    "includeDebugInfo" : false,
+    "addUniqueIdToMLIRLocations" : true,
+    "maximumNumberOfParallelEncodingRegions" : 1,
+    "aneCompilerSpatialSplitting" : 3,
+    "compilerOptions" : 1691023,
+    "preferredDevice" : 2,
+    "enableMLIRDiagnostics" : false,
+    "enableShapeEquivalence" : false,
+    "enableShapeShifter" : true,
+    "enableShapeShifterCache" : false,
+    "shapeShifterTILevel" : 0,
+    "verifyTypeInference" : false,
+    "printANEPlacementAnalysis" : false,
+    "inputShapeRanges" : null,
+    "enableANELateLatch" : false,
+    "minimumNumberOfOpsInParallelRegion" : 100,
+    "enableANECHWRankPromotion" : true,
+    "enableParallelEncode" : true,
+    "allowedComputeDevices" : 7,
+    "aneBondedCompileMode" : 0,
+    "enableMemrefBufferization" : true
+  },
+  "inputShapesCount" : 6,
+  "inputShapes" : [
+    268435488,
+    4,
+    1,
+    512,
+    1,
+    64
+  ],
+  "callablesHash" : 0
+}"
+          ]
+        }
+      }
+      "Optimized No Device Modules" => {
+      }
+      "Optimized No Device Resources Used" => {
+      }
+      "Optimized Resources Used" => {
+        "[
+  "{\n  \"entryFunctionName\" : \"main_9wemocz7YmEwKSHhsD5JpQ\",\n  \"deviceDescriptor\" : [\n    0,\n    40,\n    \"h17c\"\n  ],\n  \"compilationDescriptor\" : {\n    \"enableANECValidationWorkflow\" : true,\n    \"reducedPrecisionFastMath\" : 0,\n    \"entryFunctionName\" : \"\",\n    \"enableCompileResourcesForPackage\" : false,\n    \"useANELLIR\" : false,\n    \"shapeShifterCacheThreads\" : 1,\n    \"disableShapeFolding\" : false,\n    \"optimizationProfile\" : 0,\n    \"enableANEFWToFWSignal\" : false,\n    \"optimizationLevel\" : 1,\n    \"includeDebugInfo\" : false,\n    \"addUniqueIdToMLIRLocations\" : true,\n    \"maximumNumberOfParallelEncodingRegions\" : 1,\n    \"aneCompilerSpatialSplitting\" : 3,\n    \"compilerOptions\" : 1691023,\n    \"preferredDevice\" : 2,\n    \"enableMLIRDiagnostics\" : false,\n    \"enableShapeEquivalence\" : false,\n    \"enableShapeShifter\" : true,\n    \"enableShapeShifterCache\" : false,\n    \"shapeShifterTILevel\" : 0,\n    \"verifyTypeInference\" : false,\n    \"printANEPlacementAnalysis\" : false,\n    \"inputShapeRanges\" : null,\n    \"enableANELateLatch\" : false,\n    \"minimumNumberOfOpsInParallelRegion\" : 100,\n    \"enableANECHWRankPromotion\" : true,\n    \"enableParallelEncode\" : true,\n    \"allowedComputeDevices\" : 7,\n    \"aneBondedCompileMode\" : 0,\n    \"enableMemrefBufferization\" : true\n  },\n  \"inputShapesCount\" : 6,\n  \"inputShapes\" : [\n    268435488,\n    4,\n    1,\n    512,\n    1,\n    64\n  ],\n  \"callablesHash\" : 0\n}"
+]" => [
+          0 => "tmp_74"
+          1 => "tmp_78"
+          2 => "tmp_75"
+          3 => "tmp_79"
+          4 => "tmp_76"
+          5 => "tmp_73"
+          6 => "tmp_77"
+          7 => "tmp_80"
+        ]
+      }
+      "Original" => ""
+      "Original Module Serialized" => false
+      "Original Resources Used" => [
+      ]
+      "RDFFMap" => {
+      }
+      "Resource Offsets" => {
+        "tmp_73" => 5242900
+        "tmp_74" => 0
+        "tmp_75" => 2097160
+        "tmp_76" => 4194320
+        "tmp_77" => 6291480
+        "tmp_78" => 1048580
+        "tmp_79" => 3145740
+        "tmp_80" => 7340060
+      }
+      "Resource Storage Mode" => 1
+    }
+  }
+}

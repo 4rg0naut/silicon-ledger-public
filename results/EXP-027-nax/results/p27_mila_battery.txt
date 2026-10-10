@@ -1,0 +1,183 @@
+# EXP-027 MX MilAneflow battery run 2026-10-08 (p27_mila_abi2, machine Mac17,14 27.0.1 26A434)
+=== chain64 ===
+v=3 garbage=0 mil=4157B ctx=0x7cb30286c0
+STRING prog=0x7cb3028720 err=0x0
+FILE   prog=0x7cb3028730 err=0x0
+  fns.n=1 fn[0]=main
+  opsets.n=1 [ios18]
+  try_function(bogusfn,main) -> handle=0x0 err="Cannot resolve function name nosuchfn"
+  try_function(aneflowh2020) -> handle=0x0 err="Cannot resolve opset name aneflowh2020"
+  try_function(aneflowh2021) -> handle=0x0 err="Cannot resolve opset name aneflowh2021"
+  try_function(aneflowh2022) -> handle=0x0 err="Cannot resolve opset name aneflowh2022"
+  try_function(ios17) -> handle=0x0 err="Cannot resolve opset name ios17"
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+  try_function(unknownset123) -> handle=0x0 err="Cannot resolve opset name unknownset123"
+DONE
+rc=0
+=== bat_c16_s64_d2 ===
+v=3 garbage=0 mil=1853B ctx=0x75c70286c0
+STRING prog=0x75c7028720 err=0x0
+FILE   prog=0x75c7028730 err=0x0
+  fns.n=1 fn[0]=main
+  opsets.n=1 [ios18]
+  try_function(bogusfn,main) -> handle=0x0 err="Cannot resolve function name nosuchfn"
+  try_function(aneflowh2020) -> handle=0x0 err="Cannot resolve opset name aneflowh2020"
+  try_function(aneflowh2021) -> handle=0x0 err="Cannot resolve opset name aneflowh2021"
+  try_function(aneflowh2022) -> handle=0x0 err="Cannot resolve opset name aneflowh2022"
+  try_function(ios17) -> handle=0x0 err="Cannot resolve opset name ios17"
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+  try_function(unknownset123) -> handle=0x0 err="Cannot resolve opset name unknownset123"
+DONE
+rc=0
+=== bat_c32_s64_d4 ===
+v=3 garbage=0 mil=2616B ctx=0x7c470286c0
+STRING prog=0x7c47028720 err=0x0
+FILE   prog=0x7c47028730 err=0x0
+  fns.n=1 fn[0]=main
+  opsets.n=1 [ios18]
+  try_function(bogusfn,main) -> handle=0x0 err="Cannot resolve function name nosuchfn"
+  try_function(aneflowh2020) -> handle=0x0 err="Cannot resolve opset name aneflowh2020"
+  try_function(aneflowh2021) -> handle=0x0 err="Cannot resolve opset name aneflowh2021"
+  try_function(aneflowh2022) -> handle=0x0 err="Cannot resolve opset name aneflowh2022"
+  try_function(ios17) -> handle=0x0 err="Cannot resolve opset name ios17"
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+  try_function(unknownset123) -> handle=0x0 err="Cannot resolve opset name unknownset123"
+DONE
+rc=0
+=== bat_c48_s64_d1 ===
+v=3 garbage=0 mil=1473B ctx=0x76c50286c0
+STRING prog=0x76c5028720 err=0x0
+FILE   prog=0x76c5028730 err=0x0
+  fns.n=1 fn[0]=main
+  opsets.n=1 [ios18]
+  try_function(bogusfn,main) -> handle=0x0 err="Cannot resolve function name nosuchfn"
+  try_function(aneflowh2020) -> handle=0x0 err="Cannot resolve opset name aneflowh2020"
+  try_function(aneflowh2021) -> handle=0x0 err="Cannot resolve opset name aneflowh2021"
+  try_function(aneflowh2022) -> handle=0x0 err="Cannot resolve opset name aneflowh2022"
+  try_function(ios17) -> handle=0x0 err="Cannot resolve opset name ios17"
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+  try_function(unknownset123) -> handle=0x0 err="Cannot resolve opset name unknownset123"
+DONE
+rc=0
+=== bat_c64_s128_d1 ===
+v=3 garbage=0 mil=1477B ctx=0x77ed0286c0
+STRING prog=0x77ed028720 err=0x0
+FILE   prog=0x77ed028730 err=0x0
+  fns.n=1 fn[0]=main
+  opsets.n=1 [ios18]
+  try_function(bogusfn,main) -> handle=0x0 err="Cannot resolve function name nosuchfn"
+  try_function(aneflowh2020) -> handle=0x0 err="Cannot resolve opset name aneflowh2020"
+  try_function(aneflowh2021) -> handle=0x0 err="Cannot resolve opset name aneflowh2021"
+  try_function(aneflowh2022) -> handle=0x0 err="Cannot resolve opset name aneflowh2022"
+  try_function(ios17) -> handle=0x0 err="Cannot resolve opset name ios17"
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+  try_function(unknownset123) -> handle=0x0 err="Cannot resolve opset name unknownset123"
+DONE
+rc=0
+=== bat_c64_s128_d8 ===
+v=3 garbage=0 mil=4157B ctx=0x7b890286c0
+STRING prog=0x7b89028720 err=0x0
+FILE   prog=0x7b89028730 err=0x0
+  fns.n=1 fn[0]=main
+  opsets.n=1 [ios18]
+  try_function(bogusfn,main) -> handle=0x0 err="Cannot resolve function name nosuchfn"
+  try_function(aneflowh2020) -> handle=0x0 err="Cannot resolve opset name aneflowh2020"
+  try_function(aneflowh2021) -> handle=0x0 err="Cannot resolve opset name aneflowh2021"
+  try_function(aneflowh2022) -> handle=0x0 err="Cannot resolve opset name aneflowh2022"
+  try_function(ios17) -> handle=0x0 err="Cannot resolve opset name ios17"
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+  try_function(unknownset123) -> handle=0x0 err="Cannot resolve opset name unknownset123"
+DONE
+rc=0
+=== bat_c96_s128_d2 ===
+v=3 garbage=0 mil=1860B ctx=0x780b0286c0
+STRING prog=0x780b028720 err=0x0
+FILE   prog=0x780b028730 err=0x0
+  fns.n=1 fn[0]=main
+  opsets.n=1 [ios18]
+  try_function(bogusfn,main) -> handle=0x0 err="Cannot resolve function name nosuchfn"
+  try_function(aneflowh2020) -> handle=0x0 err="Cannot resolve opset name aneflowh2020"
+  try_function(aneflowh2021) -> handle=0x0 err="Cannot resolve opset name aneflowh2021"
+  try_function(aneflowh2022) -> handle=0x0 err="Cannot resolve opset name aneflowh2022"
+  try_function(ios17) -> handle=0x0 err="Cannot resolve opset name ios17"
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+  try_function(unknownset123) -> handle=0x0 err="Cannot resolve opset name unknownset123"
+DONE
+rc=0
+=== bat_c128_s128_d1 ===
+v=3 garbage=0 mil=1485B ctx=0x7ae90286c0
+STRING prog=0x7ae9028710 err=0x0
+FILE   prog=0x7ae9028720 err=0x0
+  fns.n=1 fn[0]=main
+  opsets.n=1 [ios18]
+  try_function(bogusfn,main) -> handle=0x0 err="Cannot resolve function name nosuchfn"
+  try_function(aneflowh2020) -> handle=0x0 err="Cannot resolve opset name aneflowh2020"
+  try_function(aneflowh2021) -> handle=0x0 err="Cannot resolve opset name aneflowh2021"
+  try_function(aneflowh2022) -> handle=0x0 err="Cannot resolve opset name aneflowh2022"
+  try_function(ios17) -> handle=0x0 err="Cannot resolve opset name ios17"
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+  try_function(unknownset123) -> handle=0x0 err="Cannot resolve opset name unknownset123"
+DONE
+rc=0
+=== bat_rv ===
+v=3 garbage=0 mil=1477B ctx=0x7b170286c0
+STRING prog=0x7b17028720 err=0x0
+FILE   prog=0x7b17028730 err=0x0
+  fns.n=1 fn[0]=main
+  opsets.n=1 [ios18]
+  try_function(bogusfn,main) -> handle=0x0 err="Cannot resolve function name nosuchfn"
+  try_function(aneflowh2020) -> handle=0x0 err="Cannot resolve opset name aneflowh2020"
+  try_function(aneflowh2021) -> handle=0x0 err="Cannot resolve opset name aneflowh2021"
+  try_function(aneflowh2022) -> handle=0x0 err="Cannot resolve opset name aneflowh2022"
+  try_function(ios17) -> handle=0x0 err="Cannot resolve opset name ios17"
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+  try_function(unknownset123) -> handle=0x0 err="Cannot resolve opset name unknownset123"
+DONE
+rc=0
+=== bat_src ===
+v=3 garbage=0 mil=1477B ctx=0x7a250286c0
+STRING prog=0x7a25028720 err=0x0
+FILE   prog=0x7a25028730 err=0x0
+  fns.n=1 fn[0]=main
+  opsets.n=1 [ios18]
+  try_function(bogusfn,main) -> handle=0x0 err="Cannot resolve function name nosuchfn"
+  try_function(aneflowh2020) -> handle=0x0 err="Cannot resolve opset name aneflowh2020"
+  try_function(aneflowh2021) -> handle=0x0 err="Cannot resolve opset name aneflowh2021"
+  try_function(aneflowh2022) -> handle=0x0 err="Cannot resolve opset name aneflowh2022"
+  try_function(ios17) -> handle=0x0 err="Cannot resolve opset name ios17"
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+  try_function(unknownset123) -> handle=0x0 err="Cannot resolve opset name unknownset123"
+DONE
+rc=0
+
+=== DIFFERENTIAL garbage ===
+v=3 garbage=1 mil=19B ctx=0x7b270286c0
+STRING prog=0x0 err=0x7b27070de0
+  msg(91): at (unknown):1:0: Unexpected token type: got 'this' when expecting token of type 'PROGRAM'.
+  loc(16): at (unknown):1:0
+DONE
+rc=0
+
+=== grammar tag matrix (chain64) ===
+-- tag=ios14
+STRING prog=0x0 err=0x7bef070de0
+-- tag=ios15
+STRING prog=0x795d028730 err=0x0
+-- tag=ios16
+STRING prog=0x7929028720 err=0x0
+-- tag=ios17
+STRING prog=0x749b028720 err=0x0
+  try_function(ios17) -> handle=0x0 err="Opset name is not an AneFlow opset: ios17"
+-- tag=ios18
+STRING prog=0x75c1028720 err=0x0
+  try_function(ios18) -> handle=0x0 err="Opset name is not an AneFlow opset: ios18"
+-- tag=ios19
+STRING prog=0x7a0f028720 err=0x0
+-- tag=ios20
+STRING prog=0x0 err=0x7ac9070de0
+-- tag=ios26
+STRING prog=0x0 err=0x75af070de0
+-- tag=cortex
+STRING prog=0x0 err=0x77a9070de0
+-- tag=aneflowh2022
+STRING prog=0x0 err=0x7c1f070de0

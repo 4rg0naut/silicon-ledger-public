@@ -1,0 +1,31 @@
+Interrupt Statistics (by index)  dart-ane0 0                              First Level Interrupt Handler Count                   ane
+Interrupt Statistics (by index)  dart-ane0 0                              First Level Interrupt Handler Time (MATUs)            ane
+Interrupt Statistics (by index)  dart-ane0 0                              Second Level Interrupt Handler Count                  ane
+Interrupt Statistics (by index)  dart-ane0 0                              Second Level Interrupt Handler CPU Time (MATUs)            ane
+Interrupt Statistics (by index)  dart-ane0 0                              Second Level Interrupt Handler System Time (MATUs)            ane
+PMP0                             Fast-Die CE                              ANE0                                       events     ane
+PMP0                             Fast-Die CE                              MACC0                                      events     cpu
+PMP0                             Fast-Die CE                              MACC1                                      events     cpu
+PMP0                             Fast-Die CE                              PACC                                       events     cpu
+PMP0                             Fast-Die Delay                           DELAY                                      events     soc
+PMP0                             SOC Floor                                SOC-NI8-BW                                 events     soc
+PMP0                             SOC Floor                                SOC-NI9-BW                                 events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI8 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI8 ANE UP                             events     ane
+PMP0                             SOC-NI Util BW                           SOC-NI9 ALL                                events     soc
+PMP0                             SOC-NI Util BW                           SOC-NI9 ANEXL U                            events     ane
+PMP0                             SOC-NI Util BW                           SOC-NI9 RT                                 events     soc
+SoC Stats                        Cluster Power States                     DISP_EXT                                   24Mticks   other
+SoC Stats                        Cluster Power States                     DISP_INT                                   24Mticks   other
+SoC Stats                        Cluster Power States                     MACC0                                      24Mticks   other
+SoC Stats                        Cluster Power States                     MACC1                                      24Mticks   other
+SoC Stats                        Cluster Power States                     PACC                                       24Mticks   other
+SoC Stats                        Events                                   ANE_THROTTLE_ADCLK_TRIG                    24Mticks   ane
+SoC Stats                        Events                                   ANE_THROTTLE_DITHER_TRIG                   24Mticks   ane
+SoC Stats                        Events                                   ANE_THROTTLE_EXT_TRIG0                     24Mticks   ane
+SoC Stats                        Events                                   ANE_THROTTLE_EXT_TRIG1                     24Mticks   ane
+SoC Stats                        Events                                   ANE_THROTTLE_EXT_TRIG2                     24Mticks   ane
+SoC Stats                        Events                                   ANE_THROTTLE_EXT_TRIG3                     24Mticks   ane
+SoC Stats                        Events                                   ANE_THROTTLE_HW_TRIG                       24Mticks   ane
+SoC Stats                        Events                                   ANE_THROTTLE_PPT_TRIG                      24Mticks   ane
+SoC Stats                        Events                                   ANE_THROTTLE_SW_TRIG                       24Mticks   ane

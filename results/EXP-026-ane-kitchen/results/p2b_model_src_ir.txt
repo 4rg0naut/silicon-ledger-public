@@ -1,0 +1,934 @@
+# p2b_model_src_ir — cached mpsgraph plans as readable MLIR (2026-10-10)
+# Machine: Mac17,14 M5 Max, 27.0.1/26A434.
+# Recovered by: bench/mlir_bytecode.py rewrite (specialized: no pad; original:
+#   --pad-attrs 65536, see below) + harness/p2b_mps_dialect_plugin.cpp + mlir-opt.
+# Private attribute/type VALUES using the custom encoding are stubbed
+# (loc(unknown)/i64); builtin-encoded values (mps.aneArch, mps.aneRegionsSHA,
+# shapes, function_type, dense<> constants) survive verbatim. Structure/SSA
+# wiring is fully recovered.
+# original_model_0 needs --pad-attrs because unknown ops read their 'properties'
+# as an attribute index and those bytes are not a real index; padding absorbs them.
+
+===================== original_model_0.mpsgraph (MODEL SOURCE) =====================
+module {
+  "mps.module"() <loc(unknown)> ({
+    "mps.func"() <loc(unknown)> ({
+    ^bb0(%arg0: tensor<1x128xsi32>, %arg1: tensor<1x128xsi32>):
+      %0 = "mps.constant"() <dense<[1, 1, 1, 128]> : tensor<4xsi32>> : () -> tensor<4xsi32>
+      %1 = "mps.constant"() <dense<1.000000e+00> : tensor<f16>> : () -> tensor<f16>
+      %2 = "mps.constant"() <dense<[1, 1, 128, 128]> : tensor<4xsi32>> : () -> tensor<4xsi32>
+      %3 = "mps.constant"() <dense<-6.550400e+04> : tensor<f16>> : () -> tensor<f16>
+      %4 = "mps.constant"() <loc(unknown)> : () -> tensor<1x1x128x128xi1>
+      %5 = "mps.constant"() <dense<[1, 128, 1]> : tensor<3xsi32>> : () -> tensor<3xsi32>
+      %6 = "mps.constant"() <loc(unknown)> : () -> tensor<180000x384xf16>
+      %7 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %8 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %9 = "mps.constant"() <dense<0> : tensor<5xsi32>> : () -> tensor<5xsi32>
+      %10 = "mps.constant"() <dense<[2147483647, 2147483647, 1, 2147483647, 2147483647]> : tensor<5xsi32>> : () -> tensor<5xsi32>
+      %11 = "mps.constant"() <dense<1> : tensor<5xsi32>> : () -> tensor<5xsi32>
+      %12 = "mps.constant"() <dense<[0, 0, 1, 0, 0]> : tensor<5xsi32>> : () -> tensor<5xsi32>
+      %13 = "mps.constant"() <dense<[2147483647, 2147483647, 2, 2147483647, 2147483647]> : tensor<5xsi32>> : () -> tensor<5xsi32>
+      %14 = "mps.constant"() <dense<[0, 0, 2, 0, 0]> : tensor<5xsi32>> : () -> tensor<5xsi32>
+      %15 = "mps.constant"() <dense<[2147483647, 2147483647, 3, 2147483647, 2147483647]> : tensor<5xsi32>> : () -> tensor<5xsi32>
+      %16 = "mps.constant"() <loc(unknown)> : () -> tensor<1x1x128x32xf16>
+      %17 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %18 = "mps.constant"() <dense<-1.000000e+00> : tensor<f16>> : () -> tensor<f16>
+      %19 = "mps.constant"() <loc(unknown)> : () -> tensor<1x1x128x32xf16>
+      %20 = "mps.constant"() <dense<1.767580e-01> : tensor<f16>> : () -> tensor<f16>
+      %21 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %22 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %23 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %24 = "mps.constant"() <dense<2> : tensor<si32>> : () -> tensor<si32>
+      %25 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %26 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %27 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %28 = "mps.constant"() <loc(unknown)> : () -> tensor<1x1x128x32xf16>
+      %29 = "mps.constant"() <loc(unknown)> : () -> tensor<1x1x128x32xf16>
+      %30 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %31 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %32 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %33 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %34 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %35 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %36 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %37 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %38 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %39 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %40 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %41 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %42 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %43 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %44 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %45 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %46 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %47 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %48 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %49 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %50 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %51 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %52 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %53 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %54 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %55 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %56 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %57 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %58 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %59 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %60 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %61 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %62 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %63 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %64 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %65 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %66 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %67 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %68 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %69 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %70 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %71 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %72 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %73 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %74 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %75 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %76 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %77 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %78 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %79 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %80 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %81 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %82 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %83 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %84 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %85 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %86 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %87 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %88 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %89 = "mps.constant"() <loc(unknown)> : () -> tensor<1152x384xf16>
+      %90 = "mps.constant"() <dense<[1, 128, 3, 12, 32]> : tensor<5xsi32>> : () -> tensor<5xsi32>
+      %91 = "mps.constant"() <dense<[0, 3, 2, 1, 4]> : tensor<5xsi32>> : () -> tensor<5xsi32>
+      %92 = "mps.constant"() <dense<[1, 12, 128, 32]> : tensor<4xsi32>> : () -> tensor<4xsi32>
+      %93 = "mps.constant"() <dense<16> : tensor<2xsi32>> : () -> tensor<2xsi32>
+      %94 = "mps.constant"() <dense<[12, 128, 32]> : tensor<3xsi32>> : () -> tensor<3xsi32>
+      %95 = "mps.constant"() <dense<[0, 2, 1, 3]> : tensor<4xsi32>> : () -> tensor<4xsi32>
+      %96 = "mps.constant"() <loc(unknown)> : () -> tensor<384x384xf16>
+      %97 = "mps.constant"() <dense<[128, 384]> : tensor<2xsi32>> : () -> tensor<2xsi32>
+      %98 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %99 = "mps.constant"() <loc(unknown)> : () -> tensor<3072x384xf16>
+      %100 = "mps.constant"() <dense<1536> : tensor<2xsi32>> : () -> tensor<2xsi32>
+      %101 = "mps.constant"() <loc(unknown)> : () -> tensor<384x1536xf16>
+      %102 = "mps.constant"() <loc(unknown)> : () -> tensor<384xf16>
+      %103 = "mps.constant"() <dense<0.000000e+00> : tensor<384xf16>> : () -> tensor<384xf16>
+      %104 = "mps.constant"() <dense<2> : tensor<1xsi32>> : () -> tensor<1xsi32>
+      %105 = "mps.constant"() <dense<0> : tensor<3xsi32>> : () -> tensor<3xsi32>
+      %106 = "mps.constant"() <dense<[2147483647, 1, 2147483647]> : tensor<3xsi32>> : () -> tensor<3xsi32>
+      %107 = "mps.constant"() <dense<1> : tensor<3xsi32>> : () -> tensor<3xsi32>
+      %108 = "mps.constant"() <dense<[1, 384]> : tensor<2xsi32>> : () -> tensor<2xsi32>
+      %109 = "mps.constant"() <dense<1> : tensor<1xsi32>> : () -> tensor<1xsi32>
+      %110 = "mps.constant"() <dense<1.000000e-24> : tensor<f32>> : () -> tensor<f32>
+      %111 = "mps.reshape"(%arg0, %0) <loc(unknown)> : (tensor<1x128xsi32>, tensor<4xsi32>) -> tensor<1x1x1x128xsi32>
+      %112 = "mps.cast"(%111) <f16> : (tensor<1x1x1x128xsi32>) -> tensor<1x1x1x128xf16>
+      %113 = "mps.subtract"(%1, %112) : (tensor<f16>, tensor<1x1x1x128xf16>) -> tensor<1x1x1x128xf16>
+      %114 = "mps.broadcast_to"(%113, %2) : (tensor<1x1x1x128xf16>, tensor<4xsi32>) -> tensor<1x1x128x128xf16>
+      %115 = "mps.cast"(%114) <i1> : (tensor<1x1x128x128xf16>) -> tensor<1x1x128x128xi1>
+      %116 = "mps.select"(%115, %3, %114) : (tensor<1x1x128x128xi1>, tensor<f16>, tensor<1x1x128x128xf16>) -> tensor<1x1x128x128xf16>
+      %117 = "mps.select"(%4, %3, %116) : (tensor<1x1x128x128xi1>, tensor<f16>, tensor<1x1x128x128xf16>) -> tensor<1x1x128x128xf16>
+      %118 = "mps.reshape"(%arg1, %5) <loc(unknown)> : (tensor<1x128xsi32>, tensor<3xsi32>) -> tensor<1x128x1xsi32>
+      %119 = "mps.gather_nd"(%6, %118) <loc(unknown)> : (tensor<180000x384xf16>, tensor<1x128x1xsi32>) -> tensor<1x128x384xf16>
+      %120 = "mps.layer_norm"(%119, %104, %7, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %121 = "mps.matmul"(%120, %8) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %122 = "mps.reshape"(%121, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %123 = "mps.permute"(%122, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %124 = "mps.strided_slice"(%123, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %125 = "mps.strided_slice"(%123, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %126 = "mps.strided_slice"(%123, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %127 = "mps.reshape"(%124, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %128 = "mps.reshape"(%125, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %129 = "mps.multiply"(%127, %16) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %130:2 = "mps.split"(%127, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %131 = "mps.multiply"(%130#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %132 = "mps.concat"(%131, %130#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %133 = "mps.multiply"(%132, %19) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %134 = "mps.add"(%129, %133) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %135 = "mps.multiply"(%128, %16) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %136:2 = "mps.split"(%128, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %137 = "mps.multiply"(%136#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %138 = "mps.concat"(%137, %136#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %139 = "mps.multiply"(%138, %19) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %140 = "mps.add"(%135, %139) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %141 = "mps.matmul"(%134, %140) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %142 = "mps.multiply"(%141, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %143 = "mps.add"(%142, %116) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %144 = "mps.cast"(%143) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %145 = "mps.softmax"(%144, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %146 = "mps.cast"(%145) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %147 = "mps.reshape"(%126, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %148 = "mps.matmul"(%146, %147) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %149 = "mps.permute"(%148, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %150 = "mps.reshape"(%149, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %151 = "mps.matmul"(%150, %21) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %152 = "mps.add"(%120, %151) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %153 = "mps.layer_norm"(%152, %104, %22, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %154 = "mps.matmul"(%153, %23) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %155:2 = "mps.split"(%154, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %156 = "mps.swish"(%155#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %157 = "mps.multiply"(%156, %155#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %158 = "mps.matmul"(%157, %25) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %159 = "mps.add"(%152, %158) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %160 = "mps.layer_norm"(%159, %104, %26, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %161 = "mps.matmul"(%160, %27) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %162 = "mps.reshape"(%161, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %163 = "mps.permute"(%162, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %164 = "mps.strided_slice"(%163, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %165 = "mps.strided_slice"(%163, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %166 = "mps.strided_slice"(%163, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %167 = "mps.reshape"(%164, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %168 = "mps.reshape"(%165, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %169 = "mps.multiply"(%167, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %170:2 = "mps.split"(%167, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %171 = "mps.multiply"(%170#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %172 = "mps.concat"(%171, %170#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %173 = "mps.multiply"(%172, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %174 = "mps.add"(%169, %173) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %175 = "mps.multiply"(%168, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %176:2 = "mps.split"(%168, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %177 = "mps.multiply"(%176#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %178 = "mps.concat"(%177, %176#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %179 = "mps.multiply"(%178, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %180 = "mps.add"(%175, %179) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %181 = "mps.matmul"(%174, %180) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %182 = "mps.multiply"(%181, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %183 = "mps.add"(%182, %117) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %184 = "mps.cast"(%183) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %185 = "mps.softmax"(%184, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %186 = "mps.cast"(%185) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %187 = "mps.reshape"(%166, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %188 = "mps.matmul"(%186, %187) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %189 = "mps.permute"(%188, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %190 = "mps.reshape"(%189, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %191 = "mps.matmul"(%190, %30) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %192 = "mps.add"(%159, %191) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %193 = "mps.layer_norm"(%192, %104, %31, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %194 = "mps.matmul"(%193, %32) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %195:2 = "mps.split"(%194, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %196 = "mps.swish"(%195#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %197 = "mps.multiply"(%196, %195#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %198 = "mps.matmul"(%197, %33) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %199 = "mps.add"(%192, %198) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %200 = "mps.layer_norm"(%199, %104, %34, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %201 = "mps.matmul"(%200, %35) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %202 = "mps.reshape"(%201, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %203 = "mps.permute"(%202, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %204 = "mps.strided_slice"(%203, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %205 = "mps.strided_slice"(%203, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %206 = "mps.strided_slice"(%203, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %207 = "mps.reshape"(%204, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %208 = "mps.reshape"(%205, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %209 = "mps.multiply"(%207, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %210:2 = "mps.split"(%207, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %211 = "mps.multiply"(%210#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %212 = "mps.concat"(%211, %210#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %213 = "mps.multiply"(%212, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %214 = "mps.add"(%209, %213) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %215 = "mps.multiply"(%208, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %216:2 = "mps.split"(%208, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %217 = "mps.multiply"(%216#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %218 = "mps.concat"(%217, %216#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %219 = "mps.multiply"(%218, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %220 = "mps.add"(%215, %219) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %221 = "mps.matmul"(%214, %220) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %222 = "mps.multiply"(%221, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %223 = "mps.add"(%222, %117) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %224 = "mps.cast"(%223) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %225 = "mps.softmax"(%224, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %226 = "mps.cast"(%225) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %227 = "mps.reshape"(%206, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %228 = "mps.matmul"(%226, %227) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %229 = "mps.permute"(%228, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %230 = "mps.reshape"(%229, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %231 = "mps.matmul"(%230, %36) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %232 = "mps.add"(%199, %231) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %233 = "mps.layer_norm"(%232, %104, %37, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %234 = "mps.matmul"(%233, %38) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %235:2 = "mps.split"(%234, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %236 = "mps.swish"(%235#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %237 = "mps.multiply"(%236, %235#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %238 = "mps.matmul"(%237, %39) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %239 = "mps.add"(%232, %238) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %240 = "mps.layer_norm"(%239, %104, %40, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %241 = "mps.matmul"(%240, %41) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %242 = "mps.reshape"(%241, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %243 = "mps.permute"(%242, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %244 = "mps.strided_slice"(%243, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %245 = "mps.strided_slice"(%243, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %246 = "mps.strided_slice"(%243, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %247 = "mps.reshape"(%244, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %248 = "mps.reshape"(%245, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %249 = "mps.multiply"(%247, %16) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %250:2 = "mps.split"(%247, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %251 = "mps.multiply"(%250#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %252 = "mps.concat"(%251, %250#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %253 = "mps.multiply"(%252, %19) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %254 = "mps.add"(%249, %253) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %255 = "mps.multiply"(%248, %16) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %256:2 = "mps.split"(%248, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %257 = "mps.multiply"(%256#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %258 = "mps.concat"(%257, %256#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %259 = "mps.multiply"(%258, %19) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %260 = "mps.add"(%255, %259) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %261 = "mps.matmul"(%254, %260) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %262 = "mps.multiply"(%261, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %263 = "mps.add"(%262, %116) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %264 = "mps.cast"(%263) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %265 = "mps.softmax"(%264, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %266 = "mps.cast"(%265) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %267 = "mps.reshape"(%246, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %268 = "mps.matmul"(%266, %267) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %269 = "mps.permute"(%268, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %270 = "mps.reshape"(%269, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %271 = "mps.matmul"(%270, %42) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %272 = "mps.add"(%239, %271) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %273 = "mps.layer_norm"(%272, %104, %43, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %274 = "mps.matmul"(%273, %44) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %275:2 = "mps.split"(%274, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %276 = "mps.swish"(%275#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %277 = "mps.multiply"(%276, %275#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %278 = "mps.matmul"(%277, %45) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %279 = "mps.add"(%272, %278) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %280 = "mps.layer_norm"(%279, %104, %46, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %281 = "mps.matmul"(%280, %47) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %282 = "mps.reshape"(%281, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %283 = "mps.permute"(%282, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %284 = "mps.strided_slice"(%283, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %285 = "mps.strided_slice"(%283, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %286 = "mps.strided_slice"(%283, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %287 = "mps.reshape"(%284, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %288 = "mps.reshape"(%285, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %289 = "mps.multiply"(%287, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %290:2 = "mps.split"(%287, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %291 = "mps.multiply"(%290#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %292 = "mps.concat"(%291, %290#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %293 = "mps.multiply"(%292, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %294 = "mps.add"(%289, %293) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %295 = "mps.multiply"(%288, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %296:2 = "mps.split"(%288, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %297 = "mps.multiply"(%296#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %298 = "mps.concat"(%297, %296#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %299 = "mps.multiply"(%298, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %300 = "mps.add"(%295, %299) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %301 = "mps.matmul"(%294, %300) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %302 = "mps.multiply"(%301, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %303 = "mps.add"(%302, %117) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %304 = "mps.cast"(%303) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %305 = "mps.softmax"(%304, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %306 = "mps.cast"(%305) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %307 = "mps.reshape"(%286, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %308 = "mps.matmul"(%306, %307) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %309 = "mps.permute"(%308, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %310 = "mps.reshape"(%309, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %311 = "mps.matmul"(%310, %48) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %312 = "mps.add"(%279, %311) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %313 = "mps.layer_norm"(%312, %104, %49, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %314 = "mps.matmul"(%313, %50) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %315:2 = "mps.split"(%314, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %316 = "mps.swish"(%315#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %317 = "mps.multiply"(%316, %315#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %318 = "mps.matmul"(%317, %51) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %319 = "mps.add"(%312, %318) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %320 = "mps.layer_norm"(%319, %104, %52, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %321 = "mps.matmul"(%320, %53) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %322 = "mps.reshape"(%321, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %323 = "mps.permute"(%322, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %324 = "mps.strided_slice"(%323, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %325 = "mps.strided_slice"(%323, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %326 = "mps.strided_slice"(%323, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %327 = "mps.reshape"(%324, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %328 = "mps.reshape"(%325, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %329 = "mps.multiply"(%327, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %330:2 = "mps.split"(%327, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %331 = "mps.multiply"(%330#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %332 = "mps.concat"(%331, %330#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %333 = "mps.multiply"(%332, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %334 = "mps.add"(%329, %333) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %335 = "mps.multiply"(%328, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %336:2 = "mps.split"(%328, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %337 = "mps.multiply"(%336#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %338 = "mps.concat"(%337, %336#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %339 = "mps.multiply"(%338, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %340 = "mps.add"(%335, %339) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %341 = "mps.matmul"(%334, %340) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %342 = "mps.multiply"(%341, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %343 = "mps.add"(%342, %117) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %344 = "mps.cast"(%343) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %345 = "mps.softmax"(%344, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %346 = "mps.cast"(%345) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %347 = "mps.reshape"(%326, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %348 = "mps.matmul"(%346, %347) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %349 = "mps.permute"(%348, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %350 = "mps.reshape"(%349, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %351 = "mps.matmul"(%350, %54) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %352 = "mps.add"(%319, %351) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %353 = "mps.layer_norm"(%352, %104, %55, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %354 = "mps.matmul"(%353, %56) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %355:2 = "mps.split"(%354, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %356 = "mps.swish"(%355#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %357 = "mps.multiply"(%356, %355#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %358 = "mps.matmul"(%357, %57) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %359 = "mps.add"(%352, %358) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %360 = "mps.layer_norm"(%359, %104, %58, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %361 = "mps.matmul"(%360, %59) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %362 = "mps.reshape"(%361, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %363 = "mps.permute"(%362, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %364 = "mps.strided_slice"(%363, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %365 = "mps.strided_slice"(%363, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %366 = "mps.strided_slice"(%363, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %367 = "mps.reshape"(%364, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %368 = "mps.reshape"(%365, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %369 = "mps.multiply"(%367, %16) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %370:2 = "mps.split"(%367, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %371 = "mps.multiply"(%370#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %372 = "mps.concat"(%371, %370#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %373 = "mps.multiply"(%372, %19) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %374 = "mps.add"(%369, %373) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %375 = "mps.multiply"(%368, %16) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %376:2 = "mps.split"(%368, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %377 = "mps.multiply"(%376#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %378 = "mps.concat"(%377, %376#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %379 = "mps.multiply"(%378, %19) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %380 = "mps.add"(%375, %379) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %381 = "mps.matmul"(%374, %380) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %382 = "mps.multiply"(%381, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %383 = "mps.add"(%382, %116) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %384 = "mps.cast"(%383) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %385 = "mps.softmax"(%384, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %386 = "mps.cast"(%385) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %387 = "mps.reshape"(%366, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %388 = "mps.matmul"(%386, %387) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %389 = "mps.permute"(%388, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %390 = "mps.reshape"(%389, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %391 = "mps.matmul"(%390, %60) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %392 = "mps.add"(%359, %391) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %393 = "mps.layer_norm"(%392, %104, %61, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %394 = "mps.matmul"(%393, %62) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %395:2 = "mps.split"(%394, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %396 = "mps.swish"(%395#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %397 = "mps.multiply"(%396, %395#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %398 = "mps.matmul"(%397, %63) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %399 = "mps.add"(%392, %398) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %400 = "mps.layer_norm"(%399, %104, %64, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %401 = "mps.matmul"(%400, %65) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %402 = "mps.reshape"(%401, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %403 = "mps.permute"(%402, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %404 = "mps.strided_slice"(%403, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %405 = "mps.strided_slice"(%403, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %406 = "mps.strided_slice"(%403, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %407 = "mps.reshape"(%404, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %408 = "mps.reshape"(%405, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %409 = "mps.multiply"(%407, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %410:2 = "mps.split"(%407, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %411 = "mps.multiply"(%410#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %412 = "mps.concat"(%411, %410#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %413 = "mps.multiply"(%412, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %414 = "mps.add"(%409, %413) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %415 = "mps.multiply"(%408, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %416:2 = "mps.split"(%408, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %417 = "mps.multiply"(%416#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %418 = "mps.concat"(%417, %416#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %419 = "mps.multiply"(%418, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %420 = "mps.add"(%415, %419) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %421 = "mps.matmul"(%414, %420) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %422 = "mps.multiply"(%421, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %423 = "mps.add"(%422, %117) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %424 = "mps.cast"(%423) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %425 = "mps.softmax"(%424, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %426 = "mps.cast"(%425) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %427 = "mps.reshape"(%406, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %428 = "mps.matmul"(%426, %427) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %429 = "mps.permute"(%428, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %430 = "mps.reshape"(%429, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %431 = "mps.matmul"(%430, %66) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %432 = "mps.add"(%399, %431) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %433 = "mps.layer_norm"(%432, %104, %67, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %434 = "mps.matmul"(%433, %68) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %435:2 = "mps.split"(%434, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %436 = "mps.swish"(%435#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %437 = "mps.multiply"(%436, %435#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %438 = "mps.matmul"(%437, %69) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %439 = "mps.add"(%432, %438) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %440 = "mps.layer_norm"(%439, %104, %70, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %441 = "mps.matmul"(%440, %71) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %442 = "mps.reshape"(%441, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %443 = "mps.permute"(%442, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %444 = "mps.strided_slice"(%443, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %445 = "mps.strided_slice"(%443, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %446 = "mps.strided_slice"(%443, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %447 = "mps.reshape"(%444, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %448 = "mps.reshape"(%445, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %449 = "mps.multiply"(%447, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %450:2 = "mps.split"(%447, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %451 = "mps.multiply"(%450#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %452 = "mps.concat"(%451, %450#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %453 = "mps.multiply"(%452, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %454 = "mps.add"(%449, %453) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %455 = "mps.multiply"(%448, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %456:2 = "mps.split"(%448, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %457 = "mps.multiply"(%456#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %458 = "mps.concat"(%457, %456#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %459 = "mps.multiply"(%458, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %460 = "mps.add"(%455, %459) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %461 = "mps.matmul"(%454, %460) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %462 = "mps.multiply"(%461, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %463 = "mps.add"(%462, %117) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %464 = "mps.cast"(%463) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %465 = "mps.softmax"(%464, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %466 = "mps.cast"(%465) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %467 = "mps.reshape"(%446, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %468 = "mps.matmul"(%466, %467) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %469 = "mps.permute"(%468, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %470 = "mps.reshape"(%469, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %471 = "mps.matmul"(%470, %72) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %472 = "mps.add"(%439, %471) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %473 = "mps.layer_norm"(%472, %104, %73, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %474 = "mps.matmul"(%473, %74) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %475:2 = "mps.split"(%474, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %476 = "mps.swish"(%475#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %477 = "mps.multiply"(%476, %475#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %478 = "mps.matmul"(%477, %75) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %479 = "mps.add"(%472, %478) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %480 = "mps.layer_norm"(%479, %104, %76, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %481 = "mps.matmul"(%480, %77) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %482 = "mps.reshape"(%481, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %483 = "mps.permute"(%482, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %484 = "mps.strided_slice"(%483, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %485 = "mps.strided_slice"(%483, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %486 = "mps.strided_slice"(%483, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %487 = "mps.reshape"(%484, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %488 = "mps.reshape"(%485, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %489 = "mps.multiply"(%487, %16) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %490:2 = "mps.split"(%487, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %491 = "mps.multiply"(%490#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %492 = "mps.concat"(%491, %490#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %493 = "mps.multiply"(%492, %19) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %494 = "mps.add"(%489, %493) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %495 = "mps.multiply"(%488, %16) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %496:2 = "mps.split"(%488, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %497 = "mps.multiply"(%496#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %498 = "mps.concat"(%497, %496#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %499 = "mps.multiply"(%498, %19) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %500 = "mps.add"(%495, %499) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %501 = "mps.matmul"(%494, %500) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %502 = "mps.multiply"(%501, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %503 = "mps.add"(%502, %116) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %504 = "mps.cast"(%503) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %505 = "mps.softmax"(%504, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %506 = "mps.cast"(%505) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %507 = "mps.reshape"(%486, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %508 = "mps.matmul"(%506, %507) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %509 = "mps.permute"(%508, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %510 = "mps.reshape"(%509, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %511 = "mps.matmul"(%510, %78) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %512 = "mps.add"(%479, %511) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %513 = "mps.layer_norm"(%512, %104, %79, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %514 = "mps.matmul"(%513, %80) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %515:2 = "mps.split"(%514, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %516 = "mps.swish"(%515#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %517 = "mps.multiply"(%516, %515#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %518 = "mps.matmul"(%517, %81) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %519 = "mps.add"(%512, %518) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %520 = "mps.layer_norm"(%519, %104, %82, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %521 = "mps.matmul"(%520, %83) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %522 = "mps.reshape"(%521, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %523 = "mps.permute"(%522, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %524 = "mps.strided_slice"(%523, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %525 = "mps.strided_slice"(%523, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %526 = "mps.strided_slice"(%523, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %527 = "mps.reshape"(%524, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %528 = "mps.reshape"(%525, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %529 = "mps.multiply"(%527, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %530:2 = "mps.split"(%527, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %531 = "mps.multiply"(%530#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %532 = "mps.concat"(%531, %530#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %533 = "mps.multiply"(%532, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %534 = "mps.add"(%529, %533) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %535 = "mps.multiply"(%528, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %536:2 = "mps.split"(%528, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %537 = "mps.multiply"(%536#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %538 = "mps.concat"(%537, %536#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %539 = "mps.multiply"(%538, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %540 = "mps.add"(%535, %539) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %541 = "mps.matmul"(%534, %540) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %542 = "mps.multiply"(%541, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %543 = "mps.add"(%542, %117) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %544 = "mps.cast"(%543) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %545 = "mps.softmax"(%544, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %546 = "mps.cast"(%545) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %547 = "mps.reshape"(%526, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %548 = "mps.matmul"(%546, %547) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %549 = "mps.permute"(%548, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %550 = "mps.reshape"(%549, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %551 = "mps.matmul"(%550, %84) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %552 = "mps.add"(%519, %551) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %553 = "mps.layer_norm"(%552, %104, %85, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %554 = "mps.matmul"(%553, %86) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %555:2 = "mps.split"(%554, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %556 = "mps.swish"(%555#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %557 = "mps.multiply"(%556, %555#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %558 = "mps.matmul"(%557, %87) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %559 = "mps.add"(%552, %558) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %560 = "mps.layer_norm"(%559, %104, %88, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %561 = "mps.matmul"(%560, %89) <true> : (tensor<1x128x384xf16>, tensor<1152x384xf16>) -> tensor<1x128x1152xf16>
+      %562 = "mps.reshape"(%561, %90) <loc(unknown)> : (tensor<1x128x1152xf16>, tensor<5xsi32>) -> tensor<1x128x3x12x32xf16>
+      %563 = "mps.permute"(%562, %91) : (tensor<1x128x3x12x32xf16>, tensor<5xsi32>) -> tensor<1x12x3x128x32xf16>
+      %564 = "mps.strided_slice"(%563, %9, %10, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %565 = "mps.strided_slice"(%563, %12, %13, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %566 = "mps.strided_slice"(%563, %14, %15, %11) <0 : ui32> : (tensor<1x12x3x128x32xf16>, tensor<5xsi32>, tensor<5xsi32>, tensor<5xsi32>) -> tensor<1x12x1x128x32xf16>
+      %567 = "mps.reshape"(%564, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %568 = "mps.reshape"(%565, %92) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<4xsi32>) -> tensor<1x12x128x32xf16>
+      %569 = "mps.multiply"(%567, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %570:2 = "mps.split"(%567, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %571 = "mps.multiply"(%570#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %572 = "mps.concat"(%571, %570#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %573 = "mps.multiply"(%572, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %574 = "mps.add"(%569, %573) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %575 = "mps.multiply"(%568, %28) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %576:2 = "mps.split"(%568, %17, %93) <loc(unknown)> : (tensor<1x12x128x32xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>)
+      %577 = "mps.multiply"(%576#1, %18) : (tensor<1x12x128x16xf16>, tensor<f16>) -> tensor<1x12x128x16xf16>
+      %578 = "mps.concat"(%577, %576#0, %17) <loc(unknown)> : (tensor<1x12x128x16xf16>, tensor<1x12x128x16xf16>, tensor<si32>) -> tensor<1x12x128x32xf16>
+      %579 = "mps.multiply"(%578, %29) : (tensor<1x12x128x32xf16>, tensor<1x1x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %580 = "mps.add"(%575, %579) : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %581 = "mps.matmul"(%574, %580) <true> : (tensor<1x12x128x32xf16>, tensor<1x12x128x32xf16>) -> tensor<1x12x128x128xf16>
+      %582 = "mps.multiply"(%581, %20) : (tensor<1x12x128x128xf16>, tensor<f16>) -> tensor<1x12x128x128xf16>
+      %583 = "mps.add"(%582, %117) : (tensor<1x12x128x128xf16>, tensor<1x1x128x128xf16>) -> tensor<1x12x128x128xf16>
+      %584 = "mps.cast"(%583) <f32> : (tensor<1x12x128x128xf16>) -> tensor<1x12x128x128xf32>
+      %585 = "mps.softmax"(%584, %17) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      %586 = "mps.cast"(%585) <f16> : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf16>
+      %587 = "mps.reshape"(%566, %94) <loc(unknown)> : (tensor<1x12x1x128x32xf16>, tensor<3xsi32>) -> tensor<12x128x32xf16>
+      %588 = "mps.matmul"(%586, %587) <true> : (tensor<1x12x128x128xf16>, tensor<12x128x32xf16>) -> tensor<1x12x128x32xf16>
+      %589 = "mps.permute"(%588, %95) : (tensor<1x12x128x32xf16>, tensor<4xsi32>) -> tensor<1x128x12x32xf16>
+      %590 = "mps.reshape"(%589, %97) <loc(unknown)> : (tensor<1x128x12x32xf16>, tensor<2xsi32>) -> tensor<128x384xf16>
+      %591 = "mps.matmul"(%590, %96) <true> : (tensor<128x384xf16>, tensor<384x384xf16>) -> tensor<128x384xf16>
+      %592 = "mps.add"(%559, %591) : (tensor<1x128x384xf16>, tensor<128x384xf16>) -> tensor<1x128x384xf16>
+      %593 = "mps.layer_norm"(%592, %104, %98, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %594 = "mps.matmul"(%593, %99) <true> : (tensor<1x128x384xf16>, tensor<3072x384xf16>) -> tensor<1x128x3072xf16>
+      %595:2 = "mps.split"(%594, %24, %100) <loc(unknown)> : (tensor<1x128x3072xf16>, tensor<si32>, tensor<2xsi32>) -> (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>)
+      %596 = "mps.swish"(%595#0) : (tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %597 = "mps.multiply"(%596, %595#1) : (tensor<1x128x1536xf16>, tensor<1x128x1536xf16>) -> tensor<1x128x1536xf16>
+      %598 = "mps.matmul"(%597, %101) <true> : (tensor<1x128x1536xf16>, tensor<384x1536xf16>) -> tensor<1x128x384xf16>
+      %599 = "mps.add"(%592, %598) : (tensor<1x128x384xf16>, tensor<1x128x384xf16>) -> tensor<1x128x384xf16>
+      %600 = "mps.layer_norm"(%599, %104, %102, %103) <loc(unknown)> : (tensor<1x128x384xf16>, tensor<1xsi32>, tensor<384xf16>, tensor<384xf16>) -> tensor<1x128x384xf16>
+      %601 = "mps.strided_slice"(%600, %105, %106, %107) <0 : ui32> : (tensor<1x128x384xf16>, tensor<3xsi32>, tensor<3xsi32>, tensor<3xsi32>) -> tensor<1x1x384xf16>
+      %602 = "mps.reshape"(%601, %108) <loc(unknown)> : (tensor<1x1x384xf16>, tensor<2xsi32>) -> tensor<1x384xf16>
+      %603 = "mps.cast"(%602) <f32> : (tensor<1x384xf16>) -> tensor<1x384xf32>
+      %604 = "mps.square"(%603) : (tensor<1x384xf32>) -> tensor<1x384xf32>
+      %605 = "mps.reduction_sum"(%604, %109) <loc(unknown)> : (tensor<1x384xf32>, tensor<1xsi32>) -> tensor<1x1xf32>
+      %606 = "mps.maximum"(%605, %110) : (tensor<1x1xf32>, tensor<f32>) -> tensor<1x1xf32>
+      %607 = "mps.reciprocal_square_root"(%606) : (tensor<1x1xf32>) -> tensor<1x1xf32>
+      %608 = "mps.multiply"(%603, %607) : (tensor<1x384xf32>, tensor<1x1xf32>) -> tensor<1x384xf32>
+      "mps.return"(%608) : (tensor<1x384xf32>) -> ()
+    }) {mps.aneAlignedIO} : () -> ()
+  }) : () -> ()
+}
+
+
+===================== specialized_model_1.mpsgraph (PLACEMENT) =====================
+#loc = loc(unknown)
+#map = affine_map<(d0, d1, d2, d3) -> (d0 * 393216 + d1 * 32768 + d2 * 256 + d3)>
+module attributes {mps.addUniqueIdToMLIRLocations = true, mps.allowedComputeDevices = 7 : ui64, mps.aneArch = "h17c", mps.aneBondedCompileMode = 0 : ui32, mps.aneCompilerSpatialSplitting = 3 : ui64, mps.aneEnableFWToFWSignal = false, mps.aneEnableLateLatch = false, mps.aneRegionsSHA = "E1600E8CEF5F1AFB09E45A7C325356363973E1BC1B4B81CCCC8B6DDC4A7C555B_29F7C846BA972D7968980561B8F32805B086F42DD5D251F0F8CF3D430B8EC9F2", mps.callablesHash = 0 : i64, mps.compilerOptions = 1691023 : ui64, mps.deviceArchitecture = "h17c", mps.deviceGPUCoreCount = 40 : si64, mps.deviceType = 0 : ui64, mps.enableANECHWRankPromotion = true, mps.enableANECValidationWorkflow = true, mps.enableCompileResourcesForPackage = true, mps.enableMLIRDiagnostics = false, mps.enableParallelEncode = true, mps.enableShapeEquivalence = false, mps.includeDebugInfo = false, mps.maximumNumberOfParallelEncodingRegions = 1 : ui64, mps.minimumNumberOfOpsInParallelRegion = 100 : ui64, mps.optimizationLevel = 1 : ui64, mps.optimizationProfile = 0 : ui64, mps.preferredDevice = 2 : ui64, mps.reducedPrecisionFastMath = 0 : ui64, mps.sdkInfo = 4296736768 : ui64, mps.shapeFunctionCount = 0 : i64, mps.useANELLIR = true} {
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x1x1x128xf16>, memref<1x1x128x384xf16>) -> (memref<1x1x128x128xf16>, memref<1x1x128x128xf16>, memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_1_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_2_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_3_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_4_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_5_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_6_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_7_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_8_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_9_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_10_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>), is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_11_0"} : () -> ()
+  "mpsx.ane"() ({
+  }) {ane_family = "A18", function_type = (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>) -> memref<1x1x1x384xf32>, is_external, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_12_0"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x128xsi32>, %arg1: tensor<1x128xsi32>):
+    %c0 = arith.constant 0 : index
+    %0 = "mps.constant"() <#loc> : () -> tensor<180000x384xf16>
+    %1 = "mps.constant"() <dense<[1, 128, 1]> : tensor<3xsi32>> : () -> tensor<3xsi32>
+    %2 = "mps.constant"() <dense<[1, 1, 1, 128]> : tensor<4xsi32>> : () -> tensor<4xsi32>
+    %alloc = memref.alloc() : memref<16384xi8>
+    %view = memref.view %alloc[%c0][] : memref<16384xi8> to memref<1x1x1x128xsi32>
+    "mpsx.memref_backed"(%view) ({
+      %7 = "mps.reshape"(%arg0, %2) <"op_id"> : (tensor<1x128xsi32>, tensor<4xsi32>) -> tensor<1x1x1x128xsi32>
+      "mpsx.use_memref"(%7) : (tensor<1x1x1x128xsi32>) -> ()
+    }) : (memref<1x1x1x128xsi32>) -> ()
+    %3 = "placement.memref_to_tensor"(%view) : (memref<1x1x1x128xsi32>) -> tensor<1x1x1x128xsi32>
+    %4 = "mpsx.stitched"() ({
+      %7 = "mps.cast"(%3) <f16> : (tensor<1x1x1x128xsi32>) -> tensor<1x1x1x128xf16>
+      %8 = "mps.identity"(%7) : (tensor<1x1x1x128xf16>) -> tensor<1x1x1x128xf16>
+      "mpsx.stitched_return"(%8) : (tensor<1x1x1x128xf16>) -> ()
+    }) : () -> tensor<1x1x1x128xf16>
+    memref.dealloc %view : memref<1x1x1x128xsi32>
+    %view_0 = memref.view %alloc[%c0][] : memref<16384xi8> to memref<1x128x1xsi32>
+    "mpsx.memref_backed"(%view_0) ({
+      %7 = "mps.reshape"(%arg1, %1) <"op_id"> : (tensor<1x128xsi32>, tensor<3xsi32>) -> tensor<1x128x1xsi32>
+      "mpsx.use_memref"(%7) : (tensor<1x128x1xsi32>) -> ()
+    }) : (memref<1x128x1xsi32>) -> ()
+    %5 = "placement.memref_to_tensor"(%view_0) : (memref<1x128x1xsi32>) -> tensor<1x128x1xsi32>
+    %6 = "mps.gather_nd"(%0, %5) <"op_id"> : (tensor<180000x384xf16>, tensor<1x128x1xsi32>) -> tensor<1x128x384xf16>
+    "mpsx.region_return"(%4, %6) : (tensor<1x1x1x128xf16>, tensor<1x128x384xf16>) -> ()
+  }) {function_type = (tensor<1x128xsi32>, tensor<1x128xsi32>) -> (tensor<1x1x1x128xf16>, tensor<1x128x384xf16>), sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_0"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_1"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_2"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_3"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_4"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_5"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_6"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_7"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_8"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_9"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_10"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_11"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x12x128x128xf32>):
+    %0 = "mpsx.stitched"() ({
+      %1 = "mps.constant"() <dense<3> : tensor<si32>> : () -> tensor<si32>
+      %2 = "mps.softmax"(%arg0, %1) : (tensor<1x12x128x128xf32>, tensor<si32>) -> tensor<1x12x128x128xf32>
+      "mpsx.stitched_return"(%2) : (tensor<1x12x128x128xf32>) -> ()
+    }) : () -> tensor<1x12x128x128xf32>
+    "mpsx.region_return"(%0) : (tensor<1x12x128x128xf32>) -> ()
+  }) {function_type = (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_12"} : () -> ()
+  "mpsx.gpu"() ({
+  ^bb0(%arg0: tensor<1x384xf32>):
+    %c0 = arith.constant 0 : index
+    %0 = "mps.constant"() <dense<1> : tensor<1xsi32>> : () -> tensor<1xsi32>
+    %alloc = memref.alloc() : memref<16384xi8>
+    %view = memref.view %alloc[%c0][] : memref<16384xi8> to memref<1x1xf32>
+    "mpsx.memref_backed"(%view) ({
+      %3 = "mpsx.stitched"() ({
+        %4 = "mps.constant"() <dense<1.000000e-24> : tensor<f32>> : () -> tensor<f32>
+        %5 = "mps.square"(%arg0) : (tensor<1x384xf32>) -> tensor<1x384xf32>
+        %6 = "mps.reduction_sum"(%5, %0) <{resultElementType = f16}> : (tensor<1x384xf32>, tensor<1xsi32>) -> tensor<1x1xf32>
+        %7 = "mps.maximum"(%6, %4) : (tensor<1x1xf32>, tensor<f32>) -> tensor<1x1xf32>
+        %8 = "mps.reciprocal_square_root"(%7) : (tensor<1x1xf32>) -> tensor<1x1xf32>
+        "mpsx.stitched_return"(%8) : (tensor<1x1xf32>) -> ()
+      }) : () -> tensor<1x1xf32>
+      "mpsx.use_memref"(%3) : (tensor<1x1xf32>) -> ()
+    }) : (memref<1x1xf32>) -> ()
+    %1 = "placement.memref_to_tensor"(%view) : (memref<1x1xf32>) -> tensor<1x1xf32>
+    %2 = "mpsx.stitched"() ({
+      %3 = "mps.multiply"(%arg0, %1) : (tensor<1x384xf32>, tensor<1x1xf32>) -> tensor<1x384xf32>
+      %4 = "mps.identity"(%3) : (tensor<1x384xf32>) -> tensor<1x384xf32>
+      "mpsx.stitched_return"(%4) : (tensor<1x384xf32>) -> ()
+    }) : () -> tensor<1x384xf32>
+    memref.dealloc %view : memref<1x1xf32>
+    "mpsx.region_return"(%2) : (tensor<1x384xf32>) -> ()
+  }) {function_type = (tensor<1x384xf32>) -> tensor<1x384xf32>, sym_name = "main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_13"} : () -> ()
+  func.func @main_9wemocz7YmEwKSHhsD5JpQ_0(%arg0: tensor<1x128xsi32>, %arg1: tensor<1x128xsi32>) -> tensor<1x384xf32> attributes {mps.aneAlignedIO, mps.disablePreAllocate} {
+    %0:2 = "placement.region_call"(%arg0, %arg1) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_0, output_names = [unit, unit], region_type = #loc} : (tensor<1x128xsi32>, tensor<1x128xsi32>) -> (tensor<1x1x1x128xf16>, tensor<1x128x384xf16>)
+    %1 = "placement.tensor_to_memref"(%0#0) : (tensor<1x1x1x128xf16>) -> memref<1x1x1x128xf16>
+    %2 = "placement.tensor_to_memref"(%0#1) {shape = dense<[1, 1, 128, 384]> : tensor<4xui64>} : (tensor<1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %3:5 = "placement.region_call"(%1, %2) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_0_0, mps.regionSHA = "71516BDA0014EFACF9BE109F7EB07067743ED8A1342A1D9FC85F33859961B8CE_167169F3FE22B6D05D6028535D63DB2676AACBC4243334E3CEB7F7E226CB8782", region_type = #loc} : (memref<1x1x1x128xf16>, memref<1x1x128x384xf16>) -> (memref<1x1x128x128xf16>, memref<1x1x128x128xf16>, memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %4 = "placement.memref_to_tensor"(%3#0) : (memref<1x1x128x128xf16>) -> tensor<1x1x128x128xf16>
+    %5 = "placement.tensor_to_memref"(%4) : (tensor<1x1x128x128xf16>) -> memref<1x1x128x128xf16>
+    %6 = "placement.memref_to_tensor"(%3#1) : (memref<1x1x128x128xf16>) -> tensor<1x1x128x128xf16>
+    %7 = "placement.tensor_to_memref"(%6) : (tensor<1x1x128x128xf16>) -> memref<1x1x128x128xf16>
+    %8 = "placement.memref_to_tensor"(%3#2) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %9 = "placement.tensor_to_memref"(%8) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %10 = "placement.memref_to_tensor"(%3#3) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %11 = "placement.region_call"(%10) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_1, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %12 = "placement.memref_to_tensor"(%3#4) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %13 = "placement.tensor_to_memref"(%12) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %14 = "placement.tensor_to_memref"(%11) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %15:3 = "placement.region_call"(%14, %13, %9, %7) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_1_0, mps.regionSHA = "ED4C673A8CB00B5A335F299C3794097D69A49DAD4A208516DB1988BC1371B1AD_A1E35AEFA47C0B116A457E9B4CF51B195D15B7511B11D19660F50F7BEBC45059", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %16 = "placement.memref_to_tensor"(%15#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %17 = "placement.tensor_to_memref"(%16) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %18 = "placement.memref_to_tensor"(%15#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %19 = "placement.region_call"(%18) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_2, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %20 = "placement.memref_to_tensor"(%15#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %21 = "placement.tensor_to_memref"(%20) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %22 = "placement.tensor_to_memref"(%19) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %23:3 = "placement.region_call"(%22, %21, %17, %7) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_2_0, mps.regionSHA = "8FF1D95F136D573C9DDF8EB0F3FBA67B309A11E04016036CE1AACB7C94A6E3FD_8F7CCAC806E8B3B4177846C7B2BD8AC43BB879CF28708D5DF80484B2812B5C28", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %24 = "placement.memref_to_tensor"(%23#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %25 = "placement.tensor_to_memref"(%24) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %26 = "placement.memref_to_tensor"(%23#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %27 = "placement.region_call"(%26) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_3, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %28 = "placement.memref_to_tensor"(%23#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %29 = "placement.tensor_to_memref"(%28) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %30 = "placement.tensor_to_memref"(%27) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %31:3 = "placement.region_call"(%30, %29, %25, %5) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_3_0, mps.regionSHA = "578A49A88DB3B10406B613CC7C9E8E5DD8A6FABB35D186BD084CF39BAB813DCD_4A545C5B2865AE7F5107C8B5062AF9807912F67F4444F6E4B36E158CF8D5F082", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %32 = "placement.memref_to_tensor"(%31#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %33 = "placement.tensor_to_memref"(%32) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %34 = "placement.memref_to_tensor"(%31#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %35 = "placement.region_call"(%34) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_4, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %36 = "placement.memref_to_tensor"(%31#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %37 = "placement.tensor_to_memref"(%36) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %38 = "placement.tensor_to_memref"(%35) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %39:3 = "placement.region_call"(%38, %37, %33, %7) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_4_0, mps.regionSHA = "E42946B8C4AD9A90ECD00AE2D93D6C96226A93E77B471A188AD8045F1D081505_5CE987390321B46DCDD74C2CB99B19CA0DDC89F8B36978A6F906332B2365EBF3", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %40 = "placement.memref_to_tensor"(%39#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %41 = "placement.tensor_to_memref"(%40) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %42 = "placement.memref_to_tensor"(%39#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %43 = "placement.region_call"(%42) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_5, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %44 = "placement.memref_to_tensor"(%39#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %45 = "placement.tensor_to_memref"(%44) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %46 = "placement.tensor_to_memref"(%43) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %47:3 = "placement.region_call"(%46, %45, %41, %7) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_5_0, mps.regionSHA = "F906519F8EE8127B8881A0724569564B582664FE7D3A9115009B22635346DD76_D9F653995B77D6BFBB3B19FB1CAD8A2BBFA9D2DAD6F5AE7D9AF6A985AA29D666", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %48 = "placement.memref_to_tensor"(%47#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %49 = "placement.tensor_to_memref"(%48) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %50 = "placement.memref_to_tensor"(%47#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %51 = "placement.region_call"(%50) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_6, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %52 = "placement.memref_to_tensor"(%47#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %53 = "placement.tensor_to_memref"(%52) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %54 = "placement.tensor_to_memref"(%51) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %55:3 = "placement.region_call"(%54, %53, %49, %5) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_6_0, mps.regionSHA = "50C7A2D49CF2E21FF91DCBEB5910270B73BE89C391F7F82693B68815C9982E26_9968D385FD072C75181646418F436615C64F2411CF9D6112F3F218A9692A6B17", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %56 = "placement.memref_to_tensor"(%55#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %57 = "placement.tensor_to_memref"(%56) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %58 = "placement.memref_to_tensor"(%55#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %59 = "placement.region_call"(%58) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_7, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %60 = "placement.memref_to_tensor"(%55#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %61 = "placement.tensor_to_memref"(%60) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %62 = "placement.tensor_to_memref"(%59) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %63:3 = "placement.region_call"(%62, %61, %57, %7) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_7_0, mps.regionSHA = "8EDBAB9CEDFFCE9DBAD33588385F9A8A0E13B9B95C4425ABC6891031E9B0CCCB_8AC4965E3B265C9C38F6B32AEFEEEE24A4DEBBBE963D48CF92D5FEF611841BBC", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %64 = "placement.memref_to_tensor"(%63#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %65 = "placement.tensor_to_memref"(%64) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %66 = "placement.memref_to_tensor"(%63#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %67 = "placement.region_call"(%66) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_8, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %68 = "placement.memref_to_tensor"(%63#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %69 = "placement.tensor_to_memref"(%68) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %70 = "placement.tensor_to_memref"(%67) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %71:3 = "placement.region_call"(%70, %69, %65, %7) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_8_0, mps.regionSHA = "394384951A027EBA98AB5BF53F30F62375BC3352D89F6293F405F09A4434C3BD_8202B4332D04C6BFAC2C087D58AA5295706FDE8DB8FAD90FD27339E46CDE32CA", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %72 = "placement.memref_to_tensor"(%71#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %73 = "placement.tensor_to_memref"(%72) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %74 = "placement.memref_to_tensor"(%71#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %75 = "placement.region_call"(%74) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_9, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %76 = "placement.memref_to_tensor"(%71#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %77 = "placement.tensor_to_memref"(%76) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %78 = "placement.tensor_to_memref"(%75) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %79:3 = "placement.region_call"(%78, %77, %73, %5) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_9_0, mps.regionSHA = "49875245337F9145DA30F3355434DA00BA2BED3F741C7DD7A9F8A61CDCF2D83C_01871CB5B189A6B82FF8DD960E2361FB99076AE0F2CA96630689AB685CAAE44F", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %80 = "placement.memref_to_tensor"(%79#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %81 = "placement.tensor_to_memref"(%80) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %82 = "placement.memref_to_tensor"(%79#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %83 = "placement.region_call"(%82) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_10, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %84 = "placement.memref_to_tensor"(%79#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %85 = "placement.tensor_to_memref"(%84) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %86 = "placement.tensor_to_memref"(%83) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %87:3 = "placement.region_call"(%86, %85, %81, %7) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_10_0, mps.regionSHA = "1CE4936F183547FCCC1D47386916BB0B88C5F03CCACF770A140B868B4D4F04E9_CABDF0213684B5C269A7FCB225C79D697F2F27B26FA032D6BFD4EF0FD7CC5248", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %88 = "placement.memref_to_tensor"(%87#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %89 = "placement.tensor_to_memref"(%88) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %90 = "placement.memref_to_tensor"(%87#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %91 = "placement.region_call"(%90) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_11, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %92 = "placement.memref_to_tensor"(%87#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %93 = "placement.tensor_to_memref"(%92) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %94 = "placement.tensor_to_memref"(%91) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %95:3 = "placement.region_call"(%94, %93, %89, %7) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_11_0, mps.regionSHA = "41005E7722573A647EF25D75C42360ED522E30858C018EAEA412E90D2F1B7AFA_EE34CB005C7D13F768769CA68C1AAF1B0E7FCE72B3EAD28E9340D6AAEFE72417", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>, memref<1x1x128x128xf16>) -> (memref<1x1x128x384xf16>, memref<1x12x128x128xf32>, memref<1x12x128x32xf16>)
+    %96 = "placement.memref_to_tensor"(%95#0) : (memref<1x1x128x384xf16>) -> tensor<1x1x128x384xf16>
+    %97 = "placement.tensor_to_memref"(%96) : (tensor<1x1x128x384xf16>) -> memref<1x1x128x384xf16>
+    %98 = "placement.memref_to_tensor"(%95#1) : (memref<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %99 = "placement.region_call"(%98) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_12, output_names = [unit], region_type = #loc} : (tensor<1x12x128x128xf32>) -> tensor<1x12x128x128xf32>
+    %100 = "placement.memref_to_tensor"(%95#2) : (memref<1x12x128x32xf16>) -> tensor<1x12x128x32xf16>
+    %101 = "placement.tensor_to_memref"(%100) : (tensor<1x12x128x32xf16>) -> memref<1x12x128x32xf16>
+    %102 = "placement.tensor_to_memref"(%99) {resultElementType = f16} : (tensor<1x12x128x128xf32>) -> memref<1x12x128x128xf16, #map>
+    %103 = "placement.region_call"(%102, %101, %97) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_ANE_region_12_0, mps.regionSHA = "336F33E5C1E9913E7500B895562A219C9B37B513ED2778C1B0A7D306EDABD1B5_0C684AE72CE478FB4B8C1DFE394F80ECC9A251BAE2E04099F1CB4AE7AF9D4CC9", region_type = #loc} : (memref<1x12x128x128xf16, #map>, memref<1x12x128x32xf16>, memref<1x1x128x384xf16>) -> memref<1x1x1x384xf32>
+    %104 = "placement.memref_to_tensor"(%103) {shape = dense<[1, 384]> : tensor<2xui64>} : (memref<1x1x1x384xf32>) -> tensor<1x384xf32>
+    %105 = "placement.region_call"(%104) {callee = @main_9wemocz7YmEwKSHhsD5JpQ_0_GPU_region_13, output_names = [unit], region_type = #loc} : (tensor<1x384xf32>) -> tensor<1x384xf32>
+    return %105 : tensor<1x384xf32>
+  }
+}
+

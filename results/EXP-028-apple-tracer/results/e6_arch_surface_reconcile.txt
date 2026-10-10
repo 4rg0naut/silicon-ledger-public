@@ -1,0 +1,87 @@
+E6 — ARCH SURFACE RECONCILE: which string is the ANE identity? (2026-10-10, CROSS-CHIP)
+=====================================================================================
+Two boxes, same OS build (control), different silicon. All runs user-level, unprivileged.
+
+  A: Mac17,14  Apple M5 Max  boardType 544   macOS 27.0.1 / 26A434  (Studio)
+  B: Mac16,10  Apple M4      boardType 256   macOS 27.0.1 / 26A434  (mini, via ssh)
+
+QUESTION. arXiv:2606.22283 / "Apple Neural Engine: Architecture, Programming, and
+Performance" (v2, 2026-08-18; ane-guide.readthedocs.io) publishes the 28 compiler
+targets (H16=4, H16g=8, H16s=16, H16c=32; H17 likewise) and a resolver-derived
+chip->target table (ch34 Table 34.3: M4 -> h16, M4 Pro/Max -> h16g, M5 Pro/Max ->
+h17s). Our parts have asked for other strings. Settle it on two boxes.
+
+METHOD — four independent surfaces.
+  R1 private device-info   : bench/ane-probe.m -> _ANEDeviceInfo (aneArchitectureType)
+  R2 public compiler tool  : /usr/bin/mpsgraphtool convert -specializeForDevice ->
+                             specialized_model_N.mpsgraph string section (mps.aneArch)
+  R3 public Core AI API    : arch_probe.swift / harness p28_run_bin ->
+                             AIModel.deviceArchitectureName
+  R4 Core AI AOT gate      : arch_probe / p28_run_bin loading built .aimodelc bundles;
+                             the load error names (device, asset)
+
+RESULTS
+
+  surface                              A: M5 Max     B: M4 mini
+  R1 _ANEDeviceInfo.aneArchitectureType **h17g**     **h16g**
+  R1 _ANEDeviceInfo.aneSubType          h17           h16
+  R1 _ANEDeviceInfo.numANECores         16            16
+  R1 _ANEDeviceInfo.aneBoardType        544           256
+  R2 mpsgraphtool mps.aneArch           **h17c**     **h16g**
+  R3 AIModel.deviceArchitectureName     **h17c**     **h16g**
+  R4 AOT accepted set                   {h17c}        {h16g}
+
+  A R4 rejected (each named): h13c h13d h13g h13s h14c h14d h14g h14s h15c h15d h15g
+    h15m h15s h16c h16g h16s h17d h17g h17p h17s h18g  (21 targets; only h17c loads).
+  B R4 rejected: h15g, h16c, h16s, h17c  (each: incompatibleCompiledAssetArchitecture(
+    device: "h16g", asset: ["<t>"])); h16g loads.
+
+  Verbatim error form (both boxes):
+    CoreAIDelegates.AIModelError.incompatibleCompiledAssetArchitecture(device: X, asset: [Y])
+
+FINDINGS
+
+  1. The **compiler target** is AIModel.deviceArchitectureName, corroborated by
+     mpsgraphtool's mps.aneArch, and **enforced** by the AOT gate — three compiler-side
+     surfaces agree per box: **M5 Max = h17c**, **M4 mini = h16g**. The gate accepts
+     exactly ONE target per box (not a range).
+  2. The private `_ANEDeviceInfo.aneArchitectureType` returns the **"g" form on BOTH
+     boxes** (h16g, h17g). It therefore **agrees** with the compiler target on the M4
+     (h16g) but **diverges** on the M5 Max (h17g vs h17c). The single-box reading of
+     2026-10-10 ("runtime string is a separate identifier") is only half-right: the
+     two surfaces coincide on h16 and split only on h17/M5 Max, so the private
+     selector does not carry the per-part compiler class on h17.
+  3. Guide ch34 Table 34.3 is contradicted on **both** our parts, not just one:
+       - M4 base (Mac16,10): observed **h16g**, table says `h16`.
+       - M5 Pro/Max (Mac17,14): observed **h17c**, table says `h17s`.
+     The table's M4-base row and its M4/M5 Max lumping both miss these parts. (The
+     guide's suffix->core decode is the compiler per-die field, explicitly not the
+     API-visible count; our numANECores = 16 on both.)
+  4. `coreai-build compile --architecture h16` is **rejected** ("Unknown architecture
+     'h16'") on 26A434 — the bare base target name is not accepted by the AOT tool,
+     even though the guide lists `H16` as a target.
+
+NOTES / CAVEATS
+  - Same OS build (26A434) on both boxes, so the split is silicon/part-keyed, not
+    OS-keyed.
+  - R2 on the mini: the fp32 `minilm128.mlpackage` fails ANE validation under
+    -specializeForDevice (com.apple.appleneuralengine Code=53) and emits no
+    specialized_model; R2 was taken from `deep_fp16.aimodel` (mpsgraphtool accepts
+    -aimodel), which specializes cleanly to h16g.
+  - The rejected assets are our own well-formed AOT builds (the gate names each
+    target's own arch), so the gate is exercised on valid input, not malformed.
+  - Two parts only (M4 base, M5 Max), one OS build. M4 Pro/Max and M5 base/Pro
+    untested; the guide's h17s anchor (M5 Pro) is not contradicted by anything here.
+
+REPRODUCE
+  A: clang -O2 -o ane-probe bench/ane-probe.m -framework Foundation; ./ane-probe
+     swiftc -O harness/p28_coreai_run/main.swift -o harness/p28_run_bin
+     mpsgraphtool convert -coremlpackage models/minilm128.mlpackage -path OUT \
+        -packageName minilm128spec -specializeForDevice
+     for d in work/exports/granite-rebake-p3/aot/*.aimodelc; do p28_run_bin "$d" 1; done
+  B: scp probe set + deep_fp16.aimodel to mini; build ane-probe (clang) and arch_probe
+     (DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer swiftc -O)
+     coreai-build compile deep_fp16.aimodel --output aot/$a --preferred-compute \
+        neural-engine --architecture $a    for a in h16g h16s h16c h17c h15g
+     mpsgraphtool convert -aimodel deep_fp16.aimodel -path OUT -packageName deepfp16spec \
+        -specializeForDevice

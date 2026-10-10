@@ -1,0 +1,10 @@
+# NX-C counter windows (enginemon v2.1 --interval 500, unprivileged), Mac17,14 macOS 27.0.1, 2026-10-08
+# raw: raw/p27_c_{idle1,armA,msl,idle2}.jsonl ; armA note: 6.2s of samples of ~22s wall (dropouts during wrapped ramp)
+win     dur_s   GPU_E_J  GPU_mW  ANE0_nJ ane_ints  UT_all  UT_PS13   AGXRD
+idle1     4.2      1.78     426        0        0    8494        0   19196
+armA      6.2     13.50    2165        0        0   19982     8387   45526
+msl      12.6     66.75    5313        0        0   47340    47000  108361
+idle2     4.1      1.63     394        0        0    8620        0   19440
+# verdict: matmul2d NA traffic moves GPU Energy (+1.77W) + UT Perf_State_13 counts (idle=0);
+#          ANE rail/interrupts/DCS/LNK and GFX-ANE DCS bytes stay 0 -> NAX rides GPU rails; GFX-DCS hypothesis REFUTED for NAX-matmul2d.
+# floors: coreai matmul2d eval median 239.8us p10 226.9 p90 256.5 (n=200); plain MSL dispatch median 22.5us (44,450/s).

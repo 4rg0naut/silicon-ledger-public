@@ -78,12 +78,17 @@ SiliconScope (MIT) `SiliconScopeCore` library reads the live signal: **PMP0 `DCS
 residency histogram, "ANE" lane: 0.00 GB/s idle → 52–66 GB/s during `bench ane`,
 156.80 GB in 10.4 s with the GPU at 5 GB**. Power rails on M5 Max report in a slow
 regime (batched ~2.1 s for GPU, ~30 min for CPU/ANE/DRAM) — per-op energy rows on M5
-are declared GAPs, not zeros.
+were declared GAPs, not zeros; closed 2026-10-06 by the sudo quiet-window capture
+(see "Energy close" below — GPU/ANE rails do report live under root at 500 ms cadence).
 
 **`_ANE` private API surface M4 → M5:** unchanged — 39 `_ANE` classes, 15/19 documented
 names, all key signatures verbatim (including the `initWithDesctiptor:` typo),
-**16 ANE cores on both chips**; new identifiers `h17g`/`h17`/board 544
+**16 ANE cores on both chips** (as reported by `_ANEDeviceInfo numANECores`); new identifiers `h17g`/`h17`/board 544
 (`raw/ane-probe.txt`, compare `knowledge/ane/`).
+*Amendment 26-10-06:* "16" is the API-visible count. The HAL per-die core field (arXiv 2606.22283 §20,
+extended to h17 suffixes) decodes base=4, g=8, s=16, c=32, d=64 — so M4 Max `h16g` = 8 compiler-visible
+NE cores, M5 Max `h17c` = 32; the API returning 16 on both matches the H17 **s**-suffix marketing count,
+not per-die truth (see `knowledge/ane/10-m5-attribution-signals.md` Q7 amendment).
 
 ## Session contamination (measured, not assumed)
 
@@ -149,7 +154,8 @@ JIT-specializes the same graph onto the ANE fine. (3) Absolute-speed bands (S3/S
 **regime-split** — fresh-boot vs memory-pressured differ 2–5× on CPU, GEMM and raw ANE;
 published bands are only valid in the regime that produced them. REPRODUCE.md's S4 band
 remains unverified (see Open threads). (4) Energy rails for the ANE: GAP stands;
-bandwidth is the proxy. Net for the LADDER: M5 columns stand on the clean-window rows;
+bandwidth is the proxy — **superseded 2026-10-06: rails DO report live under root at
+500 ms cadence; ANE and GPU per-op energy measured (Energy close below).** Net for the LADDER: M5 columns stand on the clean-window rows;
 tonight's low-band report is filed as a regime artifact, not merged into the ledger.
 
 ## Open threads
@@ -158,12 +164,65 @@ tonight's low-band report is filed as a regime artifact, not merged into the led
    written above. New follow-up from it: identify the fresh-boot → low-band mechanism
    (candidate: repeat one CPU-bandwidth op hourly for a day, oMLX resident throughout).
 2. S4 systematic slowness: GPU-only placement explains the *where*, not the *how slow*.
+   **Settled on rail evidence 2026-10-06 (quiet window, oMLX quit per thread 5).** Ran
+   `bench/power_coreai.py` granite97m (rebuilt runner, HUB `granite97m_fp16_s128.aimodel`,
+   800 iters, 3 compute-unit lanes): the **ANE power rail moves only on the `neuralEngine`
+   lane** (261.1 mW vs 0.0 on gpu/cpuOnly), so the Core AI preference genuinely reaches the
+   ANE on M5 — the dispatch path is alive. Two honest bounds on what this proves:
+   (a) the bundle carries a GPU-assisted partition (GPU rail co-rises to 240.7 mW on the
+   ANE lane), so "on ANE" ≠ "only ANE"; (b) it is the re-authored 1-region graph, not the
+   bench S4 deep_fp16 graph, which still AOTs to 0 ANE regions — so this settles the
+   *placement mechanism*, confirming S4's slowness is GPU-executing-a-graph-that-couldnt-
+   compile-to-ANE, not a broken ANE path. Rows: [m5-granite-ane-ane-rail],
+   [m5-granite-gpu-gpu-power], [m5-granite-cpu-gpu-power]. Raw:
+   `results/EXP-022-m5max-baseline/raw/energy-close-2026-10-06/power_{neuralEngine,gpu,cpuOnly}.txt` +
+   `results/EXP-024-engine-attribution/raw/sudo/power_coreai_run.log`.
+   (Correction 2026-10-06: the capture had initially also written into the EXP-004 raw
+   dir — an M4 experiment dir — via the old hardcoded path in power_coreai.py; the M4
+   originals are restored and the tool takes `--outdir` now. Single home: energy-close.)
 3. REPRODUCE.md doc bug: `coreai_deep_int8` band "0.6–0.8" contradicts the committed
    example's own derived TOPS (2.28) and reference median (0.9421 ms) — the doc band
    matches neither its example nor the rerun (0.30–0.34 at bench's flops constant).
 4. M4 has never run the bench suite → LADDER Rung 1 M4 column is GAP.
 5. oMLX power draw during agent sessions makes idle-guard alone insufficient;
    next captures require the app actually quit (guard should check for it).
+
+## Energy close — 2026-10-06 07:30Z (quiet, oMLX quit, user-initiated sudo capture)
+
+`sudo zsh results/EXP-024-engine-attribution/raw/sudo/sudo_capture.sh` at 07:30:13Z (euid 0; Studio idle, oMLX
+quit per thread 5; user restarted oMLX ~07:35Z — its model-load surge lands in the
+powermetrics **tail only**, after every measured window). Two matched A/B ablations,
+enginemon + powermetrics parallel:
+
+**MiniLM-L6 Core ML ablation** (`bench/power_mlcore.py`, 20 s/lane, 4-text set padded to seq 128) — full table in `results/EXP-024-engine-attribution/raw/sudo/power_mlcore_run.log`:
+
+| lane | rate | ANE | GPU | CPU | combined |
+|---|---|---|---|---|---|
+| ALL | 598 emb/s | **0.0 mW** | 1426.3 mW | 1530.9 mW | 4.944 mJ/emb |
+| CPU_ONLY | 712 emb/s | 0.0 mW | 163.1 mW | 7951.9 mW | 11.400 mJ/emb |
+
+cpuOnly costs **2.31× energy per embedding** on M5 Max. M5 places this model on the
+**GPU, never the ANE** (ANE rail 0.0 in both lanes; consistent with the pilot's ANE-DCS
+duty 0% — M5 Core ML scheduler keeps MiniLM off ANE). CPU_ONLY also beats the default
+GPU placement on throughput (712 vs 598), same sign as the M4 MiniLM power row's
+rate story. Note: quiet rates pilot MLX-path (oMLX-active, 103-token real texts; pilot
+(1038 emb/s) — different runtime (MLX vs Core ML), not a contradiction.
+
+**Granite 97M Core AI 3-lane** (`bench/power_coreai.py`, 800 iters, gates PASS 35/35):
+neuralEngine **ANE rail 261.1 mW** (0.0 on the other two lanes — placement real),
+GPU co-rise 240.7 mW (hybrid partition); gpu lane 739.9 mW @ 1.82 ms/emb; cpuOnly
+174.9 mW GPU / 7192.7 mW CPU @ 4.43 ms/emb. Settles Open thread 2; rows
+[m5-granite-*] above.
+
+**AMC Stats does not unlock under root** (`eng_list_priv.txt`: 0 AMC lines, euid 0) —
+the enginemon ANE-blindness on M5 is entitlement/architecture, not permissions.
+
+Anomalies declared: (1) the raw `power_*.txt` powermetrics dumps were hard-truncated
+at 65536 B when the script's step-6 tail was interrupted (my bug: `-t 15000` was read
+as seconds, so the parallel sampler ran far past the ablations); the driver-parsed
+summary tables above survived and are the primary record. (2) Raw txt files each hold
+only the first ~7 complete samples; burst/rail conclusions therefore rest on the
+driver tables, not the txts.
 
 ## Raw artifacts
 

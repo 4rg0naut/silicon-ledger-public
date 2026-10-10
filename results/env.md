@@ -58,16 +58,20 @@ Apple's two converters disagree on PyTorch versions, so they cannot share one en
 
 Everything above this section describes the **M4** machine and is unchanged.
 M5 Max rows are a separate comparability universe: they join the ledger on the
-`hardware` axis (`Apple M5 Max (h17g), 128 GB`) and on the bench fingerprint
+`hardware` axis (`Apple M5 Max (h17c), 128 GB` — join key uses the CoreAI device
+string `h17c`, the compile-target identity per arXiv 2606.22283 Ch24 / `knowledge/ane/10`
+Q8; the IOReport-visible board string `h17g` is the coarse runtime identifier, not the
+ledger key) and on the bench fingerprint
 (`bda452aabd60bf26`) — never rank an M4 number against an M5 number.
 
 | Component | Version |
 | --- | --- |
 | Machine | Apple **M5 Max** (Mac Studio, `Mac17,14`), 18 CPU (6P+12E), 40-core GPU, **128 GB** |
 | OS | **macOS 27.0** (build 26A428) — same build as the M4 machine |
-| ANE identifiers | board `h17g` (M4 was `h16g`); 16 ANE cores on both; `_ANE` private API surface unchanged (`EXP-022 raw/ane-probe.txt`) |
+| ANE identifiers | board `h17g` (M4 was `h16g`); API-visible ANE core count 16 on both (compiler per-die count is 8 / 32 by the HAL suffix sequence base=4 g=8 s=16 c=32 d=64 — arXiv 2606.22283 Ch24, see `knowledge/ane/10` Q8; CoreAI device string is `h17c`); `_ANE` private API surface unchanged (`EXP-022 raw/ane-probe.txt`) |
 | Benchmark suite | `silicon-ledger-bench` v0.1 (public), reference record `examples/2026-09-26T02-14-33Z-bda452aabd60bf26.json` |
 | Xcode | 27; `coreai-build` from the Metal Toolchain MobileAsset mount (`aimodelc` in Xcode itself refuses on this machine) |
+| Swift package deps (`tools/granite-runner`) | coreai-kit via **relative** local path `../../repos/coreai-kit` @0.4.2 (absolute machine path removed 2026-10-08, review #23). `Package.resolved` updated same day: swift-collections 1.6.0→**1.7.1**, swift-huggingface 0.11.0→**0.13.0** (resolved during the `tools/granite-runner` move; earlier committed granite numbers predate the bump — re-run the correctness gate on any new citation). |
 | ANE telemetry | **not** `enginemon` (its M4 `AMC Stats`/`PMP` groups do not exist on M5) and **not** Instruments `ane-hw-intervals` (0 under confirmed load, same blind spot as M4). Live signal: **PMP0 `DCS BW` residency histogram, "ANE" lane**, via `exp022-raw/bin/ssample` (built on the MIT SiliconScope library). Power rails batch in a slow regime — per-op M5 energy rows are declared gaps, never zeros |
 
 **The structural rule for this machine:** the agent runs **locally** (oMLX), so agent

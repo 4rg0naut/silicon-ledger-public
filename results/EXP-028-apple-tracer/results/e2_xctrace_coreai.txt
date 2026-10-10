@@ -1,0 +1,30 @@
+EXP-028 E2 — xctrace "Core AI" template on macOS 27 (M5 Max): schema present, rows need privilege
+
+Tool: DEVELOPER_DIR=/Applications/Xcode.app xctrace (Xcode 27). Raw: raw/p28_e2/.
+
+1. Template exists and is recordable: `xctrace record --template "Core AI" --output
+   p28_e2b.trace --launch -- harness/p28_run_bin <model> 30 neuralEngine` runs, and
+   the trace TOC (raw/p28_e2/toc.xml, 1.8 MB trace) includes schema tables:
+   ODIEProfile, mps-hw-intervals, metal-shader-profiler-intervals/-shader-list,
+   metal-object-label, metal-visual-highlight-chain-gpu, metal-object-dependency-chain-gpu,
+   metal-known-compositor-process, os-signpost (+os-signpost-arg), time-profile,
+   time-sample, thread-info, process-info, tick, visual-connection/-chain, kdebug x21,
+   kdebug-strings x3.
+2. BUT: unprivileged `--launch` aborts with `[Error] Failed to start the recording:
+   Could not set the recording priority.` and every Core AI/Metal table exports with
+   ZERO rows (verified: ODIEProfile.xml / mps-hw-intervals.xml / os-signpost.xml
+   header-only). This refines MEASURE-043 ("xctrace works unprivileged") for the
+   Core AI template specifically: schema starts, row streams need privilege here.
+3. Commands ready for the user's one-shot sudo (window not required — counts/rows only):
+   sudo env DEVELOPER_DIR=/Applications/Xcode.app xctrace record --template "Core AI" \
+     --output /tmp/p28_e2_priv_ne.trace --launch -- \
+     <ABS>/harness/p28_run_bin /Volumes/data/OpenFox/AI_dev/silicon-ledger-bench/models/coreai/deep_int8.aimodel 200 neuralEngine
+   (repeat with gpu / cpu; export via: xctrace export --input <trace> --output <xml>
+    --xpath '/trace-toc/run[@number="1"]/data/table[@schema="ODIEProfile"]')
+4. MEASURE-044 (M4) recorded 36 tables incl. ODIEProfile columns for this template;
+   M5/27 TOC here carries the ODIE + mps-hw-intervals + metal family — table-set
+   comparison of row content is the pending half (blocked on sudo above).
+
+Web-log: pins fetched 2026-10-08 ~15:20 local directly from developer.apple.com
+(curl, this box); lab-8121 video id confirmed via SearXNG on the mini VM
+(ssh 100.78.115.73 -> 127.0.0.1:8888) same day. Files under raw/research-2026-10-08/.

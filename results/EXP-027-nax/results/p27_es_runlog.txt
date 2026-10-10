@@ -1,0 +1,91 @@
+# EXP-027 ES: pkgb path-B v2 (espresso MobileNetV2) run log 2026-10-08 Mac17,14 27.0.1
+# rc captured pre-pipe; rc=139 => SIGSEGV in -[_ANEProgramForEvaluation processRequest...+1524 block (see p27_es_findings.txt)
+## variant=base rc=139
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x104d7e1d0 (w=301056 bpr=301056 alloc=301056) sOut=0x104d7d860
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.433 min=0.417
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.419ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.414ms first_err=-
+mapIOSurfaces(events): ok
+## variant=ES_SURFACE=stack rc=139
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=stack
+strategy=stack sIn=0x1035ba1d0 (w=224 bpr=448 alloc=301056) sOut=0x1035bb7c0
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.393 min=0.389
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.393ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.390ms first_err=-
+mapIOSurfaces(events): ok
+## variant=ES_COMPILE=1 rc=139
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x10560ccd0 (w=301056 bpr=301056 alloc=301056) sOut=0x10560cc50
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.389 min=0.375
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.382ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.378ms first_err=-
+mapIOSurfaces(events): ok
+## variant=ES_EVONLY=1 rc=139
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x102eae1d0 (w=301056 bpr=301056 alloc=301056) sOut=0x102ead860
+req=ok
+ES_EVONLY: skipping plain map+eval
+eval_ms median=-1.000 min=0.000
+mapIOSurfaces(events): ok
+## variant=ES_EVALSEL=1 rc=139
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x1024ca1d0 (w=301056 bpr=301056 alloc=301056) sOut=0x1024c9890
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.402 min=0.391
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.406ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.406ms first_err=-
+mapIOSurfaces(events): ok
+## variant=ES_SIG=1 rc=134
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x104b4e1d0 (w=301056 bpr=301056 alloc=301056) sOut=0x104b4d860
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.418 min=0.411
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.412ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.413ms first_err=-
+mapIOSurfaces(events): ok
+*** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[IOSurfaceSharedEvent sharedEvent]: unrecognized selector sent to instance 0x7cc2c0c9f0'
+## variant=ES_EMPTY=1 rc=5
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x1007a61d0 (w=301056 bpr=301056 alloc=301056) sOut=0x1007a5890
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.403 min=0.398
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.407ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.401ms first_err=-
+SEA_FAIL: cannot build _ANESharedEvents (bridge ok=18699)
+## variant=ES_ETYPE=0 rc=139
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x102bde1d0 (w=301056 bpr=301056 alloc=301056) sOut=0x102bdad30
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.424 min=0.399
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.411ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.398ms first_err=-
+mapIOSurfaces(events): ok
+## variant=ES_ETYPE=1 rc=139
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x10132e1d0 (w=301056 bpr=301056 alloc=301056) sOut=0x10132d860
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.401 min=0.394
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.403ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.405ms first_err=-
+mapIOSurfaces(events): ok
+## variant=ES_ETYPE=3 rc=139
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x1026ca1d0 (w=301056 bpr=301056 alloc=301056) sOut=0x1026c9860
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.412 min=0.398
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.407ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.411ms first_err=-
+mapIOSurfaces(events): ok

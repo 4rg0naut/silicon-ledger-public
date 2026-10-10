@@ -1,0 +1,33 @@
+# K4 — e5 bundle-cache identity, measured 2026-10-07 (unprivileged)
+# Cache root: ~/Library/Caches/<clientproc>/com.apple.e5rt.e5bundlecache/<OSBUILD>/<IDENT64>/model.milhash
+# (per-process dir: mlc_load here; a root-run load wrote /var/root/Library/Caches/mlc_load/...)
+
+$ ls ~/Library/Caches/mlc_load/com.apple.e5rt.e5bundlecache/26A434 | wc -l
+8
+
+# observation table (load latency vs new IDENT dir vs ANECompilerService seen):
+# mutation                              load_ms  new_IDENT  svc_up
+# fresh128 (baseline, warm)                150        -       no
+# w1: weight.bin byte @5000 (pre-window)   280      yes       no
+# w2: weight.bin byte @1000 (in use:       146      yes       no
+#     word-embedding range 64..23441024)
+# t4: MIL string "9.0"->"9.1"              346      yes       no
+# (pgrep -x ANECompilerServi polled at 50 ms through every load: never observed)
+
+# findings:
+# 1. The E5 identity hash DOES change with weight bytes and with MIL text
+#    (even a buildInfo-string change creates a new IDENT dir).
+# 2. Yet loads stayed sub-second and ANECompilerService never (re)fired:
+#    the ANE-program compile cache (rootless /Library/Caches/com.apple.aned)
+#    keys on something coarser than E5 identity - measured: it tolerates
+#    weight-byte and metadata-text changes.
+# 3. Hazard (K6): weight edits can be served stale ANE programs.
+#    Corroborates weight-patch pain in KB 02 §8 item 9 (maderix patch tests).
+# 4. model.src itself (service sandbox) remains uncaptured: v6 sudo window
+#    ran before the trigger fix; capture recipe + trigger assertion added:
+#    mutate an OP-BEARING MIL constant, assert NEW IDENT dir AND svc pgrep
+#    inside the window, then sweep
+#    /private/var/folders/zz/.../T/com.apple.aned/TemporaryItems/NSIRD_ANECompilerService_*/
+# 5. e5bundlecache per-model dir holds ONLY model.milhash (the E5->ANE cache
+#    cross-reference); no program payload -> the program lives in the
+#    rootless aned cache (unreadable, F-44).

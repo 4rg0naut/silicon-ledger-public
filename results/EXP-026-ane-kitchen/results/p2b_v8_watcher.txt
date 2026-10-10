@@ -1,0 +1,6 @@
+# p2b_v8_watcher.txt — 2026-10-08 — v8 sudo window result (user-run, watcher over aned sandboxes)
+watcher.log: 0 bytes — ZERO new files in any aned sandbox during both trigger lanes.
+service polling: pgrep -x ANECompilerServi never observed (see run transcript); loads passed:
+  -> p2b_v8_jit_load.txt (JIT lane, 235 iters, median 77.2ms)
+  -> p2b_v8_load_mut.txt (mutated reranker bundle reload, rc=0)
+Interpretation + follow-through: README finding 7 + results/p2b_model_src_inventory.txt + ledger FAILURES F-50.

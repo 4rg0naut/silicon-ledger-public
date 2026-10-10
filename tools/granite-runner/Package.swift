@@ -9,7 +9,7 @@ let package = Package(
     name: "granite-runner",
     platforms: [.macOS("27.0")],
     dependencies: [
-        .package(path: "/Volumes/data/local_ai_stack/repos/coreai-kit"),
+        .package(path: "../../repos/coreai-kit"),
     ],
     targets: [
         .executableTarget(

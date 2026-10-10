@@ -1,0 +1,10 @@
+# machine=Mac17,14 os=27.0.1 build=26A434 date=2026-10-07T19:03:11+0200
+# workload: GPU spin kernel || ANE fp32 conv-chain ch=64 depth=8, batch=sp elems
+# baseline_extra_ms = (eval_done - gpu_done) - eval_ms  [CPU completedHandler round-trip overhead]
+# event_extra_ms    = same formula, ANE pre-dispatched waiting on GPU-signaled MTLSharedEvent
+sp gpu_elems eval_ms baseline_total_ms baseline_extra_ms event_total_ms event_extra_ms
+128 65536 0.109 0.283 0.037 PATHB_ONLY
+512 131072 0.095 0.342 0.020 PATHB_ONLY
+2048 262144 0.119 0.435 0.037 PATHB_ONLY
+8192 524288 0.150 0.704 0.053 PATHB_ONLY
+32768 1048576 0.621 1.092 0.029 PATHB_ONLY

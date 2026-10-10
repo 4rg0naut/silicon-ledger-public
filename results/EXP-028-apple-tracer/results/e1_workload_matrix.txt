@@ -1,0 +1,58 @@
+EXP-028 E1-matrix — three-lane granite + ML control + matmul2d under os-log capture (rework pass)
+
+Rework scope (review 2026-10-08): close the "measure, not assume" clauses — granite
+3-lane, ML control, and a NAX matmul2d workload each captured with
+harness/p28_capture.sh; streams grepped for NAX/tensor/op telemetry. Raw:
+raw/p28_e1_matrix/*.ndjson + matrix_analysis.json. Substitutions declared in README.
+
+MATRIX (events by subsystem, process-scoped unless noted):
+  workload                      events  top subsystems                                     real NAX/tensor tokens
+  granite neuralEngine (ANE)    18,317  com.apple.ane/common 17,714; MPSGraph_Delegate 342  0 (one "tensor" = metallib-path text)
+  granite gpu                    789    MPSGraph_Delegate 342; defaults/CFBundle noise       0 (same artifact)
+  granite cpuOnly                 60    coreai/runtime 5; defaults/CFBundle noise             0
+  Core ML MiniLM control ("all") 163    defaults/CFBundle/xpc noise ONLY                      0
+  matmul2d coreai-torch load    16,583  MPSGraph_Delegate 16,384 (crash-path; F-49 ioSurface  0
+  matmul2d MSL ladder p27_r8     122    pure noise (defaults/xpc/TCC)                         0 (every \bNAX\b hit = my own path "EXP-027-nax/")
+  MSL sustained dispatch 20 s     20    TCC/securityd only (~880k dispatches)                 0
+
+MEASURED VERDICTS (previously assumed):
+1. OP-LIFECYCLE SIGNPOSTS: zero messageType=signpost events in ALL seven captures —
+   the per-op signpost stream stays blind for Core AI, Core ML, and NAX alike
+   (unprivileged, 26A434). Delegate-granular MPSGraph_Delegate + lifecycle
+   com.apple.coreai/runtime are the only published in-process streams.
+2. NAX IN SIGNPOSTS: BLIND, measured — ~880k matmul2d-class dispatches through the
+   immune MTLBuffer harness produce ZERO Metal/tensor-subsystem events system-side
+   (20 captured events = exec-time security noise). The earlier "NAX" token hits in
+   the analysis were my own capture path ("EXP-027-nax/") — false positive, retracted.
+3. NEW SIGNAL FOUND (the reason granite was the right workload): the ANE-placed lane
+   emits 4,420 x 4 com.apple.ane/common tracepoints — one set PER ANE PROGRAM REQUEST:
+     "<model> ANEProgramProcessRequestDirect() for lModel.string_id:<id> waitForResults N"
+     "... disableIOFences option not nil value is N"
+     "... enableFWToFWSignal option not nil value is N"
+     "... status:<hex> statusType:N qos:N"
+   4,420 = 13 x 340 — EXACTLY granite's 13 ANE regions (EXP-026 LLIR decode) x 340
+   evals (300 iters + 40 warm/setup). This is per-eval, per-ANE-region dispatch
+   attribution in the CLIENT process, unprivileged, and the request line carries the
+   kANEF knob states (disableIOFences/enableFWToFWSignal) measured live at request
+   granularity — E1's "per-op attribution table" exists for ANE-placed graphs after
+   all, via com.apple.ane/common, NOT via signposts.
+   Bootstrap lines (category client, 76): "ChipID: 0x6050, Ane Subtype: 0x220",
+   "ANE Arch String: h17s", "anesubtype 544", ANEValidateNetworkCreate api_version=2 —
+   note the private ANEClient arch string "h17s" on the same box whose plans/manifests
+   say "h17c" (family ladder in arXiv 2606.22283 puts h17s = M5-base 8-wide; ANEClient
+   string is NOT the plan-grammar key — recorded, not conflated).
+4. CORE ML CONTROL asymmetry: in-process telemetry ZERO (only defaults/CFBundle
+   noise) while Core AI emits coreai/runtime + MPSGraph + ane subsystems — the
+   CoreML stack logs its lanes, the legacy CoreML prediction path does not
+   (system-side odie/mps-hw-intervals still apply but need the sudo trace, E2).
+5. cpuOnly granite: zero MPSGraph, zero ane — CPU/BNNS-by-absence reconfirmed on the
+   real granite bundle (matches the deep_fp16 arms, E1 §1).
+
+OPERATIONAL NOTES:
+- bench/mlpower-runner binary was stale (SIGTRAP pre-init, likely old-runtime Metal);
+  rebuilt CLT one-liner from power_mlcore.py header — rate on M5: 827.2 emb/s (n=2482, 3 s).
+- tokens.bin contract: [nseq,seq] int32 header + input_ids block + attention_mask
+  block (minilm128 requires seq=128; short files trip the runner precondition).
+- matmul2d via coreai-torch python load hit the F-49 ioSurface fatal again
+  (NDArray+Pool.swift:77 byteCount 4096 sk:ioSurface) while the oMLX server is live —
+  F-49 reconfirmed user-side (never touch oMLX); MSL harness immune and used instead.

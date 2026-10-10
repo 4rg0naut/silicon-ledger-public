@@ -1,0 +1,78 @@
+EXP-027 AN-STALE — API-121 stale-ANE-program hazard: PROOF TEST (2026-10-08)
+=============================================================================
+Question: does the public CoreML loader serve a STALE compiled program after
+weight bytes are edited in place at an already-cached bundle path (API-121
+hazard: e5 identity re-keys but ANE program cache keys coarser)?
+
+Method (user-mode, unprivileged):
+  harness/p27_stale_probe <bundle> — loads .mlmodelc via MLModel
+  modelWithContentsOfURL: (computeUnits All), predicts with fixed inputs
+  (input_ids = i+1, attention_mask = 1, [1,128] Int32), dumps output
+  `embedding` (fp16 [1,384]): dtype/count/sum/maxabs/FNV64(first 65536
+  floats)/first[8] + load_ms per process. Output FNV hash = identity of
+  the result vector; equal hash = equal vector (up to float readback).
+
+  Bundle: /tmp/fresh128.mlmodelc (MiniLM-128, GPU-routed per EXP-025).
+  weight.bin sha256 original: fe32bc1f423739e40d92b4d055772607cf6e36c69c0a09fd476dfabc05efba57
+
+STEP 0 — baseline determinism (cache-warmed original path):
+  load_ms=50.4  out embedding count=384 sum=-0.492800 maxabs=0.142822 hash=584eafc110440bda
+  load_ms=31.7  out embedding count=384 sum=-0.492800 maxabs=0.142822 hash=584eafc110440bda
+  -> deterministic. vec_base = 584eafc110440bda
+
+STEP 0b — weight.bin layout probe (side discovery):
+  Naive edit (+0.25 to first 10000 fp16 values = bytes 0..19999) on a COPY
+  (/tmp/p27_freshref.mlmodelc) FAILS load:
+    "Failed to build the model execution plan using a model architecture
+     file '/private/tmp/p27_freshref.mlmodelc/model.mil' with error code: -5"
+  First 64 bytes are NOT weights: uint32 101 (tensor count), 2 (version?),
+  then at 0x40 magic 0xDEADBEEF, 1, 23440896 (= 30522*384*2, the embedding
+  tensor byte size), 128, ... => .mlmodelc weight.bin carries a leading
+  manifest (~1 KiB); clobbering it breaks plan build.
+  Differential 64-byte fp16 edit (+0.25) at increasing offsets, fresh-path
+  copy /tmp/p27_prisCopy.mlmodelc:
+    0x80    load OK 142ms  hash=584eafc110440bda  (metadata, no output effect)
+    0x100   load OK 139ms  hash=584eafc110440bda  (metadata, no output effect)
+    0x400   load OK 139ms  hash=56a7679873531724  sum=-0.487237  CHANGED
+    0x1000  load OK 140ms  hash=af668f6c92a4fc6c  CHANGED
+    0x4000  load OK 139ms  hash=f5e86c444c398d12  CHANGED
+    0x10000 load OK 139ms  hash=65998c942679e1df  CHANGED
+    0x40000 load OK 142ms  hash=584eafc110440bda  (tensor data but embedding
+                          rows 341+ — not touched by tokens 1..128; expected)
+    0x100000 load OK 140ms hash=584eafc110440bda  (same)
+  -> tensor data is editable from ~0x400; canonical test edit = +0.25 on 32
+     fp16 values at 0x400 (hits embedding rows used by tokens 1..128).
+
+STEP 1 — forced-fresh ground truth (edit at NEW path = cold cache):
+  vec_ff hash = 56a7679873531724 (from 0x400 edit on prisCopy, above;
+  load_ms 139, full plan build every new-path/mutated load)
+
+STEP 2 — SAME edit IN PLACE on cache-warmed original path, NEW process:
+  weight.bin sha256 after edit: d97834c095c7689e7972a4974474182a6c4f13f1d0c6bebf112d446033d98a98
+  run1: load_ms=143.7  out embedding sum=-0.487237 maxabs=0.143921
+        hash=56a7679873531724   <- EQUALS vec_ff, NOT vec_base
+  run2: load_ms=30.5   same hash (new identity now cached: fast cached reload)
+
+STEP 3 — restore + re-verify:
+  weight.bin restored to fe32bc1f..., load_ms=144.0 (re-plan on re-key again),
+  hash=584eafc110440bda (baseline reproduces). Environment clean.
+
+VERDICT: FRESH
+  In-place weight-byte edit at the cache-warmed path is REFLECTED in the
+  prediction vector (matches forced-fresh ground truth exactly; differs from
+  pre-edit baseline). The API-121 stale-program hazard did NOT materialize
+  on the GPU-routed public load path: the loader re-plans (143.7ms vs 30.5ms
+  cached) and serves outputs computed from the edited weights.
+  => Hazard downgraded to bookkeeping-only for this path.
+  API-121 amended (knowledge/ane/02-private-api.md); weight.bin manifest
+  structure recorded as API-123.
+
+SCOPE / CAVEATS:
+  - Bundle is GPU-routed on 27.0.1 (EXP-025 p2_enginemon_gpu); this directly
+    disproves staleness for the public GPU path and e5/E5-plan caching. A
+    full-ANE-AOT-region bundle (EXP-013 reranker h17g) was not tested here
+    because its AOT python lane fails on the 27-beta runtime; that residual
+    stays open (JIT-from-.aimodel lane would be the vehicle).
+  - Weight edits must start at/after the ~1 KiB manifest boundary or CoreML
+    fails hard (error -5), which itself is a silent-corruption guard against
+    the naive whole-file overwrite pattern.

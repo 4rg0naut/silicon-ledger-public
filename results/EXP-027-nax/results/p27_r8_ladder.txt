@@ -1,0 +1,32 @@
+host socket False; py 3.12.15; ladder K=64 tile 64x32
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+shape 64x32 grid 1x1=1 tiles: tiles-ok 1/1 max_err 7.744e-03 untouched0 0/2048 -> PASS
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+shape 128x32 grid 1x2=2 tiles: tiles-ok 1/2 max_err 3.821e+01 untouched0 2048/4096 -> PARTIAL/FAIL
+  tilemap (row-major): 1,0
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+shape 128x64 grid 2x2=4 tiles: tiles-ok 1/4 max_err 3.384e+01 untouched0 5120/8192 -> PARTIAL/FAIL
+  tilemap (row-major): 1,0,0,0
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+shape 256x64 grid 2x4=8 tiles: tiles-ok 1/8 max_err 4.240e+01 untouched0 13312/16384 -> PARTIAL/FAIL
+  tilemap (row-major): 1,0,0,0,0,0,0,0
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+shape 512x128 grid 4x8=32 tiles: tiles-ok 1/32 max_err 3.798e+01 untouched0 62464/65536 -> PARTIAL/FAIL
+  tilemap (row-major): 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+VERDICT: multi-tile NOT fully valid on 27.0.1 — R8 stands as described by tilemap
+
+# interpretation (NX-B verdict, 2026-10-08):
+# - single tile (64x32 grid 1x1): PASS max_err 7.7e-03 (fp16 tolerance, matches EXP-024)
+# - every multi-tile shape: EXACTLY tile index 0 correct; all other tiles output
+#   untouched-zero (0 written) = silently dropped, not wrong values.
+# - sharpens R8: it is NOT a grid-size threshold ("M>=400") — only ONE tilegroup
+#   ever completes under coreai TorchMetalKernel dispatch on this toolchain,
+#   regardless of requested grid (128*nt threads). Repro: harness/p27_na_r8.py.
+# - system runtime compiler cannot serve as alternative path: GPUCompiler 32023
+#   ships on disk WITHOUT matmul2d in its bundled metal headers
+#   (grep -rl matmul2d .../32023/include/metal -> empty); newLibraryWithSource
+#   with MTLLanguageVersion4_0/4_1 both reject matmul2d_descriptor (harness/p27_r8.m).
+#   The matmul2d toolchain exists ONLY inside coreai's bundled compiler stack.
+# DELTA-METHOD VERDICT: NO-GO for multi-tile scaling on 27.0.1 as measured;
+# NAX delta must be built tile-replication-free (single tile x iters load) or
+# await a compiler fix. TOOL-4 ladder must use single-tile iterations only.

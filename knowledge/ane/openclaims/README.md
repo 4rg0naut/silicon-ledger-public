@@ -8,11 +8,21 @@ it, and what the reference implementation teaches us.
 `tools/to_openclaims.py` converts the whole knowledge base:
 
 ```
-554 records            ->  claim.emitted
+566 records            ->  claim.emitted   (554 knowledge-base + 12 origin events, P1 2026-10-03)
 55 reviewer verdicts   ->  claim.verified   (verification_method: model_check)
 53 Von verdicts        ->  claim.verified   (verification_method: model_check)
 17 contested records   ->  claim.disputed
 ```
+
+**Incremental extension (P2, 2026-10-10):** 50 records added since P1 (API/FORMAT/GOTCHAS/LANDSCAPE
+and the EXP-026/027/028 findings) were appended by
+[`tools/openclaims_append.py`](../tools/openclaims_append.py), bringing the spine to **616 `claim.emitted`
+= 616 records**. The append path exists because `to_openclaims.py` regenerates wholesale and needs the
+gitignored grounding cache to pin source digests / locate spans; on a cache-less clone a regeneration
+would silently strip the pinned digests and spans the committed events already carry. The appender
+builds the identical event shape via the same `complete()` helper, digests + validates each event with
+the SDK, and preserves the existing lines byte-for-byte. New claims emitted without the cache carry no
+`Source.digest` (as expected); the `claim.verified`/`claim.disputed` sets are unchanged.
 
 All 108 `claim.verified` events are `model_check`; **zero are `human_review`**. The 55 reviewer
 verdicts are an AI agent reading each claim against its cited passage — labelling them
@@ -22,9 +32,12 @@ than a wrong number (an earlier revision of this converter did exactly that, and
 pass; there is no code path in the converter that can produce it (`assert_no_human_review` enforces
 this), and no such pass has happened yet.
 
-**679 / 679 events validate against BOTH implementations** — the Python SDK's `validate_event` and the
-project's own JavaScript `validator-cli`. Two validating independently is the point; either one alone
-proves less.
+**741 / 741 events validate with the Python SDK** (`to_openclaims.py --check`, re-run 2026-10-10;
+616 `claim.emitted` + 108 `claim.verified` + 17 `claim.disputed`).
+The earlier 679-event corpus also cross-validated against the project's own JavaScript
+`validator-cli` (checked upstream at adoption time; that checkout is not on this machine, so the
+12 origin events added by P1 are Python-validated only). Two validating independently is the point;
+either one alone proves less.
 
 Output: `openclaims/claims-{emitted,verified,disputed}.jsonl`
 

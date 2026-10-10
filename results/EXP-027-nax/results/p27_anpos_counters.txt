@@ -1,0 +1,58 @@
+EXP-027 AN-POS — lens validation against a known full-ANE graph — 2026-10-08
+=============================================================================
+Machine: Mac17,14 M5 Max, 27.0.1 (26A434), unprivileged.
+Workload: EXP-013 reranker (Qwen3-Reranker-0.6B ANE re-author), h17g AOT graph
+whose bundle carries exactly one ANE region:
+  work/exports/reranker-ane/aot_h17g_ane/.../main-h17g-delegates/MPSGraph/
+  mpsExecutable.mpsgraphpackage/binary_0.llir.bundle/main_<hash>_0_ANE_region_0_0.bc
+Python AOT-specialized load fails on the 27.0-beta runtime (documented in
+bench/gate_reranker_ane.py NOTE); JIT from .aimodel with preferred=ANE serves
+the identical graph. Steady loop median 78.0 ms/pair (n=40; EXP-013 direct
+gate on the same graph measured 88 ms — same class). GPU-preferred control:
+median 32.6 ms/pair. Harness p27_anpos_run.py; driver p27_anpos_capture.sh;
+4 enginemon windows archived: raw/p27_anpos_{idle1,ane,gpu,idle2}.jsonl
+(1000 ms interval, --all so non-zero deltas are kept).
+
+VERDICT: GATE PASSED. Named counters that rise with known-ANE work and sit at
+zero/near-zero at idle — the lens is NOT blind; EXP-025/K6b ANE zeros stand
+as true negatives.
+
+lane-discriminating channels (window totals; idle=12 s, ane/gpu=~7.5 s):
+  channel (group/subgroup/name)                 idle1    ANE-run   GPU-run  idle2
+  PMP0/DCS BW/ANE L0 RD+WR                          0     28141     21101       0
+  PMP0/DCS BW/ANE L1 RD+WR                          0     28141     21100       0
+  PMP0/AF BW/ANE L0 RD+WR                           0     28141     21101       0
+  PMP0/AF BW/ANE L1 RD+WR                           0     28141     21101       0
+  PMP0/SOC-NI Util BW/SOC-NI8 ANE UP                9     13766        18       8
+  PMP0/SOC-NI Util BW/SOC-NI9 ANEXL U               0     14746         0       0   <- cleanest
+  PMP0/SOC-NI Util BW/SOC-NI9 RT                    0     14746         0       0
+  PMP0/Energy/PACC (+Core Block Slot, DRAM Stall)  4857     12687     23400    5922  (shared: also GPU)
+  Energy Model/GPU Energy (nJ)                85361600 131225248 39680066465 75365703
+  GPU UT AggD Perf_State_9..13 counts                 0         0      578+     0
+  PMP0/PWRS0 STRESS-2-LIM0 (µJ-ish ticks)      204045632    364224 29938720 213597936
+
+Reading:
+  * SOC-NI9 "ANEXL U" (ANE eXclusive Link upstream) + SOC-NI8 "ANE UP":
+    zero at idle AND zero during GPU-lane execution of the SAME model,
+    ~14.7k units during ANE execution. These are the unprivileged per-lane
+    ANE counters this lab has been hunting since EXP-022.
+  * ANE L0/L1 DCS/AF BW lanes rise for ANE (28k) but also show 21k during the
+    GPU control window — treat as ANE-lane traffic INDICATOR that is not
+    lane-exclusive by itself (staging/other e5 activity possible); ANEXL is
+    the exclusive one.
+  * GPU-side confirmation both ways: GPU Energy x465 and UT Perf_State_8..13
+    active ONLY in the GPU window; ANE window barely moves GPU Energy (+54%).
+  * UT Perf_State_13 (NX-C's NAX matmul2d lens) stays 0 during full-ANE
+    region execution — the two lenses are disjoint: PS13 = GPU tensor-unit
+    engagement, ANEXL/SOC-NI8/9 = ANE lane traffic. Neither substitutes for
+    the other.
+
+Consequences for the ledger:
+  - K6b (EXP-026) and EXP-025 MobileNetV2/MiniLM "ANE 0 / DCS 0 / GFX-ANE
+    lane 0" routings: VALID — same window style, and this run proves the
+    counters CAN light up for real ANE work.
+  - AN-ROUTE (next): MiniLM + MobileNetV2 rows re-stamped as "no ANEXL/SOC-NI8
+    ANE-lane signal observed" (validated lens names).
+  - Anomaly to carry honestly: the ANE L0/L1 lanes showing traffic in the GPU
+    window; ANEXL clean there. If a future sudo capture (SU) correlates
+    ANE-DCS-byte truth, re-check what moves L0/L1 without ANEXL.

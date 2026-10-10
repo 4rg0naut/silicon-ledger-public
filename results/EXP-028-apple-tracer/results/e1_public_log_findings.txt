@@ -1,0 +1,55 @@
+EXP-028 E1 — public os-log + cache-plan fingerprints for lane attribution (unprivileged)
+
+Harness: harness/p28_e1_signpost.sh (arms: default|neuralEngine|gpu|cpuOnly) +
+harness/p28_capture.sh (generic stream wrapper). Raw: raw/p28_e1_smoke/, raw/p28_e1_anec/.
+
+1. LANE FINGERPRINT (in-process, no sudo, no entitlement):
+   - GPU-delegate arms emit `com.apple.metalperformanceshadersgraph` events from the
+     harness process itself: `MPSGraph_Delegate: Delegate init (URL) with resource
+     file:///...` + `MPSGraphDelegateKernel.coreAI_prepare caching new IO buffers`
+     (6 per run) + `MPSGraph_Init` (AppleInternal build-root string, tempo path).
+   - CPU arm (preferredComputeUnitKind=.cpu): ZERO MPSGraph subsystem events; only
+     `com.apple.coreai/runtime` ("has been specialized into AIModelCache.default",
+     "Loading function 'main'"). Absence of MPSGraph + CoreAI lifecycle = BNNS/CPU
+     delegate. Measured matrix in raw/p28_e1_smoke/*_proc.ndjson (33/41/30/8 events).
+   - Per-dispatch op signpost stream (paper-style op lifecycle) NOT emitted at
+     default level by any arm; anec "Target Architecture" validation events require
+     `sudo log config --mode private:on --subsystem com.apple.anec` (user one-shot).
+
+2. PLAN IDENTITY LEAKED BY PUBLIC LOG (unmasked):
+   `Delegate init (URL)` prints the full cache plan dir:
+   ~/Library/Caches/coreai-cache/26A434/<procname>/<modelHash>/<optsHash>/model.aimodelx/main-this-delegates/<MPSGraph|BNNS>/
+   - modelHash stable per model CONTENT (salt file in bundle -> same hash: content-keyed).
+   - optsHash stable across MODELS, differs per specialization-options arm
+     (deep_fp16 arms: 3EED…/6C51…/1437… for default/neuralEngine/gpu; deep_int8
+     neuralEngine reuses 6C51…) -> opts hash keys on options only, not model.
+   - proc bucket = consuming process name (p28-run-bin; other sessions' "bench" bucket
+     coexists; GPU-arm plans for the same models were already in bench/ from EXP-026).
+
+3. PLAN ANATOMY DECODED (raw/p28_e1_anec/int8_ne_*):
+   - deep_fp16, deep_int8 (fp32 I/O) under neuralEngine preference: single
+     `#placement.region_type<GPU>` region in specialized_model_0.mpsgraph -> public
+     preference did NOT land ANE for these models; consistent with dtype gate
+     (MEASURE-085/086: ANE wants fp16/int8 IO).
+   - manifest.plist carries full compiler descriptor JSON:
+     deviceDescriptor [0, 40, "h17c"], allowedComputeDevices 7, preferredDevice 2,
+     enableANECValidationWorkflow true, useANELLIR false, aneCompilerSpatialSplitting 3,
+     enableANECHWRankPromotion true, compilerOptions 1691023, inputShapes list,
+     ANERegionsHash keyed by "h17c", entry-function attrs incl. mps.aneAlignedIO,
+     mps.disablePreAllocate, mps.disableNDX. Package Version 7.0.63.
+   - `deviceDescriptor` second field = 40 on all plans (uninterpreted; KB h17c=32
+     stands — 40 may be feature-set or family id, declared GAP).
+
+4. Public API facts (harness stdout, every run):
+   AIModel.deviceArchitectureName == "h17c"; ComputeUnitKind.availableKinds ==
+   cpu,gpu,neuralEngine. Timings: deep_fp16 cpu 1.683 ms < gpu/ne ~3.9-4.0 ms;
+   deep_int8 neuralEngine 0.802 ms (GPU-placed, int8 weights) — this machine, n=6.
+
+5. No `com.apple.ANECompilerService` xpc/connection line appears in the proc streams
+   for cached-plan runs (xpc lines cover cfprefsd/tccd only); the compile-service
+   rendezvous remains a private-log (sudo log config) observation.
+
+6. Post-review rework (2026-10-08): real-workload matrix (granite 3-lane, Core ML
+   control, matmul2d/NAX) captured via harness/p28_capture.sh — signpost blindness
+   and NAX blindness measured, com.apple.ane/common per-eval-per-region tracepoints
+   found. See results/e1_workload_matrix.txt + raw/p28_e1_matrix/.

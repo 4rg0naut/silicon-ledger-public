@@ -1,0 +1,87 @@
+# ane_class_dump
+# os=Version 27.0.1 (Build 26A434)
+# Metal preloaded in-process=0 (frameworks report their own linkage separately)
+
+=== _ANESharedWaitEvent
+  superclass: NSObject
+  protocols: (none)
+  instance methods (8):
+    -sharedEvent                                                             @16@0:8
+    -description                                                             @16@0:8
+    -setValue:                                                               v24@0:8Q16
+    -init                                                                    @16@0:8
+    -eventType                                                               Q16@0:8
+    -.cxx_destruct                                                           v16@0:8
+    -value                                                                   Q16@0:8
+    -initWithValue:sharedEvent:eventType:                                    @40@0:8Q16@24Q32
+  class methods (3):
+    +new                                                                     @16@0:8
+    +waitEventWithValue:sharedEvent:                                         @32@0:8Q16@24
+    +waitEventWithValue:sharedEvent:eventType:                               @40@0:8Q16@24Q32
+  properties (3):
+    sharedEvent                               T@"IOSurfaceSharedEvent",R,N,V_sharedEvent   <== METAL/IOSURFACE TYPE
+    value                                     TQ,N,V_value
+    eventType                                 TQ,R,N,V_eventType
+  ivars (3):
+    _value                                    Q
+    _eventType                                Q
+    _sharedEvent                              @"IOSurfaceSharedEvent"   <== METAL/IOSURFACE TYPE
+
+=== _ANESharedSignalEvent
+  superclass: NSObject
+  protocols: NSSecureCoding
+  instance methods (14):
+    -sharedEvent                                                             @16@0:8
+    -description                                                             @16@0:8
+    -symbolIndex                                                             I16@0:8
+    -initWithValue:symbolIndex:eventType:sharedEvent:agentMask:              @52@0:8Q16I24q28@36Q44
+    -waitEvent                                                               @16@0:8
+    -initWithCoder:                                                          @24@0:8@16
+    -setValue:                                                               v24@0:8Q16
+    -init                                                                    @16@0:8
+    -eventType                                                               q16@0:8
+    -.cxx_destruct                                                           v16@0:8
+    -agentMask                                                               Q16@0:8
+    -setAgentMask:                                                           v24@0:8Q16
+    -encodeWithCoder:                                                        v24@0:8@16
+    -value                                                                   Q16@0:8
+  class methods (3):
+    +new                                                                     @16@0:8
+    +supportsSecureCoding                                                    B16@0:8
+    +signalEventWithValue:symbolIndex:eventType:sharedEvent:                 @44@0:8Q16I24q28@36
+  properties (5):
+    sharedEvent                               T@"IOSurfaceSharedEvent",R,N,V_sharedEvent   <== METAL/IOSURFACE TYPE
+    value                                     TQ,N,V_value
+    symbolIndex                               TI,R,N,V_symbolIndex
+    agentMask                                 TQ,N,V_agentMask
+    eventType                                 Tq,R,N,V_eventType
+  ivars (5):
+    _symbolIndex                              I
+    _value                                    Q
+    _agentMask                                Q
+    _eventType                                q
+    _sharedEvent                              @"IOSurfaceSharedEvent"   <== METAL/IOSURFACE TYPE
+
+=== _ANESharedEvents
+  superclass: NSObject
+  protocols: (none)
+  instance methods (8):
+    -description                                                             @16@0:8
+    -init                                                                    @16@0:8
+    -.cxx_destruct                                                           v16@0:8
+    -initWithSignalEvents:waitEvents:                                        @32@0:8@16@24
+    -setSignalEvents:                                                        v24@0:8@16
+    -setWaitEvents:                                                          v24@0:8@16
+    -signalEvents                                                            @16@0:8
+    -waitEvents                                                              @16@0:8
+  class methods (2):
+    +new                                                                     @16@0:8
+    +sharedEventsWithSignalEvents:waitEvents:                                @32@0:8@16@24
+  properties (2):
+    signalEvents                              T@"NSArray",&,N,V_signalEvents
+    waitEvents                                T@"NSArray",&,N,V_waitEvents
+  ivars (2):
+    _signalEvents                             @"NSArray"
+    _waitEvents                               @"NSArray"
+
+# scanned 10398 classes, 3 matched image+pattern

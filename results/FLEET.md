@@ -12,8 +12,8 @@ machines — EXP-005 two-throughput-states applies per machine):
 
 | machine | identity | ANE | role |
 |---|---|---|---|
-| Mac Studio M5 Max | `Mac17,14`, 18C, 128 GB, macOS 27.0.1 (26A434) | h17g | calibration bench (`bda452aabd60bf26`, EXP-022) |
-| Mac mini M4 | `Mac16,10`, base M4 + 10GbE, 16 GB | h16g | historical corpus (EXP-001..021, 716 `M4` rows) |
+| Mac Studio M5 Max | `Mac17,14`, 18C, 128 GB, macOS 27.0.1 (26A434) | h17c (CoreAI compile-target string; IOReport-visible board is the coarse `h17g` — per-die cores 32 vs 8 on h16g, arXiv 2606.22283 Ch24, `knowledge/ane/10` Q8) | calibration bench (`bda452aabd60bf26`, EXP-022) |
+| Mac mini M4 | `Mac16,10`, base M4 + 10GbE, 16 GB | h16g (per-die 8 — arXiv 2606.22283 Ch24) | historical corpus (EXP-001..021, 716 `M4` rows) |
 | iPad Air M2 | — (not powered for RE yet) | — | planned; constrained target |
 | Lenovo P11 Pro | Android/ARM (non-Apple) | n/a | future contrast column |
 
@@ -71,14 +71,15 @@ Standing requirements per instrument (declare, do not paper over):
 | `ane-dma-test.m` | build OK 2026-10-03 (full run is long; EXP-022 used enginemon instead) | run (EXP-020 DMA notch) | blocked: IOSurface app-host | — |
 | `enginemon` | run 2026-10-03 (euid 501, IOReport channels read) | run (per-row protocol + Laya, CONSISTENCY-PLAN C) | blocked: IOReport macOS | — |
 | `syswide_ane.py` | ready: identity wired, compiles 2026-10-03; xctrace arms not re-run this session | run historically (EXP-004 lesson: xctrace blind to Core AI) | blocked | — |
-| power probes (×3) | build-only here — no sudo in this session | run (sudo powermetrics; energy rows 75 vs 4124 mW, 2.06 vs 11.45 mJ) | blocked: no powermetrics | — |
+| power probes (×3) | run 2026-10-06 via sudo capture (`power_mlcore.py`, `power_coreai.py`; `m5-minilm-*`/`m5-granite-*` rows) | run (sudo powermetrics; energy rows 75 vs 4124 mW, 2.06 vs 11.45 mJ) | blocked: no powermetrics | — |
 | `identity.py` | run 2026-10-03 | run — same schema, keys exist on any macOS | partial: needs app-side emit | — (non-Apple sysctl) |
 | `to_openclaims.py --check` | run 2026-10-03: 679/679 valid | — (SDK venv not set up there) | — | — |
 
 Asymmetry to close (known GAPs, em-dash policy):
-- M5 energy: no rows — powermetrics never run on the Studio (sudo pending);
-  M4 has 3 `energy_mw` records of record (plus mJ/mW metric rows). Closing
-  this is `power_ab.py` + sudo here.
+- ~~M5 energy: no rows~~ CLOSED 2026-10-06 — sudo quiet capture (oMLX quit, euid 0):
+  10 `m5-minilm-*`/`m5-granite-*` rows merged (MiniLM → GPU, 4.94 vs 11.40 mJ/emb;
+  Granite ANE rail 261.1 mW lane-specific → S4 settled). M4 keeps its 3 `energy_mw`
+  records of record; bands across instruments remain non-comparable.
 - M4 through the Swift bench: never run; its 716 rows come from the Python/
   harness lineage, a different instrument — do not compare bands across them.
 - iPad Air M2: zero probes. First useful artifact is an app-hosted `ane-probe`
@@ -86,6 +87,16 @@ Asymmetry to close (known GAPs, em-dash policy):
 
 Regenerate matrix rows by running the cited commands on the cited machine and
 appending dated lines here; never overwrite history.
+
+**Operational rules (added 2026-10-06, user directive):**
+- The Studio (M5 Max) production oMLX server is **never** probed with experiment models and
+  **never** doubled by a self-started second server — a past doubling broke the production
+  server and required a Mac reboot to clean (F-36). MLX-based measurement arms go *through*
+  the existing server (API key via user), in a window of its own.
+- **M5 metrics are measured only on the M5 Studio.** mini (M4) is plumbing/trivial-run
+  convenience, never a stand-in machine for M5 numbers.
+- Sudo on the Studio is human-terminal only: agents prepare one-shot scripts (pattern:
+  `results/EXP-024-engine-attribution/raw/sudo/sudo_capture.sh` in the RE workspace); the user runs them.
 
 ---
 
@@ -113,8 +124,13 @@ instrument are listed as GAPs — no hand-waving.
 | 14 | Bench-report import from external harness runs | `bench/import_bench_reports.py` + inbox (`HUB/bench`) | working (m5max-s* rows) |
 
 **GAPs (stated plainly):**
-- **GAP-1 — M5 energy rows**: `power_ab.py` never run with sudo on the Studio
-  (already a known GAP above; unchanged).
+- **GAP-1 — M5 energy rows**: ~~never run with sudo~~ **CLOSED 2026-10-06** — quiet
+  window (oMLX quit, meta.txt euid 0 @07:30Z): `bench/power_mlcore.py` (coremltools-free
+  Core ML re-host) + `bench/power_coreai.py` (granite97m, 3 lanes). 10 rows merged
+  (`m5-minilm-*`, `m5-granite-*`); LADDER Rung 5 M5 column filled. Headline: MiniLM
+  lands on **GPU** on M5 (4.94 vs CPU 11.40 mJ, ANE rail 0.0), Granite ANE rail moves
+  only on `neuralEngine` (261.1 mW → S4 settled, EXP-022 thread 2). Raw:
+  `results/EXP-022-m5max-baseline/raw/energy-close-2026-10-06/`.
 - **GAP-2 — harness-era drivers not in-tree**: the original M4 op-scan driver and
   the QoS-ladder sweep ran inside the old harness; their successors here cover
   the primitives (`ane-probe.m` full scan, `--qos` arms) but the sweep scripts
@@ -125,3 +141,29 @@ instrument are listed as GAPs — no hand-waving.
   a cache-less re-emit rewrites 342 span-bearing lines — guarded against by
   append-only emission; see `09-origins` commit). The instrument to close this is
   a cache-sync pass from the mini clone (read-only side is safe).
+
+## Threads — 2026-10-06 (h17-truth pass)
+
+- **WATCH (D9a) — ANEForge release**: arXiv 2606.17090 artifact `comp-physics/ANEForge`
+  is 404 as of 2026-10-06 (checked via api.github.com, `*.github.io` blocked here).
+  Its release would walk the 24 per-task `kANE_*` counters end-to-end (B5 verified the
+  name space live on h17c; values gated by the stats-descriptor mechanism) — unblocks
+  per-dispatch telemetry without waiting on Apple.
+- **RETEST (D9b) — R8 matmul2d multi-tile no-op on macOS 27.1 beta**: our evidence =
+  stage4_load.log (GPUCompiler 32023, 27.0-beta, all multi-tile arms validation_failed,
+  single 64×32 correct). Zakharko's harness runs tensor ops on **Xcode 26.1/26.x
+  stable** ⇒ regression is beta-toolchain-local. Retest when 27.1 beta lands:
+  `bench/na_tiles.py` extended to a multi-tile grid; optionally draft the FB report
+  (our log + their working config = clean bisect). C6 harness is ready either way.
+- **GAP stands (D9c) — Core AI placement-dump telemetry**: public web searched
+  2026-10-06 (incl. Apple's MLX-M5 post re-fetch, D9 sources registered in
+  `knowledge/ane/SOURCES.md`): no public surface dumps per-op placement decisions.
+- **Ops note (D10), observed 2026-10-06**: network-service-order trap — default route
+  stayed on dead Ethernet (gw 192.168.1.42, ARP dead) while a working Wi-Fi tether
+  existed (en1, gw 10.137.121.147); unblocked fetches without config change via
+  `curl --interface <en1-ip>`; permanent fix = unplug the dead uplink or reorder
+  services with `networksetup -ordernetworkservices`.
+- GAP-2 addendum 2026-10-06: the fork's `bench` MSL-gemm target was uncommitted and is
+  gone after a `swift build` refresh of the upstream checkout (cd1f27f); C6's successor
+  in-tree is `bench/na_tiles.py` (TorchMetalKernel route, proven pattern) — closes the
+  MSL A/B driver port for the NA case specifically.

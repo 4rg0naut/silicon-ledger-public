@@ -1,0 +1,123 @@
+EXP-027 MX — MilAneflow C API ABI CRACKED (crown jewel) — 2026-10-08
+=======================================================================
+Machine: Mac17,14 M5 Max, macOS 27.0.1 (26A434), CLT-only, unprivileged.
+Method: `dyld_info -disassemble` on the shared-cache image (otool-classic
+refuses shared-cache files: "can't open file ... No such file"; dyld_info
+handles them and prints a full labeled disassembly of __text — reusable
+technique, note for FAILURES). 294,582-line dump; export offsets from
+EXP-026 p2b_recon_milaneflow_exports.txt mapped onto labels directly.
+
+CONFIRMED ABI (differential-proven, harness p27_mila_abi2.m)
+-------------------------------------------------------------
+1. Calling convention surprise: several exports RETURN A 16-BYTE STRUCT IN
+   x0/x1 (two registers). Passing/consuming them wrong silently corrupted
+   or NULLed results — this is why EXP-026's p2b_mila_abi.m probes failed:
+
+     void*  make_milaneflow_context(void);
+         -> 16-byte heap handle = shared_ptr<MIL::MILContext> {ptr, ctrl};
+            registers ANEMachineIR_{H2020,H2021,H2022} opsets (symbols
+            visible in dump: RegisterMilAneflowOpsets x3).
+
+     struct { void *prog; void *err; }        // x0, x1
+       milaneflow_try_program_from_string(void *ctx, const char *mil,
+                                          const char *modelPath);
+     struct { void *prog; void *err; }
+       milaneflow_try_program_from_file(void *ctx, const char *path,
+                                        const char *modelPath);
+         - arg3 = MODEL PATH for resolving BLOBFILE(path="@model_path/…")
+           weight references. Proof: passing the .mil path produced
+           "Could not open <milpath>/weights/weight.bin"; passing NULL:
+           "Cannot interpret @model_path when ModelPath is unset";
+           passing the .mlmodelc DIR: clean parse.
+         - err = milaneflow_error_info* (NULL on success). NOT stored in ctx.
+
+     size_t milaneflow_error_message_size(void *errInfo);   // NOT ctx!
+     size_t milaneflow_copy_error_message(void *errInfo, char *dst, size_t n);
+         - errInfo layout: std::string message @ +0x00, std::string
+           location @ +0x18 (libc++ SSO: flags byte @ +0x17 / +0x2f, long
+           {data,size} @ +0x00/+0x08). copy = memcpy of FULL string size;
+           the n argument is IGNORED — allocate errSize+1 yourself.
+       EXP-026's crash source found: it passed ctx (16 bytes) to
+       error_message_size → read +0x17 out of allocation.
+
+     struct { size_t n; char **names; }        // x0 = count, x1 = buffer
+       milaneflow_function_name_list(void *prog);
+     struct { size_t n; char **names; }
+       milaneflow_opset_name_list(void *prog, void *unusedX1,
+                                 const char *funcName);
+         - measured: n=1, names = ["main"], opsets = ["<tag>"] (= the
+           func's declared opset tag verbatim).
+         - list buffer is NOT NUL-terminated; iterate by n.
+         - try_function/opset_name_list accept an unused x1 slot (x1 never
+           read in disassembly; passing a string in x1 is harmless).
+
+     struct { void *handle; void *err; }        // x0, x1
+       milaneflow_try_function(void *prog, void *unusedX1,
+                               const char *funcName, const char *opsetName);
+
+     void milaneflow_free_program_handle(void *prog, void *err);  // both or NULL
+     void milaneflow_free_function_handle(void *handle, void *err);
+     (free_* accept NULL on either slot — verified via cbz guards.)
+
+2. try_function SEMANTICS (measured 3-gate ladder):
+     gate0 func exists   : bad name  -> "Cannot resolve function name X"
+     gate1 func declares : arg != func's opset tag -> "Cannot resolve opset name X"
+     gate2 ANE family    : tag is not aneflowh*    -> "Opset name is not an
+                           AneFlow opset: X"
+   Success (handle!=0) requires a function DECLARED with an AneFlow-family
+   opset. No MIL-text tag can express one (see 3), so handle=0x0 across
+   the whole battery is the honest result; the oracle now returns
+   stage-differentiated errors instead of a blanket InvalidMILProgram.
+
+3. AneFlow opset FAMILY (from LookupOpsetString byte compares):
+   exactly {aneflowh2020 -> 0, aneflowh2021 -> 1, aneflowh2022 -> 2};
+   anything else fails lookup. The three match the ANEMachineIR_H2020/21/22
+   opset-registration classes called by make_milaneflow_context.
+
+4. MIL-TEXT GRAMMAR opset-tag whitelist (func main<TAG>):
+   ACCEPTS {ios15, ios16, ios17, ios18, ios19}; REJECTS ios14, ios20,
+   ios26, cortex, cpu, cuda, x86, macos14, watchos10, tvos17, macCatalyst17,
+   aneflowh2020/1/2 ("expected token of type LANGLE"). => no MIL text
+   reachable from CoreML (ios18 tag) can ever pass gate2: ANE lowering
+   needs an aneflowh-tagged function, which only a producer inside the
+   kitchen (presumably ANECompilerService) can emit. Corroborates, from a
+   second subsystem, the K6b/EXP-025 observation that CLT-pipeline models
+   route to GPU on 27.0.1.
+
+5. PARSE ORACLE vs EXP-026 K2 (the actual K6 unmet-oracle fix):
+   ALL 10/10 battery MILs that ANECCompile rejected with InvalidMILProgram
+   (chain64 + 7 bat_* chains incl. bat_rv reshape variant + bat_src)
+   PARSE CLEAN through milaneflow_try_program_from_string/_from_file
+   (prog!=0, err=0, functions+opsets enumerable). => the InvalidMILProgram
+   wall is ANECCompile-specific (its own dialect/input-class validation),
+   NOT a defect in the MIL text itself, and the MIL front-end that backs
+   ANE (ANEMachineIR) is alive and accepting on 27.0.1.
+
+6. Parse engine niceties observed: BLOBFILE offsets resolved against
+   modelPath arg; error messages carry MIL line:col locations
+   ("at (unknown):12:106"); location_message_* export pair returns the
+   location string separately.
+
+Battery matrix (full log: p27_mila_battery.txt)
+------------------------------------------------
+  bundle            parse STRING   parse FILE   fns     declared opset
+  chain64           OK             OK           main    ios18
+  bat_c16_s64_d2    OK             OK           main    ios18
+  bat_c32_s64_d4    OK             OK           main    ios18
+  bat_c48_s64_d1    OK             OK           main    ios18
+  bat_c64_s128_d1   OK             OK           main    ios18
+  bat_c64_s128_d8   OK             OK           main    ios18
+  bat_c96_s128_d2   OK             OK           main    ios18
+  bat_c128_s128_d1  OK             OK           main    ios18
+  bat_rv            OK             OK           main    ios18
+  bat_src           OK             OK           main    ios18
+  garbage control   -> "Unexpected token type: got 'this' when expecting
+                        token of type 'PROGRAM'." (err populated, prog=0)
+
+Next slice (not this session's scope): produce/persist an aneflowh-tagged
+function (candidates: inspect what ANECompilerService feeds after its
+dialect transform — ties to SU/model.src capture; or feed a hand-written
+MIL with main<aneflowh2022> through a wider grammar surface once the
+tag-token table is located) to reach try_function handle!=0, then
+bind_function_input/execute_function closes the loop to actual ANE
+execution without the espresso net.

@@ -1,0 +1,47 @@
+SSA-gap probe — MLIR dialect-plugin stub vs the private Core AI dialects (2026-10-10)
+Machine: Mac17,14 M5 Max, macOS 27.0.1/26A434. LLVM: Homebrew llvm@22 (MLIR headers+libs).
+Plugin: harness/p2b_mps_dialect_plugin.cpp (build: harness/p2b_mps_dialect_build.sh)
+
+WHAT THE PLUGIN CLEARS (verified):
+ 1. dialect version entry  -> 'dialect mps does not implement the bytecode interface, but found a version entry'
+    cleared by StubBytecode::readVersion (version payload is buffered separately; MLIR 22 BytecodeReader.cpp ~L2044).
+ 2. dialect resources       -> "unexpected resources for dialect 'mps'"
+    cleared by StubAsm::declareResource/parseResource (OpAsmDialectInterface).
+
+REMAINING WALL (all cached plans): custom-encoded dialect attribute/type entries.
+The dialect wrote its attributes with a private bytecode encoding; the reader
+requires the hook to consume the entry exactly (BytecodeReader.cpp L1472:
+  "unexpected trailing bytes after " <entryType> " entry"), and readString/readBlob
+do not match the encoding. Both original and specialized files stop here.
+
+VERBATIM (original_model_0.mpsgraph):
+/Users/<user>/Library/Caches/coreai-cache/26A434/python/6f30dc614c9e4b5a25de80d6fbca1cf2304f0a77956f1608097edbd0fc8a97c3/6C51FA6919A4F15EAE6B61542CD93C721749E1FF8027D62A8EFB22E6C74D4BC0/model.aimodelx/main-this-delegates/MPSGraph/mpsExecutable.mpsgraphpackage/original_model_0.mpsgraph:0:0: error: unexpected trailing bytes after Attribute entry
+
+VERBATIM (specialized_model_1.mpsgraph):
+/Users/<user>/Library/Caches/coreai-cache/26A434/python/6f30dc614c9e4b5a25de80d6fbca1cf2304f0a77956f1608097edbd0fc8a97c3/6C51FA6919A4F15EAE6B61542CD93C721749E1FF8027D62A8EFB22E6C74D4BC0/model.aimodelx/main-this-delegates/MPSGraph/mpsExecutable.mpsgraphpackage/specialized_model_1.mpsgraph:0:0: error: unexpected trailing bytes after attribute entry
+
+NEXT LEAD: dump the kAttrType=2 section entries (Encoding.h Section::ID) and reverse the
+first custom attribute's length framing; or obtain the dialects' writeAttribute encodings.
+
+=====================================================================================
+RESOLUTION (same day): the wall is CLOSED for the specialized plan.
+=====================================================================================
+Two additions to the plugin route:
+  1. bench/mlir_bytecode.py `rewrite` — rewrites the private dialects' attribute/type
+     ENTRIES in sections 2/3 of the bytecode into textual placeholders (loc(unknown)/i64),
+     re-emitting the section framing. Private VALUES are stubbed; builtin-encoded values
+     survive; the op graph is recovered.
+  2. The plugin keeps the version + resource interfaces (above).
+Then: mlir-opt --load-dialect-plugin=<plugin.dylib> --allow-unregistered-dialect <rw>
+prints readable IR.
+
+Results (results/p2b_model_src_ir.txt):
+  - specialized_model_1.mpsgraph: FULL recovery — module attributes include
+    mps.aneArch = "h17c", mps.aneRegionsSHA = "E160...", mps.deviceGPUCoreCount = 40,
+    and every region function (main_..._0_ANE_region_N_0 / _GPU_region_N) with its
+    memref/tensor signature.
+  - original_model_0.mpsgraph: FULL recovery with `rewrite --pad-attrs 65536` — the
+    model source prints as mps.module / mps.func / mps.constant with real dense<>
+    constants, tensor shapes and SSA values. The pad is needed because unknown ops
+    read their 'properties' bytes as an attribute index; those bytes are not a real
+    index, so padding absorbs them. 934 lines of IR, 0 errors for both plans.

@@ -1,0 +1,66 @@
+WX-3 — WRITE-SIDE mpsgraphtool round-trip through our MLIR-bytecode reader (2026-10-08)
+=====================================================================================
+Machine: Mac17,14 M5 Max (h17c), macOS 27.0.1 (26A434), user-run, unprivileged.
+
+WHY: SU decoded Apple's WRITE artifacts (coreai-cache plan packages) produced by the
+runtime. Until now nothing showed a PUBLIC tool writing the same format, and nothing
+showed whether the placement grammar is reachable without the runtime. mpsgraphtool
+(/usr/bin, "usage: mpsgraphtool convert -coremlpackage … -specializeForDevice",
+the same tool Apple's LLVM RFC promises) closes both questions.
+
+Commands (verbatim):
+  mpsgraphtool convert -coremlpackage models/minilm128.mlpackage \
+      -path /tmp/mpsbc -packageName minilm128
+  -> minilm128.mpsgraphpackage/{reflection.fb,manifest.plist,
+     original_model_0.mpsgraph,resources.bin}
+
+  mpsgraphtool convert -coremlpackage models/minilm128.mlpackage \
+      -path /tmp/mpsbc -packageName minilm128spec -specializeForDevice
+  -> minilm128spec.mpsgraphpackage/{..., original_model_0.mpsgraph,
+     specialized_model_1.mpsgraph}   # SAME naming as coreai-cache (SU finding 7)
+
+Header of original_model_0.mpsgraph:
+  00000000: 4d4c ef52 0d4d 4c49 5232 322e 302e 3067   ML.R.MLIR22.0.0g
+  -> magic ML\\xefR + bytecode v6 + producer MLIR22.0.0git — identical container
+  to the coreai-cache packages decoded by EXP-026 SU; our reader (harness/
+  p2b_mlir_bc_strings.py) parses it directly, rc=0, 134 strings:
+  dialects {mps, builtin} ops {add, matmul, reshape, permute, instance_norm,
+  multiply, softmax, gelu, cast, reduction_sum, broadcast_to, divide, module}.
+
+specialized_model_1.mpsgraph (172 strings) — THE PUBLIC PLACEMENT SURFACE:
+  dialects: mpsx, mps, mps_spi, func, placement, arith, memref
+  placement grammar: placement / gpu / region_return / region_call /
+    memref_backed / use_memref / stitched / stitched_return /
+    main_GPU_region_0        # minilm = GPU region — matches every measured
+                            # routing row we hold for this model (TRUE NEGATIVES)
+  device stamps:  h17c            # THIS machine's ANE arch string emitted by a
+                                # public tool — second independent source for the
+                                # M5 Max -> h17c -> 32-core mapping (paper table
+                                # 34.1 + EXP-026 coreai-cache dir = other two)
+  attributes (string section, mps.* family):
+    mps.aneArch, mps.deviceArchitecture, mps.deviceGPUCoreCount, mps.deviceType,
+    mps.allowedComputeDevices, mps.preferredDevice, mps.useANELLIR,
+    mps.aneBondedCompileMode, mps.aneCompilerSpatialSplitting,
+    mps.aneEnableFWToFWSignal,          # attribute form of the kANEF* key we
+                                        # hunted in-process (P2-C3): the knob is
+                                        # real and addressable at the dialect level
+    mps.aneEnableLateLatch, mps.aneRegionsSHA,
+    mps.enableANECHWRankPromotion, mps.enableANECValidationWorkflow,
+    mps.optimizationLevel, mps.optimizationProfile, mps.reducedPrecisionFastMath,
+    mps.disablePreAllocate, mps.enableParallelEncode, ...
+  validation string (verbatim):
+    "Incompatible element type for ANE: expected fp16, f8E4M3, si8, ui8, si16, or ui16"
+    -> BYTE-EQUAL to the dtype whitelist we extracted from the coreai-cache
+       specialized_model placement (SU finding 7) — independent public corroboration.
+
+GAPS declared honestly:
+  - No binary_0.hwx / LLIR emitted by mpsgraphtool here (ANE-compile leg likely
+    needs the -aimodel/ODIE input or the runtime; -aimodel input accepted per --help).
+  - Attribute VALUES are byte-encoded in the IR section, not in the string
+    dictionary; full SSA decode still needs the DialectPlugin stub (SU deviation).
+  - minilm mlpackage route only; aimodel route untested this slice.
+
+Pins: raw/research-2026-10-08/ (paper PDF, MPP guide PDF, LLVM RFC md, WWDC330
+html, MetalHLO README + NAX excerpts), sha256 in pack MANIFEST. MetalHLO commit
+44b3a04be0095296f9be95ce060e93045b69c367 (2026-06-06), web-check 2026-10-08
+SearXNG via mini VM :8888.

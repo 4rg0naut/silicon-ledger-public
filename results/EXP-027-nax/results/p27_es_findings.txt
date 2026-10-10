@@ -1,0 +1,73 @@
+EXP-027 ES — Path-B espresso MobileNetV2 end-to-end EVAL; event stage named — 2026-10-08
+=============================================================================================
+Machine: Mac17,14 M5 Max, macOS 27.0.1 (26A434), CLT-only, unprivileged.
+Harness: harness/p27_es_harness.m (v2; EXP-025 pkgb_harness untouched).
+Bundle: /tmp/mnv2.mlmodelc (service-compiled espresso MobileNetV2, 170-layer
+net JSON, 23 MB weights — EXP-026 K5 verified).
+
+RESULTS (run log: p27_es_runlog.txt)
+-------------------------------------
+1. mapIOSurfacesWithModel:request:cacheInference:error: now SUCCEEDS on the
+   espresso bundle — the 0x1D from EXP-026 was a SIZE mismatch, not a format
+   wall. Two surface shapes map:
+     - lin:   linear single-plane width=BatchStride bytes (301056 / 64064)
+     - stack: image w=224 h=672 (3x224) bpr=448 alloc=301056, BGRA4CC
+   (EXP-025 chain surfaces were 64*sp*4 fp32 bytes — wrong size -> 0x1D.)
+
+2. Authoritative dims (measured live post-load, resolving the K5 recipe):
+   modelAttributes returns a PLAIN NSDictionary on 27.0.1 (not the
+   _ANEModelAttributes object); keys are Capitalized:
+     NetworkStatusList[0].LiveInputList[0] = { Name=image, Type=Float16,
+       Width=224 Height=224 Channels=3 PlaneCount=3 RowStride=448
+       PlaneStride=100352 BatchStride=301056 Batches=1 }
+     LiveOutputList[0] = { Name=classLabelProbs@output, Type=Float16,
+       Channels=1001 RowStride=64 PlaneStride=64 BatchStride=64064 }
+   Offline cross-check model.espresso.shape layer_shapes.image {k:3,h:224,
+   w:224,n:1} matches (171 layer_shapes entries).
+   ANEFModelDescription also present: procedure "net" id 0, input symbol
+   image, output symbol classLabelProbs@output.
+
+3. EVALUATION WORKS: doEvaluateDirectWithModel on the loaded program
+   executes: median 0.39-0.43 ms per predict (n=9-45 across variants,
+   min 0.383 ms). First public-API-free Path-B predict on a real (non-chain)
+   CoreML model on 27.0.1. (Engine attribution ANE-vs-GPU = AN-ROUTE scope;
+   not claimed here.)
+
+4. kANEF key behavior probes (per criterion): options dict keys
+   kANEFDisableIOFencesUseSharedEvents / kANEFEnableFWToFWSignal are
+   ACCEPTED (9/9 evals ok each) with no timing effect within noise
+   (0.416/0.414 vs floor 0.414 median ms). Verdict: the direct-eval
+   options dict does not consume these keys in-process (they remain
+   service/compiler-side constants); no behavior delta measured.
+
+5. event_extra_ms: NOT fillable on this bundle — exact named stage:
+   attaching a non-empty-waitEvents _ANESharedEvents to the request and
+   evaluating SIGSEGVs inside
+     -[_ANEProgramForEvaluation processRequest:model:qos:qIndex:
+        modelStringID:options:returnValue:error:] block_invoke +1524
+   on thread "ANEServicesThread" — the IDENTICAL frame EXP-025 F-40 recorded
+   for Path A (shared-event consumer null-deref; F-40 rule: shared events
+   require a client-owned ModelTypePackage). mapIOSurfaces(events) itself
+   SUCCEEDS; the crash lands on the first doEvaluateDirect with events.
+   Exclusions measured (each isolated in its own process):
+     - client compileModel: beforehand (ES_COMPILE)  -> same crash
+     - skip plain map+eval entirely (ES_EVONLY)       -> same crash
+     - evaluateWithModel: instead of direct (ES_EVALSEL) -> same crash
+     - wait-event eventType 0/1/3 (ES_ETYPE)         -> same crash
+     - signalEvents instead (ES_SIG) -> NSInvalidArgumentException:
+       framework demands a provider responding to -sharedEvent on the
+       signal slot (IOSurfaceSharedEvent is not accepted there)
+     - empty signal+wait lists (ES_EMPTY) -> -[_ANESharedEvents init]
+       returns nil (rejected)
+   So on 27.0.1 the F-40 shared-events wall is confirmed Path-B too:
+   event-bridged timing needs the in-memory-compile path where the client
+   holds the package (EXP-025 chain context), not a service-compiled bundle.
+
+6. ABI/tooling gotchas logged this slice (see FAILURES F-48):
+   - variadic objc_msgSend wrappers silently mangled object args in this
+     build (crash inside modelAtURL:key: with a garbage string receiver);
+     explicit per-call prototypes fixed it. Original EXP-025 harness always
+     used explicit casts — convention vindicated.
+   - modelAttributes before loadModel: is __NSDictionary0; selector-based
+     traversal of the post-load dict crashed (unrecognized selector
+     networkStatusList) — dict-lookup with Capitalized keys required.

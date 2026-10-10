@@ -1,0 +1,10 @@
+# machine=Mac17,14 os=27.0.1 build=26A434 date=2026-10-07T21:43:36+0200
+# enginemon 5s window during 600-predict E5 loop (public Core ML, MiniLM-128 fresh bundle):
+GPU Energy                                 Energy Model             2347289309         nJ gpu
+  ANE0                  0.0 mW   (frozen-or-idle: this channel's movement is only meaningful once calibration says so -- see README)
+  GPU Energy          443.2 mW
+  ANE handlers            0 interrupts
+  ANE DCS traffic          0 B (M4 names) + 0 B (M5 TOTAL DCS)
+  GFX DCS                 0 B (GPU<->ANE client lane)
+  ANE floor      F>=2 duty    0.0% (0/125588722 ticks) | LNK hi 0.0% (0/251169744)
+# finding: public Core ML on M5 Max routes this MIL bundle to GPU (E5/MPS) — ANE idle (0 B DCS).

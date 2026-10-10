@@ -1,0 +1,35 @@
+/System/Library/PrivateFrameworks/MilAneflow.framework/MilAneflow [arm64e]:
+    -exports:
+        offset      symbol
+        0x00131A10  _MilAneflowVersionNumber
+        0x001319E0  _MilAneflowVersionString
+        0x001179A4  _make_milaneflow_context
+        0x00119708  _milaneflow_bind_function_input
+        0x0011A624  _milaneflow_bind_function_output
+        0x00117B08  _milaneflow_copy_error_message
+        0x00117B78  _milaneflow_copy_location_message
+        0x00117AEC  _milaneflow_error_message_size
+        0x0011B520  _milaneflow_execute_function
+        0x0011969C  _milaneflow_free_bind_result
+        0x00117A94  _milaneflow_free_context
+        0x00117BCC  _milaneflow_free_execution_result
+        0x001183CC  _milaneflow_free_function_handle
+        0x001190F8  _milaneflow_free_io_handle
+        0x00118D30  _milaneflow_free_name_list
+        0x0011832C  _milaneflow_free_program_handle
+        0x001195F8  _milaneflow_free_strided_bind_options
+        0x00118B90  _milaneflow_function_input_name_list
+        0x00119278  _milaneflow_function_io_dim_size
+        0x00119164  _milaneflow_function_io_dtype
+        0x001191FC  _milaneflow_function_io_rank
+        0x00118968  _milaneflow_function_name_list
+        0x00118C6C  _milaneflow_function_output_name_list
+        0x00117B5C  _milaneflow_location_message_size
+        0x0011937C  _milaneflow_make_strided_bind_options
+        0x00118A10  _milaneflow_opset_name_list
+        0x001184E8  _milaneflow_try_function
+        0x00118D54  _milaneflow_try_input_io_handle
+        0x00118F24  _milaneflow_try_output_io_handle
+        0x00117C38  _milaneflow_try_program_from_file
+        0x001181EC  _milaneflow_try_program_from_string
+        0x0011796C  _register_aneflow_opsets

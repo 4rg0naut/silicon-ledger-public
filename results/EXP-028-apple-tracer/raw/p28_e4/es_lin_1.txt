@@ -1,0 +1,102 @@
+dlopen ANE: ok
+m1
+m2 url ok
+m2a client=0x102eb2470
+m2b modelcalled
+m3 client=0x102eb2470
+model=ok
+loadModel: ok
+m4 model obj ok
+attrs=ok
+ATTRS(2167):
+{
+    ANEFModelDescription =     {
+        ANEFModelInput16KAlignmentArray =         (
+            0
+        );
+        ANEFModelOutput16KAlignmentArray =         (
+            0
+        );
+        ANEFModelProcedures =         (
+                        {
+                ANEFModelInputSymbolIndexArray =                 (
+                    0
+                );
+                ANEFModelOutputSymbolIndexArray =                 (
+                    0
+                );
+                ANEFModelProcedureID = 0;
+            }
+        );
+        kANEFModelInputSymbolsArrayKey =         (
+            image
+        );
+        kANEFModelOutputSymbolsArrayKey =         (
+            "classLabelProbs@output"
+        );
+        kANEFModelProcedureNameToIDMapKey =         {
+            net = 0;
+        };
+    };
+    NetworkStatusList =     (
+                {
+            LiveInputList =             (
+                                {
+                    BatchStride = 301056;
+                    Batches = 1;
+                    Channels = 3;
+                    Depth = 1;
+                    DepthStride = 301056;
+                    Height = 224;
+                    Interleave = 1;
+                    Name = image;
+                    PlaneCount = 3;
+                    PlaneStride = 100352;
+                    RowStride = 448;
+                    Symbol = image;
+                    Type = Float16;
+                    Width = 224;
+                }
+            );
+            LiveOutputList =             (
+                                {
+                    BatchStride = 64064;
+                    Batches = 1;
+                    Channels = 1001;
+                    Depth = 1;
+                    DepthStride = 64064;
+                    Height = 1;
+                    Interleave = 1;
+                    Name = "classLabelProbs@output";
+                    PlaneCount = 1001;
+                    PlaneStride = 64;
+                    RowStride = 64;
+                    Symbol = "classLabelProbs@output";
+                    Type = Float16;
+                    Width = 1;
+                }
+            );
+            Name = net;
+        }
+    );
+}
+networkStatusList=nil count=-1
+== liveInputList ==
+ (nil/not-array)
+== liveOutputList ==
+ (nil/not-array)
+espresso.shape: 22653B json=ok err=-
+layer_shapes: 171 entries; image={
+    h = 224;
+    k = 3;
+    n = 1;
+    w = 224;
+}
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x102eb0010 (w=301056 bpr=301056 alloc=301056) sOut=0x102ebccc0
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.425 min=0.407
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.413ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.412ms first_err=-
+mapIOSurfaces(events): ok

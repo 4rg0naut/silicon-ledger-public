@@ -1,0 +1,179 @@
+dlopen ANE: ok
+m1
+m2 url ok
+m2a client=0x1036a2470
+m2b modelcalled
+m3 client=0x1036a2470
+model=ok
+loadModel: ok
+m4 model obj ok
+attrs=ok
+ATTRS(5264):
+{
+    ANEFModelDescription =     {
+        ANEFModelInput16KAlignmentArray =         (
+            0
+        );
+        ANEFModelOutput16KAlignmentArray =         (
+            0
+        );
+        ANEFModelProcedures =         (
+                        {
+                ANEFModelInputSymbolIndexArray =                 (
+                    0
+                );
+                ANEFModelOutputSymbolIndexArray =                 (
+                    0
+                );
+                ANEFModelProcedureID = 0;
+            }
+        );
+        kANEFModelInputSymbolsArrayKey =         (
+            image
+        );
+        kANEFModelOutputSymbolsArrayKey =         (
+            "classLabelProbs@output"
+        );
+        kANEFModelProcedureNameToIDMapKey =         {
+            net = 0;
+        };
+    };
+    NetworkStatusList =     (
+                {
+            LiveInputList =             (
+                                {
+                    BatchStride = 301056;
+                    Batches = 1;
+                    Channels = 3;
+                    Depth = 1;
+                    DepthStride = 301056;
+                    Height = 224;
+                    Interleave = 1;
+                    Name = image;
+                    PlaneCount = 3;
+                    PlaneStride = 100352;
+                    RowStride = 448;
+                    Symbol = image;
+                    Type = Float16;
+                    Width = 224;
+                }
+            );
+            LiveOutputList =             (
+                                {
+                    BatchStride = 64064;
+                    Batches = 1;
+                    Channels = 1001;
+                    Depth = 1;
+                    DepthStride = 64064;
+                    Height = 1;
+                    Interleave = 1;
+                    Name = "classLabelProbs@output";
+                    PlaneCount = 1001;
+                    PlaneStride = 64;
+                    RowStride = 64;
+                    Symbol = "classLabelProbs@output";
+                    Type = Float16;
+                    Width = 1;
+                }
+            );
+            Name = net;
+        }
+    );
+    kANEFCompilerServiceBundleIdentifierKey = "com.apple.ANECompilerService";
+    kANEFCompilerServiceRUsageAfterKey =     {
+        "ri_billed_energy" = 69988;
+        "ri_billed_system_time" = 79283;
+        "ri_child_elapsed_abstime" = 0;
+        "ri_child_interrupt_wkups" = 0;
+        "ri_child_pageins" = 0;
+        "ri_child_pkg_idle_wkups" = 0;
+        "ri_child_system_time" = 0;
+        "ri_child_user_time" = 0;
+        "ri_cpu_time_qos_background" = 1685214;
+        "ri_cpu_time_qos_default" = 0;
+        "ri_cpu_time_qos_legacy" = 493013673;
+        "ri_cpu_time_qos_maintenance" = 0;
+        "ri_cpu_time_qos_user_initiated" = 194215223;
+        "ri_cpu_time_qos_user_interactive" = 0;
+        "ri_cpu_time_qos_utility" = 2255;
+        "ri_cycles" = 125920950076;
+        "ri_diskio_bytesread" = 410886144;
+        "ri_diskio_byteswritten" = 10699472896;
+        "ri_flags" = 0;
+        "ri_instructions" = 622415919807;
+        "ri_interrupt_wkups" = 310;
+        "ri_interval_max_phys_footprint" = 15746536;
+        "ri_lifetime_max_phys_footprint" = 136972376;
+        "ri_logical_writes" = 3801050491;
+        "ri_pageins" = 90887;
+        "ri_phys_footprint" = 8734160;
+        "ri_pkg_idle_wkups" = 5;
+        "ri_proc_exit_abstime" = 0;
+        "ri_proc_start_abstime" = 2512283108526;
+        "ri_resident_size" = 26705920;
+        "ri_runnable_time" = 757782898;
+        "ri_serviced_energy" = 193878476117;
+        "ri_serviced_system_time" = 683469342;
+        "ri_system_time" = 58065744;
+        "ri_user_time" = 630837032;
+        "ri_wired_size" = 0;
+    };
+    kANEFCompilerServiceRUsageBeforeKey =     {
+        "ri_billed_energy" = 69988;
+        "ri_billed_system_time" = 79283;
+        "ri_child_elapsed_abstime" = 0;
+        "ri_child_interrupt_wkups" = 0;
+        "ri_child_pageins" = 0;
+        "ri_child_pkg_idle_wkups" = 0;
+        "ri_child_system_time" = 0;
+        "ri_child_user_time" = 0;
+        "ri_cpu_time_qos_background" = 1685214;
+        "ri_cpu_time_qos_default" = 0;
+        "ri_cpu_time_qos_legacy" = 493013673;
+        "ri_cpu_time_qos_maintenance" = 0;
+        "ri_cpu_time_qos_user_initiated" = 189827379;
+        "ri_cpu_time_qos_user_interactive" = 0;
+        "ri_cpu_time_qos_utility" = 2255;
+        "ri_cycles" = 125197031010;
+        "ri_diskio_bytesread" = 385544192;
+        "ri_diskio_byteswritten" = 10649739264;
+        "ri_flags" = 0;
+        "ri_instructions" = 618774034877;
+        "ri_interrupt_wkups" = 310;
+        "ri_interval_max_phys_footprint" = 9029072;
+        "ri_lifetime_max_phys_footprint" = 136972376;
+        "ri_logical_writes" = 3783748007;
+        "ri_pageins" = 89122;
+        "ri_phys_footprint" = 9029072;
+        "ri_pkg_idle_wkups" = 5;
+        "ri_proc_exit_abstime" = 0;
+        "ri_proc_start_abstime" = 2512283108526;
+        "ri_resident_size" = 3080192;
+        "ri_runnable_time" = 753376572;
+        "ri_serviced_energy" = 193878476117;
+        "ri_serviced_system_time" = 679079247;
+        "ri_system_time" = 57537795;
+        "ri_user_time" = 626977137;
+        "ri_wired_size" = 0;
+    };
+}
+networkStatusList=nil count=-1
+== liveInputList ==
+ (nil/not-array)
+== liveOutputList ==
+ (nil/not-array)
+espresso.shape: 22653B json=ok err=-
+layer_shapes: 171 entries; image={
+    h = 224;
+    k = 3;
+    n = 1;
+    w = 224;
+}
+live in=301056B out=64064B 224x224 planes=3 rowstride=448 strat=lin
+strategy=lin sIn=0x1036a9810 (w=301056 bpr=301056 alloc=301056) sOut=0x1036ac660
+req=ok
+mapIOSurfaces: ok
+eval_ms median=0.422 min=0.413
+kANEFprobe kANEFDisableIOFencesUseSharedEvents: ok=9/9 median=0.412ms first_err=-
+kANEFprobe kANEFEnableFWToFWSignal: ok=9/9 median=0.429ms first_err=-
+mapIOSurfaces(events): ok

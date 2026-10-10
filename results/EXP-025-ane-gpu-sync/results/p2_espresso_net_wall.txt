@@ -1,0 +1,20 @@
+# machine=Mac17,14 os=27.0.1 build=26A434 date=2026-10-07T21:43:36+0200
+# Real 27.0.1 bundle (public compileModelAtURL output) through _ANEClient pathb:
+# machine=Mac17,14 os=27.0.1 build=26A434 date=2026-10-07T21:42:44+0200
+# pathb: libane-style client path; GPU command buffer signals the ANE wait via MTLSharedEvent->IOSurfaceSharedEvent port bridge
+128 CLIENT_COMPILE_FAIL: _ANEEspressoIRTranslator : error Cannot load network '/tmp/fresh128.mlmodelc/model.espresso.net'
+512 CLIENT_COMPILE_FAIL: _ANEEspressoIRTranslator : error Cannot load network '/tmp/fresh128.mlmodelc/model.espresso.net'
+2048 CLIENT_COMPILE_FAIL: _ANEEspressoIRTranslator : error Cannot load network '/tmp/fresh128.mlmodelc/model.espresso.net'
+8192 CLIENT_COMPILE_FAIL: _ANEEspressoIRTranslator : error Cannot load network '/tmp/fresh128.mlmodelc/model.espresso.net'
+32768 CLIENT_COMPILE_FAIL: _ANEEspressoIRTranslator : error Cannot load network '/tmp/fresh128.mlmodelc/model.espresso.net'
+
+# root fs_usage during PUBLIC MLModel load (p2_sudo_capture.txt, 2026-10-07T21:36):
+21:36:43.462221    WrData[S]       D=0x019f4667  B=0x1000   /dev/disk3s5  private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.aned/TemporaryItems/NSIRD_ANECompilerService_FIb9Ze/model.src                     0.000022 W ANECompilerServi.4003225
+21:36:43.476703  stat64                                 C2A9AF2AE1F3789CCC8B96_CD50D1E9BF03354042C28C1A0D023267C46E0628E17216C1D72CDCE1A97A27DC_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/model.hwx    0.000019   aned.4013255
+21:36:43.476775  open              F=3        (R_______F______)  1F3789CCC8B96_CD50D1E9BF03354042C28C1A0D023267C46E0628E17216C1D72CDCE1A97A27DC_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/model.hwx    0.000063   aned.4013255
+21:36:43.476940  getxattr               [ 93]           C2A9AF2AE1F3789CCC8B96_CD50D1E9BF03354042C28C1A0D023267C46E0628E17216C1D72CDCE1A97A27DC_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/model.hwx    0.000022   aned.4013255
+#  (ANECompilerService.xpc WRITES model.src -> produces model.hwx in hash-keyed cache read by aned;
+#   full 264MB fs_usage kept out-of-repo: /tmp/p2_sudo_capture.txt owned root)
+# conclusion: on 27.0.1 the LIVE producer is ANECompilerService XPC (MIL -> model.src -> model.hwx);
+#   model.espresso.net is demanded only by the LEGACY _ANEClient door and matches NO bundle format
+#   produced by current toolchains.

@@ -24,26 +24,29 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from power_ab import parse_power  # noqa: E402
+from _power import POWER_RE, parse_power  # single source: bench/_power.py
 
-BIN = "tools/granite-runner/.build/out/Products/Release/granite-runner"
+BIN = "tools/granite-runner/.build/release/granite-runner"
 BUNDLE_DIR = "models/granite97m/macos/fp32-s128"
 # --bundle overrides the model path so the same power A/B can be run on any variant.
 BUNDLE_OVERRIDE = None
+TOKENIZER_DIR = "/Volumes/M4-Partage/local_ai_stack/work/granite-embedding-97m/source"
+REFERENCE = "/Volumes/M4-Partage/local_ai_stack/work/granite-embedding-97m/fixtures/golden_s128.json"
+# Default locations on the Studio; override with --tokenizer / --reference off-box.
 CASES = ["neuralEngine", "gpu", "cpuOnly"]
 
 
-def run_case(compute: str, iters: int, interval_ms: int) -> dict:
+def run_case(compute: str, iters: int, interval_ms: int,
+             tokenizer_dir: str, reference: str, outdir: str) -> dict:
     args = [
         BIN,
         BUNDLE_OVERRIDE or f"{BUNDLE_DIR}/granite97m_fp32_s128_bound.aimodel",
-        f"{BUNDLE_DIR}/tokenizer",
-        f"{BUNDLE_DIR}/reference.json",
+        tokenizer_dir,
+        reference,
         "--compute", compute,
         "--iters", str(iters),
     ]
-    log_path = f"results/EXP-004-coreai-ane/raw/power_{compute}.txt"
+    log_path = f"{outdir}/power_{compute}.txt"
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
 
     pm = subprocess.Popen(
@@ -88,7 +91,18 @@ def main() -> int:
     ap.add_argument("--interval", type=int, default=500)
     ap.add_argument("--bundle", help="override the model path (.aimodel or .aimodelc)")
     ap.add_argument("--iters", type=int, default=3000)
+    ap.add_argument("--tokenizer", default=TOKENIZER_DIR,
+                    help="tokenizer dir for granite-runner (default: Studio path)")
+    ap.add_argument("--reference", default=REFERENCE,
+                    help="golden reference JSON for the correctness gate")
+    ap.add_argument("--outdir", default=None,
+                    help="capture dir for power_<compute>.txt (default: fresh "
+                         "bench/energy-<UTCstamp>/; never an EXP-NN dir belonging "
+                         "to another machine's experiment)")
     args = ap.parse_args()
+    if args.outdir is None:
+        args.outdir = f"bench/energy-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
+    os.makedirs(args.outdir, exist_ok=True)
 
     try:
         import json as _json
@@ -106,7 +120,7 @@ def main() -> int:
     results = []
     print(f"{'compute':<14}{'gate':<8}{'median':>10}{'ANE mW':>10}{'GPU mW':>10}{'CPU mW':>10}")
     for compute in CASES:
-        r = run_case(compute, args.iters, args.interval)
+        r = run_case(compute, args.iters, args.interval, args.tokenizer, args.reference, args.outdir)
         results.append(r)
         med = f"{r['median_ms']:.2f}ms" if r["median_ms"] is not None else "?"
         print(f"{compute:<14}{r['gate']:<8}{med:>10}"

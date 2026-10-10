@@ -1,0 +1,11 @@
+# census date=2026-10-07T21:36 (root, dtrace -p on own probe, /tmp/p2_census.d)
+# E5 steady-state selectors bearing on the shared-event architecture (counts over ~200 predicts window):
+  enableLowLatencyWaitSharedEvent                                  37
+  aneExecutionPriority                                             78
+  e5rtStreamReuseExpectation                                      130
+  disableIOFencing                                                131
+  newSharedEventWithMachPort:                                     131
+=== IOSurface ===
+  -[IOSurfaceSharedEventListener dealloc]                           1
+  IOSurfaceSharedEventRemoveEventListener                           1
+# (full 264MB census out-of-repo: /tmp/p2_census_out.txt, root)

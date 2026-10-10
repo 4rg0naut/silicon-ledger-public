@@ -1,0 +1,7 @@
+bat_c64_s128_d1    -> InvalidMILProgram
+bat_c16_s64_d2     -> InvalidMILProgram
+bat_c32_s64_d4     -> InvalidMILProgram
+bat_c96_s128_d2    -> InvalidMILProgram
+bat_c48_s64_d1     -> InvalidMILProgram
+bat_c128_s128_d1   -> InvalidMILProgram
+bat_c64_s128_d8    -> InvalidMILProgram

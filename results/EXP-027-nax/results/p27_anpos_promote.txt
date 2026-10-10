@@ -1,0 +1,58 @@
+EXP-027 AN-POS PROMOTION — matched matrix, ANEXL/ANE-UP promoted to a calibrated metric (2026-10-10)
+=====================================================================================================
+Machine: Mac17,14 M5 Max, macOS 27.0.1 / 26A434, unprivileged. enginemon user-mode, --all, 500 ms.
+Driver: harness/p27_anpos_promote.sh (reuses the validated harness p27_anpos_run.py).
+Windows: results/EXP-027-nax/raw/promote/{idle,ane,gpu,cpu}{1,2}.jsonl. Analyzer: results/p27_anpos_promote_analyze.py.
+
+WHY: the 2026-10-08 AN-POS run flagged SOC-NI9 "ANEXL U" + SOC-NI8 "ANE UP" as a positive
+candidate but with thin controls (n=3 s). This run re-measures with MATCHED work per lane
+(same harness, same iters) and repeated windows, to decide promotion.
+
+WORK PER ARM (same script, one lane each; n=55 pairs):
+  ANE  median 76.5 ms/pair (p10 76.0 / p90 77.3)   [JIT .aimodel, ANE-preferred]
+  GPU  median 26.8 ms/pair (p10 26.4 / p90 33.4)
+  CPU  median 213.0 ms/pair
+Lanes are cleanly separated by latency, so the counter question is well posed.
+
+WINDOW TOTALS (per-channel, summed over each window)
+
+  channel                                   idle1 idle2   ANE1    ANE2    GPU1    GPU2   CPU1
+  PMP0/SOC-NI Util BW/SOC-NI9 ANEXL U           0     0  19611   19589       0       0      0
+  PMP0/SOC-NI Util BW/SOC-NI8 ANE UP           0     0  18421   18431      13      13      0
+  PMP0/DCS BW/ANE L0 RD+WR                      0     0  35237   35368   21764   21570      0
+  PMP0/AF BW/ANE L0 RD+WR                       0     0  35237   35368   21764   21570      0
+  PMP0/DCS Floor/ANE-DCS-BW            299314198 299478449 204232761 204293119 147800843 134613757 454256453
+
+VERDICT
+
+  1. **SOC-NI9 "ANEXL U" — PROMOTED.** Zero in every non-ANE window (idle ×2, GPU ×2, CPU ×1)
+     and ≈19.6k in both ANE windows (spread <0.2%). It is a **lane-exclusive, unprivileged ANE
+     activity counter** on M5 Max. Registers as a metric: non-zero ⇒ ANE lane was active in the
+     window; zero ⇒ not.
+  2. **SOC-NI8 "ANE UP" — PROMOTED with a declared residual.** ≈18.4k ANE vs 13 in each GPU
+     window (~0.07%), 0 at idle/CPU → 1417× separation. Use ANEXL as the primary exclusive lens;
+     ANE UP as corroboration.
+  3. **PMP0 DCS/AF ANE L0/L1 RD+WR — CONFIRMED NON-EXCLUSIVE.** 35.3k ANE vs 21.7k GPU (1.6×):
+     traffic is higher during ANE work but also present in the GPU window. Keep as an ANE-lane
+     *indicator*, never a discriminator. (This is exactly the 2026-10-08 caveat, now quantified.)
+  4. **ANE-DCS-BW floor residency — NOT a discriminator in this session.** idle ≈299M > ANE ≈204M;
+     the F/voltage-floor residency is saturated by non-ANE DCS activity (display/fabric) and does
+     not track the ANE lane. Do not use the floor lens as an ANE signal under this sampling.
+
+CONSEQUENCES
+
+  - The EXP-022/EXP-025/EXP-026/K6b "ANE 0" routings stand as **true negatives**: the exclusive
+    lens (ANEXL) is proven to light up (≈19.6k) under real ANE work and stay at exactly 0
+    otherwise, including during GPU-lane execution of the same model.
+  - ANEXL is the unprivileged answer to "did the NE lane run?" that this lab has hunted since
+    EXP-022; it does not require sudo, does not require the Energy Model rail (gated), and is
+    disjoint from the GPU-side UT Perf_State_13 lens.
+  - enginemon should expose ANEXL/ANE-UP as a first-class field (currently a raw --all channel).
+
+CAVEATS
+  - One machine/OS build (26A434); the ANE arm is the JIT route on a single full-ANE-region
+    graph (the h17g AOT bundle no longer loads on h17c — falls back to JIT; lane placement is
+    baked by the model author, and 76.5 ms matches the ANE class).
+  - CPU window n=1 (control); idle/GPU n=2. ANEXL's zero in all five non-ANE windows and its
+    sub-0.2% ANE-window spread is the strength of the claim; a future capture can widen n.
+  - Window-level attribution, not per-eval.

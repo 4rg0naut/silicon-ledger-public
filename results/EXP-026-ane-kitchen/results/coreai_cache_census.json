@@ -1,0 +1,18 @@
+{
+  "arch_stamps": {
+    "h17c": 198
+  },
+  "distinct_model_hash": 175,
+  "distinct_opts_hash": 3,
+  "layouts": {
+    "osbuild": 33,
+    "pyver": 165
+  },
+  "opts_hash_reused_across_models": [
+    "1437135650F5EB80B3545D58225DFBDAB1D3F672814A14BDB8BE67FA0A9BB0E1",
+    "3EED337528B9C2FCA4B6816CDCDED1FEC0A9E9EBA265A286147FA655E86F35B1",
+    "6C51FA6919A4F15EAE6B61542CD93C721749E1FF8027D62A8EFB22E6C74D4BC0"
+  ],
+  "plans": 198,
+  "plans_with_ane_regions": 16
+}

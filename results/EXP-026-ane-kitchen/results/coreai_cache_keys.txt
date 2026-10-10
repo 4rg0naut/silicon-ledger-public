@@ -1,0 +1,19 @@
+coreai-cache KEY DERIVATION — measured 2026-10-10 (bench/coreai_cache.py)
+Machine: Mac17,14 M5 Max, macOS 27.0.1 / 26A434. Cache: ~/Library/Caches/coreai-cache
+
+plans decoded: 198
+layouts: osbuild=33  pyver=165
+
+optsHash -> SpecializationOptions (model-independent):
+optsHash(8) models plans  prefDev allowedDev useANELLIR anePkgs
+14371356        9    10      [1]        [1]    [False]       0
+3EED3375        8     9   [1, 2]     [1, 7] [False, True]       1
+6C51FA69       10    14      [2]        [7] [False, True]       5
+
+modelHash -> distinct per exported model (175 distinct across the cache);
+arch stamp across all 198 plans: h17c only.
+
+Interpretation: optsHash is a pure function of the compute-unit options
+(allowedComputeDevices / preferredDevice / useANELLIR) and is reused across many
+distinct models; modelHash is per-model. Confirms API-136's live-log finding
+(6C51FA69 = neuralEngine arm) with the full descriptor now decoded from disk.

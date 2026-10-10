@@ -1,0 +1,15 @@
+[NOTE] AOT load failed (Failed to load model with specialization from '/Volumes/data/OpenFox/dev_m5max_re); JIT from .aimodel
+unit=ANE lane=jit load_s=1.3
+iter 0 101.2ms probs_yes=0.289062
+iter 20 76.5ms probs_yes=0.289062
+iter 40 77.8ms probs_yes=0.289062
+iter 60 77.5ms probs_yes=0.289062
+iter 80 77.0ms probs_yes=0.289062
+iter 100 77.6ms probs_yes=0.289062
+iter 120 77.0ms probs_yes=0.289062
+iter 140 77.4ms probs_yes=0.289062
+iter 160 77.5ms probs_yes=0.289062
+iter 180 77.7ms probs_yes=0.289062
+iter 200 76.9ms probs_yes=0.289062
+iter 220 77.0ms probs_yes=0.289062
+DONE unit=ANE lane=jit n=235 median=77.2ms p10=76.6ms p90=77.7ms

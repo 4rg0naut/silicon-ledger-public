@@ -644,6 +644,36 @@ MLIR and cannot be re-typed.
   which is exactly the F-31 lesson, one layer deeper. When a bundle is fp32, expect the runtime to
   be the thing that fails, not the compiler.
 
+### F-36 · A self-started second oMLX server took down the production one (user-reported, recorded 2026-10-06)
+
+A past agent session on the Studio started its own oMLX server beside the production one
+(the user's live inference path). The collision was bad enough that the Mac needed a
+reboot and manual cleanup. Today the same hazard nearly repeated: exploratory HTTP probes
+against `:8000` — harmless in effect, but the wrong instinct (experiment *on* production).
+
+- **Rule:** the Studio oMLX server is production infrastructure — never a measurement
+  target, never doubled, never fed experiment models. MLX arms use it *as a service*
+  (existing port, user-provided key, own window) or run on mini — but mini is M4, so it
+  answers mini questions only, never M5 ones.
+
+### F-37 · `powermetrics -t 15000` ran ~4 h, not 15 s — and a no-op "load" arm nearly became a metric (2026-10-06 sudo capture)
+
+Two bugs in one captured window. (1) I passed `-t 15000` to the parallel `powermetrics`
+meaning 15 s; `-t` is **seconds**, so the sampler ran until the user interrupted it —
+the raw gpu dumps died mid-flush at 65536 B (7–14 complete samples each). The
+driver-parsed summary tables survived and are now the primary record; the truncated
+txts are kept but are **not** citable sources. Fixed in `sudo_capture.sh` to bounded
+`-n` counts. (2) The step-6 "tensorops load" arm was silently a no-op (R8: multi-tile
+matmul2d returns zeros on this beta GPUCompiler — `stage4_load.log` validation_failed
+on every size), and the run's tail overlapped the user restarting oMLX — its ~70 W
+model-load surge landed in the same file. Had we parsed the tail we would have
+attributed an oMLX reload to a dead matmul probe.
+
+- **Rule:** bound samplers with sample counts (`-n`), never durations a human must
+  interrupt; keep the parsed table beside every raw dump as the primary record; and
+  verify the load arm's VALIDATION line before quoting any power reading — a silent
+  no-op reports plausible watts.
+
 ## Meta-rule
 Three of these (F-01/F-02/F-03, F-10, F-13) share one shape: **I formed a plausible
 theory and changed things before localising the failure.** Localise first —
@@ -658,3 +688,194 @@ print the offending op, read the stderr, measure cold vs warm, run the full scan
 >
 > Contribute only what is genuinely new. If someone else's minimal reproduction is
 > better than ours, ours is not a contribution.
+
+### F-38 · An untracked results directory evaporated during workspace clone (recorded 2026-10-06)
+
+The morning's energy ledger (`results/EXP-023-m5max-energy/` — measurements.tsv + RUN-PLAN
++ 105 s of raw powermetrics txt) lived in an **untracked** directory of the superproject.
+When the harness created a git workspace clone (`workspace switch h17-truth-x7`) the
+directory was displaced and could not be relocated afterward; raw captures are gone.
+Reconstructed the 10-row ledger verbatim from session output into the content repo
+(`silicon-ledger/results/EXP-023-m5max-energy/`), with a RECONSTRUCTED provenance header
+and this entry. The rebuilt `bench/_power.py` totals cross-check against the surviving
+`results/EXP-004-coreai-ane/raw/*.txt`.
+
+> Rule: measurement artifacts land in the content repo (or a tracked path) the moment they
+> are born. Untracked = transient. A file that exists only in an untracked directory has
+> the durability of a variable in a REPL.
+
+### F-39 · TorchMetalKernel leaks one IOSurface per predict; 16384 per-client cap killed the C7 load batches (2026-10-06)
+
+`bench/na_tiles.py` sustained runs died with Swift fatalError
+`CoreAIRuntime/NDArray+Pool.swift:77: Failed to allocate storage … sk: ioSurface`
+(three window attempts). Kernel log was decisive: `Perf: Process Python (pid) has
+created 12288 IOSurfaces out of a limit of 16384, possible leak?` →
+`create_surface error - exceeded client limit (0x4000)`. The leak is ~1 surface per
+predict; batches of 90000 predicts blow the cap ~16 s in. Boundary measured:
+15000 predicts PASS, 24000 crashes. Two wrong turns owned first: (1) arm payloads
+passed to enginemon as argv — harness never ran (invalid window, GPU pinned 338 MHz);
+(2) blamed the sudo session before reading the logs — uid and session-port records were
+clean. Mitigation (working design): relauncher loop keeps ≤15000 predicts per process
+and relaunches inside the rail window; window energy counted over completed tiles,
+duty included. Fix = upstream-side: surface-free predict loop in the harness when we
+own it; recorded as a TorchMetalKernel 0.4.2 behavior characteristic.
+
+### F-40 · ANE shared events crash Path A by design, not by misuse (2026-10-07, EXP-025)
+
+**Symptom:** attaching a populated `_ANESharedEvents` to an `_ANERequest` on the
+in-memory-MIL path SIGSEGVs at `-[…processRequest:…_block_invoke +1524]`, fault addr
+0x10 — deterministic, every run. **Wrongly assumed:** that our wrapper construction or
+the attach timing was the bug; libane's crash had been filed as "a good bug report, not
+documented behaviour." **Actual cause:** consumption is firmware-gated to the Path-B
+`intermediateBufferHandle` flow — shared events require **package-backed models
+(`ModelTypePackage`)**; the `tmc/apple` Go bindings guard exactly this
+(`ErrSharedEventRequiresPackage`), returning an error where the raw framework
+null-derefs. **Fix:** build the `.mlmodelc` path (Lane A) instead of debugging Path A;
+the primitive itself is sound — GPU `encodeSignalEvent:` crosses the mach-port bridge to
+an `IOSurfaceSharedEvent` wrapper in ~62 µs (porttest T2).
+
+- **Rule:** a crash that is deterministic at identical offset *and identical fault
+  address* across independent harnesses is platform contract, not your bug — hunt for
+  an upstream guard (Meta-rule, applied: the guard existed, we hadn't looked) before
+  debugging our own code. Evidence: `results/EXP-025-ane-gpu-sync/` (VERDICT, F11/F14).
+
+### F-41 · `dtrace -c` cannot probe a dlopen'd private framework (2026-10-07, EXP-025)
+
+**Symptom:** `dtrace -c ./harness` probes against `AppleNeuralEngine`-internal methods
+(`-[_ANE* …]`) report zero hits while the framework visibly runs. **Wrongly assumed:**
+wrong probe predicates or a stripped image. **Actual cause:** `-c` enables probes at
+exec time, *before* `main` — the private framework is `dlopen`'d later, so its probes
+never activate; and SIP additionally blocks attaching to the `aned` daemon itself, so
+the daemon side stays dark. **Fix:** spawn the process first, then attach with
+`dtrace -p <pid>` against **our own** process (unprivileged for pid-provider on own
+process); keep the inferior alive with an env stop so it doesn't exit before attach
+(`ANE_STOP2=1 ANE_REPS=40`, plus the F-40 crash shortening full-mode runs to ~100 ms).
+
+- **Rule:** dlopen'd frameworks need spawn-then-`-p` attach, and own-process dtrace
+  answers dispatch questions that daemon attach cannot reach. Recipe + 151-method
+  inventory: `results/EXP-025-ane-gpu-sync/docs/TRACE.md`.
+
+### F-42 · Autoreleased options dict died inside the async ANE completion block (2026-10-07, EXP-025 F14)
+
+**Symptom:** under sustained GPU load the eval loop began crashing in the completion
+block a delayed reference to the options `NSDictionary` — passes clean at idle, fails
+hot. **Wrongly assumed:** an ANE/firmware flake; latency mode was being blamed on the
+shared-events phase (F11). **Actual cause:** the options dict was autoreleased and
+nothing retained it across the async hop; under load the autorelease pool drained first.
+ARC cannot manage objects crossing hand-rolled `objc_msgSend` seams (compare API-063).
+**Fix:** statically CFRetained options dict + per-eval request retain in
+`results/EXP-025-ane-gpu-sync/harness/ane_bridge_mrr.m`; latency table re-reproduced 2/2.
+
+- **Rule:** anything captured by an ANE completion block must be explicitly retained
+  for the request's full lifetime; a bug that appears only under load is a lifetime bug
+  until proven otherwise.
+
+### F-43 · "No Xcode toolchain" was the wrong wall — espresso.net is a legacy door (2026-10-07, EXP-025 phase 2)
+
+**Symptom:** phase 1 recorded Path B as blocked: `ANECCompile …
+InvalidNetworkSourceFileName`, `Cannot load model.espresso.net`, "coremltools lacks
+`MLModel.compile`, no `coremlcompiler`" (pack F11/F16; GAP in VERDICT caveat 2).
+**Wrongly assumed:** the blocker was a missing compiler toolchain, so the fix was
+presumed to be installing/emitting the package format. **Actual cause:** the public
+`+[MLModel compileModelAtURL:error:]` works CLT-only and emits valid 27-era bundles in
+<1 s; those bundles (old cached ones included) contain **no `model.espresso.net`** at
+all — the legacy `_ANEClient compileModel:`/`loadModel:` door still demands it, so
+feeding it any current-format bundle fails at `_ANEEspressoIRTranslator` regardless of
+toolchain (API-110…112). The 27 producer moved into `ANECompilerService.xpc`
+(MIL→`model.hwx`→aned), which the legacy door never consults.
+**Fix:** stop trying to open the espresso door; re-scoped the E2E slice to driving
+`ANECompilerService.xpc` / riding the E5 path (`results/EXP-025-ane-gpu-sync/docs/P2-LANE-A.md` §7).
+
+- **Rule:** before declaring a format GAP, verify which producer still emits that
+  format on the current OS — a rejected input can mean the consumer is legacy, not
+  that the input is missing. Cross-check with a root file-access census
+  (`fs_usage`) during a known-good public path.
+
+### F-44 · Even root gets "Operation not permitted" on the aned cache; fs_usage truncates paths (2026-10-07)
+
+**Symptom:** `sudo find /Library/Caches/com.apple.aned` → *Operation not permitted*
+despite root; `fs_usage` census lines showed cut-off paths that couldn't be
+`open(2)`-ed back verbatim. **Wrongly assumed:** a permissions bug or a typo in the
+path; assumed census lines were directly consumable file paths.
+**Actual cause:** the aned cache tree is under platform-binary/SIP-style protection
+that even root doesn't traverse with `find`; `fs_usage` truncates long path arguments,
+so excerpts are evidence but not addresses.
+**Fix:** treat `fs_usage` excerpts as the primary record (saved root-owned in
+`/tmp/p2_sudo_capture.txt`), quote them with the truncation visible, and don't attempt
+follow-ups that require traversing the protected tree; the `model.src`→`model.hwx`
+producer chain was established from the census alone (API-113).
+
+- **Rule:** on locked-down macOS, root ≠ omniscient: platform protections defeat
+  `find`/`ls` on some system trees; capture behavior-first (fs_usage/dtrace) and record
+  truncated paths as-is rather than reconstructing them.
+
+### F-45 — assert the trigger fires before spending the root window (2026-10-07, EXP-026 K3/K4)
+
+**Symptom:** three user-run sudo capture windows produced no `model.src`: each run's
+"compile-miss trigger" (MIL tag / weight-byte mutation) reported `load ok=1` and looked
+successful, but the compiler service never ran and the sandboxes stayed empty.
+**Wrongly assumed:** a successful load of a mutated bundle implies a recompile, and
+sed/perl mutations apply as written. **Actual cause:** three stacked misses — (1) tag
+`sed`/`perl` patterns with `[]`/`{{}` escaping silently matched nothing (two windows);
+(2) the E5 identity layer re-keys on bundle bytes, but the ANE program cache keys
+coarser, so even a real identity change may not re-run the compiler (API-121);
+(3) minor tooling traps: `/usr/bin/launchctl` does not exist (it is `/bin/launchctl`),
+and `log` is a zsh builtin that shadows `/usr/bin/log` in scripts.
+**Fix:** trigger recipes must *assert their effect inside the window before sweeping*:
+mutate an OP-BEARING MIL constant, verify a new `~/Library/Caches/<proc>/
+com.apple.e5rt.e5bundlecache/<OS>/<IDENT>` appears, poll `pgrep -x ANECompilerServi`
+until seen, and only then sweep the service temp paths
+(`EXP-026 harness/p2b_sudo_capture_v7.sh` pattern; recipe in
+`EXP-026 results/p2b_k4_e5bundlecache_identity.txt` §4).
+
+- **Rule:** privileged capture windows are scarce (human-run); gate every step of the
+  trigger on an observable assertion, and prefer unprivileged side-effects
+  (per-user cache dirs, `pgrep`) as the assertion source. Escaping-sensitive in-place
+  edits need a post-edit `grep -q` assertion, not a hoped-for downstream symptom.
+
+### F-46 · Metal tensor sizeAndAlign segfaults with nil strides; creation then demands nil (2026-10-08, EXP-027 NX-A)
+
+- **Symptom:** `tensorSizeAndAlignWithDescriptor:` on M5 Max / macOS 27.0.1 driver
+  AGXMetalG17P 360.34.5 SIGSEGVs immediately for a descriptor with dimensions +
+  dataType + usage but `strides == nil`.
+- **Wrong assumption:** header says `strides` is nullable, so nil is a valid
+  "let the driver compute" input.
+- **Cause:** asymmetric validation in the driver — the sizeAndAlign path
+  dereferences strides unguarded (crash), while `newTensorWithDescriptor:`
+  rejects non-nil strides ("Strides should be nil", MTLTensorDomain Code=2).
+  The two entry points want opposite inputs for the same field.
+- **Fix:** set explicit row-major strides for sizeAndAlign queries; create a
+  fresh (strides-nil) descriptor — or use `newTensorWithDescriptor:attachments:`
+  with explicit strides for buffer-backed tensors (that path validated OK).
+- **Rule:** with brand-new Apple driver APIs, treat "nullable" in headers as
+  untrusted until probed per-entry-point; guard first calls to unshipped API
+  paths in a throwaway process, and add unbuffered stdout (`setbuf(stdout,
+  NULL)`) before probing — a SIGSEGV silently swallows all printf output.
+
+### F-47 · MilAneflow errors take the errInfo struct, not the ctx — two-register returns (2026-10-08, EXP-027 MX)
+- **Symptom:** EXP-026 ABI probes crashed or returned prog=NULL with err_size=0 on every calling-convention variant.
+- **Wrong assumption:** `milaneflow_error_message_size/copy_error_message` take the context handle; `try_program_from_string` returns a single pointer; last arg is the string length.
+- **Cause:** `try_program_from_string/_from_file` return a 16-byte struct in x0/x1 — {program, errorInfo} — and the error exports take the **errorInfo** (libc++ SSO strings at +0x00/+0x18), while the ctx handle is only 16 bytes: the old probes read +0x17 off a 0x10 allocation. Arg3 is not a length: it is the modelPath used to resolve `@model_path` BLOBFILE references (differentially proven by the error texts it produces).
+- **Fix:** `dyld_info -disassemble <shared-cache-path>` disassembles shared-cache images that otool-classic refuses to open ("can't open file: ... No such file"); map dyld_info `-exports` offsets onto labels, read the `free_*` functions for struct layouts (they reveal which offsets must be strings), then confirm every slot with per-process differential probes (valid input vs garbage; expected stage-differentiated errors).
+- **Rule:** for shared-cache private C APIs the disassembly gives the ABI for free — which registers survive to `retab` tells you the return-struct width, and paired destructors name the offsets of owned memory. Never model an error channel on the primary handle until the disassembly says so.
+
+### F-48 · Variadic objc_msgSend mangled object args; ANE attrs is a plain dict after load (2026-10-08, EXP-027 ES)
+- **Symptom:** `+[_ANEModel modelAtURL:key:]` SIGSEGV'd inside `objc_retain` (or threw `-[NSTaggedPointerString scheme]`) when called through a `static id (*msg_id)(id, SEL, ...)` wrapper; identical call with an explicit `((id(*)(id,SEL,id,id))objc_msgSend)` prototype worked.
+- **Wrong assumption:** a single variadic msgSend wrapper is ABI-safe for every selector; `modelAttributes` is a rich object exposing `networkStatusList`.
+- **Cause:** on this build the wrapper's object args reached the callee corrupted (garbage/tagged-string receiver); explicit per-call function-pointer prototypes pass cleanly. Separately, `_ANEModel.modelAttributes` on 27.0.1 is `__NSDictionary0` pre-load and an immutable plain dict post-load with Capitalized keys (`NetworkStatusList`/`LiveInputList`/`BatchStride`…), so selector traversal raises unrecognized-selector.
+- **Fix:** per-call explicit prototypes for objc_msgSend (the pattern the EXP-025 harness already used); `isKindOfClass:NSDictionary` then `objectForKey:` with Capitalized keys; dims come from `LiveInputList[0].BatchStride` (input 301056 B fp16 for 1x3x224x224) — feeding BatchStride-sized IOSurfaces made `mapIOSurfacesWithModel:` succeed (the EXP-026 0x1D was size mismatch, not format).
+- **Rule:** with private-framework bridges, never funnel every call through one variadic msgSend cast — the per-call type is the ABI contract; and treat post-load metadata as dictionaries (probe class with `object_getClassName`), not as documented classes.
+
+### F-49 · enginemon subscription + full Metal surface pool = coreai ioSurface fatal (2026-10-08, EXP-027 NX-D)
+- **Symptom:** coreai matmul2d load harness (worked 09:50 same day) began dying at load-loop start: `CoreAIRuntime/NDArray+Pool.swift:77: Fatal error: Failed to allocate storage for NDArray with byteCount: 4096, sk: ioSurface, st: float16` — 3/3 wrapped runs, but 2/2 standalone runs passed (median 241 µs floor).
+- **Wrong assumption:** the crash was in the wrapper's fork/exec path or a coreai/venv change (coreai-torch 0.4.2 unchanged since Oct 3; execvp sets no limits).
+- **Cause:** co-tenant surface saturation — an oMLX server holding ~18% RAM had consumed the Metal surface pool (`ioreg -c IOMetalResource` → 0 instances system-wide); enginemon's per-channel IOSurface-backed subscriptions (any mode; also when running as an *unrelated* concurrent process) are then the last allocation that fails, and coreai's NDArray pool only allocates 4096 B surfaces through that starved path.
+- **Fix:** decouple test (monitor in separate process while harness runs standalone → also fatal) proved it is system-level, not inheritance; switched the calibration window child to the MTLBuffer-only MSL harness (`p27_load_msl.m`), which is immune; surface-pool headroom on the Studio is user-managed (oMLX models are unloaded by the user, never by agents).
+- **Rule:** when a GPU-path harness passes standalone but fails under *any* concurrent IOReporter, check pool headroom (`ioreg -c IOMetalResource`) and co-tenants (`ps aux -m`) before suspecting either program — the subscriber is often just the straw; prefer MTLBuffer-only test kernels for calibration windows on shared machines.
+
+### F-50 · system-wide single ktrace consumer kills sudo capture windows (2026-10-08, SU/K4)
+- **Symptom:** user-run v7 capture script passed its trigger assertions but `fs_usage` printed `ktrace_start: Resource busy` and captured nothing; earlier v1–v6 sudo windows had also produced no model.src.
+- **Wrong assumption:** the failure was another missed trigger (F-45 family) and the fix was a better trigger assertion.
+- **Cause:** macOS permits one ktrace/kdebug consumer at a time; another session's live `fs_usage` (not visible in the script's own error checks) owns the kernel trace, so a second `fs_usage` dies immediately — and independently, the CoreAI/MPSGraph JIT route compiles ANE in-process and never spawns aned, so no file ever lands in the aned sandbox to be caught by any watcher.
+- **Fix:** dropped fs_usage from v8 (pure directory-watcher with per-poll glob re-evaluation); then abandoned the sandbox hypothesis entirely — the client-side cache `~/Library/Caches/coreai-cache` holds every compiled plan user-readable, making sudo unnecessary for this class of capture (see EXP-026 results/p2b_model_src_inventory.txt).
+- **Rule:** on shared machines, any capture plan built on fs_usage/kdebug must pre-check consumer exclusivity (quick `fs_usage -w -f filesys -t 1` smoke test before the real window); and before scheduling another sudo window for compiler-internal artifacts, first prove the artifact type actually crosses a process boundary — in-process compilers keep their artifacts in the client cache.
