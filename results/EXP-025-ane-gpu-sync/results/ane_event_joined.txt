@@ -1,0 +1,44 @@
+The ANE-side inter-engine event, captured live on the CoreML path (2026-10-10)
+==============================================================================
+
+Machine: Mac17,14 M5 Max, macOS 27.0.1/26A434, unprivileged.
+Probe:   harness/join_chain.dylib (DYLD_INSERT_LIBRARIES) — now hooks event CREATION:
+         -[_ANERequest initWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:
+            perfStats:procedureIndex:sharedEvents:transactionHandle:]
+         +[_ANERequest requestWithInputs:...sharedEvents:transactionHandle:]
+         -[_ANERequest setSharedEvents:] / -[_ANERequest sharedEvents] (getter)
+         -[_ANESharedEvents initWithSignalEvents:waitEvents:]
+         -[_ANESharedSignalEvent initWithValue:symbolIndex:eventType:sharedEvent:agentMask:]
+         -[_ANESharedWaitEvent initWithValue:sharedEvent:eventType:]
+         -[IOSurfaceSharedEvent initWithMachPort:/setSignaledValue:/waitUntilSignaledValue:]
+Model:   conv_512x64_d8.mlpackage (CoreML, ANE-placed — API-143), 200 predictions.
+
+RESULT — Core ML (cpuAndNeuralEngine), 200 predictions:
+  SUMMARY set=201 init=201 get=1407 getNonNil=402 evCreate=804 sigEv=401 waitEv=0
+          isseInit=0(ports=0) isseSig=0 isseWait=0
+
+  - the request is CREATED with a NON-NIL _ANESharedEvents (101/101 on the earlier 100-pred
+    run; 201/201 here) — the earlier hooks missed it because it is passed at the designated
+    initializer / factory, not via -setSharedEvents: (which is called with nil);
+  - the sharedEvents GETTER returns non-nil 402 times = 2 per eval: the ANE dispatch path
+    reads the events it was given;
+  - 401 _ANESharedSignalEvent objects, each bound to an IOSurfaceSharedEvent counter
+    (value=0, symbolIndex=255, eventType=0, agentMask=all-ones);
+  - 1 DISTINCT counter is reused across all evals; its signaledValue read 0 at first bind;
+  - isseInit/isseSig/isseWait = 0: Apple does not build the counter via initWithMachPort in
+    this process and does not signal it through the ObjC setter — the counter write belongs to
+    the hardware/firmware side.
+
+COMPARISON (same probe, same box):
+  stack    _ANERequest created with events   events consumed (getter)   counters created
+  Core ML  YES (non-nil _ANESharedEvents)    402                       1 (bound to signal events)
+  Core AI  no                                -                         13 generic (arms-invariant, API-142)
+
+VERDICT
+-------
+The ANE-side inter-engine EVENT OBJECT is real and capturable during CoreML ANE execution —
+a non-nil _ANESharedEvents carrying a signal event bound to an IOSurfaceSharedEvent counter
+is attached to the ANE request on every eval. That is the far end of the wire the lab has been
+chasing: an ANE program on one side, a shared counter in the middle. What remains to observe is
+the counter CHANGING during execution (the write is hardware-side; a later slice can hold a
+live wrapper over eventPort and poll it), and the GPU-side counterpart of the same counter.

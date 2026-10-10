@@ -102,6 +102,18 @@ record `API-143`.
 **whole** graph to CPU — so no non-nil cross-engine chain arises from these shapes.
 `results/coreml_placement.txt`, `GOTCHAS-074`.
 
+### The ANE-side event, captured (2026-10-10, path ii)
+
+Hooking the **creation** path (request initializer/factory, `_ANESharedEvents`, and
+`_ANESharedSignalEvent`/`_ANESharedWaitEvent`) — not just `setSharedEvents:` — reveals what the
+first attempt missed: **Core ML's ANE request is created with a non-nil `_ANESharedEvents`**
+(the getter returns non-nil **2/eval**), carrying a `_ANESharedSignalEvent` bound to an
+`IOSurfaceSharedEvent` counter (401 signal events over 200 predictions; **1 distinct counter**
+reused; value 0 at bind). Core AI attaches none. The counter is neither built via
+`initWithMachPort` nor signalled via the ObjC setter → the write is hardware/firmware-side.
+So the **ANE-side inter-engine event object is real and capturable**. Evidence
+`results/ane_event_joined.txt`, record `API-144`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
