@@ -141,6 +141,23 @@ def check_case_and_anchors(stage: Path) -> list[str]:
                 bad.append(f"{rel}: anchor does not exist -> {target}")
     return bad
 
+# Absolute-URL blind spot (added 2026-10-10): the gate checked relative links only, so a doc could
+# ship a link to the PRIVATE repo - which 404s for every reader (rights, exactly: private = no
+# anonymous access). Any absolute link to the private slug is a violation.
+PRIVATE_SLUG = "github.com/4rg0naut/silicon-ledger"
+
+
+def check_private_slug(stage: Path) -> list[str]:
+    bad = []
+    for p in sorted(stage.rglob("*")):
+        if not p.is_file() or p.suffix.lower() not in (".md", ".txt", ".json"):
+            continue
+        rel = os.path.relpath(p, stage)
+        for i, line in enumerate(p.read_text(errors="replace").splitlines(), 1):
+            if PRIVATE_SLUG in line and "silicon-ledger-public" not in line and "silicon-ledger-bench" not in line:
+                bad.append(f"{rel}:{i}: links the PRIVATE repo (404 for readers) -> {PRIVATE_SLUG}")
+    return bad
+
 
 def main() -> int:
     ap = argparse.ArgumentParser()
@@ -152,7 +169,8 @@ def main() -> int:
         return 1
     links, novelty = check_links(stage), check_novelty(stage)
     case_anchor = check_case_and_anchors(stage)
-    for label, bad in (("LINKS", links), ("NOVELTY", novelty), ("CASE/ANCHORS", case_anchor)):
+    priv = check_private_slug(stage)
+    for label, bad in (("LINKS", links), ("NOVELTY", novelty), ("CASE/ANCHORS", case_anchor), ("PRIVATE-SLUG", priv)):
         if bad:
             print(f"FAIL {label}: {len(bad)} violation(s)")
             for b in bad[:15]:
@@ -161,7 +179,7 @@ def main() -> int:
                 print(f"  … {len(bad) - 15} more")
         else:
             print(f"OK   {label}")
-    return 1 if (links or novelty or case_anchor) else 0
+    return 1 if (links or novelty or case_anchor or priv) else 0
 
 
 if __name__ == "__main__":
