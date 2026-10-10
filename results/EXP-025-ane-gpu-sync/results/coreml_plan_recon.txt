@@ -33,6 +33,26 @@ segments: NO hit in __TEXT or __DATA_CONST; every hit was __LINKEDIT (4-byte int
 Disassembly method (works): dump bytes at an address to hex, then
   llvm-mc --disassemble -triple=arm64-apple-macosx < fn.hex
 
+P3b — guided walk from the entry point (harness/coreml_walk.m)
+-------------------------------------------------------------
+The walker decodes BL/B (imm26), ADRP (immhi/immlo), ADD-imm, MOVZ/MOVK, LDR-literal from the
+mapped image and resolves targets to absolute addresses, recursing into in-__TEXT callees. It
+works: from -computeDeviceUsageForMLProgramOperation: it resolves e.g. an ADRP+ADD to
+0x1923e5d37 [bytes 6665645f 746c7561] (ASCII "fed_ault" mid-string) and follows internal callees
+(0x191f7adb4, 0x191f7b78c, 0x192373684, ...).
+
+Result of a depth-3 / 40-function walk from the entry:
+  - the call graph and string/table references resolve cleanly;
+  - NO movk/movz pair in the reachable set builds ~1.5e8 (or 7.5e7/1e8/2e8) as an integer;
+  - combined with the earlier byte search (no float/double/int literal in __TEXT/__DATA_CONST),
+    the ~1.5e8-FLOP conv threshold is DERIVED from other fields (cost weights / shapes / ratios),
+    not stored as a constant.
+
+Scope note: the walk is breadth-limited (40 functions, first-come depth-first), and a naive
+whole-__TEXT "MOVZ/MOVK adjacency" scan is too noisy (adjacent unrelated instructions alias).
+Full recovery needs a real decompiler on the extracted dyld-cache image (or a directed walk from
+-estimatedCostOfMLProgramOperation: and the device-selection return path) — the next slice.
+
 First instructions of -computeDeviceUsageForMLProgramOperation: (0x191f7c2a8):
 	hint	#27
 	stp	x24, x23, [sp, #-64]!

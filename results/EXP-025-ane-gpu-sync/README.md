@@ -155,6 +155,13 @@ disassemble at a method IMP with `llvm-mc`. Routing entry points: `-computeDevic
 for 1.5e8/1e8/2e8/7.5e7 found **nothing in `__TEXT`/`__DATA_CONST`** → the threshold is **computed**,
 not a literal. Evidence `results/coreml_plan_recon.txt`, record `API-149`.
 
+**Guided walk (P3b).** `harness/coreml_walk.m` decodes BL/B/ADRP/ADD/MOVZ/MOVK from the mapped image
+and follows internal callees — it resolves the call graph and data refs (e.g. an ADRP+ADD to a
+`device_fault…` string) — but a depth-3/40-function walk finds **no `movz/movk` building the
+threshold** either ⇒ the ~1.5e8-FLOP gate is **derived** from other fields, not stored. A naive
+whole-`__TEXT` MOVZ/MOVK adjacency scan is too noisy; full recovery needs a decompiler on the
+extracted cache image or a directed walk. Record `API-150`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
