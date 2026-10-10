@@ -42,7 +42,7 @@ Consequences for this pack:
 | Multi-tile via the coreai compiler route: **R8 NO-GO** (exactly one tilegroup completes); system GPUCompiler rejects MSL 4.0/4.1 (CLT has no matmul2d headers) | `results/p27_r8_ladder.txt` |
 | Public multi-tile recipe exists and builds with Xcode-27: MetalHLO @44b3a04 bundling MLX `gemm_nax` (vendored `tools/vendor/MetalHLO`) | `results/p27_metalhlo_build.txt` |
 | Observability: **zero** TENSOR/NAX-named IOReport channels; `PS13` is generic top-perf-state engagement, NOT matmul2d-exclusive; the ANE lenses (`ANEXL U`, `ANE UP`) are ANE-exclusive and calibrated | `results/p27_nxd_nax_lenses.txt`, `p27_anpos_promote.txt` |
-| Ceiling arithmetic: NA fp16 ≈ N_cores × 1024 FLOPS/core/cycle; `h17c = 32` triple-sourced → 46–59 TFLOPS conservative; marketing 70 TFLOPS | `knowledge/ane/16-neural-accelerators.md` |
+| Ceiling arithmetic: NA fp16 ≈ **N_NAX × 1024 FLOPS/core/cycle**, and N_NAX = GPU cores (**40 measured here**) → **~60–74 TFLOPS fp16**; the earlier `h17c = 32` denominator was an ANE-derived count and is withdrawn (API-164) | `knowledge/ane/16-neural-accelerators.md` (corrected) |
 | Known silent-zero traps (our bug, their repro): MTL4Compiler pipeline path, innermost-first extents, residency set, threadgroup-memory length | `knowledge/ane/10-m5-attribution-signals.md` Q5 |
 
 ## 2. Documented limits (primary + working-compiler sources; NOT yet tested here)
