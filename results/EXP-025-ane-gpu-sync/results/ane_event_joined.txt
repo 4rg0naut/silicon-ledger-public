@@ -42,3 +42,20 @@ is attached to the ANE request on every eval. That is the far end of the wire th
 chasing: an ANE program on one side, a shared counter in the middle. What remains to observe is
 the counter CHANGING during execution (the write is hardware-side; a later slice can hold a
 live wrapper over eventPort and poll it), and the GPU-side counterpart of the same counter.
+
+FOLLOW-UP — the counter is attached but NOT ARMED (2026-10-10, 5000 predictions)
+------------------------------------------------------------------------------
+The interposer now retains the captured counter and polls it from a background thread
+(~5000/s) while evals run:
+
+  SUMMARY set=5001 init=5001 get=35007 getNonNil=10002(2/eval) evCreate=20004 sigEv=10001 waitEv=0
+  SignalEvent distinct value = 1  (the only value seen is 0)
+  POLL retained counter: samples=7124 distinct=1 final=0  (observed[0]=0)
+
+So every ANE request carries a signal event bound to a counter, but the signal VALUE is 0 and
+the counter NEVER moves across 5000 evaluations: the events are attached but not armed for a
+single-engine (pure-ANE) workload, exactly as the split-search negative predicted
+(GOTCHAS-074). There is therefore no live cross-engine handoff to correlate with a GPU
+counter on this model; the live wire requires a genuinely partitioned (ANE + GPU) model.
+
+Record: API-145.

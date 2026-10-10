@@ -114,6 +114,11 @@ reused; value 0 at bind). Core AI attaches none. The counter is neither built vi
 So the **ANE-side inter-engine event object is real and capturable**. Evidence
 `results/ane_event_joined.txt`, record `API-144`.
 
+**But it is inert for a single-engine workload** (5000 predictions): the signal value is always
+`0` and the retained counter, polled at ~5000/s, **never moves** (`samples=7124 distinct=1
+final=0`). The object is attached to every request but not armed — so a *live* cross-engine
+handoff needs a genuinely partitioned ANE+GPU model. Record `API-145`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
