@@ -18,8 +18,13 @@ Zakharko A19 GPU benchmark (iPhone 17 Pro class; NA exposed through MSL tensor o
 
 - Matrix ≥ SIMD×2.3 at same core count → NA is a real second datapath, ~4× on fp16 MMA.
 - **Optimal tile ≥ 32×32** for all tested formats.
-- Works on Xcode 26.1/26.x stable **[C]** — our R8 matmul2d multi-tile no-op is therefore
-  a 27.0-beta GPUCompiler (metalfe-32023) regression, not an OS-level impossibility.
+- Works on Xcode 26.1/26.x stable **[C]** — our R8 matmul2d multi-tile no-op was therefore
+  *attributed* to a 27.0-beta GPUCompiler (metalfe-32023) regression.
+  **CORRECTED 2026-10-10 (API-170): that attribution does not survive testing.** Multi-tile MPP
+  matmul2d works on this exact box/OS: the vendored MetalHLO runs all 8 of its GEMM benchmarks
+  correct against MLX, including 4096x4096 on the cooperative-tensor MPP path - through the LEGACY
+  pipeline and MSL 4.0. The R8 no-op was a usage artifact of the hand-rolled probes (device
+  destination, wrong accessor names, MSL 4.1), not an Apple silicon/compiler defect.
 
 ## Ceiling arithmetic for C8 re-audit **[C-formula + V-measured count]**
 
