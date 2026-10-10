@@ -1,0 +1,23 @@
+CoreML placement oracle + split search (2026-10-10)
+=====================================================
+Machine: Mac17,14 M5 Max, macOS 27.0.1/26A434. Tool: coremltools 9 MLComputePlan (compute_units=ALL).
+Scripts: harness/coreml_plan.py (per-op device), harness/coreml_explore_ops.py (split search).
+
+A. Pure conv model (conv_512x64_d8) — per-op placement:
+   ios17.conv -> MLNeuralEngineComputeDevice (ANE); const -> None.  => all-ANE.
+
+B. Split search — 6x conv stack with an inserted op, device histogram (device: op count):
+   none             -> {'None': 42, 'ANE': 12}
+   topk             -> {'None': 48, 'ANE': 13}
+   gather           -> {'None': 45, 'ANE': 13}
+   pad              -> {'None': 45, 'ANE': 13}
+   interp           -> {'None': 74, 'ANE': 25}
+   maxpool          -> {'None': 47, 'ANE': 13}
+   flatten_linear   -> {'None': 43, 'ANE': 13}
+
+C. Result: no ANE+GPU/CPU split. Eligible conv graphs land ENTIRELY on the ANE (only
+   const->None alongside); a CPU-only op (topk) moved the WHOLE graph to CPU. CoreML's
+   planner prefers single-engine placement for these shapes, so no non-nil cross-engine
+   _ANESharedEvents could be produced. Remaining leads: (1) a genuinely partitioned model
+   (Apple system models partition; none runnable here with known inputs); (2) hook
+   _ANERequest's designated initializer to catch creation-time events.

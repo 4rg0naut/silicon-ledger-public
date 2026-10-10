@@ -96,6 +96,12 @@ a *pure-ANE* workload attaches **no events** (all nil), so there is no inter-eng
 join yet — that needs a **mixed ANE+GPU model**. Evidence `results/coreml_ane_route.txt`,
 record `API-143`.
 
+**Split search (negative):** a placement oracle (`harness/coreml_plan.py`, coremltools
+`MLComputePlan`) shows Core ML keeps an eligible conv graph **entirely on the ANE** (pure
+8-conv, and 6-conv + `gather`/`pad`/`interp`/`maxpool`), and a CPU-only op (`topk`) moves the
+**whole** graph to CPU — so no non-nil cross-engine chain arises from these shapes.
+`results/coreml_placement.txt`, `GOTCHAS-074`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
