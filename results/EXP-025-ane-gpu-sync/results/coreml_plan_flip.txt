@@ -66,3 +66,41 @@ an instrument (the SDK's own plan API) independent of the earlier route_sweep/de
 Caveat: the bracket is measured for C=256 conv3x3 only; a clean FLOPs law across kernel sizes
 and channel counts is not established here, and the exact predicate (which per-device cost
 quantity is compared) is still not recovered.
+
+4. Is the gate conv FLOPs? NO - it is not a function of FLOPs alone
+------------------------------------------------------------------
+One-conv sweeps across (kernel k, channels C), square and non-square, order-of-execution
+^ note: each row is a separate model, so "preferred" is read per model, not per size step.
+
+  k=3 C=256   H=11        1.42737e8  CPU      |  k=5 C=128  15x12    1.47456e8  CPU
+  k=3 C=256   H=12        1.69869e8  ANE      |  k=5 C=128  16x12    1.57286e8  ANE
+  k=3 C=256   12x10(W)    1.41558e8  CPU      |  k=5 C=128  17x12    1.67117e8  ANE
+  k=3 C=256   12x11(W)    1.55714e8  ANE      |  k=3 C=512  5x6      1.41558e8  CPU
+  k=1 C=256   H=32        1.34218e8  CPU      |  k=3 C=64   45x45    1.49299e8  CPU
+  k=1 C=256   H=34        1.51519e8  ANE      |  k=3 C=128  22x23    1.49225e8  CPU
+  k=1 C=256   25x44       1.44179e8  CPU      |  k=5 C=256  10x11    3.60448e8  ANE
+  k=1 C=256   25x45       1.47456e8  ANE      |
+  k=1 C=256   25x43       1.40902e8  CPU      |  k=3 C=64   22x22    1.42737e8  CPU (see k=3 C=128 row)
+  k=3 C=128   H=22        1.42737e8  CPU      |
+  k=3 C=128   H=24        1.69869e8  ANE      |
+
+COUNTEREXAMPLE at identical FLOPs (reproduced 3/3):
+  k=1 C=256 25x45   1.47456e8 FLOPs  -> ANE
+  k=5 C=128 15x12   1.47456e8 FLOPs  -> CPU
+
+So `preferred` is NOT a function of conv FLOPs alone, and the earlier "~1.5e8 FLOPs gate"
+(API-147) is at best a CORRELATE for the common configs measured, not the predicate.
+
+What the data do support:
+  * within ONE config, `preferred` is monotone in FLOPs (every series flips once, CPU -> ANE);
+  * the flip FLOPs DIFFER per (k, C): k=1/C=256 flips at <=1.4746e8; k=5/C=128 needs >1.4746e8;
+    k=3/C=64 is still CPU at 1.493e8; k=3/C=512 is still CPU at 1.4156e8;
+  * the difference does not track weights or output count alone either:
+      k=1/C=256/25x45  weights=65536    outputs=288000  -> ANE
+      k=3/C=64/45x45   weights=36864    outputs=129600  -> CPU   (fewer weights, MORE outputs? no:
+                                                                  outputs 129600 < 288000, but FLOPs higher)
+    i.e. a per-op COST model with more inputs than FLOPs (weights, activations, shape) is at work;
+    identifying it needs a designed experiment, not more sweep rows.
+
+Method note: harness/plan_flip_sweep.sh drives this (`sh plan_flip_sweep.sh <k> <C> <H,H,...>`),
+one model per row, decision read from the SDK plan API by plan_devicesupport.

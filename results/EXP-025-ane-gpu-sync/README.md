@@ -213,6 +213,16 @@ API-147's ~1.5e8. SDK-27 API drift was also fixed on the way: the ObjC plan entr
 handler or the next `[plan modelStructure]` segfaults. `coreml_plan.m` was stale and is fixed;
 both harnesses build and agree.
 
+**P3g - the gate is not conv FLOPs alone (API-156).** With the oracle cheap now, one-conv sweeps
+across kernel size and channels were run (`harness/plan_flip_sweep.sh <k> <C> <H,H,...>`). Each
+single config flips monotone in FLOPs, but the flip point moves with the config, and there is a
+**deterministic counterexample at identical work**: at 1.4746e8 FLOPs (= 7.37e7 MACs) a
+`k=1 C=256 25x45` conv is **ANE**-preferred while a `k=5 C=128 15x12` conv is **CPU**-preferred
+(3/3). In MACs the flip brackets cluster within ~10% (k=1 ~7.2-7.4e7, k=5 ~7.4-7.9e7, k=3/C=64
+still CPU at 7.5e7) but are not equal, and the difference tracks neither weight count nor output
+count alone. So the earlier "~1.5e8 FLOPs gate (kernel-scaled)" is a **config-specific correlate**,
+not a law: the planner weighs a per-op cost model with inputs beyond FLOPs.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
