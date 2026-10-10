@@ -21,16 +21,24 @@ Zakharko A19 GPU benchmark (iPhone 17 Pro class; NA exposed through MSL tensor o
 - Works on Xcode 26.1/26.x stable **[C]** — our R8 matmul2d multi-tile no-op is therefore
   a 27.0-beta GPUCompiler (metalfe-32023) regression, not an OS-level impossibility.
 
-## Ceiling arithmetic for C8 re-audit **[C-formula]**
+## Ceiling arithmetic for C8 re-audit **[C-formula + V-measured count]**
 
-NA fp16 ceiling = N_matrix_cores × 1024 × clock. Two readings of N:
-- **GPU-core count (Zakharko, marketing)**: M5 Max 40 cores @ ~1750 MHz → ~70 TFLOPS
-  fp16, ~130 TOPS int8.
-- **HAL compiler-suffix count (2606.22283 mapping, h17c = 32)**: 32 × 1024 × 1.4–1.8 GHz
-  → 46–59 TFLOPS.
-Difference is exactly the layer question (all matrix-capable GPU cores vs compiler-visible
-sets). Use the HAL 32-core number as the conservative denominator for efficiency ratios;
-quote the marketing 70 TFLOPS only next to its provenance. C8 audit annotates both.
+**The NAX count is the GPU-core count — 1 GPU core carries 1 Neural Accelerator** (BaseRT,
+arXiv:2607.19438: "every core carries a dedicated Neural Accelerator"; SOURCES.md). NAX is a second
+datapath **inside each GPU core**, NOT a separate engine and NOT an ANE variant.
+
+Measured count on this box **[V]**: `system_profiler`/`ioreg` → **40 GPU cores** (Mac17,14, 18 CPU
+cores, Metal 4) → **40 NAX units**.
+
+NA fp16 ceiling = N_NAX × 1024 FLOPS/core/cycle × clock:
+- 40 × 1024 × ~1.46–1.8 GHz → **~60–74 TFLOPS fp16** (~120–147 TOPS int8 at the int8 ×2 rate).
+- Apple's marketing ~70 TFLOPS fp16 sits inside that band — i.e. the marketing number and the
+  per-core rate are **consistent once the count is the GPU-core count**.
+
+**CORRECTION (2026-10-10):** the earlier "HAL compiler-suffix count (h17c = 32)" reading of N was
+wrong for NAX — `h17c` is this machine's **ANE** architecture name (`mps.aneArch`, API-138), so 32
+was never a NAX unit count. Use **40** (GPU cores) for NAX ceilings and state the clock band; do not
+mix an ANE-derived count into a GPU-datapath ceiling.
 
 ## Apple's own methodology (MLX M5 post) **[C]**
 

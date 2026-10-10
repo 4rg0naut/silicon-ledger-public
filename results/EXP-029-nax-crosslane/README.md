@@ -9,6 +9,30 @@ Status: **scaffold** — protocol + claims inventory written; the bench arms are
 quiet window** (oMLX is live on this box and the standing rule forbids agent GPU *energy* work
 while it runs).
 
+## 0. Lane topology — get this right or every number is wrong (owner-flagged, 2026-10-10)
+
+**NAX are not an engine; they are inside the GPU.** 1 GPU core carries 1 Neural Accelerator
+(BaseRT, arXiv:2607.19438). So:
+
+```
+CPU ─── ANE ─── GPU { each core: shader/SIMT datapath + NAX tensor datapath }
+```
+
+Consequences for this pack:
+- The **NAX arm and the SIMT arm are the same engine** — two datapaths inside one GPU core sharing
+  that core's registers, power budget and dispatch. "NAX vs GPU" is therefore *intra-engine*, not
+  a lane choice; only "NAX/SIMT vs ANE vs CPU" is an engine choice.
+- Do **not** read NAX activity from ANE lenses. `ANEXL U` / `ANE UP` are ANE-exclusive by
+  calibration (they stay 0 for tensor work); NAX work shows up only in **generic GPU** signals
+  (`GPU Energy`, `PS13` engagement) — and `PS13` is generic top-perf-state, **not** NAX-exclusive
+  (API-128).
+- Parallel ceiling scales with **GPU cores = NAX units**: measured **40** on this box (Mac17,14),
+  giving ~60–74 TFLOPS fp16 by the per-core formula (file 16, corrected). An earlier 32-unit
+  reading was an **ANE**-derived count and is withdrawn.
+- Practical: saturating NAX means occupying many GPU cores with ≥1 large tile each (the occupancy
+  gates in §2), i.e. it is a **throughput** lane for big-M shapes, not a latency lane — consistent
+  with our measured dispatch-bound 239.8 µs single-tile eval.
+
 ## 1. What is already established (do not re-derive)
 
 | fact | evidence |
@@ -54,6 +78,12 @@ Arms (lanes):
 3. **GPU SIMT fp16/fp32** — MSL `simdgroup_matrix` (the incumbent).
 4. **ANE fp16** — the same GEMM as a Core ML / MIL matmul (our existing ANE arms).
 5. **CPU** — Accelerate/BNNS reference (correctness anchor, not a perf target).
+
+**Framing (per §0):** arms 1–3 are the **same engine** — NAX and SIMT are datapaths inside one GPU
+core, so they compete for one register/power/dispatch budget and their difference is *intra-engine*.
+Only "1–3 vs 4 vs 5" is an engine choice. Consequently: the NAX-vs-SIMT delta is measured with GPU
+energy held comparable (same tiles, same dispatch), while the engine comparison uses energy *per
+useful work* and the ANE lenses for arm 4 only.
 
 Shapes: decode-shaped (M=1, K=4096, N=4096) / prefill-shaped (M∈{128,256,512,1024,2048},
 K=N=4096) / batched (batch∈{1,8}) — chosen so the gating rules in §2 land on both sides
