@@ -168,6 +168,20 @@ cache-only CoreML image to a real Mach-O and **disassembles at cache addresses w
 comparisons (`fcmp d0,#0.0` / `b.hi` / `csel`) — cost weights, not integer thresholds, exactly
 as API-150 concluded. Evidence `results/coreml_plan_disasm.txt`, record `API-151`.
 
+**P3d - call path traced (address-space caveat).** `ipsw`'s `--vaddr` space is **not** the runtime
+address space: a first decompile fed with a runtime IMP (`0x191f7ab84`) returned BLAS code
+(`cblas_dsymm`), while the runtime dump of the same address begins with a prologue - so the
+authoritative bytes are the runtime dump (`coreml_image_probe` -> `llvm-mc`), and `ipsw` is used for
+extraction/symbols only. On the correct bytes: `computeDeviceUsageForMLProgramOperation:` is a
+**wrapper** -> op-attribute extractors -> `sub_191F7ADB4` (cost region) -> `sub_191F7BC30` (the
+device-usage builder) -> returns a dictionary; `estimatedCostOfMLProgramOperation:` is a wrapper that
+builds a cost object, reads a **double** (`sub_65395280`), NaN-checks it (`fcmp d0,d0`/`b.vs`) and
+formats it. `sub_191F7BC30` switches on a compute-unit enum
+(`switch(sub_65408860(v0)) { case 1/2/4 }`, power-of-two unit masks) with **no float comparison**
+(integer sentinel + bit-mask filter only). The cost->unit **predicate is not in these wrappers** - it
+lives in their callers, which is the next pass. Evidence `results/coreml_plan_callpath.txt`, record
+`API-152`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT

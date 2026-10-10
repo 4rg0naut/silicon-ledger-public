@@ -1,0 +1,46 @@
+CoreML placement code — call path traced (2026-10-10)
+=====================================================
+
+Machine: Mac17,14 M5 Max, macOS 27.0.1/26A434. Method: runtime dump of the mapped CoreML image
+(harness/coreml_image_probe.m) -> llvm-mc --disassemble (correct bytes; see the address-space
+correction below) -> LLM-assisted decompilation via the eval `completion` helper, verified against
+the instruction listing.
+
+ADDRESS-SPACE CORRECTION (why the first attempt was wrong)
+----------------------------------------------------------
+`ipsw dyld disass --vaddr <runtime IMP>` and `ipsw dyld a2s` do NOT share the runtime address
+space: a first decompile of 0x191f7ab84 returned BLAS code (cblas_dsymm), and our own runtime dump
+of the SAME address begins with a prologue (`hint #27; sub sp,sp,#80; stp ...`). The authoritative
+bytes are therefore the ones read from the loaded image at runtime; ipsw remains useful for
+extraction and symbol names but its --vaddr space must be mapped first.
+
+TRACED PATH (from the runtime entry points)
+-------------------------------------------
+-[MLComputePlan computeDeviceUsageForMLProgramOperation:] @0x191f7c2a8
+   -> extracts MLProgram op attributes (sub_65403100/65402940/65393152/...)
+   -> sub_191F7ADB4(...)      <- cost region (see estimatedCost wrapper)
+   -> if non-null: sub_191F7BC30(x20, e, f)   <- builds the device-usage result
+   -> returns the result object (or NULL)
+
+-[MLComputePlan estimatedCostOfMLProgramOperation:] @0x191f7ab84
+   -> wrapper: builds a cost object via a large helper, extracts a double (sub_65395280),
+      NaN-checks it (fcmp d0,d0 / b.vs), formats a string, returns it.
+
+sub_191F7BC30 @0x191f7bc30 (the device-usage builder)
+   - `switch (sub_65408860(v0)) { case 1: ...; case 2: ...; case 4: ...; default: return 0; }`
+     i.e. a switch on POWER-OF-TWO compute-unit values, each case selecting a distinct string
+     constant and sub-path. 1/2/4 -> CPU/GPU/NeuralEngine is the parsimonious reading (bit values
+     match compute-unit masks) but the string contents were NOT resolved in this pass.
+   - no floating-point comparison; integer sentinel checks (0x7fffffffffffffff) and a bit-mask
+     filter (`tst x22, w8`) drive the loops.
+   - one double constant is loaded from a data table (adrp+ldr d0,[x9,#3728]) into a struct.
+   - builds and returns a dictionary/collection object (or 0).
+
+STATUS
+------
+Confirmed: the device-usage path is a wrapper around a cost helper (sub_191F7ADB4) and a
+device-usage builder (sub_191F7BC30) that switches on a compute-unit enum with values 1/2/4 and no
+float comparison.
+NOT yet recovered: the exact predicate that maps cost -> chosen unit (it is not in the wrapper
+bodies), the string contents behind the enum cases, and the double table value. Those need the
+builder's callers and the string table, i.e. the next pass.
