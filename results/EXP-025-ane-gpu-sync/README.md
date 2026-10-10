@@ -182,6 +182,20 @@ formats it. `sub_191F7BC30` switches on a compute-unit enum
 lives in their callers, which is the next pass. Evidence `results/coreml_plan_callpath.txt`, record
 `API-152`.
 
+**P3e - correction: no floating point in this path (API-153).** Having established the
+address-space rule, the P3c floating-point claim was re-checked on the **correct** bytes and
+**withdrawn**: `computeDeviceUsageForMLProgramOperation:` touches no `d0`/`s0` at all, and across
+the examined cluster (device-usage wrapper, `estimatedCost` wrapper, cost engine, builder) the only
+float instruction anywhere is the single `fcmp d0,d0` NaN check in the `estimatedCost` wrapper.
+`API-151` is marked **contested**. New tool `harness/coreml_findcallers.m` (reverse scan: BL/B sites
+by target + 8-byte pointer-table matches) then mapped the cluster: `sub_191F7ADB4` is its **own**
+function (432-byte frame) doing tag-keyed dictionary lookups over tags {1,2,4,5,6} with no
+accumulation and no cost comparison; `sub_191F7BC30` is called only from `0x191f7bb60` and
+`0x191f7c358`; the ObjC method IMPs have **no direct BL callers** (msgSend only). So everything
+reachable from the two ObjC entry points is **attribute plumbing + per-unit config lookup** - the
+numeric decision is delegated to unread callees (and may live at ObjC plan-assembly level, which a
+static scan cannot see).
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT

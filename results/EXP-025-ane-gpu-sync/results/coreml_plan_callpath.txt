@@ -44,3 +44,38 @@ float comparison.
 NOT yet recovered: the exact predicate that maps cost -> chosen unit (it is not in the wrapper
 bodies), the string contents behind the enum cases, and the double table value. Those need the
 builder's callers and the string table, i.e. the next pass.
+
+P3e — CORRECTION: no floating point in this path; structural map (2026-10-10)
+-----------------------------------------------------------------------------
+CORRECTION to the API-151 note above. The `fcmp d0,#0.0 / b.hi / csel` attributed to the
+device-usage path came from an `ipsw dyld disass --vaddr 0x191f7c2a8`, and ipsw's --vaddr space is
+NOT the runtime address space (see the correction at the top of this file). On the CORRECT runtime
+bytes, `-[MLComputePlan computeDeviceUsageForMLProgramOperation:]` touches no `d0`/`s0` register at
+all - it contains ZERO floating-point instructions. Grepping the whole examined cluster (correct
+runtime dumps, llvm-mc):
+
+    devuse.rt.asm      fcmp=0  fmul/fdiv=0  fadd=0  scvtf=0   (no d0/s0 access at all)
+    cost.rt.asm        fcmp=1  (the single NaN check, fcmp d0,d0 / b.vs, in the estimatedCost wrapper)
+    select.rt.asm      fcmp=0  fmul/fdiv=0  fadd=0
+    costhelper.rt.asm  fcmp=0  fmul/fdiv=0  fadd=0
+
+So API-151's specific floating-point claim is an artifact and is withdrawn (API-153).
+
+Structural map, from a reverse-reference scan (new tool harness/coreml_findcallers.m: scans the
+mapped image's executable segments for BL/B sites whose target is a given address, and readable
+segments for 8-byte pointer-table entries):
+
+  * `sub_191F7ADB4` is its OWN function (prologue `sub sp,sp,#432`), not a block of the cost method.
+    It orchestrates tag-keyed dictionary lookups over type tags {1,2,4,5,6}, selects one element by
+    tag==2, and returns an object - NO accumulation, NO cost comparison, NO float arithmetic.
+  * `sub_191F7BC30` (device-usage builder, compute-unit enum switch 1/2/4) is called from
+    `0x191f7bb60` and `0x191f7c358` (the latter inside computeDeviceUsageForMLProgramOperation:).
+  * `0x191f7c358 -> 0x191f7bc30` (bl -1832) and the method also calls `sub_191F7ADB4`.
+  * The ObjC method IMPs (`0x191f7ab84` estimatedCost, `0x191f7c2a8` computeDeviceUsage) have NO
+    direct BL callers - they are reached through objc_msgSend, as expected for methods.
+
+Verdict: the functions reachable from the two ObjC entry points are ATTRIBUTE PLUMBING and
+per-unit configuration lookup - not the decision. The numeric cost/selection work is delegated to
+callees (`sub_65574864`, `sub_65576364`, ...) that have not been read. Reading those callees, or
+tracing the plan-assembly path dynamically, is the next pass.
+
