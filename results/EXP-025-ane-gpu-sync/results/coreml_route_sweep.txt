@@ -1,0 +1,64 @@
+Core ML placement heuristic — first decision table + a recovered constant (2026-10-10)
+=====================================================================================
+
+Machine: Mac17,14 M5 Max, macOS 27.0.1/26A434. Oracle: MLComputePlan via coremltools 9
+(harness/coreml_route_sweep.py) — reads the planner's per-op preferred device AND its own cost
+weight (MLComputePlanCost.weight). Models are single-op ML Programs built with torch+coremltools.
+
+1. BASE SWEEP (one axis at a time; base = conv3x3, C=256, 32x32, fp16, cpuAndNeuralEngine, macOS15)
+
+  changed axis            dominant   ANE/GPU/CPU   note
+  base                    ANE        1/0/0
+  dtype=fp32              CPU        0/0/1         fp16 gate (known rule, reproduced)
+  op=conv3 C=64           CPU        0/0/1         below threshold
+  op=conv1 C=64/256       CPU        0/0/1         1x1 conv not ANE-placed here
+  op=pool  C=64/256       CPU        0/0/1
+  op=linear C=64/256      CPU        0/0/1
+  units=all               ANE        1/0/0         still ANE (cost-based pick)
+  units=cpu               CPU        0/0/1         compute_units CAPS the candidate set
+  units=gpu               GPU        0/1/0
+  target=macOS14          ANE        1/0/0
+
+2. CONV THRESHOLD GRID (conv3x3, fp16, ne) — dominant device
+
+  C\H      8    12    16    24    32    48    64
+  64      CPU   CPU   CPU   CPU   CPU   ANE   ANE
+  128     CPU   CPU   CPU   ANE   ANE   ANE   ANE
+  192     CPU   CPU   ANE   ANE   ANE   ANE   ANE
+  256     CPU   ANE   ANE   ANE   ANE   ANE   ANE
+  384     ANE   ANE   ANE   ANE   ANE   ANE   ANE
+  512     ANE   ANE   ANE   ANE   ANE   ANE   ANE
+
+  The flip at H=8 and H=12 lands on the same C*H = 3072 — but that is coincidental to MACs here.
+
+3. KERNEL DEPENDENCE (H=8, fp16, ne) — the rule is COMPUTE, not shape
+
+  k=3: C=352 (71.4M MACs) CPU ; C=384 (84.9M) ANE
+  k=5: C=192 (59.0M) CPU ; C=256 (104.9M) ANE       <- flips EARLIER than k=3
+
+4. BRACKET
+
+  k=3 C=360  MACs 74.6M  FLOPs 149.3M -> CPU
+  k=3 C=368  MACs 78.0M  FLOPs 156.0M -> ANE
+  k=5 C=216  MACs 74.6M  FLOPs 149.3M -> CPU
+  k=5 C=224  MACs 80.3M  FLOPs 160.6M -> ANE
+  k=7 C=160  MACs 80.3M  FLOPs 160.6M -> ANE
+
+  Flip lies in FLOPs (149.3, 156.0] M  ->  ~1.5e8 FLOPs. Kernel-size dependent; fp16 only.
+
+FINDING (first cut of the heuristic)
+------------------------------------
+  - compute_units CAPS the candidate set (cpu->CPU, gpu->GPU, ne/all->prefer ANE);
+  - fp16 is a gate: fp32 falls to CPU;
+  - a conv is ANE-placed when its estimated work exceeds ~1.5e8 FLOPs (~7.5e7 MACs), and the
+    threshold scales with kernel area (k=3 vs k=5 flip at different C), i.e. it is a COMPUTE
+    threshold, not a spatial/channel one;
+  - at the sizes tested, conv1x1 / pooling / linear did not reach ANE.
+
+CAVEATS
+-------
+  - single-op models; multi-op graphs add segment/boundary costs the planner also weighs
+    (unmeasured here);
+  - the ~150 MFLOP bound is a bracket (149.3-156.0M), one OS build, fp16;
+  - plan != runtime: this is the planner's decision, not a runtime confirmation (see API-146 for
+    the plan/runtime relationship and the ANEXL lens for ground truth).

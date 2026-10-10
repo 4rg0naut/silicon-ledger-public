@@ -127,6 +127,19 @@ co-schedule ANE+GPU on this box; the only split is ANE+CPU. The live ANE↔GPU h
 stays unobserved with the available models. Evidence `results/coreml_partition_no_arm.txt`,
 record `API-146`.
 
+### Core ML's placement heuristic — first decision table (2026-10-10)
+
+`harness/coreml_route_sweep.py` reads `MLComputePlan` (per-op device **and** the planner's own
+`MLComputePlanCost.weight`) over one-axis-at-a-time models. First findings:
+
+- **`compute_units` caps the candidate set**: `cpu`→CPU, `gpu`→GPU, `ne`/`all`→prefer ANE.
+- **fp16 is a gate** (fp32 conv → CPU).
+- a conv is ANE-placed only above **~1.5e8 FLOPs** (~7.5e7 MACs), and the threshold **scales with
+  kernel area** (k=3 flips at 74.6→78.0 M MACs; k=5 at 74.6→80.3 M) → a **compute**, not shape,
+  threshold. Bracket: FLOPs (149.3, 156.0] M.
+
+Evidence `results/coreml_route_sweep.txt`, record `API-147`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
