@@ -104,3 +104,51 @@ What the data do support:
 
 Method note: harness/plan_flip_sweep.sh drives this (`sh plan_flip_sweep.sh <k> <C> <H,H,...>`),
 one model per row, decision read from the SDK plan API by plan_devicesupport.
+
+5. Designed experiment - hold the arithmetic fixed, move the shape (2026-10-10)
+-----------------------------------------------------------------------------
+Tools: harness/plan_mac_probe.py (given k, C and a target MAC count, picks HxW) and
+harness/plan_hw_sweep.sh (explicit HxW). One conv per model; decision read by plan_devicesupport.
+
+5a. FIXED MACs = 7.4e7, grid over k x C (weights/out_elems are what the shape move changes):
+
+  k=1 C= 64  135x134  7.41e7  weights=   4096  out=1157760  ANE
+  k=1 C=128   67x67   7.35e7  weights=  16384  out= 574592  ANE
+  k=1 C=256   33x34   7.35e7  weights=  65536  out= 287232  ANE
+  k=1 C=512   17x17   7.58e7  weights= 262144  out= 147968  ANE
+  k=3 C= 64   45x45   7.47e7  weights=  36864  out= 129600  CPU
+  k=3 C=128   23x22   7.46e7  weights= 147456  out=  64768  CPU
+  k=3 C=256   11x11   7.14e7  weights= 589824  out=  30976  CPU
+  k=3 C=512    5x6    7.08e7  weights=2359296  out=  15360  CPU
+  k=5 C= 64   27x27   7.47e7  weights= 102400  out=  46656  CPU
+  k=5 C=128   14x13   7.45e7  weights= 409600  out=  23296  CPU
+  k=5 C=256    6x7    6.88e7  weights=1638400  out=  10752  CPU
+  k=5 C=512    4x3    7.86e7  weights=6553600  out=   6144  ANE  (overshot the target)
+
+  => at equal arithmetic, EVERY k=1 op is ANE and EVERY k=3 op is CPU, across all four channel
+     counts. Kernel size moves the decision. (In MACs the thresholds cluster, but they are
+     ordered by k - see 5b.)
+
+5b. Per-config thresholds, bisected in MACs:
+  k=1 C=256 : CPU 7.209e7 -> ANE 7.373e7    theta in (7.21e7, 7.37e7)
+  k=3 C=256 : CPU 7.137e7 -> ANE 7.786e7    theta in (7.14e7, 7.79e7)
+  k=5 C=256 : CPU 6.881e7 -> ANE 8.028e7    theta in (6.88e7, 8.03e7)
+  k=1 C=192 : ANE already at 7.299e7        theta <= 7.30e7
+  k=3 C=192 : CPU 7.465e7 -> ANE 7.896e7    theta in (7.47e7, 7.90e7)
+
+  => at the SAME C (192), k=1 crosses at <=7.30e7 MACs while k=3 crosses above 7.465e7: the
+     threshold RISES with kernel size. Systematic (reproduced across C=192 and C=256 and the
+     whole k=1 row of 5a), not noise.
+
+5c. Practical reading
+  * 1x1 conv -> ANE from ~7.2-7.3e7 MACs  (1.44-1.46e8 FLOPs)
+  * 3x3 conv -> ANE from ~7.5-7.8e7 MACs  (1.50-1.56e8 FLOPs)
+  * k=5 coarser but consistent (CPU 6.88e7 ... ANE 8.03e7)
+  So "~150 MFLOPs" is a good ~+/-10% rule of thumb for the common 3x3 case. The real metric is
+  ARITHMETIC PLUS a kernel/weight term - not pure FLOPs, but far closer to FLOPs than to any of
+  output count, weight count, spatial size or arithmetic intensity; each of those is refuted by at
+  least one row above:
+    - outputs:  ANE at 147,968 (k=1 C=512) but CPU at 129,600 (k=3 C=64);
+    - weights:  ANE at 262,144 (k=1 C=512) and CPU at 147,456 (k=3 C=128);
+    - spatial:  ANE at 12 (k=5 C=512) yet CPU at 2,025 (k=3 C=64);
+    - intensity: ANE at ~32 MACs/element (k=1 C=64) and CPU at ~252 (k=3 C=64).

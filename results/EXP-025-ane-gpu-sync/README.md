@@ -223,6 +223,16 @@ still CPU at 7.5e7) but are not equal, and the difference tracks neither weight 
 count alone. So the earlier "~1.5e8 FLOPs gate (kernel-scaled)" is a **config-specific correlate**,
 not a law: the planner weighs a per-op cost model with inputs beyond FLOPs.
 
+**P3h - designed experiment: the gate is arithmetic *plus a kernel term* (API-157).** Holding the
+arithmetic fixed at 7.4e7 MACs and moving only the shape (`harness/plan_mac_probe.py`), **every 1x1
+conv is ANE-preferred and every 3x3 conv is CPU-preferred**, across C=64/128/256/512. Bisecting the
+threshold per config (`harness/plan_hw_sweep.sh`) puts 1x1 at **<=7.30e7 MACs** and 3x3 at
+**(7.47, 7.90)e7** at the same C=192 - the threshold **rises with kernel size**. Practically: 1x1 ->
+ANE from ~1.44-1.46e8 FLOPs, 3x3 from ~1.50-1.56e8 FLOPs, so **"~150 MFLOPs" is a good ~+/-10%
+rule of thumb for 3x3 but not the law**. Screening the obvious single-factor metrics against the
+table refutes each: output count, weight count, spatial size and arithmetic intensity all have an
+ANE row that sits on the wrong side of a CPU row.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
