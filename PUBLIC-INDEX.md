@@ -1,5 +1,8 @@
 # PUBLIC-INDEX — the experiments in plain words
 
+👉 **Latest round: [WHATSNEW.md](WHATSNEW.md)** — the newest findings with an honest
+new-vs-already-public verdict on each.
+
 One line each; the full record (commands, numbers, caveats, raw artifacts)
 is in the linked folder. Chronological — this is also the story order.
 

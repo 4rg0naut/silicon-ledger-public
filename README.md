@@ -5,6 +5,23 @@ built-in AI chip that almost no software actually uses. We measured it,
 broke it, fixed it, and wrote down every number, including the embarrassing
 ones. Nothing here is a vendor claim.
 
+## What's new (2026-10-10)
+
+Latest round, with an honest **new vs already-public** verdict on each — full detail and
+evidence in [**WHATSNEW.md**](WHATSNEW.md):
+
+- **ANE activity, finally measurable** — the unprivileged IOReport counter `PMP0/SOC-NI9
+  "ANEXL U"` is *lane-exclusive*: zero unless the Neural Engine is working, ~19.6k when it is
+  (calibrated against matched idle/GPU/CPU runs). **New** as a discriminator.
+- **Apple's hidden AI cache decoded** — the `~/Library/Caches/coreai-cache` layout and its key
+  derivation (`modelHash` per model; `optsHash` a pure function of the compute-unit options).
+  **New**.
+- **The compiled plan is readable** — the cached `mpsgraph` bytecode printed as real MLIR: the
+  op graph, `mps.aneArch`, and every ANE/GPU region function with its signature. **New**.
+- **Which architecture your Mac actually targets** — measured `h17c` (M5 Max) vs `h16g` (M4
+  mini); a correction to a published ANE table is filed upstream
+  ([issue](https://github.com/sbryngelson/ane-guide/issues/1)). **Extends** published work.
+
 ## Why this exists
 
 Apple's own toolchains quietly route "AI" workloads to the GPU even when you
@@ -29,7 +46,7 @@ cd bench && clang -O2 -o /tmp/ane-probe ane-probe.m -framework Foundation && /tm
 ## What's in here
 
 - `results/measurements.json` — every measurement ever taken, machine-checked (920 rows).
-- `results/EXP-001..023` — the experiment records, one folder each. `PUBLIC-INDEX.md` maps them in plain words.
+- `results/EXP-001..028` — the experiment records, one folder each. `PUBLIC-INDEX.md` maps them in plain words.
 - `results/LADDER.md` — the five-rung summary: silicon ceiling → official overhead → port fidelity → task quality → energy.
 - `results/FLEET.md` — which tool runs on which machine (and honestly, which don't).
 - `MINEFIELD.md` — 18 lessons from everything that broke. Read this before debugging.
