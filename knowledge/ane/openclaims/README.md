@@ -32,8 +32,8 @@ than a wrong number (an earlier revision of this converter did exactly that, and
 pass; there is no code path in the converter that can produce it (`assert_no_human_review` enforces
 this), and no such pass has happened yet.
 
-**782 / 782 events validate with the Python SDK** (`to_openclaims.py --check`, re-run 2026-10-10;
-657 `claim.emitted` + 108 `claim.verified` + 17 `claim.disputed`).
+**783 / 783 events validate with the Python SDK** (`to_openclaims.py --check`, re-run 2026-10-10;
+658 `claim.emitted` + 108 `claim.verified` + 17 `claim.disputed`).
 The earlier 679-event corpus also cross-validated against the project's own JavaScript
 `validator-cli` (checked upstream at adoption time; that checkout is not on this machine, so the
 12 origin events added by P1 are Python-validated only). Two validating independently is the point;
