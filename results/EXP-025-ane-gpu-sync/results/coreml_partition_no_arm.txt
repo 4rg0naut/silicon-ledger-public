@@ -1,0 +1,42 @@
+Partitioned models exist locally, but CoreML never ARMS the shared events (2026-10-10)
+=====================================================================================
+
+Machine: Mac17,14 M5 Max, macOS 27.0.1 / 26A434, unprivileged.
+Oracle:  coremltools MLComputePlan per-op device (harness/coreml_plan.py, /tmp/plan2.py pattern).
+Probe:   harness/join_chain.dylib (creation-path hooks + retain-and-poll all counters).
+
+WHY: the previous slices showed CoreML attaches a non-nil _ANESharedEvents to every ANE request
+but with signal value 0 on a pure-ANE model (API-144/145). A genuinely PARTITIONED model was
+needed to arm it. Found one among the locally installed FluidAudio CoreML models.
+
+PLACEMENT (CPU+NeuralEngine unless noted)
+  parakeet Preprocessor        {None 68, CPU 51}
+  parakeet Encoder             {None 2013, CPU 4, ANE 1381}   <- partitioned (ANE+CPU)
+  parakeet Decoder             {None 43, CPU 24}
+  parakeet JointDecisionv3     {None 39, CPU 24}
+  silero-vad-unified-256ms     {None 639, CPU 357}
+  pocket-tts cond_step         {None 703, CPU 492}
+  pocket-tts mimi_decoder_v2   {None 373, CPU 273}
+  pocket-tts flow_decoder      {None 141, CPU 165}
+  pocket-tts flowlm_step       {None 757, CPU 540}
+  parakeet Encoder, compute_units=ALL  {None 2013, GPU 1385}  <- GPU-only, NO ANE
+
+RESULT — running the partitioned Encoder under the probe (30 predictions):
+  SUMMARY set=62 init=62 get=434 getNonNil=124 evCreate=218 sigEv=62 waitEv=2 isseInit=0
+  SignalEvent distinct value = 1   (the only value seen is 0)
+  POLL 8 counters: samples=22715 distinct-values=1
+    counter[0..7] final = 0 (all)
+
+So even the ANE+CPU partitioned model attaches events with signal value 0 and NONE of its 8
+counters moves across 22,715 polls. The events are structural (attached to every request) but
+never armed for these workloads.
+
+CONCLUSION
+----------
+Core ML on this box does not co-schedule ANE and GPU: eligible graphs go entirely to one engine
+(ANE with cpuAndNeuralEngine; GPU with all); the only split observed is ANE+CPU, and CPU-side
+segments do not arm the shared-event counters. The live ANE<->GPU shared-event handoff therefore
+remains unobserved in-process with the models available here. The probe (join_chain.dylib) is
+ready to capture and poll the chain the moment a model that Core ML genuinely runs on ANE+GPU is
+available; on this evidence that model is not one of the local FluidAudio/bench/zoo set, nor one
+Core ML will synthesize from an eligible conv graph (GOTCHAS-074).

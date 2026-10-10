@@ -119,6 +119,14 @@ So the **ANE-side inter-engine event object is real and capturable**. Evidence
 final=0`). The object is attached to every request but not armed — so a *live* cross-engine
 handoff needs a genuinely partitioned ANE+GPU model. Record `API-145`.
 
+**Partitioned model tried — still not armed.** A local **FluidAudio** model (`parakeet-tdt`
+`Encoder.mlmodelc`) *is* partitioned: `MLComputePlan` shows **1381 ANE + 4 CPU** ops. Running it,
+the counters still never move (8 counters, **22,715 polls, all 0**; signal value 0), and with
+`compute_units=all` the same Encoder is placed **entirely on the GPU** — so Core ML does not
+co-schedule ANE+GPU on this box; the only split is ANE+CPU. The live ANE↔GPU handoff therefore
+stays unobserved with the available models. Evidence `results/coreml_partition_no_arm.txt`,
+record `API-146`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
