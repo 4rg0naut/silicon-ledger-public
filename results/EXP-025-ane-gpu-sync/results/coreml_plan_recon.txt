@@ -1,0 +1,60 @@
+P3 recon — CoreML plan code is reachable for RE (2026-10-10)
+==========================================================
+Machine: Mac17,14 M5 Max, macOS 27.0.1/26A434.
+
+FACT: CoreML's binary is NOT on disk (the framework file is a broken symlink) — it lives in
+the dyld shared cache. dyld_info cannot target one cache image (only -all_dyld_cache), so P3
+reads the LOADED image at runtime instead (harness/coreml_image_probe.m): _dyld_get_image_header
++ _dyld_get_image_vmaddr_slide, then parse LC_SEGMENT_64. That works unprivileged.
+
+Image + segments (CoreML.framework/Versions/A/CoreML):
+image: /System/Library/Frameworks/CoreML.framework/Versions/A/CoreML
+  header=0x191c54000 slide=98123776
+  LC count=57
+  seg __TEXT           vm=0x18bec0000 size=0x816dec fileoff=0x3ac0000
+  seg __DATA_CONST     vm=0x1e0a7bce0 size=0xb8b0 fileoff=0x8d7ce0
+  seg __AUTH_CONST     vm=0x1e8abbd90 size=0x56390 fileoff=0x6917d90
+  seg __AUTH           vm=0x1e77ed5c0 size=0x7400 fileoff=0x56495c0
+  seg __DATA           vm=0x1e464d990 size=0x11600 fileoff=0x24a9990
+  seg __DATA_DIRTY     vm=0x1e646d790 size=0x3c98 fileoff=0x42c9790
+  seg __LINKEDIT       vm=0x2d60fc000 size=0x63a14000 fileoff=0x4000
+
+Routing entry points (method IMPs, runtime addresses):
+  -[MLComputePlan computeDeviceUsageForMLProgramOperation:]   0x191f7c2a8
+  -[MLComputePlan estimatedCostOfMLProgramOperation:]         0x191f7ab84
+  +[MLComputePlan computePlanOfModelStructure:modelAsset:configuration:error:] 0x191f7c420
+  -[MLComputePlan computeDeviceUsageForNeuralNetworkLayer:]   0x191f7bab8
+
+Constant search (float32/double/int32/int64 for 1.5e8, 1e8, 2e8, 7.5e7) over the mapped
+segments: NO hit in __TEXT or __DATA_CONST; every hit was __LINKEDIT (4-byte int noise).
+=> the ~1.5e8-FLOP conv threshold is NOT a literal float/int constant in the code; it is
+   computed (or lives in a table), so it must be recovered from the instruction stream.
+
+Disassembly method (works): dump bytes at an address to hex, then
+  llvm-mc --disassemble -triple=arm64-apple-macosx < fn.hex
+
+First instructions of -computeDeviceUsageForMLProgramOperation: (0x191f7c2a8):
+	hint	#27
+	stp	x24, x23, [sp, #-64]!
+	stp	x22, x21, [sp, #16]
+	stp	x20, x19, [sp, #32]
+	stp	x29, x30, [sp, #48]
+	add	x29, sp, #48
+	mov	x21, x0
+	mov	x0, x2
+	bl	#65571800
+	mov	x19, x0
+	mov	x0, x21
+	bl	#65403100
+	bl	#65575144
+	mov	x22, x0
+	mov	x0, x21
+	bl	#65402940
+	mov	x20, x0
+	mov	x0, x21
+	bl	#65393152
+	bl	#65575116
+	mov	x23, x0
+	mov	x0, x19
+	mov	x1, x22
+	mov	x2, x20

@@ -146,6 +146,15 @@ honoured at runtime, no silent fallback for this case. (First attempt used the O
 crashed on zero-shape inputs; its reading was compile-side and was discarded — the Python runner
 `harness/coreml_run.py` is the correct instrument.) Record `API-148`.
 
+**P3 recon — the plan code is reachable (2026-10-10).** CoreML's binary is a broken symlink (code
+in the dyld shared cache; `dyld_info` can't target one image), so we read the **loaded** image at
+runtime (`harness/coreml_image_probe.m`: `_dyld_get_image_header`+slide, parse `LC_SEGMENT_64`) and
+disassemble at a method IMP with `llvm-mc`. Routing entry points: `-computeDeviceUsageForMLProgramOperation:`
+@`0x191f7c2a8`, `-estimatedCostOfMLProgramOperation:` @`0x191f7ab84`,
+`+computePlanOfModelStructure:modelAsset:configuration:error:` @`0x191f7c420`. A constant search
+for 1.5e8/1e8/2e8/7.5e7 found **nothing in `__TEXT`/`__DATA_CONST`** → the threshold is **computed**,
+not a literal. Evidence `results/coreml_plan_recon.txt`, record `API-149`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT
