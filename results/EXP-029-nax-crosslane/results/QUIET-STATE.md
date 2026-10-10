@@ -159,3 +159,47 @@ Consequences:
   baseline for EXP-029 and it is still **unmeasured** [T].
 - Practical: for energy arms, SSH in and close Screen Share; then re-run `quiet_probe.sh` and the
   canary and record the new band before trusting any joule number.
+
+## 9. HEADLESS BASELINE (SSH-only) — and two analysis traps (2026-10-10)
+
+The owner connected from the MacBook Air over **SSH only** (Screen Share closed). State:
+
+| observation | value |
+|---|---|
+| displays | **none at all** (`system_profiler` shows no `Displays:` section) |
+| `screensharingd` / `WindowServer` | **gone** (the compositor only exists with a display) |
+| `sharingd`, `VTEncoderXPCService`, `avconferenced` | still resident |
+| GPU Energy | **zero-delta in 22/28 and 53/56 seconds**; when non-zero: 1.3–3.0 mW |
+| `AGX RD` events/s | 23.5 (was 114.6 with Screen Share) |
+
+| regime | GPU idle |
+|---|---|
+| **SSH-only, no display** | **≈ 0–3 mW** (mostly no counter movement) |
+| Screen Share, regime A | 26.9 mW |
+| Screen Share, regime B | 82.7–85.0 mW |
+
+So Screen Sharing costs **~25–85 mW of continuous idle GPU power** here, on a box whose headless
+floor is essentially zero. **Mandate: energy arms run SSH-only.**
+
+### Trap 1 — a missing channel means ZERO (enginemon JSON)
+
+`tools/enginemon/enginemon.c:337` skips channels whose per-interval delta is 0 unless `--all`:
+`if (!show_all && chans[i].total - chans[i].reported == 0) continue;`
+
+Consequence for analysis: **never take a median over "present" samples** — a channel that is absent
+in a sample had delta 0, and computing a median only over the samples where it appeared
+over-estimates the rate (our first pass reported "1.5 mW median" from 6/28 samples). Rate = Σdelta /
+Σdt over the window.
+
+### Trap 2 — `DISP*` / `DISPEXT*` / `VDD_*` "RT" channels are FREE-RUNNING (~24 MHz), not activity
+
+Measured with **no display attached**: `DISP RT RW` 23.992 MHz, `DISPEXT0 RT RW` 23.994 MHz,
+`VDD_SOC_CI_VOLTAGE_CHANGE_COMPLETION` 23.988 MHz — all ≈24 MHz, the same free-running family as
+enginemon's documented `ANE_*_TRIG` trap (file 10 Q1 / enginemon README). They were ~24 MHz *with*
+the display too, which is exactly why they looked "identical between regimes".
+
+**This invalidates the display-traffic control used in section 7** (GOTCHAS-079): the claim that
+"display/compositor traffic is identical while AGX activity triples" rested on channels that carry
+no display information. What survives from section 7 is the **AGX** evidence (event counts that can
+genuinely be zero): `AGX RD/WR` 114.6 → 303.0 /s and `AGX.Count_UT_Engagement` 127.1 → 316.2
+between the two regimes. The regimes are real; the *control* was bogus.
