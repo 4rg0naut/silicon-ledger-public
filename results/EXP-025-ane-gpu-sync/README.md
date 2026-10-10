@@ -63,6 +63,19 @@ Evidence `results/chain_harness.txt`. **Scope:** this is the *wire the ANE uses*
 that integration stays blocked (Path-A crash on attached `_ANESharedEvents`; Path-B
 shared-event SIGSEGV, F-40). Record `API-141`.
 
+### Path (b): the shipping stack — joined, but not ANE-specific (2026-10-10)
+
+Interposing the shipping Core AI stack (`harness/join_chain.m` via `DYLD_INSERT_LIBRARIES`
+over the public runner, 20 evals × 4 arms) shows Apple's own code **does** use the primitive —
+13 `IOSurfaceSharedEvent` counters (one per ANE region), 260 signals, and a duplicate wrapper
+over one port read the live value (`signaledValue=40`) → **we joined a live counter**.
+
+**But it is not the ANE route:** the counts are *identical* under `cpuOnly`, `gpu`,
+`neuralEngine` and `default`, and `-[_ANERequest setSharedEvents:]` never fires. These are
+generic MPSGraph/Metal-side counters; Core AI's ANE execution does not use the `_ANERequest`
+shared-event route. Evidence `results/join_chain.txt`, record `API-142`. The ANE-specific
+e5rt/E5 route (API-115) is Core ML's ANE execution and needs an ANE-routed `.mlmodelc`.
+
 ## Deviations (declared, not silent)
 
 1. **Transfer re-points.** Only two lines differ from the AI_dev capture: the VERDICT

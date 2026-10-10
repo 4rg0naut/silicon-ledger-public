@@ -1,0 +1,32 @@
+JOIN-THE-CHAIN (path b: the shipping stack) — 2026-10-10
+=====================================================================
+Machine: Mac17,14 M5 Max, macOS 27.0.1/26A434, unprivileged.
+Interposer: harness/join_chain.m -> join_chain.dylib (DYLD_INSERT_LIBRARIES), read-only
+  hooks: -[_ANERequest setSharedEvents:], -[IOSurfaceSharedEvent initWithMachPort: /
+         setSignaledValue: / waitUntilSignaledValue:timeoutMS:].
+Model: work/exports/granite-rebake-p3/aot/granite97m_fp16_s128.h17c.aimodelc (13 ANE regions)
+       run via the PUBLIC Core AI runner (EXP-028 harness), 20 evals per arm.
+
+RESULT — the shipping Core AI path DOES use the shared-event primitive, and we JOINED it:
+  - 13 distinct mach-port counters created (IOSurfaceSharedEvent initWithMachPort:),
+    one per ANE region of the plan;
+  - 260 signals = 13 counters x 20 evals, values 2,4,...,40 (even, monotonic);
+  - our duplicate wrapper over port 21763 read signaledValue=40 after the run
+    -> we observed Apple's OWN signals on the same kernel counter (a live join).
+
+BUT the wiring is ARMS-INVARIANT (this is the load-bearing negative):
+  [JOIN] SUMMARY req.setSharedEvents=0 isse.init=13 (ports=13) sig=260 wait=0 aneshared=0
+  [JOIN] SUMMARY req.setSharedEvents=0 isse.init=13 (ports=13) sig=260 wait=0 aneshared=0
+  [JOIN] SUMMARY req.setSharedEvents=0 isse.init=13 (ports=13) sig=260 wait=0 aneshared=0
+  [JOIN] SUMMARY req.setSharedEvents=0 isse.init=13 (ports=13) sig=260 wait=0 aneshared=0
+  -> identical count/ports/signals under cpuOnly, gpu, neuralEngine and default, so the
+     13 counters are NOT ANE wiring; they are a generic (MPSGraph/Metal-side) counter set.
+  - -[_ANERequest setSharedEvents:] fired 0 times: Core AI's ANE path does not use the
+    _ANERequest shared-event route at all (its ANE compile is in-process via ANECompiler).
+  - 0 in-process waits: the consumer of these counters is not visible in this process.
+
+VERDICT: path (b) via Core AI is NOT the ANE-specific event route. The shared-event
+primitive is generic to the framework; a live ANE program consuming events was NOT
+reached. The ANE-specific e5rt/E5 route (API-115 selectors: e5rtStreamReuseExpectation,
+disableIOFencing, aneExecutionPriority) belongs to Core ML's ANE execution, which needs
+an ANE-routed .mlmodelc we do not hold on this box. Next: obtain one and interpose there.
