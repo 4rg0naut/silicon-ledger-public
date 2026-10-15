@@ -1,0 +1,15 @@
+# EXP-029 fp16 NATIVE pair — LONG energy windows 20261015T191046Z
+# declared window (bench state):
+#   == run window (what else is running) ==
+#     captured    : 2026-10-15T17:10:47Z  uptime 446315s  boot 2026-10-09T15:11:51Z
+#     load avg    : 0.99 / 0.85 / 0.71  (1m/5m/15m)
+#     sessions    : <user>@console since Oct 9 18:15; <user>@ttys000 since Oct 10 19:38; <user>@ttys001 since Oct 12 12:26; <user>@ttys002 since Oct 11 19:28  [console/GUI session present]
+#     gui         : windowServer=up dock=up finder=up wallpaper=up  headless=NO
+#     power       : AC Power  thermal=nominal  prevent-sleep assertions=1
+#     watchlist   : ANECompilerService, VTEncoderXPCService, aned, assistantd, avconferenced, backupd, backupd-helper, bird, cloudd, coreaudiod, corespeechd, intelligenceflowd, knowledgeconstructiond, mds, mds_stores, mdworker_shared, mediaanalysisd, modelcatalogd, photoanalysisd, photolibraryd
+#     top cpu     :
+# both arms: half operands + fp32 accumulate (native_match=yes)
+idle1	samples=19	GPU_mW=13.0	net_mW=0.0	GEMM_per_s=	mJ_per_GEMM_net=	
+steel	samples=19	GPU_mW=68428.9	net_mW=68415.9	GEMM_per_s=18544	mJ_per_GEMM_net=3.6894	SUSTAINED	MLX-steel-gemm_loop(half->fp32,64x128x256,256t)	1024	1024	1024	dtype=half	accumulate=fp32	native_match=yes	dispatches=370880	seconds=20.0	maxabs=2.58e-06	rel=5.99e-07	oracle=PASS	GFLOPS=39822.9	hash=844f9b09903a696a
+shader	samples=29	GPU_mW=72049.3	net_mW=72036.3	GEMM_per_s=401	mJ_per_GEMM_net=179.4923	SUSTAINED	gemm_shader(fma,half->fp32,1 thread/element)	1024	1024	1024	dtype=half	accumulate=fp32	native_match=yes	dispatches=12040	seconds=30.0	maxabs=3.31e-06	rel=7.69e-07	oracle=PASS	GFLOPS=861.9	hash=cb34a348787e64dd
+idle2	samples=19	GPU_mW=13.1	net_mW=0.0	GEMM_per_s=	mJ_per_GEMM_net=	

@@ -1,0 +1,7 @@
+# EXP-029 fp16 NATIVE pair — energy windows 20261015T180658Z
+# window: screen sharing CUT, omlx=down, idle GPU 6.5-8.1 mW (gate: results/quiet-20261015T160457Z-shared-off.txt)
+# both arms: half operands + fp32 accumulate (native_match=yes) — a fair, precision-matched A/B
+idle1	samples=14	GPU_mW=6.8	net_mW=0.0	GEMM_per_s=	mJ_per_GEMM_net=	
+steel	samples=8	GPU_mW=64765.8	net_mW=64758.9	GEMM_per_s=22109	mJ_per_GEMM_net=2.9290	SUSTAINED	MLX-steel-gemm_loop(half->fp32,64x128x256,256t)	1024	1024	1024	dtype=half	accumulate=fp32	native_match=yes	dispatches=148220	seconds=8.0	maxabs=2.58e-06	rel=5.99e-07	oracle=PASS	GFLOPS=39787.5	hash=844f9b09903a696a
+shader	samples=12	GPU_mW=69426.8	net_mW=69420.0	GEMM_per_s=402	mJ_per_GEMM_net=172.8399	SUSTAINED	gemm_shader(fma,half->fp32,1 thread/element)	1024	1024	1024	dtype=half	accumulate=fp32	native_match=yes	dispatches=4820	seconds=12.0	maxabs=3.31e-06	rel=7.69e-07	oracle=PASS	GFLOPS=862.6	hash=cb34a348787e64dd
+idle2	samples=14	GPU_mW=7.6	net_mW=0.8	GEMM_per_s=	mJ_per_GEMM_net=	

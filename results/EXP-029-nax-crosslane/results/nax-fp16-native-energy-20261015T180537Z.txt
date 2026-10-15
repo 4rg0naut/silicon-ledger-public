@@ -1,0 +1,7 @@
+# EXP-029 fp16 NATIVE pair — energy windows 20261015T180537Z
+# window: screen sharing cut, omlx=down, GPU idle 8.1 mW (gate: results/quiet-20261015T160457Z-shared-off.txt)
+# arms: both half operands + fp32 accumulate (native_match=yes); timings from the same binary
+idle1	samples=12	GPU_mW=6.5	GEMM_per_s=	mJ_per_GEMM=	
+steel	samples=1	GPU_mW=6.9	GEMM_per_s=22109	mJ_per_GEMM=0.000	
+shader	samples=1	GPU_mW=6.9	GEMM_per_s=402	mJ_per_GEMM=0.017	
+idle2	samples=12	GPU_mW=7.1	GEMM_per_s=	mJ_per_GEMM=	

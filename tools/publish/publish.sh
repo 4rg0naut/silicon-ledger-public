@@ -26,6 +26,11 @@ personal.sort(key=lambda t: len(t[0]), reverse=True)
 KEEP_DIRS = ("bench/", "ports/", "tools/", "knowledge/", "evaluation/", "schemas/")
 KEEP_TOP = (".md", ".txt", ".json", "LICENSE")
 KEEP_RESULTS_EXT = (".md", ".json", ".txt", ".sh")
+# NOT widened to harness sources (2026-10-15, reverted same day): the instruments already have a
+# purpose-built public home — `silicon-ledger-bench` (public, MIT, its own `_producer` + facet
+# schema per CROSS-REPO-CONTRACT). One repo, one producer: the mirror carries the knowledge and the
+# numbers; the probe SOURCES belong in the bench repo. Publishing them here too would fork the
+# producer identity the contract exists to keep unambiguous.
 OVERLAY_PREFIX = "tools/publish/public-content/"
 
 files = subprocess.run(["git", "ls-files"], capture_output=True, text=True, check=True).stdout.splitlines()
