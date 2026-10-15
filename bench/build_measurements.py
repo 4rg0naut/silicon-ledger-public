@@ -267,7 +267,7 @@ ROWS = [
     # results/EXP-027-nax/results/p27_paper_xval.md
     ("xval-m5-gpu-compute-roof-fp16", "arXiv:2606.22283 table 9.1 (paper-measured M5/H17s)", "web-check 2026-10-08 SearXNG/mini", None,
      "paper MPS/matmul sweep", "GPU", "fp16", None, None, "paper-xval", "roofline",
-     "paper GPU compute roof 30862 GFLOP/s on M5/H17s (~10 GPU cores); our anchor m5max-s2-gemm8192-fp16-mps = 60750 GFLOP/s on M5 Max (18-core); per-core 3086 vs 3375 GF/s = +9.3% — consistent within clock/thermal slack, no conflict", None,
+     "paper GPU compute roof 30862 GFLOP/s on M5/H17s (base M5, 10-core GPU; per-core 3086 GF/s); our anchor m5max-s2-gemm8192-fp16-mps = 60750 GFLOP/s on the 40-core-GPU M5 Max (Apple: 128 GB Studio is the 40-core SKU) = 1519 GF/s per GPU core = 49% of the paper per-core roof. SUPERSEDES the 2026-10-08 reading: the '(18-core)' label was the CPU count (fingerprint cores=18) leaked into a GPU row and manufactured a false +9.3% per-core agreement. Correct verdict: CONFLICT-DECLARED — measured GEMM vs theoretical roof on different silicon classes, never adjudicated", None,
      "compute roof", 30862.0, "GFLOP/s", None, None, "Apple M5 (H17s)", None, None, None, None,
      "arxiv:2606.22283 (external measured)", "2026-10-08",
      "results/EXP-027-nax/raw/research-2026-10-08/arxiv_2606.22283v1.pdf; report results/EXP-027-nax/results/p27_paper_xval.md"),
@@ -297,8 +297,8 @@ ROWS = [
      "results/EXP-027-nax/results/p27_paper_xval.md"),
     ("xval-h17c-num-nes", "arXiv:2606.22283 table 34.1 (28 compiler targets)", "web-check 2026-10-08 SearXNG/mini", None,
      "compiler HAL core-count field @0x238", "ANE", None, None, None, "paper-xval", "cross-check",
-     "H17c decodes to 32 compiler-visible NE cores (paper table 34.1; suffix ladder base=4 g=8 s=16 c=32 d=64 at HAL offset 0x238); our machine resolves h17c on disk twice (EXP-026 coreai-cache dir names + mpsgraphtool -specializeForDevice emitting mps.aneArch string h17c, results/EXP-027-nax/results/p27_mpsgraphtool_write_side.txt) — M5 Max h17c=32 TRIPLE-SOURCED; paper's silicon-class column labels H17c 'A17 Max-class' only, our observations extend it to M5 Max; marketing 16 = H17s (base M5)", None,
-     "compiler core count", 32.0, "cores", None, None, M5MAX, None, None, None, None,
+     "the h17c OBSERVATION is triple-sourced (EXP-026 coreai-cache dir names + mpsgraphtool -specializeForDevice emitting mps.aneArch h17c, results/EXP-027-nax/results/p27_mpsgraphtool_write_side.txt + EXP-028 e6 AOT gate accepting h17c alone); the decoded value 32 is single-sourced — the guide table 34.1 num_nes field (suffix ladder base=4 g=8 s=16 c=32 d=64 at HAL offset 0x238), not a measured core count. Correction 2026-10-10 (Apple public spec): the M5 Max ANE is 16 cores on every SKU and this 128 GB Studio is the 40-core GPU bin — 32 matches neither the 16-core ANE nor the 40 GPU/NA units; it matches the sibling 32-core M5 Max GPU class, while the real 32-core ANE (M5 Ultra) sits at H17d (64). The 2026-10-08 'compiler-visible NE cores' reading is SUPERSEDED; num_nes semantics OPEN (on-probe target)", None,
+     "HAL num_nes @0x238 (semantics OPEN)", 32.0, "cores", None, None, M5MAX, None, None, None, None,
      "arxiv:2606.22283 (external) + ours (device observation)", "2026-10-08",
      "results/EXP-027-nax/results/p27_paper_xval.md"),
 ]

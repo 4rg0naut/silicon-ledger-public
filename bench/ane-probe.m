@@ -139,6 +139,34 @@ int main(void) {
             list_methods(c, "class", YES);
         }
 
+        // _ANEStrings: the CONSTANT TABLE. Its string accessors are CLASS methods, so enumerating
+        // instance methods finds zero and reports "no key selectors" — which is exactly what an
+        // earlier harness concluded (EXP-025 P2-LANE-A:71). Walk the metaclass instead: this is the
+        // only place the literal mach service names and the entitlement strings exist outside the
+        // binary. They are the map of which doors exist and which entitlements open them.
+        printf("\n=== _ANEStrings (class-method string constants) ===\n");
+        Class strs = NSClassFromString(@"_ANEStrings");
+        if (strs) {
+            unsigned int n = 0;
+            Method *ms = class_copyMethodList(object_getClass((id)strs), &n);
+            int shown = 0;
+            for (unsigned int i = 0; i < n; i++) {
+                SEL s = method_getName(ms[i]);
+                const char *nm = sel_getName(s);
+                const char *enc = method_getTypeEncoding(ms[i]);
+                if (!enc || enc[0] != '@') continue;    // object return only
+                if (strchr(nm, ':')) continue;          // zero-argument getters only
+                id v = ((id(*)(id, SEL))objc_msgSend)((id)strs, s);
+                if (!v) continue;
+                printf("      +%-50s = %s\n", nm, [[v description] UTF8String]);
+                shown++;
+            }
+            if (ms) free(ms);
+            printf("      (%d string constants of %u class methods)\n", shown, n);
+        } else {
+            printf("  _ANEStrings NOT FOUND\n");
+        }
+
         // how many classes does the framework register at all?
         unsigned int total = 0;
         Class *all = objc_copyClassList(&total);

@@ -273,3 +273,56 @@ What 2606.22283 claims vs what reproduces on OUR silicon (M5 Max h17c, unprivile
 Cross-machine rule: M4 AMC byte counters and M5 floor-bin duty are different instruments;
 never compare their numbers by channel name — join only at the pJ/token layer (facet
 `hw_model` guard, enginemon schema).
+
+## Q8 amendment #2 — per-model hardware truth (2026-10-10) **[V-spec]**
+
+Web-check 2026-10-10 against Apple's own publications (M5 Pro/Max newsroom 2026-03-03,
+Mac Studio tech specs, Wikipedia M4/M5 variant tables): the Neural Engine is **16 cores on
+the M4 base/Pro/Max and on the M5 base/Pro/Max, and 32 cores on the M5 Ultra** — and the
+128 GB Mac Studio M5 Max is **only** configurable as the 40-core GPU part (614 GB/s).
+Three consequences, effective repo-wide:
+
+1. `_ANEDeviceInfo numANECores = 16` on both fleet parts is the **hardware ANE core count**.
+   The Q8 line "16 ANE cores is never a hardware fact … matches the H17s marketing part"
+   mislabels which quantity is which: 16 **is** the ANE on these parts; the guide's num_nes
+   decode is a different field and never claims to be the marketing count.
+2. The 40-core M5 Max (our Studio) resolves the compiler target whose decoded num_nes is
+   **32** — matching neither the 16-core ANE nor the 40 GPU/NA units. "h17c = 32
+   compiler-visible NE cores" is SUPERSEDED as an interpretation; the observation
+   (device resolves h17c) stands, the decoding does not.
+3. What num_nes actually counts is **OPEN** — the on-probe candidate list:
+   per-die NE (dies ≠ suffix count on every part; 4 = the Ultra-class part), Max-tier GPU/NA
+   count (base config: 32 matches our family, but h16g = 8 on a 10-GPU M4 base is odd),
+   per-die GPU/NA (20 is missing on h17). The LADDER C8 "103% of HAL-32" note is re-framed
+   on this basis in `results/LADDER.md` — it was a GPU-row ceiling compared against a
+   decode of undefined scope, not a core-count layering discovery.
+
+```jsonl
+{"id":"CORE-001","claim":"Apple's published specifications give a 16-core Neural Engine on the M4 base/Pro/Max and on the M5 base/Pro/Max and a 32-core Neural Engine on the M5 Ultra, so the fleet-observed _ANEDeviceInfo numANECores of 16 on the M4 mini and the M5 Max is the hardware ANE core count rather than an API-visible proxy for a larger internal field.","kind":"fact","confidence":"documented","source":"https://www.apple.com/newsroom/2026/03/apple-debuts-m5-pro-and-m5-max-to-supercharge-the-most-demanding-pro-workflows/ ; https://en.wikipedia.org/wiki/Apple_M5 (variant table, fetched 2026-10-10)","source_type":"primary","retrieved":"2026-10-10","topic":["hardware","core-count","m5","m4","ane"],"entities":["Neural Engine","M5 Max","M5 Ultra","M4","numANECores"],"caveat":"supersedes the reading in Q8 (2026-10-06 amendment) that '16 ANE cores is never a hardware fact' — that sentence conflated the guide's HAL num_nes field with the ANE core count; the guide itself only says num_nes is not the marketing count","contested":false}
+{"id":"CORE-002","claim":"The fleet Studio is the 40-core-GPU M5 Max SKU — the probe capture records cpu 18 (6+12) and gpu 40 cores with 128 GB, and Apple ties 128 GB memory exclusively to the 40-core M5 Max configuration — so the machine that resolves compiler target h17c (decoded num_nes 32) has neither 32 ANE cores nor 32 GPU cores.","kind":"measurement","confidence":"measured","source":"results/EXP-022-m5max-baseline/raw/final-2026-10-06T01-17-00Z/probe.txt ; https://www.apple.com/mac-studio/specs/ (fetched 2026-10-10)","source_type":"our-own","retrieved":"2026-10-10","topic":["hardware","core-count","m5-max","sku","fleet"],"entities":["Mac17,14","M5 Max","40-core GPU","h17c","probe.txt"],"evidence":"probe.txt: 'cpu cores : perflevel0=6 perflevel1=12 total=18' and 'gpu : Apple M5 Max (40 cores)'; fingerprint cores=18 in FLEET is the CPU count","caveat":"the xval row xval-m5-gpu-compute-roof-fp16 had labelled the anchor '(18-core)' — the CPU count leaked into a GPU row and manufactured a false +9.3% per-core agreement; corrected 2026-10-10 to 1519 GF/s per GPU core = 49% of the paper 10-core base-M5 per-core roof, CONFLICT-DECLARED","contested":false}
+{"id":"CORE-003","claim":"What the HAL num_nes field at offset 0x238 (decoded base=4, g=8, s=16, c=32, d=64) actually counts is unresolved — per model it matches no single core quantity: h17c=32 on a 16-ANE/40-GPU M5 Max, h17s=16 on the base M5 (matches its ANE), h17d=64 on the 32-ANE M5 Ultra, h16g=8 on a 16-ANE/10-GPU M4 base.","kind":"open-question","confidence":"inferred","source":"https://ane-guide.readthedocs.io/en/latest/part-9-cross-silicon/34-the-28-targets.html (fetched 2026-10-10) + CORE-001/CORE-002","source_type":"secondary","retrieved":"2026-10-10","topic":["open-question","num_nes","hal","core-count","compiler-targets"],"entities":["num_nes","0x238","h17c","h17d","h16g"],"caveat":"candidate readings remain per-die NE, Max-tier GPU/NA class, per-die GPU/NA — every one is contradicted by at least one observed part, which is exactly why the on-probe (locate the HAL block behind the table, identify its owning kext) is the registered GAP and prose cannot close it","contested":false}
+```
+
+## Q8 amendment #3 — platform naming reframes the num_nes question (2026-10-11) **[V-rule]**
+
+Apple's platform identifiers are `H` + generation + **tier letter** (G base / S Pro / C Max / D
+Ultra / M reduced-Max); the generation is shared A+M per year. Authoritative write-up, per-row
+verification tags, and records NAME-001..006: `knowledge/ane/11-platform-naming.md`. Three
+consequences for this file's open questions:
+
+1. **CORE-003 reframed, still open.** `h17c` = "generation 17, Max tier" — a product identifier.
+   The guide/paper ladder (`g=8 s=16 c=32 d=64`) therefore assigns NE counts to **tier letters**,
+   i.e. it is a per-tier estimate model, not a per-die hardware read. The paper's own text already
+   separates the quantities: marketing "16-core engine" vs 4 measured physical compute sets on M1 —
+   and Apple now sells a **dual 16-core ANE** (M6, web-confirmed 2026-10-11). So `num_nes`,
+   `numANECores`, GPU cores and NA lanes are four different quantities; any future count statement
+   must name which one it is. The probe (EXP-028 "Next") now reads `num_nes @0x238` **and**
+   `max_operand_bytes @0x1b8` (compiler name MemCacheSize) per target on both Macs, and its target
+   menu is fed from the paper's 28-name table rather than hand-typed names.
+2. **The guide/paper Pro/Max → G-letter rows are a naming error, not fleet noise** (NAME-002).
+   Our two parts match Apple's rule exactly (M4 base = H16G; M5 Max compiler = H17C). This
+   retroactively supports everything built on the four-surface resolver reads (API-138, issue #1).
+3. **AMD/A-series cross-check available at zero cost:** `h17p` (A18 Pro) appearing in the 26A434
+   accepted-arch surface confirms target lists span A+M platforms of a generation — when the
+   equal-menu rerun runs, per-tier `num_nes` will be readable for phone tiers too, a free extra
+   axis for testing what the field counts.

@@ -99,6 +99,17 @@ strings reconciled across two boxes (M5 Max + M4 mini, same OS build)
 
 ## Next (cheap)
 
+- **GAP (registered 2026-10-10, rescope 2026-10-11) — what does HAL `num_nes` count?** The E6
+  four-surface rig already reads the arch strings per box; extend it to read `num_nes` (offset
+  0x238) **and `max_operand_bytes` (0x1b8, compiler name MemCacheSize)** per compiler target on-box,
+  locate the HAL block behind the guide table (ANE-side vs GPU/AGX-side owning kext), and
+  **equal-menu both Macs with the full 28-name table fed from the pinned PDF** (previous runs used
+  hand-typed menus: mini 5 names, Max 22 — NAME-005; the 5-vs-21 spread is our menu, not the
+  machines). Naive readings are dead per Apple SKU facts + platform naming: `h17c`=32 matches
+  neither this die's ANE (16) nor GPU (40); `h16g`=8 matches neither 16 nor 10 on the mini; Ultra
+  ANE=32 maps to H17d=64; and M6 markets a **dual 16-core ANE** (32 on one H18 part) — first
+  cross-generation check after an M6 box joins the fleet. Records: `knowledge/ane/10` CORE-003 +
+  amendment #3, `11-platform-naming` NAME-004/005, `05-gotchas` GOTCHAS-087.
 - User one-shot sudo xctrace (command in e2 file) → ODIEProfile rows on M5.
 - `sudo log config --mode private:on --subsystem com.apple.anec` + fresh
   specialization → anec Target Architecture line on disk (E1 gap).

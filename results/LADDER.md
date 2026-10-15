@@ -122,6 +122,22 @@ Net: no published row is now *implausible*; two int8-family rows are explicitly 
 as path-shaping artifacts rather than ceilings. The HAL-32 exceedance (103%) is the
 first ceiling-side evidence for the 32-vs-40 core-count layering — logged for Q8/FLEET.
 
+### C8 reframe (2026-10-10, per-model hardware truth)
+
+Apple-sourced SKU fact-check (apple.com/mac-studio/specs, newsroom M5 Pro/Max release
+2026/03; `knowledge/ane/10-m5-attribution-signals.md` Q8 amendment #2) re-frames the
+"suffix count ≠ physical count" lesson above. `h17c`'s 32 (`num_nes @0x238`, table 34.1,
+probe — triple-sourced) is NOT this die's compiler-visible core count: our box
+(Mac17,14, 128 GB) is the **40-core** M5 Max GPU SKU (probe.txt `gpu 40 cores`; Apple
+rule: 40-core ⇔ 614 GB/s ⇔ 48/64/128 GB tiers), and the ANE is 16-wide on every M5
+Pro/Max SKU. 32 matches the sibling **32-core Max GPU SKU class** (36 GB / 460 GB/s),
+and H17d's 64 matches M5 Ultra's 64-core GPU entry tier — i.e. the suffix number tracks
+a *SKU-class name*, not a per-die core count at any layer we have observed. Therefore
+the HAL-32 ceiling above is an **undefined-scope ceiling**; its 103% exceedance remains
+a measured fact but no longer adjudicates a core-count layering. The 85%-of-40-core
+figure is the only row anchored to hardware-confirmed counts. `num_nes` semantics stay
+OPEN (probe target; GOTCHAS-087).
+
 ## What this is NOT
 
 - Not a task benchmark for the M5 Max — one small model has run on it (Qwen3-Reranker,

@@ -1,0 +1,7 @@
+# EXP-029 bare-metal matched A/B — energy windows 20261015T145713Z
+# window: omlx=down, headless, sharing closed
+# arm=steel: MLX steel gemm_loop (tensor), 275.0 us/GEMM measured; arm=shader: naive fp32 fma, 2561 us/GEMM
+idle1	samples=13	GPU_mW=40.4	GEMM_per_s=	mJ_per_GEMM=
+steel	samples=6	GPU_mW=50168.9	GEMM_per_s=3636	mJ_per_GEMM=13.798
+shader	samples=10	GPU_mW=71574.5	GEMM_per_s=390	mJ_per_GEMM=183.314
+idle2	samples=13	GPU_mW=84.1	GEMM_per_s=	mJ_per_GEMM=

@@ -38,8 +38,10 @@ VIEW = ROOT / "tools" / "TOOLS.md"
 # (glob, kind, scanned?) — paths are relative to ROOT; ".." reaches the super-repo.
 LOCATIONS = [
     ("results/EXP-*/harness/*", "experiment-harness"),
+    ("results/EXP-*/harness/*/*", "experiment-harness"),  # harness subdirs (EXP-028/029 runners) were blind until 2026-10-11
     ("bench/*", "cross-experiment"),
     ("tools/*", "instrument"),
+    ("tools/*/*", "instrument"),   # sub-directory tools were a gate blind spot (review 2026-10-11)
     ("evaluation/*", "evaluation"),
 ]
 SCRATCH = [
@@ -153,6 +155,9 @@ def view() -> int:
              "Facts live in `knowledge/ane/`; **instruments live here**. Read this before writing any",
              "new probe: if a canonical instrument exists, reuse it. Add an entry when you add a tool.",
              "",
+             "2026-10 audit: full census + duplication map in `tools/AUDIT-2026-10.md`; language lanes",
+             "in `tools/LANGUAGE-POLICY.md`; per-file verdict data in `tools/audit/verdicts-2026-10.jsonl`.",
+             "",
              "Status: **canonical** = the one to use · **duplicate** = exists, prefer its canonical "
              "twin · **superseded** = kept only as an evidence artifact · **unclassified** = TODO.",
              ""]
@@ -233,6 +238,18 @@ def classify() -> int:
         if path in entries:
             entries[path].update({"status": status, "canonical_for": for_, "convention": note})
             hit += 1
+    # data-driven verdicts (Tool Audit 2026-10): one line per tool, owned by tools/audit/verdicts.py
+    vj = ROOT / "tools" / "audit" / "verdicts-2026-10.jsonl"
+    if vj.exists():
+        for line in vj.read_text().splitlines():
+            if not line.strip():
+                continue
+            v = json.loads(line)
+            if v["path"] in entries:
+                entries[v["path"]].update({"status": v["status"],
+                                           "canonical_for": v.get("canonical_for", ""),
+                                           "convention": v.get("note", "")})
+                hit += 1
     save(entries)
     print(f"classified {hit} instrument(s) from the capability map")
     return 0

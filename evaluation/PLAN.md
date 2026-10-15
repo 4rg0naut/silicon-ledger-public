@@ -56,7 +56,8 @@ ModernBERT-large, already on the ANE) · **Granite Guardian 4.1-8B** (Apache-2.0
 
 A candidate that fails a gate is not measured, it is rejected. Cheap decisions first.
 
-1. **Does it run here?** Apple Silicon, macOS 27, 16 GB today.
+1. **Does it run here?** Apple Silicon, macOS 27 — bench machine is the 128 GB M5 Max
+   (`results/FLEET.md`); the 16 GB figure was the M4 mini.
 2. **Is the output the right SHAPE?** For extraction and labelling this is the whole game: a model
    that returns prose or chat cannot be used, however clever it is. It must return a schema.
 3. **Licence.** If we publish the corpus and the tooling, the licence has to permit it.
@@ -79,20 +80,21 @@ on the easiest. Those cancelled. **Every quality number is reported per stratum,
 
 | layer | test set | status |
 | --- | --- | --- |
-| **verify** | 554 (claim, source) pairs, of which 57 are held out | **exists** — needs gold verdicts |
+| **verify** | 676-record corpus (`records/all.jsonl`); gold = 55 labelled / 53 scored
+      (`evaluation/verify/RESULTS-groundedness.md:4`) | **exists — gold done** |
 | **label** | claims with correct kind/confidence | partial — agent labels are *provisional*, not gold |
-| **reconcile** | claim pairs, contradictory or not | 17 known-contested cases |
+| **reconcile** | claim pairs, contradictory or not | 18 records flagged `contested:true` |
 | **retrieve** | queries → relevant chunks | exists — EXP-007/008 MTEB work |
 | **parse** | PDF → gold text | **must build** |
-| **extract** | passage → gold claim list | **must build** |
+| **extract** | passage → gold claim list | built and run — undecided (recall 0.30–0.34, n=15; `SELECTION.md`) |
 
 ## The anchor problem
 
 Every quality metric compares a tool against **gold**. For most layers we do not have gold — we have
 model output, or agent output, which is the same model checking itself.
 
-**The only way out is human labelling of a small set.** A hundred items, read carefully, becoming the
-anchor. Everything else is models comparing to models; that handful is the only place ground truth
+**The only way out is hand labelling of a small set.** 55 items labelled / 53 scored so far
+(`RESULTS-groundedness.md:4`); the target anchor is larger and human-attested. Everything else is models comparing to models; that handful is the only place ground truth
 exists. This cannot be automated and should not be faked.
 
 ## Where we start, and why
@@ -102,8 +104,8 @@ exists. This cannot be automated and should not be faked.
 - the test data **already exists** — 554 claims with their sources, 57 of them held out and
   uncontaminated
 - there are **four candidates**, one of them already running on our ANE
-- it is the layer currently **blocking** the knowledge base — the labels cannot be trusted until
-  something can check claims against sources
+- ~~it is the layer currently **blocking** the knowledge base~~ — decided 2026-10: Von-1.0 wins
+  (`evaluation/SELECTION.md`)
 - and the failure mode is known: general-purpose checkers score **near chance on code and technical
   content**, so this is exactly where a domain test is worth running
 
@@ -112,13 +114,13 @@ exists. This cannot be automated and should not be faked.
 ## Environment facts (measured today)
 
 ```
-python        torch 2.13.0 · transformers 5.16.1 · coremltools 9.0 · onnxruntime 1.30
-installed     gliner 0.2.29  ← GLiNER already present
+python        torch 2.14.1 · transformers 5.18.0 · coremltools 9.0 · onnxruntime 1.30
+installed     gliner2 2.0.0 (GLiNER2.5; the 0.2.29 note is outdated)
 available     mlx via uv tool at ~/.local/share/uv/tools/mlx-lm
-missing       docling · outlines · ollama · llama.cpp
+missing       docling · outlines · ollama (llama.cpp present: /opt/homebrew/Cellar 0.6.0_1)
 HF cache      4.6 GB, holds our typed-decisions set, MTEB sets, Qwen3-Embedding/Reranker-0.6B
-disk          /Volumes/data has only 25 GB free → download models to M4-Partage (664 GB free)
+disk          /Volumes/data has 107 GB free (measured 2026-10-14); /Volumes/data likewise
 ```
 
-**Set `HF_HOME` to a roomy volume before downloading anything.** `/Volumes/data` is where the live
-work sits and 25 GB will not survive an afternoon of model pulls.
+**Check free space on the target volume before downloading anything** (`df -h /Volumes/data`).
+Measured 2026-10-14: 107 GB free; re-check before large pulls.

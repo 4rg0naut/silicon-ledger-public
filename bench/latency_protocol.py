@@ -40,6 +40,10 @@ WARMUP = 10
 MEASURED = 100
 
 
+
+# CROSS-REPO-CONTRACT.md: project-wide schema id, stamped on every emitted row
+SCHEMA_ID = "silicon-ledger/1"
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--bundle", type=Path, required=True)
@@ -123,6 +127,7 @@ def main() -> int:
         "energy_rail": None,
         "energy_baseline": None,
         "provenance": "ours",
+        "schema": SCHEMA_ID,
         "date": "2026-09-22",
         "command": "bench/latency_protocol.py",
         # protocol-specific, recorded so a future run is comparable

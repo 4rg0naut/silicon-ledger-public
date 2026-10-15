@@ -1,0 +1,15 @@
+# EXP-029 arm discrimination 20261015T090635Z — f16(control: all paths fp32-gated) vs f32(arms eligible)
+# window: omlx=down, headless, duty-gated arm
+
+nax_gemm_energy	M=1024	dtype=f16	path_requested=nax	maxabs=0.0	duty=0.28	reps=1000	execs=1004	gpu_mJ=1403.52	window_s=1.08	mJ_per_GEMM=1.398	mJ_per_GFLOP=0.65	mean_mW=1296.0	gpu_med_ms=0.3	probe_TFLOPs=7.16	verdict=FAIL unmet=duty<0.30
+nax_gemm_energy	M=1024	dtype=f16	path_requested=coop	maxabs=0.0	duty=0.21	reps=1000	execs=1004	gpu_mJ=2529.52	window_s=1.09	mJ_per_GEMM=2.519	mJ_per_GFLOP=1.17	mean_mW=2322.8	gpu_med_ms=0.23	probe_TFLOPs=9.34	verdict=FAIL unmet=duty<0.30
+nax_gemm_energy	M=1024	dtype=f16	path_requested=steel	maxabs=0.0	duty=0.23	reps=1000	execs=1004	gpu_mJ=1709.16	window_s=1.07	mJ_per_GEMM=1.702	mJ_per_GFLOP=0.79	mean_mW=1591.4	gpu_med_ms=0.2409	probe_TFLOPs=8.91	verdict=FAIL unmet=duty<0.30
+nax_gemm_energy	M=4096	dtype=f16	path_requested=nax	maxabs=0.0	duty=0.05	reps=150	execs=154	gpu_mJ=30338.84	window_s=8.53	mJ_per_GEMM=197.005	mJ_per_GFLOP=1.43	mean_mW=3557.6	gpu_med_ms=2.997	probe_TFLOPs=45.86	verdict=FAIL unmet=duty<0.30
+nax_gemm_energy	M=4096	dtype=f16	path_requested=coop	maxabs=0.0	duty=0.05	reps=150	execs=154	gpu_mJ=30379.01	window_s=8.56	mJ_per_GEMM=197.266	mJ_per_GFLOP=1.44	mean_mW=3548.5	gpu_med_ms=3.016	probe_TFLOPs=45.57	verdict=FAIL unmet=duty<0.30
+nax_gemm_energy	M=4096	dtype=f16	path_requested=steel	maxabs=0.0	duty=0.05	reps=150	execs=154	gpu_mJ=24904.09	window_s=8.82	mJ_per_GEMM=161.715	mJ_per_GFLOP=1.18	mean_mW=2823.9	gpu_med_ms=2.985	probe_TFLOPs=46.04	verdict=FAIL unmet=duty<0.30
+nax_gemm_energy	M=1024	dtype=f32	path_requested=nax	maxabs=0.0	duty=0.44	reps=1000	execs=1004	gpu_mJ=7310.64	window_s=1.10	mJ_per_GEMM=7.282	mJ_per_GFLOP=3.39	mean_mW=6634.0	gpu_med_ms=0.483	probe_TFLOPs=4.45	verdict=PASS
+nax_gemm_energy	M=1024	dtype=f32	path_requested=coop	maxabs=0.0	duty=0.46	reps=1000	execs=1004	gpu_mJ=6690.15	window_s=1.09	mJ_per_GEMM=6.663	mJ_per_GFLOP=3.10	mean_mW=6149.0	gpu_med_ms=0.4979	probe_TFLOPs=4.31	verdict=PASS
+nax_gemm_energy	M=1024	dtype=f32	path_requested=steel	maxabs=0.0	duty=0.39	reps=1000	execs=1004	gpu_mJ=8031.88	window_s=1.08	mJ_per_GEMM=8.000	mJ_per_GFLOP=3.73	mean_mW=7416.3	gpu_med_ms=0.4231	probe_TFLOPs=5.08	verdict=PASS
+nax_gemm_energy	M=4096	dtype=f32	path_requested=nax	maxabs=0.0	duty=0.26	reps=100	execs=104	gpu_mJ=73451.76	window_s=4.22	mJ_per_GEMM=706.267	mJ_per_GFLOP=5.14	mean_mW=17393.3	gpu_med_ms=10.7379	probe_TFLOPs=12.80	verdict=FAIL unmet=duty<0.30
+nax_gemm_energy	M=4096	dtype=f32	path_requested=coop	maxabs=0.0	duty=0.25	reps=100	execs=104	gpu_mJ=73485.78	window_s=4.47	mJ_per_GEMM=706.594	mJ_per_GFLOP=5.14	mean_mW=16447.1	gpu_med_ms=10.727	probe_TFLOPs=12.81	verdict=FAIL unmet=duty<0.30
+nax_gemm_energy	M=4096	dtype=f32	path_requested=steel	maxabs=0.0	duty=0.26	reps=100	execs=104	gpu_mJ=73525.14	window_s=4.23	mJ_per_GEMM=706.972	mJ_per_GFLOP=5.14	mean_mW=17369.5	gpu_med_ms=10.736	probe_TFLOPs=12.80	verdict=FAIL unmet=duty<0.30

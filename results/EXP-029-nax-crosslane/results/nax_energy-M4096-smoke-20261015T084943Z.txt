@@ -1,0 +1,20 @@
+# nax_gemm_energy M=4096 f16 — SMOKE, NOT GATE-CLEAN
+# window (this turn): omlx=down loadavg=0.88, headless, sharing closed
+# UNMET GATES: (1) kernel=? — no datapath attribution; (2) no correctness/max_abs_err surfaced.
+# Do not treat as a measurement row until both gates print. See README §3.
+
+nax_gemm_energy	M=4096	dtype=f16	arm=nax	kernel=?	reps=20	execs=24	gpu_mJ=4325.45	window_s=8.33	mJ_per_GEMM=180.227	mJ_per_GFLOP=1.31	mean_mW=519.2	effective_TFLOPs=0.396
+nax_gemm_energy	M=4096	dtype=f16	arm=coop	kernel=?	reps=20	execs=24	gpu_mJ=4338.94	window_s=8.30	mJ_per_GEMM=180.789	mJ_per_GFLOP=1.32	mean_mW=522.8	effective_TFLOPs=0.397
+nax_gemm_energy	M=4096	dtype=f16	arm=steel	kernel=?	reps=20	execs=24	gpu_mJ=2008.84	window_s=8.33	mJ_per_GEMM=83.702	mJ_per_GFLOP=0.61	mean_mW=241.2	effective_TFLOPs=0.396
+
+# REPRODUCIBILITY FAILURE — same command, ~60 s later, same window:
+#   arm=nax   mJ_per_GEMM=129.732  (first run)
+#   arm=coop  mJ_per_GEMM=148.378
+#   arm=steel mJ_per_GEMM=180.526
+# vs this capture's own numbers (nax 180.2 / coop 180.8 / steel 83.7).
+# Spread up to 2.2x AND the arm ranking inverts (nax-best -> steel-best).
+# => this arm cannot currently produce a defensible energy number. No row recorded.
+# Root causes to fix, in order: (1) kernel=? never resolves in any row (no datapath attribution);
+# (2) no correctness/max_abs_err surfaced (README §3 requires checksum gating);
+# (3) effective_TFLOPs ~0.40 at M=4096 and 0.064 at M=1024 for EVERY arm, ~150x below the
+#     ~60 TFLOPS fp16 ceiling — the intended datapath is probably not executing.

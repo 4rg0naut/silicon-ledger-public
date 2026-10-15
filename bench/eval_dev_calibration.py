@@ -137,9 +137,14 @@ def main():
         print(f"    accuracy : best {b['acc']:.4f}  vs last {l['acc']:.4f}  -> {'best' if b['acc']>l['acc'] else 'last'} wins")
         print(f"    brier    : best {b['brier']:.4f}  vs last {l['brier']:.4f}  -> {'best' if b['brier']<l['brier'] else 'last'} wins")
         print(f"    ECE      : best {b['ece']:.4f}  vs last {l['ece']:.4f}  -> {'best' if b['ece']<l['ece'] else 'last'} wins")
-    (ROOT / "results" / "dev-calibration.json").write_text(json.dumps(out, indent=2))
-    print(f"\n  wrote results/dev-calibration.json")
-    return 0
+    target = ROOT / "results" / "dev-calibration.json"
+    if out:
+        target.write_text(json.dumps(out, indent=2))
+        print(f"\n  wrote results/dev-calibration.json")
+        return 0
+    print("\n  no checkpoints evaluated — results/dev-calibration.json left UNTOUCHED "
+          "(a smoke run without the .pt files must not erase the record; 2026-10 audit footgun)")
+    return 2
 
 
 if __name__ == "__main__":

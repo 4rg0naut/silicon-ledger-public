@@ -6,6 +6,25 @@ never touched (F-49). Question: characterise the M5's GPU Neural Accelerators
 ("NAX") — existence, submission path, energy, observability — and re-validate
 every ANE-zero routing claim against a proven lens.
 
+**Status addendum (2026-10-15) — the quiet-window rerun was attempted and is blocked by a venv drift,
+not by the machine.** With oMLX down and screen sharing closed (`harness/quiet_probe.sh`: omlx=down,
+loadavg <1) the NX-D capture ran: idle floor **148 / 188 mW** (idle1/idle2, n=11 samples each) —
+*lower* than the 426 / 394 mW recorded on 2026-10-08, so the window itself is good.
+
+The matmul2d load arm dies deterministically before producing load samples:
+`p27_load_coreai.py` prints `compiled; load loop start`, then
+`CoreAIRuntime/NDArray+Pool.swift:77: Fatal error: Failed to allocate storage for NDArray with
+byteCount: 4096, sk: ioSurface, st: float16` (rc = SIGTRAP, reproduced twice, 30 s and 5 s runs).
+The instrument's own warning names the likely cause: *"coreai-torch has only been validated with
+torch<=2.13.0; found torch 2.14.1"*. `.venv-conv` was upgraded after this experiment was closed
+(see `evaluation/PLAN.md` env block, corrected 2026-10-15). The 4 KB IOSurface-backed float16
+allocation is the NDArray pool's per-iteration buffer, not the operands — so it is the pool path
+that regressed, not the GEMM.
+
+To unblock: pin `torch<=2.13.0` in `.venv-conv` and rerun `harness/p27_nxd_capture.sh`, or drive the
+load from a torch-free sonde (the compiled MSL control `p27_load_msl.m` / `bench/na_tiles.metal`
+still build). No energy row is recorded from this attempt.
+
 Status (2026-10-08): CLOSED except two declared GAPs —
 NX-A/B/C/D, MX, ES, AN-POS, AN-STALE, AN-ROUTE, HS delivered; energy-window
 rerun under a matmul2d sonde awaits a user quiet window (oMLX unload).
@@ -50,12 +69,12 @@ Ledger rows (ids verbatim, values as recorded in `results/measurements.json`):
 
 | row id | value | unit | verdict vs our anchors |
 |---|---|---|---|
-| xval-m5-gpu-compute-roof-fp16 | 30862 | GFLOP/s | CONSISTENT (per-core +9.3% vs m5max-s2-gemm8192-fp16-mps 60750 on 18-core Max) |
+| xval-m5-gpu-compute-roof-fp16 | 30862 | GFLOP/s | SUPERSEDED 2026-10-10 → CONFLICT-DECLARED: the "18-core" tag was a CPU count leaking into a GPU label; anchor box (Mac17,14, 128 GB) is the **40-core** M5 Max SKU (probe.txt `gpu 40 cores`); per-core 60750/40=1519 vs paper 30862/10=3086 (−51%), not +9.3% — see CORRECTION in `results/p27_paper_xval.md` |
 | xval-m5-gpu-bandwidth-roof | 229.7 | GB/s | CONFLICT-DECLARED (streaming-roof/base-die vs our steady-state 561.6 read) |
 | xval-m5-cpu-bandwidth-roof | 130.4 | GB/s | CONFLICT-DECLARED (same caveat; our read 273.5) |
 | xval-m5-ane-matmul-roof | 10191 | GFLOP/s | GAP-DECLARED (no local ANE TFLOPs battery yet) |
 | xval-m5-ane-dispatch-floor | 0.23 | ms | KEPT-APART from our 0.2398 ms matmul2d eval — different stacks, no conflation |
-| xval-h17c-num-nes | 32 | cores | TRIPLE-SOURCED: paper table 34.1 + EXP-026 coreai-cache h17c dirs + mpsgraphtool emitting h17c here |
+| xval-h17c-num-nes | 32 | cores | TRIPLE-SOURCED: paper table 34.1 + EXP-026 coreai-cache h17c dirs + mpsgraphtool emitting h17c here. Observation KEPT; decode SUPERSEDED 2026-10-10: 32 matches neither this die's 16-core ANE (Apple per-SKU fact) nor its 40-core GPU; matches sibling 32-core Max GPU SKU class — `num_nes` semantics OPEN, do not divide by it (`knowledge/ane/05-gotchas.md` GOTCHAS-087) |
 
 Public-tool corroboration harvested: `/usr/bin/mpsgraphtool convert
 -specializeForDevice` emits the same `specialized_model_N.mpsgraph` naming as

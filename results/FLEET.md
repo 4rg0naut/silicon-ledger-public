@@ -8,7 +8,9 @@ or `—` (never attempted / unknown). Numbers cited here trace to
 measurements.
 
 Machines of record (comparability protocol: never a single table row across
-machines — EXP-005 two-throughput-states applies per machine):
+machines — EXP-005 two-throughput-states applies per machine). Platform identity
+(H-numbers, codenames, SoC IDs) and the results-pointing fair-look table:
+`results/MACHINES.md` + `knowledge/ane/11-platform-naming.md`:
 
 | machine | identity | ANE | role |
 |---|---|---|---|
@@ -16,6 +18,41 @@ machines — EXP-005 two-throughput-states applies per machine):
 | Mac mini M4 | `Mac16,10`, base M4 + 10GbE, 16 GB | h16g (per-die 8 — arXiv 2606.22283 Ch24) | historical corpus (EXP-001..021, 716 `M4` rows) |
 | iPad Air M2 | — (not powered for RE yet) | — | planned; constrained target |
 | Lenovo P11 Pro | Android/ARM (non-Apple) | n/a | future contrast column |
+
+### Per-model hardware truth (2026-10-10, Apple-sourced)
+
+Fetched 2026-10-10: apple.com/newsroom 2026/03 M5 Pro/Max release, apple.com/mac-studio/specs,
+apple.com/macbook-pro/specs (M4 family via archived spec pages), Wikipedia Apple M4/Apple M5,
+ane-guide ch34. Counts are Apple per-SKU facts, not inference:
+
+| chip | CPU cores | GPU cores | GPU Neural Accel. (per-core) | ANE cores | dies |
+|---|---|---|---|---|---|
+| M4 (base) | 8/9/10 | 8/9/10 | — | **16** | 1 |
+| M4 Pro | 12/14 | 16/20 | — | **16** | 1 |
+| M4 Max | 14/16 | **32 or 40** | — | **16** | 1 |
+| M5 | 9/10 | 8/10 | = GPU count | 16 (42 TOPS) | 1 |
+| M5 Pro | 15/18 | 16/20 | = GPU count | **16** | 2 (Fusion) |
+| M5 Max | 18 (6S+12P) | **32** (460 GB/s, ≤36 GB) or **40** (614 GB/s, 48/64/128 GB) | = GPU count | **16** | 2 |
+| M5 Ultra | 30/36 | 64/80 | = GPU count | **32** (84 TOPS) | 4 |
+
+*Column note (review 2026-10-11):* "GPU Neural Accel. (per-core)" = Apple's Neural Accelerator
+integrated into each **GPU** core (M5 generation onward; embedded in the GPU, not a separate block —
+"= GPU count" is therefore the count of NA units, not of ANEs). The **ANE cores** column is the
+separate dedicated Neural Engine. These are different quantities and must never be conflated or
+divided into each other — GOTCHAS-087, NAME-004.
+
+Fleet pins from this table:
+- **Mac Studio `Mac17,14`, 128 GB = necessarily the 40-core M5 Max GPU SKU** (Apple tier rule:
+  614 GB/s ⇔ 40-core ⇔ 48/64/128 GB). Confirmed locally: `probe.txt` on the Studio reports
+  `gpu 40 cores`.
+- **Mac mini `Mac16,10`, 16 GB = M4 base, 10-core GPU** per Apple spec for that SKU
+  [pending-verify: ssh re-probe of `system_profiler SPDisplaysDataType` on mini].
+
+Fingerprint key `cores` in the identity schema above is the **CPU** count (`sysctl hw.ncpu`) —
+`cores=18` on the Studio is its 18-core CPU (6S+12P), *not* a GPU or ANE count; the same chip is
+GPU-40 and ANE-16. CPU/GPU/ANE counts must be tagged per Apple SKU before any division or ceiling
+(`knowledge/ane/05-gotchas.md` GOTCHAS-087; `results/EXP-027-nax/results/p27_paper_xval.md`
+CORRECTION 2026-10-10).
 
 ## Unified identity schema (2026-10-03)
 
@@ -143,6 +180,11 @@ instrument are listed as GAPs — no hand-waving.
   a cache-sync pass from the mini clone (read-only side is safe).
 
 ## Threads — 2026-10-06 (h17-truth pass)
+
+- **GAP (2026-10-10) — HAL `num_nes` semantics OPEN**: suffix numbers (base=4 g=8 s=16 c=32 d=64)
+  match no observed CPU/GPU/ANE count per Apple SKU facts (`Per-model hardware truth` above;
+  `knowledge/ane/10` CORE-001/002/003): h17c=32 on a 16-ANE/40-GPU Max, h16g=8 on a 16-ANE/10-GPU
+  mini, H17d=64 where Ultra ANE=32. Probe registered in `EXP-028` "Next"; prose cannot close it.
 
 - **WATCH (D9a) — ANEForge release**: arXiv 2606.17090 artifact `comp-physics/ANEForge`
   is 404 as of 2026-10-06 (checked via api.github.com, `*.github.io` blocked here).

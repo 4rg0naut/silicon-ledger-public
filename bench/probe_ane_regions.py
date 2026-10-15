@@ -25,6 +25,7 @@ usage: .venv/bin/python bench/probe_ane_regions.py
 from __future__ import annotations
 
 import argparse
+import glob
 import json
 import os
 import shutil
@@ -40,10 +41,17 @@ ROOT = Path(__file__).resolve().parent.parent
 # artifacts and must not be committed. This bit me twice; see FAILURES.md F-18.
 OUT = ROOT / "work" / "ane_probe"
 
-COREAI_BUILD = (
+# The cryptexd mount suffix rotates on every boot (2026-10 audit finding): the suffix
+# seen when this was written was vbaqjL; by 2026-10-11 it was CHY184. Glob, never hardcode.
+COREAI_BUILD_GLOB = (
     "/private/var/run/com.apple.security.cryptexd/mnt/"
-    "com.apple.MobileAsset.MetalToolchain-v27.1.266.1.vbaqjL/Metal.xctoolchain/usr/bin/coreai-build"
+    "com.apple.MobileAsset.MetalToolchain-*/Metal.xctoolchain/usr/bin/coreai-build"
 )
+
+
+def resolve_coreai_build() -> "str | None":
+    matches = sorted(glob.glob(COREAI_BUILD_GLOB))
+    return matches[-1] if matches else None
 
 
 class TinyANE(nn.Module):
@@ -97,7 +105,7 @@ def compile_and_count(bundle: Path, tag: str) -> int:
     outdir = OUT / f"aot_{tag}"
     shutil.rmtree(outdir, ignore_errors=True)
     outdir.mkdir(parents=True)
-    argv = [COREAI_BUILD, "compile", str(bundle), "--output", str(outdir),
+    argv = [resolve_coreai_build(), "compile", str(bundle), "--output", str(outdir),
             "--platform", "macOS", "--preferred-compute", "neural-engine"]
     r = subprocess.run(argv, capture_output=True, text=True)
     if r.returncode != 0:
@@ -110,8 +118,10 @@ def compile_and_count(bundle: Path, tag: str) -> int:
 
 
 def main() -> int:
-    if not os.path.exists(COREAI_BUILD):
-        print(f"coreai-build not found at {COREAI_BUILD}", file=sys.stderr)
+    coreai_build = resolve_coreai_build()
+    if not coreai_build:
+        print(f"coreai-build not found under {COREAI_BUILD_GLOB} "
+              "(Metal toolchain not mounted, or this toolchain lacks coreai-build)", file=sys.stderr)
         return 2
     OUT.mkdir(parents=True, exist_ok=True)
     ap = argparse.ArgumentParser()

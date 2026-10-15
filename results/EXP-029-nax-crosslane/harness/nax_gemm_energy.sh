@@ -48,14 +48,33 @@ execs = 1 + 3 + reps                  # 1 correctness + 3 warmup + reps timed
 flops = 2.0 * M * M * M
 mj = tot_nj / 1e6
 log = open(lp).read()
-kernel = '?'
+# Gates, taken from the probe's OWN stdout (it already prints both):
+#   maxabs= <float>     correctness of the run  -> row fails if nonzero/absent
+#   gpu_med_ms= <float> real GPU time per exec  -> duty = work/window
+maxabs = None
+gpu_ms = None
 for line in log.splitlines():
-    if '→' in line or '->' in line:
-        kernel = line.split('→')[-1].split('->')[-1].strip().split(' ')[0]
-        break
-gflops = (flops * execs) / (sec * 1e9) if sec else 0.0
-print(f"nax_gemm_energy\tM={M}\tdtype={dt}\tarm={arm}\tkernel={kernel}\treps={reps}\texecs={execs}\t"
-      f"gpu_mJ={mj:.2f}\twindow_s={sec:.2f}\tmJ_per_GEMM={mj/execs:.3f}\tmJ_per_GFLOP={mj/(flops*execs/1e9):.2f}\t"
-      f"mean_mW={tot_nj/sec/1e6 if sec else 0:.1f}\teffective_TFLOPs={gflops/1000.0:.3f}")
+    if 'maxabs=' in line:
+        try: maxabs = float(line.split('maxabs=')[1].split()[0])
+        except Exception: pass
+    if 'gpu_med_ms=' in line:
+        try: gpu_ms = float(line.split('gpu_med_ms=')[1].split()[0])
+        except Exception: pass
+work_s = (gpu_ms or 0.0) * execs / 1000.0
+duty = work_s / sec if sec else 0.0
+# A window that is mostly idle measures idle power, not the kernel: refuse it.
+ok_correct = maxabs is not None and maxabs <= 0.0
+ok_duty = duty >= 0.30
+verdict = "PASS" if (ok_correct and ok_duty) else "FAIL"
+unmet = []
+if not ok_correct: unmet.append("maxabs")
+if not ok_duty: unmet.append(f"duty<0.30")
+print(f"nax_gemm_energy\tM={M}\tdtype={dt}\tpath_requested={arm}\tmaxabs={maxabs}\tduty={duty:.2f}\t"
+      f"reps={reps}\texecs={execs}\tgpu_mJ={mj:.2f}\twindow_s={sec:.2f}\tmJ_per_GEMM={mj/execs:.3f}\t"
+      f"mJ_per_GFLOP={mj/(flops*execs/1e9):.2f}\tmean_mW={tot_nj/sec/1e6 if sec else 0:.1f}\t"
+      f"gpu_med_ms={gpu_ms}\tprobe_TFLOPs={(flops*execs)/(work_s*1e12) if work_s else 0:.2f}\t"
+      f"verdict={verdict}{'' if verdict=='PASS' else ' unmet='+','.join(unmet)}")
+print(f"# NOTE: path_requested is the arm's env switch, NOT observed attribution — the probe does\n"
+      f"# not report which pipeline executed (METALHLO_DEBUG_MATMUL_PATH emits no kernel line here).")
 PY
 rm -f "$json" "$outlog"

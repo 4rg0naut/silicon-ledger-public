@@ -1,0 +1,15 @@
+# nax_gemm_energy — M=1024 reps=20 — window: QUIET
+# gate: oMLX=down
+# gate: QUIET-KEY: omlx=down loadavg=0.88 suspects=20
+
+### arm=nax rc=0 wall=1.1s
+nax_gemm_energy	M=1024	dtype=f16	arm=nax	kernel=?	reps=20	execs=24	gpu_mJ=29.64	window_s=0.80	mJ_per_GEMM=1.235	mJ_per_GFLOP=0.58	mean_mW=36.9	effective_TFLOPs=0.064
+
+
+### arm=coop rc=0 wall=1.2s
+nax_gemm_energy	M=1024	dtype=f16	arm=coop	kernel=?	reps=20	execs=24	gpu_mJ=27.58	window_s=0.82	mJ_per_GEMM=1.149	mJ_per_GFLOP=0.54	mean_mW=33.8	effective_TFLOPs=0.063
+
+
+### arm=steel rc=0 wall=1.2s
+nax_gemm_energy	M=1024	dtype=f16	arm=steel	kernel=?	reps=20	execs=24	gpu_mJ=29.93	window_s=0.81	mJ_per_GEMM=1.247	mJ_per_GFLOP=0.58	mean_mW=37.0	effective_TFLOPs=0.064
+

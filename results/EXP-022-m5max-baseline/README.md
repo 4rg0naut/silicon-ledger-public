@@ -90,6 +90,17 @@ extended to h17 suffixes) decodes base=4, g=8, s=16, c=32, d=64 — so M4 Max `h
 NE cores, M5 Max `h17c` = 32; the API returning 16 on both matches the H17 **s**-suffix marketing count,
 not per-die truth (see `knowledge/ane/10-m5-attribution-signals.md` Q7 amendment).
 
+*Amendment #2, 26-10-10 (supersedes two readings above):* (a) the `h16g` machine in this ledger is the
+**M4 base mini** (Mac16,10, 16 GB — `EXP-028/results/e6_arch_surface_reconcile.txt`: runtime surfaces
+agree "M4 mini = h16g"), **not an M4 Max**; the "M4 Max" label came from the ane-guide ch34 Table 34.3
+class mapping (M4 Pro/Max → h16g), and our own mini resolves to h16g too, so the guide's M4 → h16 row
+is contradicted by runtime. (b) The API returning 16 is **not** merely a marketing artifact: Apple
+documents a **16-core ANE on every M4, M4 Pro, M4 Max, and M5/Pro/Max SKU** — 16 IS the per-SKU hardware
+ANE count on the observed boxes (Apple spec pages, fetched 2026-10-10; `CORE-001` in
+`knowledge/ane/10-m5-attribution-signals.md`). The suffix→count decode (h16g=8, h17c=32) remains
+paper-derived for parts with no runtime core-count probe, and what `num_nes` counts is **OPEN**
+(`CORE-003`, `GOTCHAS-087`) — it matches no observed CPU, GPU, or ANE count on our fleet.
+
 ## Session contamination (measured, not assumed)
 
 `gpu_copy` across windows: **380.5** (02:14Z example, pre-dawn) · **379.5** (14:27Z,

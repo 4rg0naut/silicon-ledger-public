@@ -11,6 +11,8 @@ Two rules make that enforceable instead of aspirational:
   NOVELTY   every row of the findings table in WHATSNEW.md must carry a status of NEW / EXT / KNOWN
             and an evidence link that resolves — so no headline ships without its novelty label.
             This is the anti-overclaim rule: claiming a known thing as new is the failure mode.
+  COUNTS    spine counts quoted in WHATSNEW.md / PUBLIC-OPENCLAIMS.md / openclaims README must
+            equal counts derived live from the staged claims-*.jsonl (no hand-maintained drift).
 
 usage: python3 tools/publish/check_public.py [--staging PATH]     # default: ../silicon-ledger-public-staging
 exit:  0 = clean, 1 = violations (publish must not proceed)
@@ -18,6 +20,7 @@ exit:  0 = clean, 1 = violations (publish must not proceed)
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import sys
@@ -30,7 +33,7 @@ STATUS = re.compile(r"\b(NEW|EXT|KNOWN)\b")
 
 def is_exempt(rel: str) -> bool:
     """Pinned third-party material: its links belong to other projects."""
-    return "/raw/" in rel or rel.startswith("results/") and "/raw/" in rel
+    return "/raw/" in rel
 
 
 def check_links(stage: Path) -> list[str]:
@@ -159,6 +162,48 @@ def check_private_slug(stage: Path) -> list[str]:
     return bad
 
 
+# Counts gate (added 2026-10-11, review finding: hand-maintained counts in three docs drifted from
+# the spine they describe): the truth is derived from the staged claims-*.jsonl, and every doc that
+# quotes a count must quote the derived one.
+def check_counts(stage: Path) -> list[str]:
+    ocl = stage / "knowledge" / "ane" / "openclaims"
+    counts = {}
+    for key, name in (("claim.emitted", "claims-emitted"),
+                      ("claim.verified", "claims-verified"),
+                      ("claim.disputed", "claims-disputed")):
+        p = ocl / f"{name}.jsonl"
+        if not p.exists():
+            return [f"openclaims/{name}.jsonl missing from staging"]
+        n = 0
+        for i, raw in enumerate(p.read_text(errors="replace").splitlines(), 1):
+            raw = raw.strip()
+            if not raw:
+                continue
+            try:
+                if json.loads(raw).get("event_type") == key:
+                    n += 1
+            except json.JSONDecodeError:
+                return [f"openclaims/{name}.jsonl:{i}: unparseable line"]
+        counts[key] = n
+    e, v, d = counts["claim.emitted"], counts["claim.verified"], counts["claim.disputed"]
+    t = e + v + d
+    want = [
+        ("WHATSNEW.md", f"({e} claims, {t} provenance events"),
+        ("PUBLIC-OPENCLAIMS.md", f"**{e} claims emitted**"),
+        ("PUBLIC-OPENCLAIMS.md", f"**{v} verification events**"),
+        ("PUBLIC-OPENCLAIMS.md", f"**{d} disputed**"),
+        ("PUBLIC-OPENCLAIMS.md", f"{t} valid, 0 INVALID (of {t})"),
+        ("knowledge/ane/openclaims/README.md", f"**{t} / {t} events validate"),
+        ("knowledge/ane/openclaims/README.md", f"{e} `claim.emitted` + {v} `claim.verified` + {d} `claim.disputed`"),
+    ]
+    bad = []
+    for rel, s in want:
+        p = stage / rel
+        if not p.exists() or s not in p.read_text(errors="replace"):
+            bad.append(f"{rel}: stale/missing count string (derived says {t} total / {e} emitted): {s!r}")
+    return bad
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--staging", default=str(ROOT.parent / "silicon-ledger-public-staging"))
@@ -170,7 +215,9 @@ def main() -> int:
     links, novelty = check_links(stage), check_novelty(stage)
     case_anchor = check_case_and_anchors(stage)
     priv = check_private_slug(stage)
-    for label, bad in (("LINKS", links), ("NOVELTY", novelty), ("CASE/ANCHORS", case_anchor), ("PRIVATE-SLUG", priv)):
+    counts = check_counts(stage)
+    for label, bad in (("LINKS", links), ("NOVELTY", novelty), ("CASE/ANCHORS", case_anchor),
+                       ("PRIVATE-SLUG", priv), ("COUNTS", counts)):
         if bad:
             print(f"FAIL {label}: {len(bad)} violation(s)")
             for b in bad[:15]:
@@ -179,7 +226,7 @@ def main() -> int:
                 print(f"  … {len(bad) - 15} more")
         else:
             print(f"OK   {label}")
-    return 1 if (links or novelty or case_anchor or priv) else 0
+    return 1 if (links or novelty or case_anchor or priv or counts) else 0
 
 
 if __name__ == "__main__":

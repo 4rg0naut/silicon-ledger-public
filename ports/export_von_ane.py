@@ -16,7 +16,18 @@ Graph:
       -> PADDED to 32 wide (the alignment rule wants >= 32 fp16 on the last axis)
 
 Adapted from the zoo's `conversion/granite_embedding/_granite_model.py`, which already solves the
-ModernBERT traps this session ran into the hard way:
+ModernBERT traps this session ran into the hard way. That upstream is BSD 3-Clause licensed
+(Copyright (c) 2026, Daisuke Majima) — retained below as the licence requires:
+
+    BSD 3-Clause License — Copyright (c) 2026, Daisuke Majima
+    Redistribution and use in source and binary forms, with or without modification, are permitted
+    provided that the copyright notice, this list of conditions and the following disclaimer are
+    retained; neither the name of the copyright holder nor the names of its contributors may be used
+    to endorse or promote products derived from this software without specific prior written
+    permission. THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. (Full text:
+    https://github.com/john-rocky/coreai-model-zoo — LICENSE)
+
+Traps it already solves:
   * RoPE cos/sin are **precomputed buffers**, not gathered in-graph (the F-34 segfault)
   * layer 0 has **no attention norm** ("HF omits the first attention norm")
   * fused Wqkv and fused Wi -> chunk(2)

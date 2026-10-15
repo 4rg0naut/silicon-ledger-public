@@ -48,3 +48,35 @@ device evidence. Marketing "16" = H17s tier.
   are PUBLISHED prior art (paper 2606.22283 §9/§34, LLVM RFC, Apple docs). Our
   zero-hit territory remains: coreai-cache contents on macOS 27, `ane_family`,
   IOReport GPU counter semantics (`Perf_State`), per-tile matmul2d joules.
+
+## CORRECTION 2026-10-10 — per-model hardware truth (post-issue-1 review)
+
+Apple-sourced per-SKU fact-check (apple.com/newsroom 2026/03 M5 Pro/Max release,
+apple.com/mac-studio/specs, Wikipedia Apple M4/M5, fetched 2026-10-10) invalidates
+two readings above. Original text kept verbatim per append-only rule; this section
+is the live verdict.
+
+- **xval-m5-gpu-compute-roof-fp16 — verdict corrected: CONSISTENT → CONFLICT-DECLARED.**
+  The "(18-core)" tag on our anchor `m5max-s2-gemm8192-fp16-mps` is a **CPU core
+  count** leaking into a GPU-scope label (FLEET fingerprint `cores=18` = CPU;
+  probe.txt on the same box: `gpu 40 cores`). The 128 GB Mac Studio (Mac17,14)
+  is necessarily the **40-core** M5 Max SKU (Apple: 40-core GPU ⇔ 614 GB/s ⇔
+  48/64/128 GB tiers; the 32-core SKU caps at 36 GB). Correct per-core division:
+  60750/40 = **1519 GF/s/core** vs paper 30862/10 = 3086 GF/s/core → **−51%**,
+  not +9.3%. CONFLICT-DECLARED (declared, not adjudicated): the anchor may be
+  sustained-load vs the paper's burst roof, GPU clocks, or the paper's per-core
+  normalization; none is proven. Supersedes the 2026-10-08 reading; mirrored in
+  `bench/build_measurements.py` / `results/measurements.json`
+  (`xval-m5-gpu-compute-roof-fp16`).
+- **xval-h17c-num-nes — observation KEPT, decode SUPERSEDED.** All three sources
+  still agree on the raw value 32 (`@0x238`, table 34.1, probe). But 32 matches
+  **nothing** on this die: ANE = 16 on every M5 Pro/Max SKU (Apple), GPU = 40
+  here. 32 matches the sibling **32-core Max GPU SKU class**; H17d's `num_nes` = 64
+  sits at M5 Ultra's **64-core** GPU entry tier (Ultra ANE = 32). `num_nes`
+  semantics remain **OPEN** — do not divide by it. The line above ("M5 Max = h17c =
+  32 compiler-visible cores … Marketing 16 = H17s tier") is superseded: 16 IS the
+  per-SKU ANE count; "M5 Max = h17c" holds as a class-resolution only, not a core count.
+- **CPU/GPU/ANE facts, pinned:** M5 Max here = 18-core CPU (6S+12P), 40-core GPU,
+  16-core ANE. M4 mini (Mac16,10, 16 GB) = 10-core CPU, **10-core GPU** [pending-verify
+  via ssh], 16-core ANE. Any "18" or "32" in GPU/ANE context is a CPU leak or a
+  SKU-class name, respectively — see `knowledge/ane/05-gotchas.md` GOTCHAS-087.

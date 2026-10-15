@@ -64,6 +64,14 @@ Q8; the IOReport-visible board string `h17g` is the coarse runtime identifier, n
 ledger key) and on the bench fingerprint
 (`bda452aabd60bf26`) — never rank an M4 number against an M5 number.
 
+*Addendum 2026-10-10:* `h17c` is a **compile-target identifier** (join key unchanged), **not a core
+count** — it carries no per-die quantity we have observed: this SKU is 18 CPU (Apple names the top bin
+6 super + 12 performance), 40-core GPU (probe.txt), 16-core ANE (Apple per-SKU spec). Per-model CPU/GPU/
+ANE truth table and fleet pins: `results/FLEET.md` "Per-model hardware truth"; open semantics of the
+HAL `num_nes` value 32 behind the h17c suffix: `knowledge/ane/10` CORE-003 / `05-gotchas` GOTCHAS-087.
+*Addendum 2026-10-11:* the suffix decoding itself is now resolved (not a count at all — tier letter,
+Max): `knowledge/ane/11-platform-naming.md` NAME-001; per-machine fair-look table: `results/MACHINES.md`.
+
 | Component | Version |
 | --- | --- |
 | Machine | Apple **M5 Max** (Mac Studio, `Mac17,14`), 18 CPU (6P+12E), 40-core GPU, **128 GB** |

@@ -33,8 +33,17 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 BUNDLE_DIR = ROOT / "models" / "qwen3-reranker"
-AIMODELC = (ROOT / "work" / "exports" / "reranker-ane" / "aot_h16g_ane"
-            / "qwen3-reranker-0.6b_float16_s512_ane.h16g.aimodelc")
+def _resolve_aimodelc() -> Path:
+    # Machine-class suffix was hardcoded to the M4-mini naming (h16g); this box's re-auth
+    # (EXP-013) landed as aot_h17g_ane. Resolve whatever exists; audit 2026-10-11 finding.
+    base = ROOT / "work" / "exports" / "reranker-ane"
+    matches = sorted(base.glob("aot_*/qwen3-reranker-0.6b_float16_s512_ane.*.aimodelc"))
+    if not matches:
+        raise SystemExit(f"no AOT reranker bundle under {base}/aot_*/")
+    return matches[0]
+
+
+AIMODELC = _resolve_aimodelc()
 COREMODELS_SRC = (ROOT / "repos" / "coreai-kit" / "Examples" / "ChatDemo" / ".build"
                   / "checkouts" / "coreai-models" / "python" / "src")
 

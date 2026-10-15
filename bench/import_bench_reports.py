@@ -135,6 +135,10 @@ CLAIMS = [
 ]
 
 
+
+# CROSS-REPO-CONTRACT.md: project-wide schema id (NOT per-repo)
+SCHEMA_ID = "silicon-ledger/1"
+
 def find_run(report: dict, c: dict) -> dict:
     for s in report["sections"]:
         if s["id"] != c["suite"]:
@@ -217,6 +221,12 @@ def main() -> int:
 
     report_path = Path(args.report).expanduser().resolve()
     report = json.loads(report_path.read_text())
+    schema = report.get("_schema") or report.get("schema")
+    if schema and schema != SCHEMA_ID:
+        raise SystemExit(f"schema mismatch: report says {schema!r}, this ledger speaks {SCHEMA_ID!r} "
+                         "(CROSS-REPO-CONTRACT.md) — do not mix eras")
+    if not schema:
+        print(f"  note: {report_path.name} carries no schema stamp; accepted as pre-2026-10 legacy")
     if args.as_path:
         rel = args.as_path
     else:

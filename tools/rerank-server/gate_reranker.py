@@ -16,6 +16,7 @@ before it is used for anything.
 
 from __future__ import annotations
 
+import argparse
 import asyncio
 import json
 import sys
@@ -32,8 +33,15 @@ AIMODEL = BUNDLE_DIR / "qwen3-reranker-0.6b_float16_s512_static.aimodel"
 
 
 def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--seq-len", type=int, default=None,
+                    help="token grid; the bundle is s512 (qwen3-reranker-0.6b_float16_s512_static.aimodel). "
+                         "reference.json lost its seq_len key (2026-10 audit DATA-DRIFT finding).")
+    args = ap.parse_args()
     ref = json.loads(REF.read_text())
-    seq_len = ref["seq_len"]
+    seq_len = ref.get("seq_len", args.seq_len)
+    if seq_len is None:
+        raise SystemExit("seq_len is not in reference.json; pass --seq-len (bundle is s512)")
     pad = ref["pad_token_id"]
     prefix, suffix = ref["prefix"], ref["suffix"]
     instruction = ref["default_instruction"]
