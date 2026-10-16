@@ -5,9 +5,9 @@ One block per ported family; measurement-only comparators are tabled at the
 bottom. Artifact hashes point at manifests (`shasum -a 256 -c` verifies whole
 trees); nothing here stores bytes — the repo ships recipes, the volumes hold
 downloads. Locations: `models/` and `work/` in the repo are symlinks to
-`/Volumes/HUB/models/silicon-ledger-studio/` (relocated 2026-10-03); the mini's
-originals live at `/Volumes/M4-Partage/local_ai_stack/` (pinned:
-`/Volumes/HUB/archive/manifests/local-ai-stack-MANIFEST.sha256`, 2,742 files).
+`/Volumes/data/models/silicon-ledger-studio/` (relocated 2026-10-03); the mini's
+originals live at `/Volumes/data/local_ai_stack/` (pinned:
+`/Volumes/data/archive/manifests/local-ai-stack-MANIFEST.sha256`, 2,742 files).
 
 Checkpoint fields: `revision:` is the commit sha recorded at download time by the HF
 cache (first line of `.cache/huggingface/download/*.metadata`; the second line is the
@@ -44,7 +44,7 @@ last-touch commit, verifiable with `git log -1 --format=%h --follow -- <path>`.
 - source: `convaiinnovations/laya-multilingual`; weights `models/laya-multilingual/`
 - revision: `052592a15d198d9ad47da779604259b10b47b7aa` (download cache
   `models/laya-multilingual/.cache/huggingface/download/model.safetensors.metadata` —
-  identical on mini and HUB copies; upstream `main` has since advanced to `1720e3e3…`,
+  identical on mini and <volume> copies; upstream `main` has since advanced to `1720e3e3…`,
   HF API 2026-10-03, so re-download must pin the revision)
 - download: `hf download convaiinnovations/laya-multilingual --revision 052592a15d198d9ad47da779604259b10b47b7aa --local-dir models/laya-multilingual`
 - surgery: `torch.gather` marker-select → selection **matmul** against a
@@ -142,7 +142,7 @@ last-touch commit, verifiable with `git log -1 --format=%h --follow -- <path>`.
 ## Qwen3-Reranker-0.6B — cross-encoder re-author (EXP-013)
 
 - source: `Qwen/Qwen3-Reranker-0.6B`; weights `models/qwen3-reranker-hf/`
-  (Studio/HUB home now; download: `hf download Qwen/Qwen3-Reranker-0.6B --revision e61197ed45024b0ed8a2d74b80b4d909f1255473 --local-dir models/qwen3-reranker-hf`)
+  (Studio/<volume> home now; download: `hf download Qwen/Qwen3-Reranker-0.6B --revision e61197ed45024b0ed8a2d74b80b4d909f1255473 --local-dir models/qwen3-reranker-hf`)
 - revision: `e61197ed45024b0ed8a2d74b80b4d909f1255473` (download cache
   `models/qwen3-reranker-hf/.cache/huggingface/download/model.safetensors.metadata`;
   equals upstream `main` per HF API 2026-10-03)

@@ -176,7 +176,7 @@ tonight's low-band report is filed as a regime artifact, not merged into the led
    (candidate: repeat one CPU-bandwidth op hourly for a day, oMLX resident throughout).
 2. S4 systematic slowness: GPU-only placement explains the *where*, not the *how slow*.
    **Settled on rail evidence 2026-10-06 (quiet window, oMLX quit per thread 5).** Ran
-   `bench/power_coreai.py` granite97m (rebuilt runner, HUB `granite97m_fp16_s128.aimodel`,
+   `bench/power_coreai.py` granite97m (rebuilt runner, <volume> `granite97m_fp16_s128.aimodel`,
    800 iters, 3 compute-unit lanes): the **ANE power rail moves only on the `neuralEngine`
    lane** (261.1 mW vs 0.0 on gpu/cpuOnly), so the Core AI preference genuinely reaches the
    ANE on M5 — the dispatch path is alive. Two honest bounds on what this proves:

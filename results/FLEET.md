@@ -158,7 +158,7 @@ instrument are listed as GAPs — no hand-waving.
 | 11 | QoS ladder arms (`01`, `02`) | `--qos` flag in `bench/ane-probe.m` + `bench/ane-dma-test.m` | arms exist; ladder sweep only run in harness era — see GAP-2 |
 | 12 | Oracle-fidelity gate for re-authored ports ("a port without gates is a guess") (`03`, `09-origins`) | `bench/gate_reranker_ane.py`, `bench/correctness_head.py`, `bench/jevbench_ane.py` | M4-proven (EXP-013 gate; EXP-018 230/231) |
 | 13 | Machine identity attribution on every instrument (`FLEET` hygiene) | `bench/identity.py`, wired into power probes + enginemon | both machines verified |
-| 14 | Bench-report import from external harness runs | `bench/import_bench_reports.py` + inbox (`HUB/bench`) | working (m5max-s* rows) |
+| 14 | Bench-report import from external harness runs | `bench/import_bench_reports.py` + inbox (`<volume>/bench`) | working (m5max-s* rows) |
 
 **GAPs (stated plainly):**
 - **GAP-1 — M5 energy rows**: ~~never run with sudo~~ **CLOSED 2026-10-06** — quiet
@@ -171,7 +171,7 @@ instrument are listed as GAPs — no hand-waving.
 - **GAP-2 — harness-era drivers not in-tree**: the original M4 op-scan driver and
   the QoS-ladder sweep ran inside the old harness; their successors here cover
   the primitives (`ane-probe.m` full scan, `--qos` arms) but the sweep scripts
-  themselves live only in the archive (`M4-Partage/local_ai_stack/work/ane_probe/`,
+  themselves live only in the archive (`<volume>/local_ai_stack/work/ane_probe/`,
   mapped in `ARCHIVE-MAP.md`). Porting them in-tree is a candidate follow-up.
 - **GAP-3 — grounding-span re-derivation**: `knowledge/ane/grounding/cache/`
   lives on the mini only; a Studio re-emit cannot re-pin spans (observed 2026-10-03:

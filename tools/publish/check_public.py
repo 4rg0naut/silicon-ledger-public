@@ -204,6 +204,45 @@ def check_counts(stage: Path) -> list[str]:
     return bad
 
 
+# --- machine-identity gate (added 2026-10-16, owner request) --------------------------------------
+# The owner's machine/volume names are attack surface: they leak a disk-naming convention that ties
+# published material to a real fleet. Scrubbing must hold on EVERY publication, not once when a
+# label is first noticed. Two layers:
+#   (a) structural: any /Volumes/<name> in the published tree must be the neutral /Volumes/data.
+#       macOS system volumes under /System/Volumes/ (e.g. /System/Volumes/Preboot) are Apple paths,
+#       not owner naming, and are exempt.
+#   (b) denylist: known personal labels that must never reappear; extend when a label is retired.
+VOLUME_RE = re.compile(r"/Volumes/([^\s\"/`)\]]*)")
+VOLUME_OK = {"data", "…"}
+SYSTEM_PREFIX = "/System"
+MACHINE_LABELS = ("<volume>", "<volume>", "/Volumes/data", "/Volumes/data", "/Volumes/data",
+                  "/Volumes/data", "<host>", "<volume>/")
+
+
+def check_machine_names(stage: Path) -> list[str]:
+    bad = []
+    for p in sorted(stage.rglob("*")):
+        if not p.is_file():
+            continue
+        rel = os.path.relpath(p, stage)
+        if rel == os.path.join("tools", "publish", "check_public.py"):
+            continue                           # this gate quotes sample paths and its own regex
+        data = p.read_bytes()
+        if b"\x00" in data:                    # binary: publish.sh does not scrub it either
+            continue
+        text = data.decode("utf-8", errors="replace")
+        for m in VOLUME_RE.finditer(text):
+            if m.group(1).rstrip(".,;:!?") in VOLUME_OK:
+                continue
+            if text[max(0, m.start() - len(SYSTEM_PREFIX)):m.start()] == SYSTEM_PREFIX:
+                continue
+            bad.append(f"{rel}: owner volume path -> {m.group(0)}")
+        for label in MACHINE_LABELS:
+            if label in text:
+                bad.append(f"{rel}: personal machine label -> {label!r}")
+    return bad
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--staging", default=str(ROOT.parent / "silicon-ledger-public-staging"))
@@ -216,8 +255,9 @@ def main() -> int:
     case_anchor = check_case_and_anchors(stage)
     priv = check_private_slug(stage)
     counts = check_counts(stage)
+    machine = check_machine_names(stage)
     for label, bad in (("LINKS", links), ("NOVELTY", novelty), ("CASE/ANCHORS", case_anchor),
-                       ("PRIVATE-SLUG", priv), ("COUNTS", counts)):
+                       ("PRIVATE-SLUG", priv), ("COUNTS", counts), ("MACHINE-NAMES", machine)):
         if bad:
             print(f"FAIL {label}: {len(bad)} violation(s)")
             for b in bad[:15]:
@@ -226,7 +266,7 @@ def main() -> int:
                 print(f"  … {len(bad) - 15} more")
         else:
             print(f"OK   {label}")
-    return 1 if (links or novelty or case_anchor or priv or counts) else 0
+    return 1 if (links or novelty or case_anchor or priv or counts or machine) else 0
 
 
 if __name__ == "__main__":

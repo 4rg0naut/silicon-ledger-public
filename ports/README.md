@@ -17,7 +17,7 @@ historical command lines, correct at run time, deliberately untouched.
 Consumers: `bench/laya_ane_bench.py` imports the Laya port (its `sys.path`
 now includes `ports/`). Environment for re-bakes: `.venv-conv`
 (python3.12 + torch + transformers + coreai-torch), weights under `models/`
-(symlink → `/Volumes/HUB/models/silicon-ledger-studio/models/`), and the
+(symlink → `/Volumes/data/models/silicon-ledger-studio/models/`), and the
 `repos/coreai-models` checkout exposed at the ChatDemo path the Laya export
 expects (`repos/coreai-kit/Examples/ChatDemo/.build/checkouts/coreai-models`
 symlink, machine-local like all bulk). Recipes + hashes: `MODELS.md`.

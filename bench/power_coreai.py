@@ -30,8 +30,8 @@ BIN = "tools/granite-runner/.build/release/granite-runner"
 BUNDLE_DIR = "models/granite97m/macos/fp32-s128"
 # --bundle overrides the model path so the same power A/B can be run on any variant.
 BUNDLE_OVERRIDE = None
-TOKENIZER_DIR = "/Volumes/M4-Partage/local_ai_stack/work/granite-embedding-97m/source"
-REFERENCE = "/Volumes/M4-Partage/local_ai_stack/work/granite-embedding-97m/fixtures/golden_s128.json"
+TOKENIZER_DIR = "/Volumes/data/local_ai_stack/work/granite-embedding-97m/source"
+REFERENCE = "/Volumes/data/local_ai_stack/work/granite-embedding-97m/fixtures/golden_s128.json"
 # Default locations on the Studio; override with --tokenizer / --reference off-box.
 CASES = ["neuralEngine", "gpu", "cpuOnly"]
 

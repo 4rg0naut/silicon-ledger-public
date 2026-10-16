@@ -21,7 +21,7 @@
   },
   "capture": {
    "type": "string",
-   "description": "Repo- or HUB-relative path of the JSONL capture this claim points at. The capture is the evidence; the facet pins the pointer."
+   "description": "Repo- or <volume>-relative path of the JSONL capture this claim points at. The capture is the evidence; the facet pins the pointer."
   },
   "window": {
    "type": "string",

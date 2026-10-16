@@ -14,7 +14,7 @@ Scan policy (also recorded in the map):
     — those are counted toward root totals but individually hashed nothing; the
     count of skipped docs is reported per root;
   * each hashed doc gets sha256 + size; identical sha+size across roots makes a
-    duplicate set; the bulk pair (silicon-ledger models+work vs M4-Partage
+    duplicate set; the bulk pair (silicon-ledger models+work vs <volume>
     local_ai_stack) is additionally compared file-by-file (size-prefiltered
     sha256) for an identical / subset / diverged verdict;
   * any MANIFEST.sha256 found in a root is verified in place this run and
@@ -28,7 +28,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 MOUNT_VERDICT = (
-    "mount | grep: /dev/disk7s2 on /Volumes/Mini M4+ (apfs, sealed, local, "
+    "mount | grep: /dev/disk7s2 on /Volumes/data (apfs, sealed, local, "
     "nodev, nosuid, read-only, journaled, noowners)"
 )
 
@@ -39,14 +39,14 @@ BULK_SKIP_EXT_DIRS = (".trace",)
 ROOTS = [
     "/Volumes/data/OpenFox/Memory_Knowledge",
     "/Volumes/data/OpenFox/Memory_Kowledge",
-    "/Volumes/M4-Partage/local_ai_stack",
-    "/Volumes/M4-Partage/Benchmarks",
-    "/Volumes/Mini M4+/Users/<user>",
-    "/Volumes/Mini M4+ - Data/Users/<user>",
-    "/Volumes/Backup/_omp-archive",
-    "/Volumes/HUB/archive",
-    "/Volumes/HUB/bench",
-    "/Volumes/HUB/models",
+    "/Volumes/data/local_ai_stack",
+    "/Volumes/data/Benchmarks",
+    "/Volumes/data/Users/<user>",
+    "/Volumes/data/Users/<user>",
+    "/Volumes/data/_omp-archive",
+    "/Volumes/data/archive",
+    "/Volumes/data/bench",
+    "/Volumes/data/models",
     "/Volumes/data/_precopy-2026-10-02",
     "/Volumes/data/OpenFox/dev_m5max_re/exp022-raw",
     "/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/models",
@@ -55,9 +55,9 @@ ROOTS = [
 
 BULK_PAIRS = [
     ("/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/models",
-     "/Volumes/M4-Partage/local_ai_stack/models"),
+     "/Volumes/data/local_ai_stack/models"),
     ("/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/work",
-     "/Volumes/M4-Partage/local_ai_stack/work"),
+     "/Volumes/data/local_ai_stack/work"),
 ]
 
 OUT = Path(__file__).resolve().parents[2] / "knowledge" / "ane" / "ARCHIVE-MAP.md"
@@ -168,11 +168,11 @@ def gb(n):
 
 
 SOURCE_OF_TRUTH = (
-    "/Volumes/M4-Partage/",      # mini originals
-    "/Volumes/Mini M4+",        # mini disk clone
+    "/Volumes/data/",      # mini originals
+    "/Volumes/data",        # mini disk clone
     "/Volumes/data/OpenFox/Memory_K",   # corpus lineage
-    "/Volumes/Backup/_omp-archive",
-    "/Volumes/HUB/archive",
+    "/Volumes/data/_omp-archive",
+    "/Volumes/data/archive",
 )
 
 
@@ -206,7 +206,7 @@ def main():
     L.append(f"Generated {started} by `tools/archive/inventory.py"
              f"{' --no-hash' if not do_hash else ''}`. Read-only sweep; regenerate, never patch.\n")
     L.append("**Mount nature (checked first, this run):**")
-    L.append(f"- `/Volumes/Mini M4+` — {MOUNT_VERDICT} — **local attached clone, "
+    L.append(f"- `/Volumes/data` — {MOUNT_VERDICT} — **local attached clone, "
              "read-only**, not a mesh mount. Safe to walk fully; never write to it.")
     L.append("- All other roots are local APFS volumes (internal disk or the same attached device `disk7`).\n")
     L.append("**Scan policy:** symlinks not followed; apparent bytes; documents = all "
