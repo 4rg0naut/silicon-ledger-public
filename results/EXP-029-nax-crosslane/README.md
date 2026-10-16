@@ -218,3 +218,26 @@ datapath by 2.3–9.3× depending on how good the SIMT kernel is, and it is the 
 by ~13× against a naive shader.** Energy samples are few (6–10 × 1 s); treat as indicative until a
 longer window is run. No ledger row is recorded from this — it is an experiment result, and the
 numbers above carry their own caveats.
+
+### 2026-10-15 (fp16 native pair) — captures filed; window states are NOT comparable to the fp32 bare-metal A/B
+
+Three fp16 energy captures were added in `e977094` (both arms half operands + fp32 accumulate,
+`native_match=yes`, same binary for both arms — a precision-matched A/B, distinct from the fp32/tf32
+bare-metal pair above):
+
+- `results/nax-fp16-native-energy-20261015T180658Z.txt` and the LONG capture
+  `results/nax-fp16-native-energy-long-20261015T191046Z.txt` carry the correctness fields
+  (maxabs 2.6e-06 / 3.3e-06, rel 6.0e-07 / 7.7e-07, oracle PASS).
+- `results/nax-fp16-native-energy-20261015T180537Z.txt` is a degenerate first attempt: `samples=1` per arm, **no maxabs/rel/oracle columns**,
+  and its load rows read at idle power (GPU 6.9 mW) — it documents the attempt, proves nothing about
+  either arm, and is not a usable A/B row.
+
+| capture | declared window | status |
+|---|---|---|
+| `results/nax-fp16-native-energy-20261015T180537Z.txt` | screen sharing cut, omlx=down, idle GPU 6.5–8.1 mW, gate `results/quiet-20261015T160457Z-shared-off.txt` | **degenerate / raw-only — not usable as an A/B row.** `samples=1`, no correctness fields, load rows at idle power. The gate it cites establishes Screen Sharing was cut, not headlessness: WindowServer/Finder up, `<user>@console` logged in; idle floor ~7–8 mW, above the 0–3 mW headless floor. |
+| `results/nax-fp16-native-energy-20261015T180658Z.txt` | same window | same status — indicative only. |
+| `results/nax-fp16-native-energy-long-20261015T191046Z.txt` | own header: `headless=NO`, `windowServer=up`, `[console/GUI session present]`, loadavg 0.99 | **refused / non-comparable.** Under the workspace quiet-window rule this capture cannot back a certified or quiet-window claim regardless of Screen Sharing being off; not averaged with any other run. |
+
+Neither the two short nor the LONG capture carries a ledger row, and none will: these stay
+experiment-level results with their own window caveats. The joule-per-GEMM arm remains open for a
+certified headless SSH window.
