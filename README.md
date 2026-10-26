@@ -29,13 +29,13 @@ with window, metric convention and instrument per cell — is
 ## Five numbers that surprised us
 
 1. **55.2 TF** — int8 on the GPU tensor units at 4096³, 1.74× the fp16/fp8
-   band, bit-exact, in a 200-line hand-written harness
+   band, bit-exact, from one small hand-written harness
    ([EXP-037](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv)).
    Narrower is not just smaller; on this silicon it is *faster*.
-2. **0 vs 19,648** — a single unprivileged IOReport counter (`ANEXL U`) that
+2. **0 vs 19,611** — a single unprivileged IOReport counter (`ANEXL U`) that
    reads zero unless the Neural Engine is working. The only honest way to see
    Apple's silent GPU-default routing
-   ([WHATSNEW #4](WHATSNEW.md)).
+   ([EXP-027 calibration](results/EXP-027-nax/results/p27_anpos_promote.txt)).
 3. **25 → 104 mW in 30 s** — GPU idle power swings that much while *nothing
    runs*; the headless floor is ≈0–3 mW. Without this, every joule on this
    page would be noise ([QUIET-STATE](results/EXP-029-nax-crosslane/results/QUIET-STATE.md)).
