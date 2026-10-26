@@ -5,6 +5,9 @@
 # Determinism: same tracked content in => byte-identical staging out (verified by
 # running twice + diff -r). Scrub rules: tools/publish/redaction.json (personal only).
 # The openclaims gate needs the SDK: run as  PYTHON=.venv/bin/python sh tools/publish/publish.sh
+# Freshness contract (2026-10-26): the public README carries NO dates; every publish round goes
+# into the WHATSNEW.md overlay as a new top section ("# What's new — YYYY-MM-DD (round N: ...)").
+# If a round ships without updating WHATSNEW.md, the front door is stale — update it first.
 set -eu
 cd "$(git rev-parse --show-toplevel)"
 
