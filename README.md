@@ -17,7 +17,7 @@ declared upper bounds, certified-quiet re-takes are open.
 |---|---|---|
 | ANE, hand-re-authored model vs its stock export | **83 vs 10,390 mW** GPU power — 125× less, *and* faster (4.00 vs 4.33 ms) | [EXP-005](results/EXP-005-ane-residency/README.md) |
 | GPU tensor units (`matmul2d`) vs hand-written shader, same 4096² | **2.26× faster**, ~2× less GPU energy | [EXP-029 matrix](results/EXP-029-nax-crosslane/results/NAX-LANE-MATRIX.md) |
-| GPU vs ANE, identical fp16 GEMMs (M=1 / 512 / 2048) | GPU wins **10.2× / 7.3× / 5.4×** — including decode | [EXP-029](results/EXP-029-nax-crosslane/docs/NAX-ACTIVATION-AND-MEMORY.md) |
+| GPU vs ANE, identical fp16 GEMMs (M=1 / 512 / 2048) | GPU wins **10.2× / 7.3× / 5.4×** — including decode | [lane table §Surface 4](knowledge/ane/16-neural-accelerators.md#surface-4--ane-all-routes-raw-private-api-daemon-coreml-coreai-espresso-mailbox) |
 | NAX tensor units, hand-written MSL, fp8 (loaded window) | **32.0 TF** @2048³, bit-exact 24/24; needs Metal 4.1 — measured | [EXP-037](results/EXP-037-fp8-nax/results/fp8_matrix-20261026T1356Z.tsv) |
 | NAX, same harness, int8 (loaded window) | **55.2 TF** @4096³ = **1.74× the fp16/fp8 band**, bit-exact 16/16 | [EXP-037](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) |
 | NAX, same harness, fp32 — the first fp32 lane measurement here | **14.0 TF** @4096³, bit-exact 16/16 | [EXP-037](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) |

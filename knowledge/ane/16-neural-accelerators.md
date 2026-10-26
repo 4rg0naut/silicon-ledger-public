@@ -163,6 +163,7 @@ medians (median-30). Ledger: [results/measurements.json](../../results/measureme
 | granite ANE per-emb energy | **1.357 mJ/emb ×795, reproducible 0.05 %** (clean window, floor-checked) | after-idle == quiet floor | enginemon rail-delta · bare-metal | [EXP-023 tsv](../../results/EXP-023-m5max-energy/measurements.tsv) — **reconstructed ledger, raw txt lost (F-037)** — quarantine-listed with data kept |
 | mailbox (GPU↔ANE, no compute) | extra **20–53 µs**/eval over baseline; with-completion floor **0.095–0.621 ms/eval**; porttest hop ~62 µs | T1–T3 PASS | [EXP-025](../../results/EXP-025-ane-gpu-sync/README.md#headline) · API+bare-metal | [latency raw](../../results/EXP-025-ane-gpu-sync/results/latency.txt) (README+latency.md now carry a dated correction from the old 0.005–0.053/0.10–0.63 rounding drift — O-7 RESOLVED 2026-10-26) |
 | IOKit direct-path door (no compute lane) | success round-trips **3.2–7.1 µs**; error-path returns from 0.6; EXP-036 observed 0.5–7.3 (n=141); submit **CLOSED load-blind** (36/36 cells) | kr-code + poison verified | [ane_door_probe](../../tools/ane_door_probe/README.md) · bare-metal C | [EXP-033 §Q5](../../results/EXP-033-door-map/README.md) · [EXP-036 sweeps](../../results/EXP-036-side-door-inject/raw/probe10_sweep_run1.jsonl) |
+| GPU vs ANE wall-clock, identical fp16 GEMM K=N=4096 | M=1 **0.444 vs 4.543** ms (GPU **10.2×**), M=512 **0.951 vs 6.939** (**7.3×**), M=2048 **2.811 vs 15.274** (**5.4×**) — GPU wins GEMMs at every shape **including decode**; bare matmul **does reach the ANE** (5.39 ms med, maxabs=0) while the conv1x1 form of the same GEMM is ANE too but **2.1× slower** (11.50 ms) | maxabs=0 ANE arm; GPU side checksummed vs MLX; attribution symmetric (ANE arm GPU-energy 0.00 mJ with ANEXL U=896; GPU arm ANEXL U=0) | CoreML predict **API** vs vendored MetalHLO totalTime; lane readout MLComputePlan + enginemon | [API-172 spine record](./02-private-api.md) — harness stdout was never captured as a results file (open flag **O-10**) · 2026-10-10 session, window state not declared · [EXP-029](../../results/EXP-029-nax-crosslane/README.md) |
 
 ### Surface 5 — M4 fleet lanes (base M4, h16g ANE; macOS 26.x era; tool versions `unrecorded` unless stated)
 
@@ -209,6 +210,9 @@ Ryzen 5 3600 790/2200 ms p50/p95, Zakharko A19 tops-table, MetalHLO M5 Pro ~18 T
   `python3 bench/build_measurements.py` + `verify_extraction.py` (gate-checkable).
 - **O-9** ANE unprivileged joule cell: does not exist (counters only, doc-13); decider = owner sudo window
   with `bench/power_mlcore.py` against an ANE-placed model.
+- **O-10** GPU-vs-ANE wall-clock pairs (0.444/4.543, 0.951/6.939, 2.811/15.274, conv 11.50 vs matmul 5.39 ms)
+  are pinned only as spine claim API-172; `harness/ane_gemm_probe.py` stdout was never saved to `results/`.
+  Decider: re-run the probe ladder in a gated quiet window capturing stdout, confirming or restating the ratios.
 
 ### Quarantine — do not quote (superseded / refused / contaminated)
 
