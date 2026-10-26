@@ -5,7 +5,7 @@ Xcode 27.0 (27A266a) at /Applications/Xcode.app.
 
 CLONE (hub-side vendored, gitignored per EXP-026 convention)
 ------------------------------------------------------------
-  cd /Volumes/data/OpenFox/dev_m5max_re
+  cd /data/OpenFox/dev_m5max_re
   git clone https://github.com/pedronahum/MetalHLO tools/vendor/MetalHLO
   git checkout 44b3a04be0095296f9be95ce060e93045b69c367
   -> 44b3a04 "README: document experimental distributed (data-parallel

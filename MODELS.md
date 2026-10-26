@@ -5,9 +5,9 @@ One block per ported family; measurement-only comparators are tabled at the
 bottom. Artifact hashes point at manifests (`shasum -a 256 -c` verifies whole
 trees); nothing here stores bytes — the repo ships recipes, the volumes hold
 downloads. Locations: `models/` and `work/` in the repo are symlinks to
-`/Volumes/data/models/silicon-ledger-studio/` (relocated 2026-10-03); the mini's
-originals live at `/Volumes/data/local_ai_stack/` (pinned:
-`/Volumes/data/archive/manifests/local-ai-stack-MANIFEST.sha256`, 2,742 files).
+`/data/models/silicon-ledger-studio/` (relocated 2026-10-03); the mini's
+originals live at `/data/local_ai_stack/` (pinned:
+`/data/archive/manifests/local-ai-stack-MANIFEST.sha256`, 2,742 files).
 
 Checkpoint fields: `revision:` is the commit sha recorded at download time by the HF
 cache (first line of `.cache/huggingface/download/*.metadata`; the second line is the

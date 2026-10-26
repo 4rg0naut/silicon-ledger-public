@@ -71,7 +71,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-056 | `bench/repro_apple_attention.py` | superseded | Faithful repro: Apple's ACTUAL Attention class, with only RoPE and SDPA stubbed. |
 | INSTR-058 | `bench/rerank_retrieval.py` | superseded | Does the cross-encoder reranker close the ndcg gap? (EXP-012) |
 
-## instrument (33)
+## instrument (34)
 
 | id | path | status | purpose |
 |---|---|---|---|
@@ -100,6 +100,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-179 | `tools/kb_pipeline.sh` | canonical | kb_pipeline.sh — THE standard gate set for this repo. Run this; don't remember the steps. |
 | INSTR-180 | `tools/memory-stack/start.sh` | canonical | start.sh — bring up the fully-local memory stack and print what to export. |
 | INSTR-181 | `tools/publish/check_public.py` | canonical | check_public.py — the gates for the PUBLIC mirror (staging tree). |
+| INSTR-193 | `tools/publish/make_lane_chart.py` | canonical | make_lane_chart.py — dependency-free SVG chart of NAX tensor-lane throughput by dtype for the public README. |
 | INSTR-182 | `tools/publish/publish.sh` | canonical | publish.sh — deterministic generator of the public staging tree. |
 | INSTR-183 | `tools/publish/push-mirror.sh` | canonical | push-mirror.sh — push the public staging tree to the GitHub mirror. |
 | INSTR-184 | `tools/publish/rewrite_links.py` | canonical | rewrite_links.py — publication-aware link rewriting (runs on the STAGING tree only). |

@@ -203,6 +203,40 @@ def check_counts(stage: Path) -> list[str]:
         p = stage / rel
         if not p.exists() or s not in p.read_text(errors="replace"):
             bad.append(f"{rel}: stale/missing count string (derived says {t} total / {e} emitted): {s!r}")
+    # measurement-ledger counts (extended 2026-10-26, C4): three docs quoted three different
+    # numbers for the same table; the derived row count is the only truth allowed.
+    try:
+        rows = len(json.loads((stage / "results" / "measurements.json")
+                              .read_text(errors="replace"))["measurements"])
+    except (OSError, KeyError, json.JSONDecodeError) as exc:
+        return bad + [f"results/measurements.json unreadable for count gate: {exc}"]
+    for rel, s in (("README.md", f"{rows} rows"),
+                   ("README.md", f"measurements-{rows}-blue"),
+                   ("results/README.md", f"**{rows} records**"),
+                   ("results/SUMMARY.md", f"({rows} records)")):
+        p = stage / rel
+        if not p.exists() or s not in p.read_text(errors="replace"):
+            bad.append(f"{rel}: stale/missing measurement count (derived says {rows}): {s!r}")
+    return bad
+
+
+# --- chat-voice gate (added 2026-10-26, C3) --------------------------------------------------------
+# The corpus is vibe-coded and says so (PUBLISH-POLICY.md) - but the published documents speak in
+# the repo's voice, not the session's. These markers are chat traces; rewrite the sentence, keep
+# the fact. Exempt: pinned third-party material under */raw/* and the scrub-exempt publish machinery.
+CHAT_MARKERS = ("this session", "You're right", "pending-verify", "pending-ssh", "owner-flagged")
+
+
+def check_chat_voice(stage: Path) -> list[str]:
+    bad = []
+    for p in sorted(stage.rglob("*.md")):
+        rel = os.path.relpath(p, stage)
+        if "/raw/" in rel or rel.split(os.sep)[:2] == ["tools", "publish"]:
+            continue
+        text = p.read_text(errors="replace")
+        for m in CHAT_MARKERS:
+            if m in text:
+                bad.append(f"{rel}: session voice -> {m!r}")
     return bad
 
 
@@ -210,15 +244,18 @@ def check_counts(stage: Path) -> list[str]:
 # The owner's machine/volume names are attack surface: they leak a disk-naming convention that ties
 # published material to a real fleet. Scrubbing must hold on EVERY publication, not once when a
 # label is first noticed. Two layers:
-#   (a) structural: any /Volumes/<name> in the published tree must be the neutral /Volumes/data.
+#   (a) structural: after the 2026-10-26 neutralisation pass (redaction.json), the published tree
+#       must carry NO /Volumes/ prefix at all - every owner volume collapses to /data.
 #       macOS system volumes under /System/Volumes/ (e.g. /System/Volumes/Preboot) are Apple paths,
-#       not owner naming, and are exempt.
+#       not owner naming, and are exempt; the "…" placeholder (prose elision) is too.
 #   (b) denylist: known personal labels that must never reappear; extend when a label is retired.
+# The publish machinery (tools/publish/) is exempt in both layers: it is scrub-exempt by design and
+# quotes the personal labels as its own deny-list (2026-10-26: a scrubbed gate flags its own rules).
 VOLUME_RE = re.compile(r"/Volumes/([^\s\"/`)\]]*)")
-VOLUME_OK = {"data", "…"}
+VOLUME_OK = {"…"}
 SYSTEM_PREFIX = "/System"
-MACHINE_LABELS = ("<volume>", "<volume>", "/Volumes/data", "/Volumes/data", "/Volumes/data",
-                  "/Volumes/data", "<host>", "<volume>/")
+MACHINE_LABELS = ("Mini M4+", "M4-Partage", "/Volumes/HUB", "/Volumes/LLM", "/Volumes/DEV",
+                  "/Volumes/Backup", "/Volumes/data", "msm5m", "HUB/")
 
 
 def check_machine_names(stage: Path) -> list[str]:
@@ -227,8 +264,8 @@ def check_machine_names(stage: Path) -> list[str]:
         if not p.is_file():
             continue
         rel = os.path.relpath(p, stage)
-        if rel == os.path.join("tools", "publish", "check_public.py"):
-            continue                           # this gate quotes sample paths and its own regex
+        if rel.split(os.sep)[:2] == ["tools", "publish"]:
+            continue                           # scrub-exempt machinery: quoted labels are the rules
         data = p.read_bytes()
         if b"\x00" in data:                    # binary: publish.sh does not scrub it either
             continue
@@ -258,8 +295,10 @@ def main() -> int:
     priv = check_private_slug(stage)
     counts = check_counts(stage)
     machine = check_machine_names(stage)
+    chat = check_chat_voice(stage)
     for label, bad in (("LINKS", links), ("NOVELTY", novelty), ("CASE/ANCHORS", case_anchor),
-                       ("PRIVATE-SLUG", priv), ("COUNTS", counts), ("MACHINE-NAMES", machine)):
+                       ("PRIVATE-SLUG", priv), ("COUNTS", counts), ("MACHINE-NAMES", machine),
+                       ("CHAT-VOICE", chat)):
         if bad:
             print(f"FAIL {label}: {len(bad)} violation(s)")
             for b in bad[:15]:
@@ -268,7 +307,7 @@ def main() -> int:
                 print(f"  … {len(bad) - 15} more")
         else:
             print(f"OK   {label}")
-    return 1 if (links or novelty or case_anchor or priv or counts or machine) else 0
+    return 1 if (links or novelty or case_anchor or priv or counts or machine or chat) else 0
 
 
 if __name__ == "__main__":

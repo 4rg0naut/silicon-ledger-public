@@ -67,7 +67,7 @@ verified and ready to be that backend.
 ## Reproduce
 
 ```bash
-cd /Volumes/data/local_ai_stack
+cd /data/local_ai_stack
 tools/memory-stack/start.sh                 # starts both servers, prints the env to export
 # then, in the shell that runs mnemopi:
 export MNEMOPI_DATA_DIR=$PWD/work/mnemopi-ane
@@ -101,6 +101,6 @@ ordering *and* was contaminated. The clean re-run gave the same ordering with 3 
 
 > Generated from `results/measurements.json` by `bench/results_table.py`. **Do not hand-edit** — regenerate.
 > Rows appear only when another row is genuinely comparable; `benchmark+split+scope+tiers+metric+unit`
-> must agree. See `results/CONSISTENCY-PLAN.md` for why.
+> must agree.
 
 No records in `measurements.json` are attributable to this experiment.

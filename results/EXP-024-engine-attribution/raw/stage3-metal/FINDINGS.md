@@ -27,7 +27,7 @@ entitlement wall as the gated IOReport channels (cf. mactop PR #75 note on entit
 Remaining ladder rung that can still yield a calibrated GPU-NA positive signal: **stage 4**,
 privileged `powermetrics gpu_power + performance_counters` — folded into the EXP-022/#1 sudo
 session (`results/EXP-024-engine-attribution/raw/sudo/sudo_capture.sh`; capture scratch:
-`/Volumes/data/OpenFox/dev_m5max_re/exp024-raw/sudo/`). Stages 1/2/5 already executed (results in
+`/data/OpenFox/dev_m5max_re/exp024-raw/sudo/`). Stages 1/2/5 already executed (results in
 `knowledge/ane/10-m5-attribution-signals.md`: UT histogram = trick; PerformanceStatistics has no
 tensor/NA keys; PMP0/AGX group probing produced the ANE-side floors).
 

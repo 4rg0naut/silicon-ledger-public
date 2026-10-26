@@ -102,7 +102,7 @@ def candidates_for(source: str) -> list[str]:
 def resolve(source: str) -> tuple[str, str]:
     """Return (status, text). status in {ok, cached, binary, unreachable, empty}."""
     # local paths are free and already on disk
-    for prefix in ("/Volumes/data/local_ai_stack", str(REPO), "/"):
+    for prefix in ("/data/local_ai_stack", str(REPO), "/"):
         if source.startswith(prefix):
             p = Path(source)
             if not p.exists():

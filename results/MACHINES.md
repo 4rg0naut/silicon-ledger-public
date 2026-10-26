@@ -10,7 +10,7 @@ EXP-005 two-throughput-states, per machine — never one cross-machine table row
 
 | platform | chip | codename / SoC ID | machine | board | CPU / GPU / ANE | OS | arch strings (runtime / compiler) | measurements live here |
 |---|---|---|---|---|---|---|---|---|
-| **H16G** | M4 base | Donan / T8132 | Mac mini, 16 GB, 10GbE | `Mac16,10` (anectype board 256) | 10 (4P+6E) / 10 [pending-ssh re-probe] / 16 | macOS 27.0.1 (26A434) | `h16g` / `h16g` | historical corpus: EXP-001…021 (~716 `M4` rows in `measurements.json`), `EXP-020` DMA notch, `EXP-028` e6 B-surface + `raw/p28_e1_anec/`, power rows 75 vs 4124 mW (powermetrics sudo), `EXP-013` gate, `EXP-018` 230/231; grounding `cache/` lives on this machine (FLEET GAP-3) |
+| **H16G** | M4 base | Donan / T8132 | Mac mini, 16 GB, 10GbE | `Mac16,10` (anectype board 256) | 10 (4P+6E) / 10 (re-probe outstanding) / 16 | macOS 27.0.1 (26A434) | `h16g` / `h16g` | historical corpus: EXP-001…021 (~716 `M4` rows in `measurements.json`), `EXP-020` DMA notch, `EXP-028` e6 B-surface + `raw/p28_e1_anec/`, power rows 75 vs 4124 mW (powermetrics sudo), `EXP-013` gate, `EXP-018` 230/231; grounding `cache/` lives on this machine (FLEET GAP-3) |
 | **H17C** | M5 Max (40-core bin) | Sotra_C / T6050 (`AppleT6050PMGR`) | Mac Studio, 128 GB | `Mac17,14` (board 544) | 18 (6S+12P) / **40** (probe.txt) / 16 | macOS 27.0.1 (26A434) | `h17g` / `h17c` | baseline fingerprint `bda452aabd60bf26` (`EXP-022`, `examples/2026-09-26T02-14-33Z-bda452aabd60bf26.json`), energy close `raw/energy-close-2026-10-06/`, `EXP-024/025/026/027/028` (+`EXP-029` scaffold), `results/LADDER.md` C8, `measurements.json` `m5max-*`/`xval-*` rows |
 
 Runtime/compiler divergence on H17C (runtime reports the **base-tier** string of the right

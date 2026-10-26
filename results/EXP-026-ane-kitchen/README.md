@@ -17,7 +17,7 @@ the live producer is ANECompilerService". Open that kitchen: what compiler entry
 points exist on 27.0.1/M5, which one does the shipping stack actually use, what
 feeds it, and what does it accept?
 
-## Headline findings (all measured this session; evidence `results/p2b_*`)
+## Headline findings (single measurement window; evidence `results/p2b_*`)
 
 1. **`ANECCompile()` is alive and callable in-process** — `ANECompiler.framework`
    dlopens and exports 140 `_ANEC*` symbols incl. `ANECCompile`,
@@ -37,7 +37,7 @@ feeds it, and what does it accept?
    `try_function` (op-support oracle for the routing battery),
    `execute_function`, `opset_name_list`, error-copy pair
    (`p2b_recon_milaneflow_exports.txt`). Not in freedomtan's, geohot's, or the
-   Bryngelson map. **ABI not cracked this session** — `make_ctx` works,
+   Bryngelson map. **ABI not cracked in this round** — `make_ctx` works,
    `try_program_from_string` candidate signatures crash/return NULL with
    `err_size=0` on both valid and garbage input (`harness/p2b_mila_abi.m`,
    `p2b_mila_file.m` keep the matrix). Needs a disassembly pass (shared-cache
@@ -96,7 +96,7 @@ feeds it, and what does it accept?
 The disk-side answer to Deviation 2 ("where does `model.src` live"): on macOS 27 the
 Core AI route persists its **whole compile lineage user-readable** under
 `~/Library/Caches/coreai-cache/` — no sudo, no sandbox, no `aned` (the JIT route
-compiles in-process, K1). Decoded this session:
+compiles in-process, K1). Decoded in this round:
 
 - **Tool** `bench/coreai_cache.py` (stdlib only, read-only): decodes one plan or the whole
   cache to JSON — `manifest.plist` → versioned dict + compiler descriptor JSON

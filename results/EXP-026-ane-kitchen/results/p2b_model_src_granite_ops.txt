@@ -46,7 +46,7 @@
 32	target
 33	GraniteEmbedding$1
 34	call_stack
-35	/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/repos/coreai-model-zoo/conversion/granite_embedding/_granite_model.py
+35	/data/OpenFox/dev_m5max_re/silicon-ledger/repos/coreai-model-zoo/conversion/granite_embedding/_granite_model.py
 36	
 37	_EncoderLayer$2
 38	_EncoderLayer$3
@@ -61,7 +61,7 @@
 47	_EncoderLayer$12
 48	_EncoderLayer$1
 49	sparse.py
-50	/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/.venv-conv/lib/python3.12/site-packages/torch/nn/modules
+50	/data/OpenFox/dev_m5max_re/silicon-ledger/.venv-conv/lib/python3.12/site-packages/torch/nn/modules
 51	4897b5402c35e49c830edaee1eacc1b1c3f802ddc8e7ddf4112a71c78bea81f5
 52	torch
 53	_Attention$1
@@ -90,7 +90,7 @@
 76	_MLP$11
 77	_Attention$12
 78	_MLP$12
-79	/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/.venv-conv/lib/python3.12/site-packages/torch/nn/modules/sparse.py
+79	/data/OpenFox/dev_m5max_re/silicon-ledger/.venv-conv/lib/python3.12/site-packages/torch/nn/modules/sparse.py
 80	coreai
 81	value
 82	sources
@@ -98,7 +98,7 @@
 84	_Embeddings$1
 85	mlir
 86	_granite_model.py
-87	/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/repos/coreai-model-zoo/conversion/granite_embedding
+87	/data/OpenFox/dev_m5max_re/silicon-ledger/repos/coreai-model-zoo/conversion/granite_embedding
 88	2ffe2316c7f77a2fe50e374d8669455dee386f2a492265ae9267df2588c683d7
 89	normalization.py
 90	96284b63a2088c7d378716d5114eb5b6a1c072d479116170fcfd284c57e84b4f
@@ -117,10 +117,10 @@
 103	where_1
 104	embedding
 105	Embedding$1
-106	/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/.venv-conv/lib/python3.12/site-packages/torch/nn/modules/normalization.py
+106	/data/OpenFox/dev_m5max_re/silicon-ledger/.venv-conv/lib/python3.12/site-packages/torch/nn/modules/normalization.py
 107	native_layer_norm
 108	LayerNorm$1
-109	/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/.venv-conv/lib/python3.12/site-packages/torch/nn/modules/linear.py
+109	/data/OpenFox/dev_m5max_re/silicon-ledger/.venv-conv/lib/python3.12/site-packages/torch/nn/modules/linear.py
 110	view
 111	Linear$1
 112	mm

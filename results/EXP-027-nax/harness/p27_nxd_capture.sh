@@ -3,7 +3,7 @@
 # coreai matmul2d load, to find every M5 IOReport channel that reacts to NAX work.
 # Outputs raw/p27_nxd_{idle1,load,idle2}.jsonl + /tmp logs.
 set -u
-cd /Volumes/data/OpenFox/dev_m5max_re/silicon-ledger
+cd /data/OpenFox/dev_m5max_re/silicon-ledger
 EM=/tmp/p27_enginemon
 OUT=results/EXP-027-nax/raw
 PY=.venv-conv/bin/python

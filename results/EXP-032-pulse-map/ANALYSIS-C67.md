@@ -31,7 +31,7 @@ rate. C-67 asks: on this box, can any unprivileged IOReport channel count
   `raw/mini_p32.work.log`).
 - Provenance: workdir commit e7536a5 (ncm-run), build_config=release, corpus/seed
   fixed inside ledgers; enginemon from this repo `tools/enginemon/` (rebuilt
-  `clang -O2 … -framework CoreFoundation` this session); machines: Mac17,14
+  `clang -O2 … -framework CoreFoundation` in this round); machines: Mac17,14
   M5 Max 27.0.1/26A434 fingerprint bda452aabd60bf26, Mac16,10 M4 27.0.1/26A434
   fingerprint 057b28dd036ddbe8.
 

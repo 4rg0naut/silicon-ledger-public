@@ -104,7 +104,7 @@ and plenty left to order correctly.
 
 > Generated from `results/measurements.json` by `bench/results_table.py`. **Do not hand-edit** — regenerate.
 > Rows appear only when another row is genuinely comparable; `benchmark+split+scope+tiers+metric+unit`
-> must agree. See `results/CONSISTENCY-PLAN.md` for why.
+> must agree.
 
 | id | model | placement | dtype | seq_len | metric | value | unit | latency_ms | latency_unit | provenance |
 |---|---|---|---|---|---|---|---|---|---|---|

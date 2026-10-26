@@ -1,10 +1,10 @@
 # The spine — OpenClaims
 
-**Decision (user, this session): OpenClaims is the spine. Tools are now chosen by whether they can
+**Decision (owner): OpenClaims is the spine. Tools are now chosen by whether they can
 speak to it, not by raw quality alone.** Finding a good tool and then inventing a format around it is
 what we are replacing.
 
-Repo: `github.com/openclaims-ai/openclaims` · v0.1 · schemas in `schemas/openclaims/0.1/`
+Repo: `github.com/openclaims-ai/openclaims` · v0.1 · schemas under `schemas/openclaims/0.1/` in that repo (our facet schemas live in `schemas/facets/`)
 Specifically: `Core.schema.json`, `BaseEvent.schema.json`, and the four event schemas.
 TypeScript SDK, **Python SDK**, validator CLI, SQLite collector, JSON-LD export, conformance fixtures.
 

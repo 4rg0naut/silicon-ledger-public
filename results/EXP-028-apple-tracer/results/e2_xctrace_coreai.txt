@@ -18,7 +18,7 @@ Tool: DEVELOPER_DIR=/Applications/Xcode.app xctrace (Xcode 27). Raw: raw/p28_e2/
 3. Commands ready for the user's one-shot sudo (window not required — counts/rows only):
    sudo env DEVELOPER_DIR=/Applications/Xcode.app xctrace record --template "Core AI" \
      --output /tmp/p28_e2_priv_ne.trace --launch -- \
-     <ABS>/harness/p28_run_bin /Volumes/data/OpenFox/AI_dev/silicon-ledger-bench/models/coreai/deep_int8.aimodel 200 neuralEngine
+     <ABS>/harness/p28_run_bin /data/OpenFox/AI_dev/silicon-ledger-bench/models/coreai/deep_int8.aimodel 200 neuralEngine
    (repeat with gpu / cpu; export via: xctrace export --input <trace> --output <xml>
     --xpath '/trace-toc/run[@number="1"]/data/table[@schema="ODIEProfile"]')
 4. MEASURE-044 (M4) recorded 36 tables incl. ODIEProfile columns for this template;

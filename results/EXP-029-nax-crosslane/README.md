@@ -12,7 +12,7 @@ headless), NAX is the fastest datapath at both probed shapes and every row passe
 The joule-per-GEMM arm remains open: the proven sustained sonde (`p27_load_coreai.py`) is broken by a
 venv torch upgrade (see EXP-027 status addendum). See *Deviations (declared)* below.
 
-## 0. Lane topology — get this right or every number is wrong (owner-flagged, 2026-10-10)
+## 0. Lane topology — get this right or every number is wrong (owner correction, 2026-10-10)
 
 **NAX are not an engine; they are inside the GPU.** 1 GPU core carries 1 Neural Accelerator
 (BaseRT, arXiv:2607.19438). So:

@@ -5,7 +5,7 @@
 # Reuses the validated harness (p27_anpos_run.py) and enginemon.
 # Output: results/EXP-027-nax/raw/promote/<arm><n>.jsonl
 set -u
-cd /Volumes/data/OpenFox/dev_m5max_re/silicon-ledger
+cd /data/OpenFox/dev_m5max_re/silicon-ledger
 EM=/tmp/p27_enginemon
 OUT=results/EXP-027-nax/raw/promote
 PY=.venv-conv/bin/python

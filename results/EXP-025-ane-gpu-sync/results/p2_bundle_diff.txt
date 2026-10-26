@@ -1,5 +1,5 @@
 # bundle structure diff — EXP-003-era (<volume>) vs 27.0.1 public-compiled, same model:
-## EXP-003-era /Volumes/data/models/silicon-ledger-studio/models/minilm128.mlmodelc:
+## EXP-003-era /data/models/silicon-ledger-studio/models/minilm128.mlmodelc:
 analytics
 coremldata.bin
 model.mil
@@ -13,7 +13,7 @@ weights
 /tmp/fresh128.mlmodelc/weights:
 weight.bin
 
-/Volumes/data/models/silicon-ledger-studio/models/minilm128.mlmodelc/weights:
+/data/models/silicon-ledger-studio/models/minilm128.mlmodelc/weights:
 weight.bin
 ## finding: structures are IDENTICAL — {analytics, coremldata.bin, model.mil, weights/weight.bin}
 ##   no model.espresso.net anywhere on 27; metadata.json absent from both compiled sets (present only as empty artifact in <volume> copy).

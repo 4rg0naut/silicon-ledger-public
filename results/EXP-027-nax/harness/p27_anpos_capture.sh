@@ -2,7 +2,7 @@
 # EXP-027 AN-POS capture driver: idle / ANE-preferred / GPU-preferred / idle
 # windows through enginemon (user-mode). Outputs raw/p27_anpos_*.jsonl.
 set -u
-cd /Volumes/data/OpenFox/dev_m5max_re/silicon-ledger
+cd /data/OpenFox/dev_m5max_re/silicon-ledger
 EM=/tmp/p27_enginemon
 OUT=results/EXP-027-nax/raw
 PY=.venv-conv/bin/python

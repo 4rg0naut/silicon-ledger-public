@@ -12,7 +12,7 @@ k=$1
 C=$2
 sizes=$3
 here=$(cd "$(dirname "$0")" && pwd)
-V=${PYTHON:-/Volumes/data/OpenFox/AI_dev/silicon-ledger-bench/tools/.venv/bin/python}
+V=${PYTHON:-/data/OpenFox/AI_dev/silicon-ledger-bench/tools/.venv/bin/python}
 out=${TMPDIR:-/tmp}/plan_flip
 mkdir -p "$out"
 cd "$here"

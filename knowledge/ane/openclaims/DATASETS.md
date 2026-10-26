@@ -91,7 +91,7 @@ removes the main thing we need. Usable for verdict training, not for evidence gr
 
 ## What this changes
 
-We hand-labelled **55 items** in this session. That was the bottleneck on everything downstream — too
+We hand-labelled **55 items** in a single sitting. That was the bottleneck on everything downstream — too
 few to make the confidence result conclusive, and the reason the extraction layer could not be
 decided.
 

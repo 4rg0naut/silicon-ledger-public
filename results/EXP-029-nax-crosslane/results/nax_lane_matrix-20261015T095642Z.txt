@@ -1,5 +1,5 @@
 # nax_lane_matrix.sh (MetalHLO mlx-comparison) 20261015T095642Z — quiet window (omlx=down, headless)
-wrote /Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/results/EXP-029-nax-crosslane/harness/../results/nax_lane_matrix-20261015T075642Z.tsv
+wrote /data/OpenFox/dev_m5max_re/silicon-ledger/results/EXP-029-nax-crosslane/harness/../results/nax_lane_matrix-20261015T075642Z.tsv
 shape        arm    kernel    mhlo_ms  mlx_ms  ok
 MAT-DOT-003  nax    NAX       0.596    0.615   1
 MAT-DOT-003  nax    NAX       0.685    0.498   1

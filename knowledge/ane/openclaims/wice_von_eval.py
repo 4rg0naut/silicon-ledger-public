@@ -28,7 +28,7 @@ from pathlib import Path
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-WICE = Path("/Volumes/data/local_ai_stack/data/wice/oracle_subclaim_test.jsonl")
+WICE = Path("/data/local_ai_stack/data/wice/oracle_subclaim_test.jsonl")
 DEV = "mps" if torch.backends.mps.is_available() else "cpu"
 MAP = {0: "entailment", 1: "neutral", 2: "contradiction"}
 

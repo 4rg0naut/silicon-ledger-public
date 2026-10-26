@@ -89,7 +89,7 @@ only established both spawn the same class. Load as root fine (handle 133260, st
 - Gate-A attribution is by elimination: the setter is not among the 11 direct-path entries;
   its exact mechanism (set by `newUserClient type=2` path on `ANE_AddClientForProgram` or by
   the entitlement check upstream of it) stays unmapped — callee-level, not source-level.
-- sel0 echo was first misread at offset +0x18 during this session's live analysis (two-hex-digit
+- sel0 echo was first misread at offset +0x18 during live analysis (two-hex-digit
   index slip); corrected here to the fill offsets +0x10/+0x38, with the bogus-fill control as
   proof. Raw jsonl unchanged; analysis reflects corrected offsets.
 
@@ -97,7 +97,7 @@ only established both spawn the same class. Load as root fine (handle 133260, st
 
 ```sh
 cd tools/ane_door_probe
-BARE=/Volumes/data/OpenFox/AI_dev/ncm-run/bare
+BARE=/data/OpenFox/AI_dev/ncm-run/bare
 clang -fobjc-arc -O2 -o probe10_loadsweep probe10_loadsweep.m "$BARE/Sources/ANEBridge/ane_bridge.m" \
   -I "$BARE/Sources/ANEBridge/include" \
   -framework Foundation -framework IOSurface -framework IOKit -lobjc

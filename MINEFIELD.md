@@ -6,7 +6,7 @@ on the Neural Engine — most of these are not Apple's mistakes, they are
 measurement mistakes anyone can make.
 
 **1. A single spot-check can lie to you.** A hand-picked probe said the ANE
-cannot do convolutions. The full scan says it does them fine; my parameters
+cannot do convolutions. The full scan says it does them fine; our parameters
 just asked for a variant the compiler routes elsewhere. Use the full scan,
 never one convenient probe. (F-10, EXP-001)
 

@@ -6,7 +6,7 @@
 #   but setSignaledValue: from it raised an ObjC exception in the inferior (process rewound); cross-write path is
 #   instead proven by results/porttest.txt T3/T2 in-process tests.
 (lldb) target create "./harness/ane_sync_harness"
-Current executable set to '/Volumes/data/OpenFox/AI_dev/clm-run/ane-sync/harness/ane_sync_harness' (arm64).
+Current executable set to '/data/OpenFox/AI_dev/clm-run/ane-sync/harness/ane_sync_harness' (arm64).
 (lldb) break set -n exit
 Breakpoint 1: 5 locations.
 (lldb) run porttest
@@ -16,7 +16,7 @@ T1 CPU-signal -> wrapper-wait : PASS
 T2 GPU-encodeSignal -> wrapper-wait : PASS (gpu commit->wait 80us)
 T3 wrapper-signal -> MTLSharedEvent : PASS (value=3)
 porttest overall: PASS
-Process 42261 launched: '/Volumes/data/OpenFox/AI_dev/clm-run/ane-sync/harness/ane_sync_harness' (arm64)
+Process 42261 launched: '/data/OpenFox/AI_dev/clm-run/ane-sync/harness/ane_sync_harness' (arm64)
 Process 42261 stopped
 * thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.2
        frame #0: 0x0000000186a12d20 libdyld.dylib`dyld4::LibSystemHelpers::exit(int) const

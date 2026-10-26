@@ -6,13 +6,13 @@
 set -u
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin
 export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-RAW=/Volumes/data/OpenFox/dev_m5max_re/exp022-raw
+RAW=/data/OpenFox/dev_m5max_re/exp022-raw
 TS=$(date -u +%Y-%m-%dT%H-%M-%SZ)
 OUT=$RAW/s4-rerun-$TS
 BENCH="/Users/<user>/Library/Application Support/openfox/workspaces/dev_m5max_re/silicon-ledger-publish"
 BIN=$BENCH/.build/release/bench
 ENG=$RAW/bin/enginemon
-LEDGER=/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger
+LEDGER=/data/OpenFox/dev_m5max_re/silicon-ledger
 mkdir -p "$OUT"
 cd "$BENCH"
 

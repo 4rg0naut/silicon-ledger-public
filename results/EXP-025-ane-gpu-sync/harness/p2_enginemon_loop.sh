@@ -1,5 +1,5 @@
 #!/bin/zsh
-cd /Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/tools/enginemon
+cd /data/OpenFox/dev_m5max_re/silicon-ledger/tools/enginemon
 ( PROBE_LOOPS=600 /tmp/mlc_load /tmp/fresh128.mlmodelc >/tmp/p2_par_probe.log 2>&1 ) &
 PROBE=$!
 sleep 0.6

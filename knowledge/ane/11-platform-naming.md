@@ -24,7 +24,7 @@ SoC IDs: `T8xxx` phone/tablet-class, `T6xxx` desktop-class.
 ## M-series platform table (user rows; each tagged by how we verified it)
 
 Tags: **ours** = confirmed by our own measurement on a fleet machine · **web** = confirmed by
-Apple/Wikipedia this session · **user** = from the provided Apple Wiki/Asahi table, not
+Apple/Wikipedia during this round · **user** = supplied by the repo owner (Apple Wiki/Asahi table), not
 independently re-verified here (theapplewiki.com 403s from this network).
 
 | platform | chip | codename | SoC ID | tag |

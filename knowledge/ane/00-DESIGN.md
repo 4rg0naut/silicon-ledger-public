@@ -45,6 +45,9 @@ ane/
   04-runtime-and-memory.md
   05-gotchas.md
   06-measurement.md
+  07–14, 16                 same shape (there is no doc 15 — the number was
+                            skipped when the set was renumbered, and it stays
+                            skipped so old citations never rot)
   records/                  generated: extracted jsonl, validated
   SOURCES.md                every source with its license
 ```

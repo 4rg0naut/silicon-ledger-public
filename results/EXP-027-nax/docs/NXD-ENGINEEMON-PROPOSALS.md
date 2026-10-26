@@ -1,4 +1,4 @@
-# enginemon — NX-D slice proposals (for the tools/enginemon owner; this session did NOT edit that tree)
+# enginemon — NX-D slice proposals (for the tools/enginemon owner; proposed only — that tree was not edited here)
 
 Source evidence: results/p27_nxd_nax_lenses.txt + raw/p27_nxd_*.jsonl (EXP-027, 2026-10-08, M5 Max 27.0.1).
 

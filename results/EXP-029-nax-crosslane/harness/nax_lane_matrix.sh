@@ -13,7 +13,7 @@
 set -u
 export LC_ALL=C
 here=$(cd "$(dirname "$0")" && pwd)
-MH=/Volumes/data/OpenFox/dev_m5max_re/tools/vendor/MetalHLO
+MH=/data/OpenFox/dev_m5max_re/tools/vendor/MetalHLO
 BIN="$MH/.build/debug/mlx-comparison"
 [ -x "$BIN" ] || { echo "missing $BIN (build MetalHLO with Xcode, see EXP-027)"; exit 1; }
 

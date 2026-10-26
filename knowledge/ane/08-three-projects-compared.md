@@ -140,7 +140,7 @@ Three places disagree about whether ANE weights can be changed after compilation
 | --- | --- |
 | **maderix / Orion #7** | *"Weights are embedded into the compiled program at compile time. There is no way to update weights without recompiling."* |
 | **Orion's own RESULTS.md** | *"Each subsequent training step updates weights via `orion_program_reload_weights` — unload the existing program, update the BLOBFILE on disk, reload."* |
-| **our probe, this session** | `mapMutableWeightsForModel:andProcedure:mappedWeightsBuffer:size:error:`, `syncMutableWeightsForModel:andProcedure:fromOffset:withSize:error:` — **a full mutable-weights API exists on macOS 27** |
+| **our in-lab probe** | `mapMutableWeightsForModel:andProcedure:mappedWeightsBuffer:size:error:`, `syncMutableWeightsForModel:andProcedure:fromOffset:withSize:error:` — **a full mutable-weights API exists on macOS 27** |
 | **libane** (our KB) | patching had *zero* effect |
 
 **These are all describable at once.** The mechanism is the **model cache keyed by hash** — which our

@@ -11,10 +11,10 @@
 # usage: sh ane_gemm_energy.sh <model.mlpackage> <M> <N> <K> [reps] [label]
 set -u
 export LC_ALL=C
-repo=/Volumes/data/OpenFox/dev_m5max_re
+repo=/data/OpenFox/dev_m5max_re
 EM="$repo/silicon-ledger/tools/enginemon/enginemon"
 PROBE="$repo/silicon-ledger/results/EXP-029-nax-crosslane/harness/ane_gemm_probe.py"
-V=${PYTHON:-/Volumes/data/OpenFox/AI_dev/silicon-ledger-bench/tools/.venv/bin/python}
+V=${PYTHON:-/data/OpenFox/AI_dev/silicon-ledger-bench/tools/.venv/bin/python}
 [ -x "$EM" ] || { echo "missing enginemon"; exit 1; }
 
 model=${1:?usage: ane_gemm_energy.sh <model> <M> <N> <K> [reps] [label]}

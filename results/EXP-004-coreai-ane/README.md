@@ -107,7 +107,7 @@ Root required (`xctrace`'s Power Profiler template is *"not supported on macOS"*
 `bench/power_coreai.py`, 3000 inferences per arm, sampling `ane_power,gpu_power,cpu_power`:
 
 ```bash
-cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000
+cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000
 ```
 
 | compute | gate | median | **ANE mW** | **GPU mW** | CPU mW |
@@ -333,7 +333,7 @@ numerics as well as placement.
 
 > Generated from `results/measurements.json` by `bench/results_table.py`. **Do not hand-edit** — regenerate.
 > Rows appear only when another row is genuinely comparable; `benchmark+split+scope+tiers+metric+unit`
-> must agree. See `results/CONSISTENCY-PLAN.md` for why.
+> must agree.
 
 |---|---|---|---|---|---|---|---|---|---|---|
 | granite-cpuonly-warm-median | Granite-Embedding-97M | cpuOnly | fp32 | 128 | warm median latency | 8.28 | ms | 8.28 | per embedding (warm median of 105 samples, S=128) | ours |

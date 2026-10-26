@@ -9,7 +9,7 @@
 set -u
 LOG=/tmp/p2_sudo_capture.txt
 : > "$LOG"
-H=/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/results/EXP-025-ane-gpu-sync/harness
+H=/data/OpenFox/dev_m5max_re/silicon-ledger/results/EXP-025-ane-gpu-sync/harness
 
 echo "== [1] fs_usage aned (12s) during public load ==" | tee -a "$LOG"
 fs_usage -w -f filesys -t 12 aned 2>/dev/null >> "$LOG" &

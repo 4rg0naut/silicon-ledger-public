@@ -1,7 +1,9 @@
 # What's new — 2026-10-26 (round 3: the integer lanes, and the door)
 
 Same status key: **NEW** = we could not find it published · **EXT** = extends published work · **KNOWN** = already public.
-Earlier rounds follow below, newest first.
+Earlier rounds follow below, newest first. Finding numbers (`#1`–`#19`) are **global and
+monotonic** — oldest round first — so a number cited anywhere (issue, doc, chat) pins exactly
+one finding forever. Priors behind every verdict: [`knowledge/ane/SOURCES.md`](knowledge/ane/SOURCES.md).
 
 | # | Finding | Status | Evidence |
 |---|---|---|---|
@@ -49,7 +51,7 @@ Start at [`README.md`](README.md) and [`PUBLIC-INDEX.md`](PUBLIC-INDEX.md).
 
 ---
 
-# Round 2 — same day, the GPU side (published as it happened)
+# Round 2 continued — same day, the GPU side (findings 8–14, published as it happened)
 
 Same status key: **NEW** = we could not find it published · **EXT** = extends published work · **KNOWN** = already public.
 
@@ -61,7 +63,7 @@ Same status key: **NEW** = we could not find it published · **EXT** = extends p
 | 11 | **Unprivileged, symmetric lane attribution for one workload**: the ANE arm shows **GPU Energy 0.00 mJ with `ANEXL U` = 896**; the GPU arm shows **`ANEXL U` = 0**. | **EXT** — extends finding #4 (the ANEXL calibration) | [`NAX-LANE-MATRIX.md`](results/EXP-029-nax-crosslane/results/NAX-LANE-MATRIX.md) |
 | 12 | **Measurement hazards, measured** (they invalidate joules if ignored): GPU idle power swings **25 -> 104 mW inside 30 s**; this machine's only "display" is the **screen-share virtual display** (no physical monitor) and `WindowServer` exists only while sharing, so the **headless floor is ~0-3 mW vs 27-85 mW while sharing**; and the `DISP*/DISPEXT*/VDD*` "RT" counters are **free-running ~24 MHz** (measured at 23.99 MHz with *no display attached*), so they are **not** display/activity signals. | **NEW** (the free-running-counter trap family was documented for `ANE_*_TRIG`; `DISP*` is new) | [`results/EXP-029-nax-crosslane/results/QUIET-STATE.md`](results/EXP-029-nax-crosslane/results/QUIET-STATE.md) |
 | 13 | **A locale hazard that silently corrupts power data**: with `LANG=fr_FR`, Apple CLIs print comma decimals (`9,1`); the shared rail parser matched only `[\\d.]+`, so localized samples were **dropped without error**. Fixed and self-tested. | **NEW** (our fix; the bug class is generic) | [`bench/_power.py`](bench/_power.py) · [`tools/publish/push-mirror.sh`](tools/publish/push-mirror.sh) |
-| 14 | **An instrument registry with a gate** — 147 tools indexed across five locations with a *capability* map (which instrument is canonical for timing / joules / lane activity / matmul2d ladders / placement / ledger), plus a one-command gate set that **fails** when a tool exists on disk unregistered. | **NEW** (process; published because anyone with the same problem can use it) | [`tools/TOOLS.md`](tools/TOOLS.md) · [`tools/registry.py`](tools/registry.py) |
+| 14 | **An instrument registry with a gate** — 193 instruments indexed across five locations with a *capability* map (which instrument is canonical for timing / joules / lane activity / matmul2d ladders / placement / ledger), plus a one-command gate set that **fails** when a tool exists on disk unregistered. | **NEW** (process; published because anyone with the same problem can use it) | [`tools/TOOLS.md`](tools/TOOLS.md) · [`tools/registry.py`](tools/registry.py) |
 
 **What is published vs private in round 2 (so a reader knows what they cannot see):** the mirror
 carries the **evidence and the instruments** — `bench/` in full (including `.py`/`.m`), `tools/`,

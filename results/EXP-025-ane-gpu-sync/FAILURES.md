@@ -80,7 +80,7 @@ session unless flagged as upstream (KB citation).
   fault address 0x10 — deterministic.
 - Why: matches libane's documented unconditional crash; shared-event fields are only
   honoured by the Path-B `intermediateBufferHandle` firmware flow (KB:
-  `/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger-public-staging/knowledge/ane/02-private-api.md` §5).
+  `/data/OpenFox/dev_m5max_re/silicon-ledger-public-staging/knowledge/ane/02-private-api.md` §5).
   Primitive itself is fine — porttest T2 proves the counter crossing independently.
 
 ## F12. Path B compile blockers (end-to-end event test not completed here)
@@ -92,7 +92,7 @@ session unless flagged as upstream (KB citation).
 - Net effect: latency table event columns are `PATHB_ONLY`, not measured.
 
 ## F13. sudo interactivity
-- sudo commands require the user's password in this session; user chose to paste
+- sudo needs a password here; the owner chose to paste
   outputs manually (dtrace probe dump `results/dtrace_probes.txt.gz` is user-generated).
   `sudo log config --mode level:debug,persist:debug --process aned` needed this path.
   Later trace scripts (`trace_primary.sh`, `trace_ane_attach.sh`, `inspect.sh`) were

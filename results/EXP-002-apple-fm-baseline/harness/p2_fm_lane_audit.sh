@@ -3,7 +3,7 @@
 # Windows: idle1 / fm respond burst / fm serve warm / idle2, all --all JSON.
 # Question: which lanes does Apple's on-device model actually use, and at what duty?
 set -u
-cd /Volumes/data/OpenFox/dev_m5max_re/silicon-ledger
+cd /data/OpenFox/dev_m5max_re/silicon-ledger
 EM=/tmp/em_fm; cp tools/enginemon/enginemon $EM
 OUT=results/EXP-002-apple-fm-baseline/raw/lane-audit
 mkdir -p $OUT

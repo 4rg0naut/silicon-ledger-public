@@ -166,7 +166,7 @@ grammar with DEADBEEF records mirroring our weight regions one-for-one).
 ## Provenance
 
 - Captures: `results/EXP-032-pulse-map/raw/` (18 enginemon streams + 16 work logs),
-  2026-10-23T11:34–11:40Z session; enginemon v2.1 rebuilt in-tool this session.
+  2026-10-23T11:34–11:40Z session; enginemon v2.1 rebuilt in-tool the same day.
 - Workload builds: ncm-run workspace commit e7536a5, release; stamped ledgers listed
   in ANALYSIS-C67 §Protocol (studio 11-34/11-35/11-37Z-bda452aabd60bf26; mini
   11-39-23Z-057b28dd036ddbe8 on-box + stdout witness fetched).

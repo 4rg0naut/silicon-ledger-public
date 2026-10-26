@@ -7,7 +7,7 @@ go faster *and* use less energy — and can we prove the ANE did the work?
 **Conversion:** PyTorch → Core ML `mlprogram`, fixed shape `(1, 128)`, `FLOAT16`.
 
 ```bash
-cd /Volumes/data/local_ai_stack
+cd /data/local_ai_stack
 .venv-conv/bin/python bench/convert_encoder_coreml.py --seq 128
 .venv-conv/bin/python bench/bench_encoder.py                    # latency A/B
 xcrun xctrace record --template 'Core AI' --no-prompt --time-limit 90s \
@@ -104,7 +104,7 @@ lengths untested, and its ANE intervals were not separately traced.
 
 > Generated from `results/measurements.json` by `bench/results_table.py`. **Do not hand-edit** — regenerate.
 > Rows appear only when another row is genuinely comparable; `benchmark+split+scope+tiers+metric+unit`
-> must agree. See `results/CONSISTENCY-PLAN.md` for why.
+> must agree.
 
 | id | model | placement | dtype | seq_len | metric | value | unit | latency_ms | latency_unit | provenance |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

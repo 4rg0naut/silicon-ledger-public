@@ -1,5 +1,5 @@
 A: /Users/<user>/Library/Application Support/openfox/workspaces/dev_m5max_re/silicon-ledger-publish/examples/2026-09-26T02-14-33Z-bda452aabd60bf26.json  (Apple M5 Max, 2026-09-26T02:14:33Z)
-B: /Volumes/data/OpenFox/dev_m5max_re/results/2026-09-26T16-37-42Z-bda452aabd60bf26.json  (Apple M5 Max, 2026-09-26T16:37:42Z)
+B: /data/OpenFox/dev_m5max_re/results/2026-09-26T16-37-42Z-bda452aabd60bf26.json  (Apple M5 Max, 2026-09-26T16:37:42Z)
 
 == s1_memory ==
   name                             variant            unit         A median     B median    delta%

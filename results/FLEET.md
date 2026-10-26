@@ -46,7 +46,7 @@ Fleet pins from this table:
   614 GB/s ⇔ 40-core ⇔ 48/64/128 GB). Confirmed locally: `probe.txt` on the Studio reports
   `gpu 40 cores`.
 - **Mac mini `Mac16,10`, 16 GB = M4 base, 10-core GPU** per Apple spec for that SKU
-  [pending-verify: ssh re-probe of `system_profiler SPDisplaysDataType` on mini].
+  [unverified: ssh re-probe of `system_profiler SPDisplaysDataType` on mini outstanding].
 
 Fingerprint key `cores` in the identity schema above is the **CPU** count (`sysctl hw.ncpu`) —
 `cores=18` on the Studio is its 18-core CPU (6S+12P), *not* a GPU or ANE count; the same chip is
@@ -74,7 +74,7 @@ Note: build is `kern.osversion`; `kern.osbuildversion` does not exist as an OID.
 ## Readiness inventory (machine-specific assumptions, 2026-10-03 pass)
 
 Fixed in this pass:
-- Hardcoded `/Volumes/data/local_ai_stack` paths removed from code:
+- Hardcoded `/data/local_ai_stack` paths removed from code:
   `bench/power_ab.py`, `bench/power_coreai.py`, `bench/power_phase_probe.py`
   (usage lines now `cd "$(git rev-parse --show-toplevel)"`),
   `knowledge/ane/tools/kb_ground.py` (dead `LOCAL_ROOT` removed; repo root
@@ -106,8 +106,8 @@ Standing requirements per instrument (declare, do not paper over):
 | `silicon-ledger-bench` (Swift S0–S5) | run `bda452aabd60bf26` (EXP-022; 19 rows T5-merged) | — not yet run through this instrument | blocked: needs macOS host for xcodebuild | — |
 | `ane-probe.m` | run 2026-10-03, exit 0 (identity verified) | run (M4/macOS_27 scan, first upstream CSV row — README open thread) | planned: app wrapper, no CLI | — |
 | `ane-dma-test.m` | build OK 2026-10-03 (full run is long; EXP-022 used enginemon instead) | run (EXP-020 DMA notch) | blocked: IOSurface app-host | — |
-| `enginemon` | run 2026-10-03 (euid 501, IOReport channels read) | run (per-row protocol + Laya, CONSISTENCY-PLAN C) | blocked: IOReport macOS | — |
-| `syswide_ane.py` | ready: identity wired, compiles 2026-10-03; xctrace arms not re-run this session | run historically (EXP-004 lesson: xctrace blind to Core AI) | blocked | — |
+| `enginemon` | run 2026-10-03 (euid 501, IOReport channels read) | run (per-row protocol + Laya, protocol C) | blocked: IOReport macOS | — |
+| `syswide_ane.py` | ready: identity wired, compiles 2026-10-03; xctrace arms not re-run in this round | run historically (EXP-004 lesson: xctrace blind to Core AI) | blocked | — |
 | power probes (×3) | run 2026-10-06 via sudo capture (`power_mlcore.py`, `power_coreai.py`; `m5-minilm-*`/`m5-granite-*` rows) | run (sudo powermetrics; energy rows 75 vs 4124 mW, 2.06 vs 11.45 mJ) | blocked: no powermetrics | — |
 | `identity.py` | run 2026-10-03 | run — same schema, keys exist on any macOS | partial: needs app-side emit | — (non-Apple sysctl) |
 | `to_openclaims.py --check` | run 2026-10-03: 679/679 valid | — (SDK venv not set up there) | — | — |
@@ -176,7 +176,7 @@ instrument are listed as GAPs — no hand-waving.
   the QoS-ladder sweep ran inside the old harness; their successors here cover
   the primitives (`ane-probe.m` full scan, `--qos` arms) but the sweep scripts
   themselves live only in the archive (`<volume>/local_ai_stack/work/ane_probe/`,
-  mapped in `ARCHIVE-MAP.md`). Porting them in-tree is a candidate follow-up.
+  mapped in `ARCHIVE-MAP.md`, source private). Porting them in-tree is a candidate follow-up.
 - **GAP-3 — grounding-span re-derivation**: `knowledge/ane/grounding/cache/`
   lives on the mini only; a Studio re-emit cannot re-pin spans (observed 2026-10-03:
   a cache-less re-emit rewrites 342 span-bearing lines — guarded against by

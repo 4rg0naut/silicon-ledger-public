@@ -26,9 +26,18 @@ personal = [(r["pattern"], r.get("replacement", "")) for r in rules if r["class"
 # longest pattern first so nested paths collapse fully
 personal.sort(key=lambda t: len(t[0]), reverse=True)
 
-KEEP_DIRS = ("bench/", "ports/", "tools/", "knowledge/", "evaluation/", "schemas/")
-KEEP_TOP = (".md", ".txt", ".json", "LICENSE")
+KEEP_DIRS = ("bench/", "ports/", "tools/", "knowledge/", "evaluation/", "schemas/", "assets/")
+KEEP_TOP = (".md", ".txt", ".json", ".svg", "LICENSE")
 KEEP_RESULTS_EXT = (".md", ".json", ".txt", ".sh", ".tsv", ".jsonl", ".ll")
+# .svg widened 2026-10-26 (C9): assets/lane-tf.svg is generated data (a chart drawn from published
+# numbers by tools/publish/make_lane_chart.py), not scratch.
+# Working-notes exclusion (2026-10-26, C3): chat-era scratch stays private — the public tree carries
+# the records, not the sessions that produced them. PUBLISH-POLICY.md states this openly.
+WORKROOM = ("results/CONSISTENCY-PLAN.md", "results/MORNING-BRIEF.md", "results/TRAINING-PLAN.md",
+            "results/TRAINING-RESULTS.md", "results/RESEARCH-WORKFLOW.md")
+# The publish machinery itself is scrub-exempt: check_public.py and redaction.json quote the
+# personal labels as their deny-list — scrubbing the gate would disarm it (2026-10-26 finding).
+SCRUB_EXEMPT = ("tools/publish/",)
 # .tsv/.jsonl/.ll widened 2026-10-26: these are captured DATA (numbers the mirror exists to carry),
 # not harness sources — the 2026-10-15 rule (producers live in silicon-ledger-bench) is untouched.
 # doc-16 v2 cites EXP-037/023/036 tsv/jsonl rows and the s0 toolchain pin (.ll) as receipts; readers
@@ -45,6 +54,8 @@ files = subprocess.run(["git", "ls-files"], capture_output=True, text=True, chec
 def keep(f):
     if "__pycache__" in f:
         return False
+    if f in WORKROOM:
+        return False  # chat-era working notes; private by design (see PUBLISH-POLICY.md)
     if f == "knowledge/ane/ARCHIVE-MAP.md":
         return False  # machine-local paths inside; stays private by rule
     if f.startswith(OVERLAY_PREFIX):
@@ -64,7 +75,7 @@ scrubbed, files_scrubbed = 0, 0
 for f in kept:
     data = open(f, "rb").read()
     is_text = b"\x00" not in data
-    if is_text:
+    if is_text and not f.startswith(SCRUB_EXEMPT):
         for pat, rep in personal:
             hits = data.count(pat.encode())
             if hits:
@@ -130,6 +141,9 @@ print("openclaims gate : " + gate.stdout.strip().splitlines()[-1])
 
 leaks = 0
 for root, _, xs in os.walk(stage):
+    rel_root = os.path.relpath(root, stage)
+    if rel_root == "tools/publish" or rel_root.startswith("tools/publish/"):
+        continue  # scrub-exempt machinery: its deny-list quotes are the rules, not leaks
     for x in xs:
         data = open(os.path.join(root, x), "rb").read()
         if b"\x00" in data:

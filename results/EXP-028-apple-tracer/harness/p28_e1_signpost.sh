@@ -10,7 +10,7 @@ set -uo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 BIN="$HERE/p28_run_bin"
 ITERS="${1:-20}"
-MODEL="${MODEL:-/Volumes/data/OpenFox/AI_dev/silicon-ledger-bench/models/coreai/deep_fp16.aimodel}"
+MODEL="${MODEL:-/data/OpenFox/AI_dev/silicon-ledger-bench/models/coreai/deep_fp16.aimodel}"
 OUTDIR="${OUTDIR:-$HERE/../raw/p28_e1_signpost}"
 mkdir -p "$OUTDIR"
 

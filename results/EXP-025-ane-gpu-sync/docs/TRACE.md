@@ -60,7 +60,7 @@ Findings:
    reproduces libane's documented unconditional crash exactly
    (`processRequest:_block_invoke +1524`, address 0x10) — independent re-verification
    on macOS 27.0.1 / M5 Max that shared-events are firmware-gated to the Path-B
-   `intermediateBufferHandle` (KB claim: `/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger-public-staging/knowledge/ane/02-private-api.md` §5).
+   `intermediateBufferHandle` (KB claim: `/data/OpenFox/dev_m5max_re/silicon-ledger-public-staging/knowledge/ane/02-private-api.md` §5).
 
 ## PRIMARY channel results (a) — own-process dtrace + lldb (completed 26-10-07 19:5x)
 

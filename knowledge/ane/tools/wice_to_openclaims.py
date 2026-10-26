@@ -38,7 +38,7 @@ import openclaims as oc
 
 REPO = Path(__file__).resolve().parents[3]
 # WICE oracle data is not committed (data/ lives outside the repo; historical
-# home was /Volumes/data/local_ai_stack/data/wice/). Override with WICE_SRC.
+# home was /data/local_ai_stack/data/wice/). Override with WICE_SRC.
 SRC = Path(os.environ.get("WICE_SRC", str(REPO / "data" / "wice" / "oracle_subclaim_test.jsonl")))
 OUT = Path(__file__).resolve().parent.parent / "openclaims"
 NOW = "2026-09-24T09:00:00Z"

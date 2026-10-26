@@ -9,7 +9,7 @@
 #   arm: nax | coop | steel   (same env switches as nax_gemm_matrix.sh)
 set -u
 export LC_ALL=C
-repo=/Volumes/data/OpenFox/dev_m5max_re
+repo=/data/OpenFox/dev_m5max_re
 EM="$repo/silicon-ledger/tools/enginemon/enginemon"
 BIN="$repo/tools/vendor/MetalHLO/.build/debug/nax_gemm"
 [ -x "$EM" ] && [ -x "$BIN" ] || { echo "missing enginemon or nax_gemm"; exit 1; }

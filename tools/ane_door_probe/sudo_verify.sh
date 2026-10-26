@@ -1,6 +1,6 @@
 #!/bin/sh
 # EXP-035 C-85 sudo kernel-log decider — run from a human terminal:
-#   sudo /Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/tools/ane_door_probe/sudo_verify.sh
+#   sudo /data/OpenFox/dev_m5max_re/silicon-ledger/tools/ane_door_probe/sudo_verify.sh
 # Decides Gate-A ([[core+0x10]+0x88] pre-args reject) vs handle key-gate miss:
 #   "Could not find program for handle" PRESENT => Gate-A passed, key gate failed
 #   ABSENT                                       => died at Gate-A (client-state word)

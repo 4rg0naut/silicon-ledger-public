@@ -77,6 +77,5 @@ is the live verdict.
   32 compiler-visible cores … Marketing 16 = H17s tier") is superseded: 16 IS the
   per-SKU ANE count; "M5 Max = h17c" holds as a class-resolution only, not a core count.
 - **CPU/GPU/ANE facts, pinned:** M5 Max here = 18-core CPU (6S+12P), 40-core GPU,
-  16-core ANE. M4 mini (Mac16,10, 16 GB) = 10-core CPU, **10-core GPU** [pending-verify
-  via ssh], 16-core ANE. Any "18" or "32" in GPU/ANE context is a CPU leak or a
+  16-core ANE. M4 mini (Mac16,10, 16 GB) = 10-core CPU, **10-core GPU** (unverified; ssh re-probe outstanding), 16-core ANE. Any "18" or "32" in GPU/ANE context is a CPU leak or a
   SKU-class name, respectively — see `knowledge/ane/05-gotchas.md` GOTCHAS-087.

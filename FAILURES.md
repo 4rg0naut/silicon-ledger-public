@@ -5,6 +5,16 @@ stack, recorded so it is not rediscovered later. **Read this before debugging
 anything similar.** Each entry ends with the rule it produced.
 
 Format: **symptom → what I wrongly assumed → actual cause → fix → rule.**
+Each entry is numbered `F-NN` and cites the experiment (`EXP-NN`) that produced
+it — both are stable ids; grep them across the repo for the full record.
+
+**Sections:** [A. Core ML conversion](#a-core-ml-conversion) · [B. Xcode / xctrace
+tooling](#b-xcode--xctrace-tooling) · [C. ANE measurement](#c-ane-measurement) ·
+[D. Containers / zvec-grep](#d-containers--zvec-grep-zg) · [E. Agent / harness
+behaviour](#e-agent--harness-behaviour) · [Meta-rule](#meta-rule)
+
+New here? [MINEFIELD.md](MINEFIELD.md) is the eighteen-entry digest of this file,
+in plain words.
 
 ---
 
@@ -195,7 +205,7 @@ Format: **symptom → what I wrongly assumed → actual cause → fix → rule.*
 
 ---
 
-## E. Agent / harness behaviour (mine)
+## E. Agent / harness behaviour
 
 ### F-17 · Launching an interactive TUI with `--model` overwrote the global default
 - **Symptom:** after a terminal restart, omp came up on `apple-fm/system` (8 192-token

@@ -16,7 +16,7 @@
 set -u
 export LC_ALL=C
 here=$(cd "$(dirname "$0")" && pwd)
-BIN=/Volumes/data/OpenFox/dev_m5max_re/tools/vendor/MetalHLO/.build/debug/nax_gemm
+BIN=/data/OpenFox/dev_m5max_re/tools/vendor/MetalHLO/.build/debug/nax_gemm
 [ -x "$BIN" ] || { echo "build it first: cd tools/vendor/MetalHLO && swift build --product nax_gemm"; exit 1; }
 
 reps=${1:-10}; shift 2>/dev/null || true

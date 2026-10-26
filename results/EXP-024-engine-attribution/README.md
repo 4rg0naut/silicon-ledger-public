@@ -4,7 +4,7 @@
 euid 0 @07:30Z). Arms A/B measured or GAP-declared below; MLX arm (C) awaits its own
 window + API key; D/E remain GAP. Capture home (canonical):
 `results/EXP-024-engine-attribution/raw/sudo/`; execution scratch (ignored, root-owned):
-`/Volumes/data/OpenFox/dev_m5max_re/exp024-raw/sudo/`.
+`/data/OpenFox/dev_m5max_re/exp024-raw/sudo/`.
 
 ## Question
 
@@ -70,7 +70,7 @@ Matched A/B pJ/token = A-arms delta: mean rail mW over window / throughput, from
 
 ## Reproduce
 
-Calibration stage: `/Volumes/data/OpenFox/dev_m5max_re/exp024-raw/calibration/` (r3 round = canonical) +
+Calibration stage: `/data/OpenFox/dev_m5max_re/exp024-raw/calibration/` (r3 round = canonical) +
 `results/EXP-024-engine-attribution/raw/stage3-metal/FINDINGS.md`. Measurement stage: run capture, then this file's
 merge note (IDs into `bench/build_measurements.py` ROWS, `--apply-new`, regen SUMMARY).
 

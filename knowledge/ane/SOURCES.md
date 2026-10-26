@@ -62,7 +62,7 @@ Access date 2026-10-05 for every row; licenses not re-verified today are marked
 
 Access dates 2026-10-06. Raw fetch pins: `results/EXP-024-engine-attribution/raw/research-2026-10-06/`
 (in-repo subset + `MANIFEST.sha256`); full captures on the Studio at
-`/Volumes/data/OpenFox/dev_m5max_re/exp024-raw/research-2026-10-06/` (ane_paper.html
+`/data/OpenFox/dev_m5max_re/exp024-raw/research-2026-10-06/` (ane_paper.html
 sha256 `441c63cf…`). Note: `*.github.io` is blocked from this network; Zakharko's report
 was recovered through the GitHub contents API `?ref=gh-pages` — pin file `tza.html`.
 
@@ -100,7 +100,7 @@ manifest rides the EXP-027 pack manifest).
 
 ## Novelty check 2026-10-10 (targeted web search + source reads; feeds API-138, API-140, EXP-026/027)
 
-Prompted by a novelty review of this session's findings. Web/`find` only — no GitHub code
+Prompted by a novelty review of this round's findings. Web/`find` only — no GitHub code
 search API here, so absence of a hit is a *strong* negative, not a proof. Access date
 2026-10-10. Records: `LANDSCAPE-072..075`.
 
@@ -114,7 +114,7 @@ search API here, so absence of a hit is a *strong* negative, not a proof. Access
 | LLVM-MPS-RFC | (already, §Web-check 2026-10-08b) | `mpsgraphtool` produces MLIR bytecode; the `mps` dialect is Apple's, out-of-tree | The **format** is public (LANDSCAPE-077); no parser/dialect published → our MLIR recovery technique is new |
 | ANE-GUIDE ch34 | (already, PAPER-ANE-RE+) | Predicted arch table | Our corrections stand (see issue link in `contrib/`) |
 
-Per-claim verdict (this session):
+Per-claim verdict (this round):
 
 | Claim | Verdict |
 |---|---|

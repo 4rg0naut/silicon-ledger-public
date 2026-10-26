@@ -4,7 +4,7 @@ kIOReturnNotPrivileged — i.e. is a self-run root daemon a sidecar without an e
 
 Transcript (pasted by owner, verbatim):
 
-<user>@studio bare % cd /Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/tools/ane_door_probe && sudo ./probe9_opentype
+<user>@studio bare % cd /data/OpenFox/dev_m5max_re/silicon-ledger/tools/ane_door_probe && sudo ./probe9_opentype
 Password:
 live handle=133260 state=3
 TYPE 0 open kr=0xe00002c7 (skipped)

@@ -45,7 +45,7 @@ python3 bench/import_bench_reports.py examples/2026-09-26T02-14-33Z-bda452aabd60
     --as examples/2026-09-26T02-14-33Z-bda452aabd60bf26.json --apply
 ```
 
-Scripts and logs: `raw/` here, full (incl. traces) at `/Volumes/data/OpenFox/dev_m5max_re/exp022-raw/`.
+Scripts and logs: `raw/` here, full (incl. traces) at `/data/OpenFox/dev_m5max_re/exp022-raw/`.
 Integrity of that scratch tree: `cd exp022-raw && shasum -a 256 -c MANIFEST.sha256` (3486 files).
 
 ## Numbers
@@ -117,7 +117,7 @@ pre-dawn/quiet-window run.
 stability 3/3 GOOD (attempt 1–3, no aborts), `bench all` + diff, three ssample windows,
 enginemon raw, xctrace, AOT region counts. Artifacts: `raw/final-night/` (compact);
 kept-complete original incl. 209 MB logs and the .trace at
-`/Volumes/data/OpenFox/dev_m5max_re/exp022-raw/final-2026-09-27T01-17-00Z/`.
+`/data/OpenFox/dev_m5max_re/exp022-raw/final-2026-09-27T01-17-00Z/`.
 
 **Stability:** `gpu_copy` 380.57 / 380.47 / 380.52 GB/s across three independent runs —
 max cross-run spread 3.66% (worst op `gpu_read`), everything else ≤0.17%. The stability
@@ -149,7 +149,7 @@ though every energy/interrupt channel is dead.
 on both machines. **AOT probes:** `regions=0` on all six (matmul/deep_fp16/deep_int8 ×
 h17g/h16g) with `ANECCompileOffline() failed OSStatus=0 aneCompileStatus=1`, ErrorList
 empty — now reproduced in the quietest window, so it is system state, not load noise.
-Counterpart: EXP-023 the same night compiled a *converted* (non-MPSGraph) Qwen3 bundle
+Counterpart: EXP-023-small-llm-ane-pilot the same night compiled a *converted* (non-MPSGraph) Qwen3 bundle
 to **2 ANE regions** and ran it on the ANE at 71 ms/pair — the ANE is reachable; the
 MPSGraph→ANE offline path is what regressed.
 
@@ -243,5 +243,5 @@ bench report JSONs (clean 16:37Z + degraded 21:09Z), enginemon/ssample/xctrace o
 aot.log, findings-so-far.md, plus `raw/final-night/` (the 2026-09-27 03:17 CEST capture:
 stability.log, good-runs.txt, diff-vs-example.txt, aot.log, xctrace counts, ssample ANE
 window, report.json, env). Kept-complete originals (incl. the 174 MB AOT bundle set,
-209 MB capture logs and .trace files): `/Volumes/data/OpenFox/dev_m5max_re/exp022-raw/`.
+209 MB capture logs and .trace files): `/data/OpenFox/dev_m5max_re/exp022-raw/`.
 The stability-run and cross-check reports also live in the public bench repo under `results/`.

@@ -119,8 +119,8 @@ installed     gliner2 2.0.0 (GLiNER2.5; the 0.2.29 note is outdated)
 available     mlx via uv tool at ~/.local/share/uv/tools/mlx-lm
 missing       docling · outlines · ollama (llama.cpp present: /opt/homebrew/Cellar 0.6.0_1)
 HF cache      4.6 GB, holds our typed-decisions set, MTEB sets, Qwen3-Embedding/Reranker-0.6B
-disk          /Volumes/data has 107 GB free (measured 2026-10-14); /Volumes/data likewise
+disk          /data has 107 GB free (measured 2026-10-14); /data likewise
 ```
 
-**Check free space on the target volume before downloading anything** (`df -h /Volumes/data`).
+**Check free space on the target volume before downloading anything** (`df -h /data`).
 Measured 2026-10-14: 107 GB free; re-check before large pulls.

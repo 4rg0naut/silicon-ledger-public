@@ -12,7 +12,7 @@
 // Poison 0xFACE on every scalar input, round-trip checked (EXP-031 C-64 rule).
 //
 // Build (from silicon-ledger/tools/ane_door_probe/):
-//   BARE="/Volumes/data/OpenFox/AI_dev/ncm-run/bare"
+//   BARE="/data/OpenFox/AI_dev/ncm-run/bare"
 //   clang -fobjc-arc -O2 -o probe10_loadsweep probe10_loadsweep.m "$BARE/Sources/ANEBridge/ane_bridge.m" \
 //     -I "$BARE/Sources/ANEBridge/include" \
 //     -framework Foundation -framework IOSurface -framework IOKit -lobjc

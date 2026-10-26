@@ -1,3 +1,3 @@
 # CoreML client: coreml_run.swift (MLModel, computeUnits=cpuAndNeuralEngine)
-# /Volumes/data/models/silicon-ledger-studio/models/minilm128.mlmodelc
+# /data/models/silicon-ledger-studio/models/minilm128.mlmodelc
 # 2026-10-23T08:28:45Z: inputs=["attention_mask","input_ids"] iters=800 wall=0.52s

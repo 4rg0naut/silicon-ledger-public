@@ -348,7 +348,7 @@ sudo ./trace_ane_attach.sh                       # -[_ANE*] pid-attach → resul
 clang -O2 -framework Foundation -framework CoreML -o coreml_plan coreml_plan.m
 clang -O2 -framework Foundation -framework CoreML -o plan_devicesupport plan_devicesupport.m
 # a one-conv model, then read the decision + per-device support info:
-#   /Volumes/data/OpenFox/AI_dev/silicon-ledger-bench/tools/.venv/bin/python make_conv.py m.mlpackage 256 12
+#   /data/OpenFox/AI_dev/silicon-ledger-bench/tools/.venv/bin/python make_conv.py m.mlpackage 256 12
 #   ./plan_devicesupport m.mlpackage cpuAndNeuralEngine
 # reverse-reference scan of the loaded CoreML image (BL/B sites + pointer tables):
 clang -O2 -framework Foundation -o coreml_findcallers coreml_findcallers.m

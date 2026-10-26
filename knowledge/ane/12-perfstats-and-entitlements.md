@@ -11,7 +11,7 @@ cross-check AFTER the home-base check (AGENTS.md §1): tmc/apple perf-stats
 notes (measured zeros 2026-08-15, masks 0xF/^0, re-verified 2026-10-23),
 Bryngelson arXiv:2606.22283 §33.3 (re-verified v2), maderix `test_perf_stats`
 (commit 893f58e, 2026-03-01). Confidence tags follow doc 10: **[V]** verified
-locally this session · **[C]** credible external, consistent with local
+locally on fleet hardware · **[C]** credible external, consistent with local
 evidence · **[U]** unresolved.
 
 ## Q1 — The classification label is written in the open, and it is derived from your code signature **[V]**

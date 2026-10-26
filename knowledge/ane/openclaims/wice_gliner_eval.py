@@ -29,7 +29,7 @@ from pathlib import Path
 
 import time
 
-WICE = Path("/Volumes/data/local_ai_stack/data/wice/oracle_subclaim_test.jsonl")
+WICE = Path("/data/local_ai_stack/data/wice/oracle_subclaim_test.jsonl")
 OUT = Path(__file__).resolve().parent / "wice_gliner_results.json"
 
 TASK = {"support": ["supported", "partially_supported", "not_supported"]}

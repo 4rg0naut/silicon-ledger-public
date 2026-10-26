@@ -60,7 +60,7 @@ coreaudiod` — **screensharingd/sharingd** is notable: screen sharing can hold 
 Display channels (`DISP*`/`DISPEXT0-3 RT RD/WR`) move continuously — consistent with the known
 connected-display VMAX pin (file 10 Q1), i.e. a *constant* background, not a spike source.
 
-## 4. Canary baseline (this machine, this session, oMLX down)
+## 4. Canary baseline (this machine, this window, oMLX down)
 
 | metric | value |
 |---|---|

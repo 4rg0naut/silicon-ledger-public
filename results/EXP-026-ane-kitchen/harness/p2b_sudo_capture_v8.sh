@@ -31,7 +31,7 @@ W=$!
 sleep 1
 echo "== watcher up (pid $W); triggering ANE JIT load as current GUI user =="
 CHRIS_UID=$(id -u <user> 2>/dev/null || id -u)
-cd /Volumes/data/OpenFox/dev_m5max_re/silicon-ledger
+cd /data/OpenFox/dev_m5max_re/silicon-ledger
 P27_UNIT=ANE P27_ITERS=30 launchctl asuser $CHRIS_UID sudo -u <user> \
   .venv-conv/bin/python -u results/EXP-027-nax/harness/p27_anpos_run.py \
   > $OUT/jit_load.log 2>&1

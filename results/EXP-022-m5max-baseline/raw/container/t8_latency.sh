@@ -2,8 +2,8 @@
 # T8 quiet-window latency re-run (EXP-023), ssample-sandwiched for ANE-bandwidth proof.
 # Cron/backgroud-scheduled after the EXP-022 03:17 capture; waits until cron.log gains a
 # NEW DONE line before touching the Core AI runtime.
-RAW=/Volumes/data/OpenFox/dev_m5max_re/exp022-raw
-SIL=/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger
+RAW=/data/OpenFox/dev_m5max_re/exp022-raw
+SIL=/data/OpenFox/dev_m5max_re/silicon-ledger
 TS=$(date -u +%Y%m%dT%H%M%SZ)
 LOG=$RAW/t8-latency-quiet-$TS.log
 SSLOG=$RAW/t8-ssample-quiet-$TS.log

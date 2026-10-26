@@ -98,7 +98,7 @@ something more accurate. That is the standard two-stage shape, and it plays to w
 
 > Generated from `results/measurements.json` by `bench/results_table.py`. **Do not hand-edit** — regenerate.
 > Rows appear only when another row is genuinely comparable; `benchmark+split+scope+tiers+metric+unit`
-> must agree. See `results/CONSISTENCY-PLAN.md` for why.
+> must agree.
 
 | id | model | placement | dtype | seq_len | metric | value | unit | latency_ms | latency_unit | provenance |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -117,7 +117,7 @@ something more accurate. That is the standard two-stage shape, and it plays to w
 
 > Generated from `results/measurements.json` by `bench/results_table.py`. **Do not hand-edit** — regenerate.
 > Rows appear only when another row is genuinely comparable; `benchmark+split+scope+tiers+metric+unit`
-> must agree. See `results/CONSISTENCY-PLAN.md` for why.
+> must agree.
 
 | id | model | placement | dtype | seq_len | metric | value | unit | latency_ms | latency_unit | provenance |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

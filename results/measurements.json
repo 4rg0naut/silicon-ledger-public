@@ -3025,7 +3025,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "ms"
   },
   {
@@ -3054,7 +3054,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3083,7 +3083,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3112,7 +3112,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3141,7 +3141,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "ms"
   },
   {
@@ -3170,7 +3170,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3199,7 +3199,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3228,7 +3228,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3257,7 +3257,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "ms"
   },
   {
@@ -3286,7 +3286,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3315,7 +3315,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3344,7 +3344,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3373,7 +3373,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3402,7 +3402,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {
@@ -3431,7 +3431,7 @@
    "energy_baseline": null,
    "provenance": "ours",
    "date": "2026-09-20",
-   "command": "cd /Volumes/data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
+   "command": "cd /data/local_ai_stack && sudo .venv/bin/python bench/power_coreai.py --iters 3000",
    "unit_kind": "mw"
   },
   {

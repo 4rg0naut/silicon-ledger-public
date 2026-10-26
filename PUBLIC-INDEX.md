@@ -31,10 +31,23 @@ is in the linked folder. Chronological — this is also the story order.
 | [EXP-021](results/EXP-021-ane-weight-budget/) | Discovering the ANE's model-size budget counts compiled files, not the operators we expected. |
 | [EXP-022](results/EXP-022-m5max-baseline/) | Moving to the Mac Studio: does the whole instrument suite reproduce on the M5 Max? Mostly yes, with a compiler regression documented. |
 | [EXP-023](results/EXP-023-small-llm-ane-pilot/) | First probe of a small language model on the M5's ANE: it lands in 2 regions — with one load-time bug carried forward. |
-
 | [EXP-024](results/EXP-024-engine-attribution/) | Which engine really ran it — and the counters that lie: calibrating the ANE/GPU lenses, and retiring the "UT means Neural Accelerator" myth. |
 | [EXP-025](results/EXP-025-ane-gpu-sync/) | The wire between the ANE and the GPU, driven end-to-end with data (500/500, ~123 µs) — and how Core ML actually chooses an engine. |
 | [EXP-026](results/EXP-026-ane-kitchen/) | Inside Apple's compiler: the Core AI specialization cache decoded from its own bytes, and the cached plan printed as readable MLIR. |
 | [EXP-027](results/EXP-027-nax/) | The M5 GPU's tensor units (NAX), first pass: what they are, how work reaches them, and which signals observe them — and which only pretend to. |
 | [EXP-028](results/EXP-028-apple-tracer/) | Apple's own tracer, used fairly: public lane fingerprints, and exactly where the privilege wall sits. |
 | [EXP-029](results/EXP-029-nax-crosslane/) | NAX vs the other lanes, measured: 2.26× over the shader path at 4096² with ~2× less energy; the GPU beats the ANE 5–10× on the same GEMMs; and the measurement hazards that make joules lie. |
+| [EXP-031](results/EXP-031-ane-perfstats-spy/) | Who zeroes the ANE counters your app sees: entitlement forensics, and why third parties read zero on every path we can forge. |
+| [EXP-032](results/EXP-032-pulse-map/) | Finding a per-eval ANE counter that works on the M5 (the official one is dead), and opening the kernel driver's side door without privilege. |
+| [EXP-033](results/EXP-033-door-map/) | Mapping that door: openable fleet-wide, sandbox-proof, and ~20× under the daemon hop — with live third-party calls succeeding. |
+| [EXP-034](results/EXP-034-full-access/) | Walking through: decoding ANE device properties unprivileged, and naming exactly which check rejects our program submission. |
+| [EXP-035](results/EXP-035-chaining-blob/) | The 3 KB argument blob was never the gate — a client-state check upstream is, located by disassembly and a live-handle test battery. |
+| [EXP-036](results/EXP-036-side-door-inject/) | Closing the door question with a clean negative: zero weight codes move through the direct path for unprivileged clients — plus the grammar note that prevents the next misread. |
+| [EXP-037](results/EXP-037-fp8-nax/) | fp8 on the tensor units: native and bit-exact, yet fp16-parallel at naive tiles — and the compiler-version gate that explains why published numbers claim 7×. |
+
+*Two numbering notes, so citations don't trip.* Two folders share the EXP-023
+slot: the small-LLM pilot (linked above) and a reconstructed per-engine energy
+baseline in [`results/EXP-023-m5max-energy/`](results/EXP-023-m5max-energy/) —
+both are first-class records, and the ledger row spells it out. **EXP-030 is
+deliberately unused** in this repo; that id belongs to a sibling project, and
+the full id map is in [`results/README.md`](results/README.md).

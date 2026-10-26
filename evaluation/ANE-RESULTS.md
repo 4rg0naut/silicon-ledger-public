@@ -20,7 +20,7 @@ re-run.
 
 ## The correction — "already on the ANE" does not mean "free"
 
-An earlier statement in this session said the optimisation step costs nothing because the winner is
+An earlier draft said the optimisation step costs nothing because the winner is
 already ANE-resident. **That was wrong, and EXP-016 already contained the reason:**
 
 > *"On JevBench's suite the same bundle measures **105 ms/decision**, matching the CPU row exactly.

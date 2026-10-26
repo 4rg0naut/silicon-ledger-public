@@ -135,7 +135,7 @@ SoC to a named bucket, worth watching in a later build).
 **Verdict unchanged:** JIT-specializing the `.aimodel` remains the working route on M5 Max;
 AOT `.aimodelc` from coreai-build 3600.83.1 is unloadable by both the Sept coreai-kit
 runtime and the current open-source runtime. Re-export with the current open-source
-compiler would likely produce loadable bundles — not re-run in this session (timebox).
+compiler would likely produce loadable bundles — not re-run in this round (timebox).
 
 ### Root-cause correction (same session, minutes later)
 

@@ -38,7 +38,7 @@ would have called this a failure; it is the wrong metric.
 ## What the port required
 
 Reused the zoo's ModernBERT re-authoring (`conversion/granite_embedding/_granite_model.py`) as the
-template, which already solves the traps this session hit the hard way:
+template, which already solves the traps hit the hard way here:
 
 - **RoPE cos/sin as precomputed buffers**, not gathered in-graph — the F-34 segfault
 - **layer 0 has no attention norm** — HF omits it; Von's weights have 27 `attn_norm`, not 28
@@ -87,7 +87,7 @@ unchanged precision.
 
 **24 ms also matches Von's own claimed ~18 ms** — which was measured on MPS, not the ANE.
 
-This is the second time this session that a *segmented* ANE graph looked like an ANE limitation when
+Twice in this round, a *segmented* ANE graph looked like an ANE limitation when
 it was an authoring problem, and the second time the fix was the same: **remove the fp32 ops**.
 
 ## The latency caveat — 31 regions is 31 submissions
@@ -177,7 +177,7 @@ MLX — and it is the one number we still have not measured.
 
 > Generated from `results/measurements.json` by `bench/results_table.py`. **Do not hand-edit** — regenerate.
 > Rows appear only when another row is genuinely comparable; `benchmark+split+scope+tiers+metric+unit`
-> must agree. See `results/CONSISTENCY-PLAN.md` for why.
+> must agree.
 
 | id | model | placement | dtype | seq_len | metric | value | unit | latency_ms | latency_unit | provenance |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

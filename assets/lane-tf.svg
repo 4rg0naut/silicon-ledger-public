@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="330" viewBox="0 0 860 330" role="img" aria-label="Tensor lane throughput by input dtype — Apple M5 Max (NAX, matmul2d)"><rect width="860" height="330" fill="#ffffff"/>
+<text x="150" y="30" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="17" font-weight="600" fill="#1f2328">Tensor lane throughput by input dtype — Apple M5 Max (NAX, matmul2d)</text>
+<text x="150" y="50" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="11.5" fill="#59636e">hand-written MSL · bare-metal · 4096^3 GEMM · TFLOPs, median of loaded-concurrent window (upper bounds) · every arm bit-exact (maxabs = 0)</text>
+<line x1="150.0" y1="58" x2="150.0" y2="280" stroke="#d8dee4" stroke-width="1"/>
+<text x="150.0" y="298" text-anchor="middle" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="11" fill="#59636e">0</text>
+<line x1="261.6666666666667" y1="58" x2="261.6666666666667" y2="280" stroke="#d8dee4" stroke-width="1"/>
+<text x="261.6666666666667" y="298" text-anchor="middle" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="11" fill="#59636e">10</text>
+<line x1="373.33333333333337" y1="58" x2="373.33333333333337" y2="280" stroke="#d8dee4" stroke-width="1"/>
+<text x="373.33333333333337" y="298" text-anchor="middle" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="11" fill="#59636e">20</text>
+<line x1="485.0" y1="58" x2="485.0" y2="280" stroke="#d8dee4" stroke-width="1"/>
+<text x="485.0" y="298" text-anchor="middle" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="11" fill="#59636e">30</text>
+<line x1="596.6666666666667" y1="58" x2="596.6666666666667" y2="280" stroke="#d8dee4" stroke-width="1"/>
+<text x="596.6666666666667" y="298" text-anchor="middle" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="11" fill="#59636e">40</text>
+<line x1="708.3333333333334" y1="58" x2="708.3333333333334" y2="280" stroke="#d8dee4" stroke-width="1"/>
+<text x="708.3333333333334" y="298" text-anchor="middle" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="11" fill="#59636e">50</text>
+<line x1="820.0" y1="58" x2="820.0" y2="280" stroke="#d8dee4" stroke-width="1"/>
+<text x="820.0" y="298" text-anchor="middle" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="11" fill="#59636e">60</text>
+<text x="140" y="90.0" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13" fill="#1f2328">int8  →  i32</text>
+<rect x="150" y="66" width="616.4" height="40" rx="3" fill="#1b7f4d"/>
+<text x="774.4" y="91.0" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="13" font-weight="600" fill="#1f2328">55.2 TF</text>
+<text x="140" y="148.0" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13" fill="#1f2328">fp8   →  f32</text>
+<rect x="150" y="124" width="354.0" height="40" rx="3" fill="#0f6bd7"/>
+<text x="511.98333333333335" y="149.0" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="13" font-weight="600" fill="#1f2328">31.7 TF</text>
+<text x="140" y="206.0" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13" fill="#1f2328">fp16  →  f32</text>
+<rect x="150" y="182" width="337.2" height="40" rx="3" fill="#7a5cc4"/>
+<text x="495.23333333333335" y="207.0" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="13" font-weight="600" fill="#1f2328">30.2 TF</text>
+<text x="140" y="264.0" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13" fill="#1f2328">fp32  →  f32</text>
+<rect x="150" y="240" width="156.3" height="40" rx="3" fill="#b0563b"/>
+<text x="314.33333333333337" y="265.0" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="13" font-weight="600" fill="#1f2328">14.0 TF</text>
+<line x1="150" y1="66" x2="150" y2="280" stroke="#59636e" stroke-width="1"/>
+<text x="150" y="322" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="11" fill="#59636e">TFLOPs (trillion multiply-accumulate pairs counted as 2 ops)</text>
+<text x="150" y="318" font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial" font-size="10.5" fill="#59636e">source: silicon-ledger EXP-037, consolidated lane table v2 — knowledge/ane/16-neural-accelerators.md · dispatch floor 5.3-5.4 us · fp8 needs -std=metal4.1 (measured)</text>
+</svg>

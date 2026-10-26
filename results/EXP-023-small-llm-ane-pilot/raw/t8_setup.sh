@@ -2,7 +2,7 @@
 # T8 setup: build the M5 Python/export stack from zero (EXP-023 prep).
 # Nothing here measures latency; it must FINISH by ~02:45 so the 03:17 capture runs idle.
 set -u
-L=/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger
+L=/data/OpenFox/dev_m5max_re/silicon-ledger
 LOG=$L/work/t8-setup.log
 mkdir -p "$L/work" "$L/repos" "$L/models"
 exec >>"$LOG" 2>&1

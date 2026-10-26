@@ -1,8 +1,8 @@
 #!/bin/zsh
-# EXP-024 sudo rail capture — run as:  sudo zsh /Volumes/data/OpenFox/dev_m5max_re/exp024-raw/sudo/sudo_capture.sh
+# EXP-024 sudo rail capture — run as:  sudo zsh /data/OpenFox/dev_m5max_re/exp024-raw/sudo/sudo_capture.sh
 set -u
-OUT=/Volumes/data/OpenFox/dev_m5max_re/exp024-raw/sudo
-LEDGER=/Volumes/data/OpenFox/dev_m5max_re/silicon-ledger
+OUT=/data/OpenFox/dev_m5max_re/exp024-raw/sudo
+LEDGER=/data/OpenFox/dev_m5max_re/silicon-ledger
 WS="/Users/<user>/Library/Application Support/openfox/workspaces/dev_m5max_re/silicon-ledger-publish"
 EM=$LEDGER/tools/enginemon/enginemon
 mkdir -p "$OUT"
@@ -19,7 +19,7 @@ cp bench/power_ALL.txt "$OUT/power_ALL.txt" 2>/dev/null
 cp bench/power_CPU_ONLY.txt "$OUT/power_CPU_ONLY.txt" 2>/dev/null
 # 3. Core AI power attribution (granite-runner, three compute-unit lanes)
 if [ -x tools/granite-runner/.build/release/granite-runner ]; then
-  sudo .venv-conv/bin/python bench/power_coreai.py --bundle /Volumes/data/models/silicon-ledger-studio/work/exports/granite-rebake-p3/granite97m_fp16_s128.aimodel --iters 800 > "$OUT/power_coreai_run.log" 2>&1
+  sudo .venv-conv/bin/python bench/power_coreai.py --bundle /data/models/silicon-ledger-studio/work/exports/granite-rebake-p3/granite97m_fp16_s128.aimodel --iters 800 > "$OUT/power_coreai_run.log" 2>&1
 fi
 # 4. ANE direct-path under privileged enginemon (does AMC/handlers move under sudo?)
 cd "$WS" && "$EM" --interval 500 --duration 90 --json -- .build/release/bench ane --subset dispatch,scaling --iters 80 > "$OUT/cal_ane_priv.jsonl" 2>&1
