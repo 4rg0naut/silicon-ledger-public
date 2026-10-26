@@ -1,0 +1,8 @@
+2026-10-25T19:29:58Z
+ProductName:		macOS
+ProductVersion:		27.0.1
+BuildVersion:		26A434
+Apple M5 Max
+Mac17,14
+studio
+4

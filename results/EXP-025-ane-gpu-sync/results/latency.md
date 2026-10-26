@@ -31,7 +31,9 @@ Definitions:
 ## Interpretation limits
 - Reproduction: `ANE_STOP2=1 ./harness/ane_sync_harness latency` (events phase skipped;
   F11/F14). Re-verified 2026-10-07 19:52 after the F14 retain fix: numbers reproduce
-  (eval_ms 0.10–0.63, extra 0.005–0.053ms).
+  (eval_ms 0.095–0.621, extra 0.020–0.053ms — bounds restated 2026-10-26 to the raw table rows in
+  `latency.txt`; the earlier "0.10–0.63 / 0.005–0.053" misrounded the eval floor and invented a
+  5 µs lower bound no row carries; definitions section above already said 0.02–0.05 ms).
 - Laya-apple #45's 8.48ms figure is an upstream sleep/wake cost (mach-port message
   delivery after idle), NOT comparable to these spin-mediated numbers; cited as
   reference only, per task instruction.

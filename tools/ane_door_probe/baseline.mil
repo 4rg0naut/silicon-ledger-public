@@ -1,0 +1,21 @@
+program(1.0)
+[buildInfo = dict<tensor<string, []>, tensor<string, []>>({{"coremlc-component-MIL", "3600.16.1"}, {"coremlc-version", "3600.25.1"}})]
+{
+    func main<ios16>(tensor<fp16, [1, 128, 1, 32]> x) {
+        tensor<string, []> c0_pt = const()[name = tensor<string, []>("c0_pt"), val = tensor<string, []>("valid")];
+        tensor<int32, [2]> c0_st = const()[name = tensor<string, []>("c0_st"), val = tensor<int32, [2]>([1, 1])];
+        tensor<int32, [4]> c0_pd = const()[name = tensor<string, []>("c0_pd"), val = tensor<int32, [4]>([0, 0, 0, 0])];
+        tensor<int32, [2]> c0_di = const()[name = tensor<string, []>("c0_di"), val = tensor<int32, [2]>([1, 1])];
+        tensor<int32, []> c0_gr = const()[name = tensor<string, []>("c0_gr"), val = tensor<int32, []>(1)];
+        tensor<string, []> c1_pt = const()[name = tensor<string, []>("c1_pt"), val = tensor<string, []>("valid")];
+        tensor<int32, [2]> c1_st = const()[name = tensor<string, []>("c1_st"), val = tensor<int32, [2]>([1, 1])];
+        tensor<int32, [4]> c1_pd = const()[name = tensor<string, []>("c1_pd"), val = tensor<int32, [4]>([0, 0, 0, 0])];
+        tensor<int32, [2]> c1_di = const()[name = tensor<string, []>("c1_di"), val = tensor<int32, [2]>([1, 1])];
+        tensor<int32, []> c1_gr = const()[name = tensor<string, []>("c1_gr"), val = tensor<int32, []>(1)];
+        tensor<fp16, [64, 128, 1, 1]> W1 = constexpr_affine_dequantize()[axis = tensor<int32, []>(0), name = tensor<string, []>("W1"), quantized_data = tensor<int8, [64, 128, 1, 1]>(BLOBFILE(path = tensor<string, []>("@model_path/weights/weight.bin"), offset = tensor<uint64, []>(64))), scale = tensor<fp16, [64]>(BLOBFILE(path = tensor<string, []>("@model_path/weights/weight.bin"), offset = tensor<uint64, []>(8448))), zero_point = tensor<int8, [64]>(BLOBFILE(path = tensor<string, []>("@model_path/weights/weight.bin"), offset = tensor<uint64, []>(8320)))];
+        tensor<fp16, [128, 64, 1, 1]> W2 = constexpr_affine_dequantize()[axis = tensor<int32, []>(0), name = tensor<string, []>("W2"), quantized_data = tensor<int8, [128, 64, 1, 1]>(BLOBFILE(path = tensor<string, []>("@model_path/weights/weight.bin"), offset = tensor<uint64, []>(8640))), scale = tensor<fp16, [128]>(BLOBFILE(path = tensor<string, []>("@model_path/weights/weight.bin"), offset = tensor<uint64, []>(17088))), zero_point = tensor<int8, [128]>(BLOBFILE(path = tensor<string, []>("@model_path/weights/weight.bin"), offset = tensor<uint64, []>(16896)))];
+        tensor<fp16, [1, 64, 1, 32]> cA = conv(dilations = c0_di, groups = c0_gr, pad = c0_pd, pad_type = c0_pt, strides = c0_st, weight = W1, x = x)[name = tensor<string, []>("conv1")];
+        tensor<fp16, [1, 64, 1, 32]> mid = relu(x = cA)[name = tensor<string, []>("relu1")];
+        tensor<fp16, [1, 128, 1, 32]> o = conv(dilations = c1_di, groups = c1_gr, pad = c1_pd, pad_type = c1_pt, strides = c1_st, weight = W2, x = cA)[name = tensor<string, []>("conv2")];
+    } -> (o);
+}

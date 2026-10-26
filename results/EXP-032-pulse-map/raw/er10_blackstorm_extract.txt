@@ -1,0 +1,221 @@
+===== page 107 =====
+ 
+107 | P a g e  
+https://www.blackstormsecurity.com 
+void iokit_probe_run(void) {  
+    
+ printf("== targeted GPU / accelerator names ==
+ \
+ n");  
+    
+ const char *gpu[] = {"AGXAccelerator","IOGPU","IOGPUDevice","IOAccelerator",  
+                         
+ "AGXAcceleratorG17P","IOMobileFramebuffer","AppleAVD", NULL};  
+    
+ for (int i = 0; gpu[i]; i++) probe_class(gpu[i]);  
+ 
+    
+ printf("== type sweep 0..15 over every IOService ==
+ \
+ n");  
+    
+ io_iterator_t it = IO_OBJECT_NULL;  
+    
+ if (IOServiceGetMatchingServices(kIOMainPortDefault,  
+                                     
+ IOServiceMatching("IOService"), &it) != KERN_SUCCESS || !it) {  
+        
+ printf("sweep match failed
+ \
+ n"); return;  
+    
+ }  
+    
+ unsigned matched = 0, events = 0;  
+    
+ io_service_t s;  
+    
+ while ((s = IOIteratorNext(it))) {  
+        
+ io_name_t cls = {0};  
+        
+ if (IOObjectGetClass(s, cls) == KERN_SUCCESS) {  
+            
+ matched++;  
+            
+ for (uint32_t t = 0; t < 16; t++) {  
+                
+ io_connect_t c = IO_OBJECT_NULL;  
+                
+ kern_return_t kr = IOServiceOpen(s, mach_task_self(), t, &c);  
+                
+ if (kr == KERN_SUCCESS) {  
+                    
+ events++;  
+                    
+ printf("TYPEOPEN %
+ -
+ 26s type=%u
+ \
+ n", cls, t);  
+                    
+ IOServiceClose(c);  
+                
+ }  
+            
+ }  
+        
+ }  
+        
+ IOObjectRelease(s);  
+    
+ }  
+    
+ IOObjectRelease(it);  
+    
+ printf("sweep matched=%u openevents=%u
+ \
+ n", matched, events);  
+    
+ fflush(stdout);  
+}  
+ 
+I will not repeat details of the building and deployment cycle again, and the program prints one 
+"TYPEOPEN" line per successful open and a total at the end. The difference is that we will redirect the 
+output to a file (sweep.txt), which will be handled in the next commands: 
+ 
+$ 
+ xcrun devicectl device process launch 
+ --
+ console 
+ --
+ terminate
+ -
+ existing 
+ --
+ device 2FC3AF78
+ -
+ 2618
+ -
+ 5DA3
+ -
+89A6
+ -
+ 35EE8BECA75B com.alexandreborges.IOKitAccess > sweep.txt 2>&1 &  
+ 
+$ 
+ LAUNCH=$!  
+ 
+$ 
+ until grep 
+ -
+ q '^sweep matched=' sweep.txt 2>/dev/null; do sleep 2; done  
+$ 
+ kill $LAUNCH  
+ 
+The loop above wait for the last line of the output (it is not recommended to guess the program duration). 
+The output from sweep.txt follows below: 
+ 
+TYPEOPEN H1xANELoadBalancer         type=1  
+TYPEOPEN H1xANELoadBalancer         type=4  
+TYPEOPEN AppleKeyStore              type=0  
+TYPEOPEN AppleKeyStore              type=1  
+TYPEOPEN AppleKeyStore              type=2  
+TYPEOPEN AppleKeyStore              type=3  
+...  
+sweep matched=1398 openevents=147  
+ 
+There are 147 lines and they compose the measure of this example, and it is possible to make a kind of 
+summary by running the following commands: 
+$ 
+ tr 
+ -
+ d '
+ \
+ r' < sweep.txt | grep TYPEOPEN | awk '{print $2}' | sort 
+ -
+ u | wc 
+ -
+ l  
+  
+ 17  
+===== page 108 =====
+ 
+108 | P a g e  
+https://www.blackstormsecurity.com 
+ 
+$ 
+ tr 
+ -
+ d '
+ \
+ r' < sweep.txt | awk '/^TYPEOPEN/ {  
+    
+ t = $3; sub("type=", "", t); n[$2]++  
+    
+ if (!(($2 SUBSEP t) in seen)) {  
+        
+ seen[$2 SUBSEP t] = 1; k[$2] = k[$2] " " t; d[$2]++ } }  
+  
+ END { for (c in n)  
+        
+ printf "%
+ -
+ 34s events=%
+ -
+ 4d objects=%
+ -
+ 3d types:%s
+ \
+ n",  
+               
+ c, n[c], n[c]/d[c], k[c] }' | sort  
+ 
+The output is the following: 
+AGXAcceleratorG17P                 events=1    objects=1   types: 1  
+AHSTemperatureReporter             events=1    objects=1   types: 2  
+AppleARMPMUPowerSensor             events=11   objects=11  types: 2  
+AppleARMPMUTempSensor              events=19   objects=19  types: 2  
+AppleCLCD2                         events=32   objects=2   types: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 
+14 15  
+AppleEmbeddedNVMeTemperatureSensor events=1    objects=1   types: 2  
+AppleJPEGDriver                    events=16   objects=1   types: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 
+14 15  
+AppleKeyStore                      events=16   objects=1   types: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 
+14 15  
+AppleM2ScalerCSCDriver             events=16   objects=1   types: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 
+14 15  
+AppleM68Buttons                    events=1    objects=1   types: 2  
+AppleSPUHIDDriver                  events=26   objects=26  types: 2  
+AppleSPUVD6287                     events=1    objects=1   types: 2  
+AppleSphinxProxHIDEventDriver      events=1    objects=1   types: 2  
+EXBrightKext                       events=1    objects=1   types: 2  
+H1xANELoadBalancer                 events=2    objects=1   types: 1 4  
+IOHIDEventDriver                   events=1    objects=1   types: 2  
+IOSurfaceRoot                      events=1    objects=1   types: 0  
+ 
+According to the output, it is the column reporting objects that makes the total add up, and an open event 
+is one object opening at one type, so a class contributes as many events as it has objects multiplied by the 
+number of types each accepts. Thus, there are 147 open events, 71 distinct objects and 17 classes, which 
+means that, in general, there are 17 kernel driver classes that are reachable from a sandboxed application. 
+However, the value 71, which is the list of driver objects that we can hold a connection to, is more solid for 
+attacking purposes. About the value 147, it is not a count of drivers because it counts connections, which is 
+an object opened at one type, and it multiplies the same object up to 16 times. The kernelcache contains 
+around 259 user client classes, which are drivers that we can potentially talk to.   
+There is a series of specific cases that we could comment on in detail such AppleJPEGDriver, graphic 
+drivers, video decoder (AppleAVD), and other ones, but it is out of the context for this article. In general, 
+the usual request path is IOServiceOpen function (when the request cross into the kernel) → 
+is_io_service_open_extended function (it is a common routine for every driver on the system and when 
+the sandbox policy is consulted) → IOService::newUserClient function (the driver could replace with its 
+own, but it is where the type-value is examined) → driver client object (and external methods behind it).  
+Our real scenario is that we have 17 kernel driver classes that are reachable, but obviously the total 
+number of user classes is higher than it (259) and the number of classes registered is much higher than it 
+(3360), as it is shown below: 
+$ 
+ ipsw kernel cpp 
+ --
+ json kc_27.0b8.bin > classes.json  
+ 
+# iokitclasses.py  
+import json, sys  
+ 

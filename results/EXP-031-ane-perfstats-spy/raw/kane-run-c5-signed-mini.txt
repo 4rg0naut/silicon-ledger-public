@@ -1,0 +1,8 @@
+# ncm0_ent (same survivor plist), mini M4, tree /Users/<user>/night/ncm @ 4cde731
+# NCM_ANE_KANE=1 NCM_ANE_DUMP=.../codes_dump_canonical.jsonl ncm0_ent anectx --field
+# 2026-10-23T08:34:04Z (first launch wrong-cwd, fixed) .. 08:35:35Z
+field ctx_bits(float model)=19.2275 over 15800 cells
+kane: step1 create(65536)
+KANE-TRACE t0: try pre-factory
+KANE-TRACE t0.5: probe st=0x0 size=0
+RC=138

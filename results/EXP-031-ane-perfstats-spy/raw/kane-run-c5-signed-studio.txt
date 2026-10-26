@@ -1,0 +1,13 @@
+# ncm0_ent (ad-hoc + com.apple.security.cs.disable-library-validation), studio, 2026-10-23T08:33:55Z..08:36:01Z
+field: rows=30778 cells=4862924 evals=30778 median=320.1us
+field parity: max_delta_deq=1.753e+01 mismatch_deq=10038 mismatch_float=151396/4862924 bad_cells=0
+field ctx_bits(float model)=2.6574 over 4862924 cells
+kane: step1 create(65536)
+KANE-TRACE t0: try pre-factory
+KANE-TRACE t0.5: probe st=0x0 size=0
+RC=138
+# key-by-key AMFI bisect (same session):
+#   com.apple.ane.iokit-user-access                     launch rc=137 (AMFI fatal)
+#   com.apple.ANECompilerService.allow                  launch rc=137 (AMFI fatal)
+#   com.apple.security.cs.disable-library-validation    launch rc=0
+# kernel: "load code signature error 4"; ASP: "Security policy would not allow process"

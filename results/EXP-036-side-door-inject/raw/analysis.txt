@@ -1,0 +1,27 @@
+EXP-036 probe10 analysis -- handles minted (load state=3): {1: 131251, 2: 131285, 3: 131303}
+
+kr matrix selectors 2-10:
+  run1 pre-load-handle-bogus    IDENTICAL baseline
+  run1 pre-load                 IDENTICAL baseline
+  run1 post-load                IDENTICAL baseline
+  run1 post-load-handle         IDENTICAL baseline
+  run2 pre-load-handle-bogus    IDENTICAL baseline
+  run2 pre-load                 IDENTICAL baseline
+  run2 post-load                IDENTICAL baseline
+  run2 post-load-handle         IDENTICAL baseline
+  run3 pre-load-handle-bogus    IDENTICAL baseline
+  run3 pre-load                 IDENTICAL baseline
+  run3 post-load                IDENTICAL baseline
+  run3 post-load-handle         IDENTICAL baseline
+
+VERDICT kr-stability across all 12 (run,phase) cells: CONFIRMED-LOAD-BLIND
+
+sel-2 Gate-A arms (probe8 ladder), all runs: True
+
+sel0 136B output attribution (fill vs load):
+  run1: zero==post-zero True | bogus-fill differs True | live-fill differs True | live-fill==bogus-fill False | u64@0x18 bogus=0000000000000000 live=0000000000000000
+  run1 nonzero bytes post-load-handle: ['0x54=01', '0x64=04']
+  run2: zero==post-zero True | bogus-fill differs True | live-fill differs True | live-fill==bogus-fill False | u64@0x18 bogus=0000000000000000 live=0000000000000000
+  run2 nonzero bytes post-load-handle: ['0x54=01', '0x64=04']
+  run3: zero==post-zero True | bogus-fill differs True | live-fill differs True | live-fill==bogus-fill False | u64@0x18 bogus=0000000000000000 live=0000000000000000
+  run3 nonzero bytes post-load-handle: ['0x54=01', '0x64=04']

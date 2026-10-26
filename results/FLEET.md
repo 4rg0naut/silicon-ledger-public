@@ -111,6 +111,10 @@ Standing requirements per instrument (declare, do not paper over):
 | power probes (×3) | run 2026-10-06 via sudo capture (`power_mlcore.py`, `power_coreai.py`; `m5-minilm-*`/`m5-granite-*` rows) | run (sudo powermetrics; energy rows 75 vs 4124 mW, 2.06 vs 11.45 mJ) | blocked: no powermetrics | — |
 | `identity.py` | run 2026-10-03 | run — same schema, keys exist on any macOS | partial: needs app-side emit | — (non-Apple sysctl) |
 | `to_openclaims.py --check` | run 2026-10-03: 679/679 valid | — (SDK venv not set up there) | — | — |
+| `ncm0 anectx --field` (NCM ctx predictor) | run 2026-10-23: S=160 289 µs median, 4.86M cells (nch ledger 01-43-19Z) | run 2026-10-23: S=160 346/348 µs median, program compiles+evals on h16g (ledgers on mini fingerprint) | — | — |
+| NCM cross-silicon logit identity (EXP-030) | run 2026-10-23 | run — MONEY ROW: byte-identical f32 logits M5-vs-M4 (0/8,089,600 differ; argmax 0/15,800; same MIL, same int8 constexpr, same inputs) | — | — |
+| NCM GPU training lane (`gpu-train`) | run (parity PASS ≤1.8e-01 late) | run 2026-10-23: engine auto-selects SIMT (probe=no apple10), `check` PASS 0 mismatches; parity FAIL late-step (6.9e-06 → 8.3e-01 chaotic fork, bad=0) — 0.36 s/step 20-step run | — | — |
+| NCM train + watchdog + baton (T5/T3b) | run 2026-10-23 (v2c corpus arms) | run 2026-10-23: seed-pair arms + resume baton (ledgers 03-xxZ local, sync pending) | — | — |
 
 Asymmetry to close (known GAPs, em-dash policy):
 - ~~M5 energy: no rows~~ CLOSED 2026-10-06 — sudo quiet capture (oMLX quit, euid 0):

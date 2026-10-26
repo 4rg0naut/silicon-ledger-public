@@ -1,0 +1,20 @@
+# EXP-023-m5max-energy — M5 Max per-engine energy baselines (Studio, macos 26.5, sudo powermetrics -n)
+# RECONSTRUCTED 2026-10-06 11:5x from session output after an untracked superproject results/
+# directory was displaced during workspace-clone creation (F-38). Raw powermetrics txt files
+# were lost; totals below were captured verbatim from this machine's runs the same morning and
+# cross-checked against the run transcript. Measured by scripts/run_energy_sweep.sh (sudo -n,
+# 1000Hz combined, no ScreenCapture). Engine attribution = measured via rail deltas.
+kind	model_id	engine	tokens_or_embs	n	mJ_total	mJ_per_unit	mW_mean_wall	note
+cpu	all	idle-floor	-	567	3356.486		5920.1	567 samples ~105s quiet idle; subtracted from all delta rows
+cpu	f5899867e5058027	CPU	128	300	13906.546	46.355	5682.2	minilm CPU 128-tok x300; after-idle drift 3492mW
+gpu	b853e5f40f53857e	GPU	128	180	7662.012	42.567	15462.6	minilm GPU (metal, ane off) 128-tok x180; after-idle drift 19761mW = thermal soak ongoing, value is upper bound
+cpu	729172e5f181e2c9	CPU	384	150	8276.491	55.177	7505.8	granite 7b m2.1 quant CPU 384-tok x150
+cpu	e552c6295c0d6037	CPU	1	815	4909.824	6.024	4961.3	minilm CPU embed x815 (post-GPU run; idle drift 19761→20161mW inflates this row, upper bound)
+gpu	cbca8d23785a1879	GPU	1	780	3856.248	4.944	5030.3	minilm GPU embed x780 (metal, ane off); after-idle drift 19761→20090; clean-ish window
+cpu	98934afbb820b635	CPU	1	1690	19265.989	11.400	10529.9	minilm CPU embed x1690 (post-GPU thermal soak); ratio vs GPU row = 2.31x ANNOTATED not clean-calibration ratio
+ane	dab510b43e348719	ANE-granite	1	795	1079.162	1.357	262.8	granite-31-m2.1 h16g ANE x795 (process ANE rail delta); lane max 289mW p50 223mW min 181mW; after-idle 180.9mW == quiet floor, clean thermal window; CPU lane rose 4028→4327mW (runner busy-poll), row upper bound
+cpu	dab510b43e348719	CPU-granite-31	1	795	14961.615	18.819	5155.1	granite-31-m2.1 quant CPU 128-tok x795 matched; after-idle drift 4092→5230mW upper bound
+cpu	e552c6295c0d6037	CPU-minilm-clean	1	2115	24120.744	11.404	10127.5	minilm CPU embed x2115; idle drift +122mW; supersedes the 815-row annotation: clean ratio GPU 4.944 vs CPU 11.400 = 2.31x
+ane	dab510b43e348719	ANE-granite-clean2	1	795	1078.679	1.357	261.1	granite-31-m2.1 h16g ANE x795 second clean window; after-idle 179.4mW == quiet floor 178.4mW; CPU lane rise 4051→4444mW; per-emb ANE energy reproducible to 0.05% vs prior ANE row
+gpu	e552c6295c0d6037	GPU-minilm-120	1	285	1419.681	4.981	19946.1	minilm GPU embed x285 at gpu_set_int(120); idle drift 19682→20030 (soak continuing)
+gpu	b853e5f40f53857e	GPU-minilm-90-oc6000	1	180	1113.587	6.187	11766.2	minilm GPU embed x180 at gpu_set_int(90) + oc_set(6000): thermal floor ~20C lower, per-unit +25% cost — GPU clock is a SUSTAINABILITY knob not an efficiency knob

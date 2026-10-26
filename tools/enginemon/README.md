@@ -86,6 +86,17 @@ gzipped streams + MANIFEST.sha256; generation scratch: dev-box `exp024-raw/calib
 - PMP0 channels are tagged per name (`AGX→gpu`, `PACC/MACC→cpu`, `ANE→ane`, rest `soc`);
   the earlier whole-group `ane` tag mislabeled GPU clusters' floors as ANE.
 
+**Addendum 2026-10-23 (EXP-032 pulse-map):** the `dart-ane0` zero was re-controlled
+dual-path — 0 fires across 70k direct-API `anectx` evals AND 120k CoreML predictions
+(ANE-busy confirmed in-capture), while the identical direct-API workload on M4 fires
+29,299 (1.465/eval): the M5 interrupt gate is real, both paths. The working per-eval
+lane on M5 is `PMP0 SOC-NI Util BW → SOC-NI9 "ANEXL U"` (corroborated by `SOC-NI8
+"ANE UP"`): per-eval exact ±1.5–3% at shape-fixed coefficients 0.50/eval (S=32
+kernel), 1.02/eval (S=160 kernel), 2.91/pred (CoreML minilm128) — calibrate one
+program, then count evals. `DCS BW → ANE L0/L1` events fingerprint the program shape
+(0.8→86/eval), not the eval count. Details + 18 raw captures:
+`results/EXP-032-pulse-map/`, claims MEASURE-153/154 (`knowledge/ane/13-pulse-map.md`).
+
 ## Reading the output
 
 ```

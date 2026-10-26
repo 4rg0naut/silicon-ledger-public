@@ -1,0 +1,8 @@
+# CoreAI GraphModel client (espresso absent on macOS 27): cdpkg/drv on
+# work/exports/reranker-ane/qwen3-reranker-0.6b_float16_s512_ane.aimodel (JIT)
+# inputs: input_ids int32 [1,512], attention_mask int32 [1,512],
+#         causal_mask fp16 [1,512,1,512], last_token fp16 [1,512],
+#         rope_cos/rope_sin fp16 [1,512,128] (RoPECache(128,512,1e6) shapes)
+inputs: ["input_ids","attention_mask","causal_mask","last_token","rope_cos","rope_sin"] outputs: ["probs"]
+coreai_load_ok iters=200 wall=14.30s   # 71 ms/pair — matches EXP-023 ANE-row rate
+# AOT h17g bundle rejected on this box: incompatibleCompiledAssetArchitecture(device: "h17c", asset ["h17g"])

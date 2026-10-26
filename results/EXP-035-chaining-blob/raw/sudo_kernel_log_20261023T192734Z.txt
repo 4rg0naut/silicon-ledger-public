@@ -1,0 +1,1 @@
+Filtering the log data using "process == "kernel" AND (subsystem == "com.apple.driver.AppleH16ANEInterface" OR composedMessage CONTAINS[c] "ANE" OR composedMessage CONTAINS[c] "program handle")"

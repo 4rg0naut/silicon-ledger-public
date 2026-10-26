@@ -1,0 +1,7 @@
+# ioreg IOUserClientCreator zero-residue witnesses (EXP-034 C-79/C-80), 2026-10-23
+# method: count + sorted-set md5 of IOUserClientCreator strings before/after each probe run (EXP-033 protocol)
+
+studio probe5_devprops : pre=707/eca693d334f3d1cf5c7f4624988ab760 post=707/eca693d334f3d1cf5c7f4624988ab760 ZERO-RESIDUE-OK
+studio probe6_chain    : post=707/eca693d334f3d1cf5c7f4624988ab760 (same session) ZERO-RESIDUE-OK
+studio probe6b_chain   : pre=707/eca693d334f3d1cf5c7f4624988ab760 post=707/eca693d334f3d1cf5c7f4624988ab760 ZERO-RESIDUE-OK
+mini   probe5_devprops : pre=448/2c99c82f84a3c09f2a424d8e4196d44a post=448/2c99c82f84a3c09f2a424d8e4196d44a ZERO-RESIDUE-OK (ssh terminal witness)

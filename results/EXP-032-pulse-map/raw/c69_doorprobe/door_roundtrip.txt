@@ -1,0 +1,3 @@
+IOServiceOpen(type 1) kr=0x0
+selector 0x12 kr=0xe00002c2 out=[0 0 0 0] (outCnt=8)
+closed

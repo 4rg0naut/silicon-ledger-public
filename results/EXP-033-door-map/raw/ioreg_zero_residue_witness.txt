@@ -1,0 +1,6 @@
+# ioreg IOUserClientCreator zero-residue witnesses (EXP-033 C-73), 2026-10-23
+# method: diff of sorted IOUserClientCreator strings before/after each sweep — empty output = zero residue
+studio unsandboxed  : ZERO-RESIDUE-OK (terminal witness)
+studio sandboxed    : ZERO-RESIDUE-OK (recrow run, label-corrected binary)
+mini unsandboxed    : MINI-UNSANDED-ZERO-RESIDUE-OK (ssh terminal witness)
+mini sandboxed      : MINI-SB-RECROW-ZERO-RESIDUE-OK (ssh terminal witness)

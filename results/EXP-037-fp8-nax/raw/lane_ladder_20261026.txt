@@ -1,0 +1,19 @@
+  f32 k128 M=64 N=32 K=128 tiles=1: bad=0 zeros=0/2048 -> PASS
+  f32 k256 M=64 N=32 K=256 tiles=1: bad=0 zeros=0/2048 -> PASS
+  f32 k128 M=128 N=32 K=128 tiles=2: bad=0 zeros=0/4096 -> PASS
+  f32 k256 M=64 N=64 K=256 tiles=2: bad=0 zeros=0/4096 -> PASS
+  f32 k128 M=256 N=32 K=128 tiles=4: bad=0 zeros=0/8192 -> PASS
+  f32 k256 M=64 N=128 K=256 tiles=4: bad=0 zeros=0/8192 -> PASS
+  f32 k128 M=512 N=32 K=128 tiles=8: bad=0 zeros=0/16384 -> PASS
+  f32 k256 M=64 N=256 K=256 tiles=8: bad=0 zeros=0/16384 -> PASS
+f32 LADDER: PASS
+  i8 k128 M=64 N=32 K=128 tiles=1: bad=0 zeros=0/2048 -> PASS
+  i8 k256 M=64 N=32 K=256 tiles=1: bad=0 zeros=0/2048 -> PASS
+  i8 k128 M=128 N=32 K=128 tiles=2: bad=0 zeros=0/4096 -> PASS
+  i8 k256 M=64 N=64 K=256 tiles=2: bad=0 zeros=0/4096 -> PASS
+  i8 k128 M=256 N=32 K=128 tiles=4: bad=0 zeros=0/8192 -> PASS
+  i8 k256 M=64 N=128 K=256 tiles=4: bad=0 zeros=0/8192 -> PASS
+  i8 k128 M=512 N=32 K=128 tiles=8: bad=0 zeros=0/16384 -> PASS
+  i8 k256 M=64 N=256 K=256 tiles=8: bad=0 zeros=0/16384 -> PASS
+i8 LADDER: PASS
+VERDICT: ALL PASS

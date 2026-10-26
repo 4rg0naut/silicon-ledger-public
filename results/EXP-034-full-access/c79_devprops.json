@@ -1,0 +1,44 @@
+{
+  "exp": "EXP-034",
+  "criterion": "C-79 (door decode: DeviceProperties + field-key map + mdaiter refutation arm)",
+  "date": "2026-10-23",
+  "verdict": "size(-era), not entitlement — the ANEDriverRoot door answers unprivileged on both fleet boxes; DeviceProperties readable unprivileged contains exactly one key (ANEDevicePropertyNumANEs=1) which matches u32@0x54=1 in the sel-0 response; mdaiter's 104 B (0x68) struct send returns kIOReturnBadArgument (0xe00002c2) on the current door where our 136 B (0x88) contract send succeeds kr=0x0 — not NotFound; their NotFound belongs to the H11-era service their header targets (Phrack #72-documented selector-0 contract 96 B/96 B; their own struct 104 B; this door's contract 136 B)",
+  "machines": [
+    {
+      "model": "Mac17,14 M5 Max",
+      "os": "27.0.1 (26A434)",
+      "fingerprint": "bda452aabd60bf26",
+      "ram": "128 GB",
+      "metal_rmwss_gib": 107.52
+    },
+    {
+      "model": "Mac16,10 M4",
+      "os": "27.0.1 (26A434)",
+      "fingerprint": "057b28dd036ddbe8",
+      "ram": "16 GB",
+      "metal_rmwss_gib": 11.84
+    }
+  ],
+  "provenance": {
+    "git_commit": "cbd9a96+",
+    "build_config": "release (clang -O2, ad-hoc signed)",
+    "instrument": "tools/ane_door_probe/probe5_devprops.c",
+    "evidence": "raw/p5_studio_ANEDriver.txt, raw/p5_mini_ANEDriver.txt, raw/ioreg_zero_residue_witness.txt"
+  },
+  "field_key_map": {
+    "u32@0x54=1": "MATCHES DeviceProperties key ANEDevicePropertyNumANEs=1 (the only published key; the only exact key-value match found)",
+    "u64@0x50=0x100000000 (4 GiB)": "identical on both boxes; no published source yet",
+    "u64@0x60=0x400000000 studio / 0x280000000 mini": "16 GiB (M5 Max, 128 GB RAM) vs 10 GiB (M4, 16 GB RAM); machine-dependent — apertures/generation constants hypotheses remain open; Metal recommendedMaxWorkingSetSize (107.52/11.84 GiB) REFUTED as source (neither box matches)",
+    "all other words": "zero on both boxes"
+  },
+  "corrections_to_exp_033_labels": {
+    "u64@88=1 / u64@112=4": "probe4 scalar labels were mislabeled; true non-zero words are u32@0x54=1 and u32@0x64=4 (low dwords of the u64 pair at 0x50/0x60) — corrected by probe5 hexdump, doc 14 dated addendum",
+    "sel-6 kIOReturnNotReady": "0xe00002f0 is kIOReturnNotFound per SDK IOReturn.h; kIOReturnNotReady is 0xe00002d8 — dated correction in doc 14 addendum"
+  },
+  "mdaiter_arm": {
+    "source": "github.com/mdaiter/ane (ANEPrivate.h + ANEWrapper.m, pushed 2026-02-01; found via web search 2026-10-23, home base read first)",
+    "their_claim": "opens ANEDriver/H11ANE interface WITHOUT entitlement but call fails NotFound; blamed entitlement; claims H11ANEIn open types {1,4}",
+    "our_live_test": "sel0 structIn 0x68/0x68 kr=0xe00002c2 (studio + mini); 0x68 with int32@0x18=-1 variant kr=0xe00002c2; our correct-era 0x88/0x88 arm kr=0x0 in the same capture",
+    "ruling": "their NotFound misattribution does not transfer to the 26A434 LoadBalancer door; agreement stands that the door opens unprivileged without com.apple.ane.iokit-user-access — their H11ANEIn-specific {1,4} does NOT reproduce on 26A434 (H11ANE instance: all 70 types Unsupported, EXP-033 sweep door_studio_unsandboxed.txt:72); the openability agreement is on the principle, not the service"
+  }
+}

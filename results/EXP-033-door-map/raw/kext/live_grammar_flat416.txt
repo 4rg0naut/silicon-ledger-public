@@ -1,0 +1,15 @@
+open type 1 kr=0x0
+sel  0 struct416 : kr=0xe00002c2 out0=0x0
+sel  1 struct416 : kr=0xe00002c2 out0=0x0
+sel  2 struct416 : kr=0xe00002c2 out0=0x0
+sel  3 struct416 : kr=0xe00002c2 out0=0x0
+sel  4 struct416 : kr=0xe00002c2 out0=0x0
+sel  5 struct416 : kr=0xe00002c2 out0=0x0
+sel  6 struct416 : kr=0xe00002c2 out0=0x0
+sel  7 struct416 : kr=0xe00002c2 out0=0x0
+sel  8 struct416 : kr=0xe00002c2 out0=0x0
+sel  9 struct416 : kr=0xe00002c2 out0=0x0
+sel 10 struct416 : kr=0xe00002c2 out0=0x0
+sel  1 struct32  : kr=0xe00002c2 out0=0x0
+sel 11 scalar-in : kr=0xe00002c2 out0=0x0
+closed

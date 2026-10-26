@@ -71,29 +71,45 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-056 | `bench/repro_apple_attention.py` | superseded | Faithful repro: Apple's ACTUAL Attention class, with only RoPE and SDPA stubbed. |
 | INSTR-058 | `bench/rerank_retrieval.py` | superseded | Does the cross-encoder reranker close the ndcg gap? (EXP-012) |
 
-## instrument (17)
+## instrument (33)
 
 | id | path | status | purpose |
 |---|---|---|---|
-| INSTR-151 | `tools/audit/build_census.py` | canonical | build_census.py — Tool Audit 2026-10 phase-3 census generator (audit artifact). |
-| INSTR-152 | `tools/audit/smoke.py` | canonical | smoke.py — Tool Audit 2026-10 phase-1 runner (register-then-run, audit artifact). |
-| INSTR-153 | `tools/audit/verdicts.py` | canonical | verdicts.py — Tool Audit 2026-10 phase-2/3 verdict engine. |
-| INSTR-154 | `tools/embed-server/embed_server.py` | canonical | OpenAI-compatible /v1/embeddings backed by Granite-Embedding-97M on the Neural Engine. |
-| INSTR-156 | `tools/enginemon/enginemon.c` | canonical | enginemon v2.1 — per-engine (CPU / GPU-shader / GPU-NA / ANE) activity on Apple |
-| INSTR-157 | `tools/granite-runner/Package.swift` | canonical | swift-tools-version: 6.0 |
-| INSTR-158 | `tools/kb_pipeline.sh` | canonical | kb_pipeline.sh — THE standard gate set for this repo. Run this; don't remember the steps. |
-| INSTR-159 | `tools/memory-stack/start.sh` | canonical | start.sh — bring up the fully-local memory stack and print what to export. |
-| INSTR-160 | `tools/publish/check_public.py` | canonical | check_public.py — the gates for the PUBLIC mirror (staging tree). |
-| INSTR-161 | `tools/publish/publish.sh` | canonical | publish.sh — deterministic generator of the public staging tree. |
-| INSTR-162 | `tools/publish/push-mirror.sh` | canonical | push-mirror.sh — push the public staging tree to the GitHub mirror. |
-| INSTR-163 | `tools/publish/rewrite_links.py` | canonical | rewrite_links.py — publication-aware link rewriting (runs on the STAGING tree only). |
-| INSTR-164 | `tools/rerank-server/gate_reranker.py` | canonical | Gate the Qwen3-Reranker bundle against its published reference.json. |
-| INSTR-165 | `tools/rerank-server/rerank_server.py` | canonical | Qwen3-Reranker-0.6B over HTTP, OpenAI-ish / Jina-ish rerank shape. |
-| INSTR-155 | `tools/embed-server/embed_server_gemma.py` | duplicate | EmbeddingGemma-300m served from its AOT Core AI bundle, on the Neural Engine. |
-| INSTR-166 | `tools/rerank-server/rerank_server_ane.py` | duplicate | The AOT-compiled ANE reranker over the same /v1/rerank API as the GPU server. |
-| INSTR-150 | `tools/archive/inventory.py` | superseded | inventory.py — cross-volume archive sweep that produces knowledge/ane/ARCHIVE-MAP.md. |
+| INSTR-155 | `tools/ane_door_probe/hold.c` | canonical | Hold an ANEDriverRoot connection open (type argv[1], argv[2] seconds) so ioreg can capture the server-side cli |
+| INSTR-156 | `tools/ane_door_probe/main.c` | canonical | Enumerate ANE IORegistry classes, dump benign props, probe IOServiceOpen(type 0) unprivileged. |
+| INSTR-157 | `tools/ane_door_probe/probe10_loadsweep.m` | canonical | probe10_loadsweep — EXP-036 C-87 verification: does ANY direct-path selector |
+| INSTR-158 | `tools/ane_door_probe/probe2.c` | canonical | Open-type matrix scan over ANE services (70 probed types; which answer unprivileged IOServiceOpen). |
+| INSTR-159 | `tools/ane_door_probe/probe3_sb.c` | canonical | Sandbox-context ANE door probe (EXP-033 C-73): full 70-type sweep from inside an ad-hoc app-sandbox plus sandb |
+| INSTR-160 | `tools/ane_door_probe/probe4_grammar.c` | canonical | Direct-path selector grammar live verdict probe (EXP-033 C-75): opens ANEDriver type 1 and calls the 11 decode |
+| INSTR-161 | `tools/ane_door_probe/probe5_devprops.c` | canonical | Read DeviceProperties + full property tree off ANEDriverRoot unprivileged (IORegistry XML), dump the sel-0 136 |
+| INSTR-162 | `tools/ane_door_probe/probe6_chain.c` | canonical | Send the 3152B ANEProgramChainingPrepareArgs contract to sel 2 across a 12-candidate word[0] handle ladder wit |
+| INSTR-163 | `tools/ane_door_probe/probe6b_chain.c` | canonical | Same ladder as probe6_chain preceded by a successful zero-arg sel-1 call (setDataChainingClient/ANE_ProgramCha |
+| INSTR-164 | `tools/ane_door_probe/probe7_capture.m` | canonical | probe7_capture — EXP-035 C-84: capture the LIVE ANEClientProgramHandle from our own |
+| INSTR-165 | `tools/ane_door_probe/probe7_interpose.c` | canonical | probe7_interpose.c — EXP-035 C-84: DYLD-inserted interpose shim for the ANE door. |
+| INSTR-166 | `tools/ane_door_probe/probe8_replay.m` | canonical | probe8_replay — EXP-035 C-85: sel-2 submit through the type-1 direct-path door with |
+| INSTR-167 | `tools/ane_door_probe/probe9_opentype.m` | canonical | probe9_opentype — EXP-035 C-86: does the client-state word (Gate-A) depend on the |
+| INSTR-168 | `tools/ane_door_probe/roundtrip.c` | canonical | Single harmless IOConnectCallMethod round-trip on a type-1 ANEDriver connection (default selector 0x12). |
+| INSTR-169 | `tools/ane_door_probe/sudo_verify.sh` | canonical | EXP-035 C-85 sudo kernel-log decider — run from a human terminal: |
+| INSTR-170 | `tools/ane_door_probe/whoami.c` | canonical | Before/after enumeration of load-balancer client child classes around an open/close. |
+| INSTR-172 | `tools/audit/build_census.py` | canonical | build_census.py — Tool Audit 2026-10 phase-3 census generator (audit artifact). |
+| INSTR-173 | `tools/audit/smoke.py` | canonical | smoke.py — Tool Audit 2026-10 phase-1 runner (register-then-run, audit artifact). |
+| INSTR-174 | `tools/audit/verdicts.py` | canonical | verdicts.py — Tool Audit 2026-10 phase-2/3 verdict engine. |
+| INSTR-175 | `tools/embed-server/embed_server.py` | canonical | OpenAI-compatible /v1/embeddings backed by Granite-Embedding-97M on the Neural Engine. |
+| INSTR-177 | `tools/enginemon/enginemon.c` | canonical | enginemon v2.1 — per-engine (CPU / GPU-shader / GPU-NA / ANE) activity on Apple |
+| INSTR-178 | `tools/granite-runner/Package.swift` | canonical | swift-tools-version: 6.0 |
+| INSTR-179 | `tools/kb_pipeline.sh` | canonical | kb_pipeline.sh — THE standard gate set for this repo. Run this; don't remember the steps. |
+| INSTR-180 | `tools/memory-stack/start.sh` | canonical | start.sh — bring up the fully-local memory stack and print what to export. |
+| INSTR-181 | `tools/publish/check_public.py` | canonical | check_public.py — the gates for the PUBLIC mirror (staging tree). |
+| INSTR-182 | `tools/publish/publish.sh` | canonical | publish.sh — deterministic generator of the public staging tree. |
+| INSTR-183 | `tools/publish/push-mirror.sh` | canonical | push-mirror.sh — push the public staging tree to the GitHub mirror. |
+| INSTR-184 | `tools/publish/rewrite_links.py` | canonical | rewrite_links.py — publication-aware link rewriting (runs on the STAGING tree only). |
+| INSTR-185 | `tools/rerank-server/gate_reranker.py` | canonical | Gate the Qwen3-Reranker bundle against its published reference.json. |
+| INSTR-186 | `tools/rerank-server/rerank_server.py` | canonical | Qwen3-Reranker-0.6B over HTTP, OpenAI-ish / Jina-ish rerank shape. |
+| INSTR-176 | `tools/embed-server/embed_server_gemma.py` | duplicate | EmbeddingGemma-300m served from its AOT Core AI bundle, on the Neural Engine. |
+| INSTR-187 | `tools/rerank-server/rerank_server_ane.py` | duplicate | The AOT-compiled ANE reranker over the same /v1/rerank API as the GPU server. |
+| INSTR-171 | `tools/archive/inventory.py` | superseded | inventory.py — cross-volume archive sweep that produces knowledge/ane/ARCHIVE-MAP.md. |
 
-## experiment-harness (86)
+## experiment-harness (96)
 
 | id | path | status | purpose |
 |---|---|---|---|
@@ -119,8 +135,18 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-140 | `results/EXP-029-nax-crosslane/harness/make_gemm_models.py` | canonical | make_gemm_models.py — build ONE GEMM (MxK @ KxN) in two formulations, for lane comparison. |
 | INSTR-142 | `results/EXP-029-nax-crosslane/harness/nax_gemm/main.swift` | canonical | // Deterministic small-integer data: exact in f16 and f32, so the oracle is exact for f16 too. |
 | INSTR-143 | `results/EXP-029-nax-crosslane/harness/nax_gemm_energy.sh` | canonical | nax_gemm_energy.sh — ABSOLUTE GPU energy per GEMM (no MLX leg), via enginemon + the nax_gemm probe. |
-| INSTR-148 | `results/EXP-029-nax-crosslane/harness/power_correlate.sh` | canonical | power_correlate.sh — WHICH process owns the GPU-power excursions? |
-| INSTR-149 | `results/EXP-029-nax-crosslane/harness/quiet_probe.sh` | canonical | quiet_probe.sh — reproducible snapshot of WHAT ELSE is running, before trusting a measurement. |
+| INSTR-148 | `results/EXP-029-nax-crosslane/harness/nax_load_ab.m` | canonical | nax_load_ab.m — EXP-029: BARE-METAL matched A/B for the tensor-unit (NAX) datapath: compiles the real MLX stee |
+| INSTR-149 | `results/EXP-029-nax-crosslane/harness/nax_steel_gemm.metal` | canonical | nax_steel_gemm.metal - the MLX Steel gemm_loop source for the NAX tensor arm, extracted so a bare-metal harnes |
+| INSTR-150 | `results/EXP-029-nax-crosslane/harness/power_correlate.sh` | canonical | power_correlate.sh — WHICH process owns the GPU-power excursions? |
+| INSTR-151 | `results/EXP-029-nax-crosslane/harness/quiet_probe.sh` | canonical | quiet_probe.sh — reproducible snapshot of WHAT ELSE is running, before trusting a measurement. |
+| INSTR-152 | `results/EXP-032-pulse-map/harness/mil_battery.m` | canonical | MIL lowering battery (EXP-032 C-70): one-feature-per-program compile probes via _ANEInMemory ANEBridge. |
+| INSTR-153 | `results/EXP-032-pulse-map/harness/run_battery.py` | canonical | MIL lowering battery driver (EXP-032 C-70): fresh process per case, machine-stamped matrix. |
+| INSTR-154 | `results/EXP-036-side-door-inject/harness/analyze_sweep.py` | canonical |  |
+| INSTR-188 | `results/EXP-037-fp8-nax/harness/fp8_energy.sh` | canonical | fp8_energy.sh — EXP-037 S3/S4: matched-A/B GPU energy + engagement windows for the fp8 ladder arms. |
+| INSTR-189 | `results/EXP-037-fp8-nax/harness/fp8_ladder.m` | canonical | fp8_ladder — EXP-037: does M5 Max matmul2d execute metal_fp8_e4m3_format in hardware, fast? |
+| INSTR-190 | `results/EXP-037-fp8-nax/harness/fp8_matrix.sh` | canonical | fp8_matrix.sh — EXP-037 S2/S4: timed GEMM matrix, arms f8 | mix8 | f16 on identical shapes. |
+| INSTR-192 | `results/EXP-037-fp8-nax/harness/lane_arms.m` | canonical | lane_arms — EXP-037 lineage: fill the hand-written matmul2d lane cells left open by fp8_ladder: |
+| INSTR-191 | `results/EXP-037-fp8-nax/harness/s0_compile_probe.sh` | canonical | s0_compile_probe.sh — S0 preflight for EXP-037: does the Metal 4.0 compiler accept |
 | INSTR-066 | `results/EXP-025-ane-gpu-sync/harness/ane_bridge_dbg.m` | duplicate | ane_bridge.m — Objective-C implementation of the ANE private API bridge. |
 | INSTR-067 | `results/EXP-025-ane-gpu-sync/harness/ane_bridge_mrr.m` | duplicate | ane_bridge.m — Objective-C implementation of the ANE private API bridge. |
 | INSTR-144 | `results/EXP-029-nax-crosslane/harness/nax_gemm_matrix.sh` | duplicate | nax_gemm_matrix.sh — dtype-fair, MLX-free GEMM matrix on the local nax_gemm probe. |

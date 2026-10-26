@@ -21,6 +21,22 @@ That is not a formality. `ane-infer` has the most advanced hybrid ANE+Metal deco
 three, and we can learn from it — but **nothing may be copied out of it.** Orion and maderix are the
 two we can actually build on.
 
+> **Dated correction 2026-10-23 (EXP-035 source re-verification).** ane-infer is now **MIT**:
+> upstream commit `7d93fdd` "Add MIT license; remove internal handover notes", authored
+> 2026-10-02; raw `LICENSE` fetched 2026-10-23 confirms MIT (c) 2026 thebasedcapital. The
+> 2026-09-23 no-licence finding was true at access time — the licence appeared after this
+> section was written. Cite-not-quote is superseded by MIT-with-attribution; the "nothing may
+> be copied" constraint above applies to the 2026-09-23 snapshot only. Also observed
+> 2026-10-23: their docs (pushed 2026-03-05) claim framework-level chaining success —
+> `doPrepareChainingWithModel:` OK once `_ANEIOSurfaceOutputSets.objectWithstatsSurRef:outputBuffer:`
+> replaces `outputSetsWithBuffers:` (their "error 15"), `buffersReady` still blocked, plus a
+> 13-ivar layout for `_ANEInMemoryModel` and `doEvaluateDirectWithModel:` (daemon-bypass eval).
+> All framework-layer ObjC — none of it touches the raw IOKit door
+> (`ANEProgramChainingPrepareArgs` @ ANEDriverRoot sel-2), which remains EXP-035's own ground
+> (OFFSET_MAP.md 2026-10-23). Named as prior art for the chaining *field-shape* hypothesis;
+> their `_ANEIOSurfaceOutputSets` finding is a cross-check input for C-84/C-85 output-set
+> construction.
+
 ---
 
 ## What each one is, honestly

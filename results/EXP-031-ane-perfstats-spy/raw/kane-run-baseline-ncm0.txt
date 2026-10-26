@@ -1,0 +1,11 @@
+# ncm0 (unsigned-for-stats, ad-hoc as-shipped), studio, 2026-10-23T08:25:50Z..08:27:56Z
+# NCM_ANE_KANE=1 NCM_ANE_DUMP=/tmp/night/codes_dump_sn900_v2.jsonl ncm0 anectx --field
+ANE compile: OK (conv-relu-conv int8 W8A16, 2 parity kernels)
+ANE field compile: OK (unified parity-input int8 W8A16, S=160, all 6 levels in one conv pass)
+field: rows=30778 cells=4862924 evals=30778 median=321.0us
+field parity: max_delta_deq=1.753e+01 mismatch_deq=10038 mismatch_float=151396/4862924 bad_cells=0
+field ctx_bits(float model)=2.6574 over 4862924 cells
+kane: step1 create(65536)
+KANE-TRACE t0: try pre-factory
+KANE-TRACE t0.5: probe st=0x0 size=0
+RC=138

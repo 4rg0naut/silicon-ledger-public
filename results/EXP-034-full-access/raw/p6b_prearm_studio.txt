@@ -1,0 +1,15 @@
+open type 1 kr=0x0 pid=47828
+sel1 pre-arm kr=0x0
+sel2 word0=0x0 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0x1 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0x2 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0x3 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0x4 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0x8 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0x10 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0x20 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0x64 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0xbad4 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0x1000 kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+sel2 word0=0xffff kr=0xe00002c2 oSz_back=64 scalar0=0xface0000face
+done

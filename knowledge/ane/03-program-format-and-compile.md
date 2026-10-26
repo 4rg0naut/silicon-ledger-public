@@ -746,6 +746,11 @@ softmax, erf, exp, log — implemented via a programmable piecewise-linear looku
 edits or DMA rather than compute. `DOCUMENTED` (paper ch. 4) and consistent with our M4 scan, which found
 every dense-transformer op ANE-capable: `matmul · linear · conv · add · mul · sub · softmax · gelu · relu ·
 layer_norm · gather · transpose · reshape · reduce_mean · exp · erf · rsqrt · pow` (`MEASURED`, ours).
+*Amendment 2026-10-23 (EXP-032 C-70, MEASURE-156): that capability list is the **Core AI pipeline** view
+(EXP-001 static scan). At the raw `_ANEInMemory` MIL door, `gelu` and `reduce_mean` are ABSENT (rejected;
+use `tanh`, and `reduce_sum` with explicit `axes`+`keep_dims`), and `slice_by_index` is absent in all
+argument positions. Softmax over a non-power-of-2 dim does NOT reproduce hollance's compile gotcha.
+Verdicts identical M5 Max ↔ M4 mini. See 13-pulse-map.md §C-70.*
 
 ### 5.3 The no-path set, and the important distinction
 

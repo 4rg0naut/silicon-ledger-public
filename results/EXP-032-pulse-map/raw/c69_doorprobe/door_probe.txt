@@ -1,0 +1,11 @@
+class AppleVirtIONeuralEngineDevice    (no instances)
+class ANEDriverRoot                    (no instances)
+class H11ANEIn                         instance=H11ANE
+  prop IOClass              = H11ANEIn
+  prop IOProviderClass      = AppleARMIODevice
+  prop IONameMatched        = ane,t8132exclave
+  IOServiceOpen(type 0) kr=0xe00002c7
+class ANEScheduler                     (no instances)
+class ANEExclaveProxy                  instance=ANEExclaveProxy
+  IOServiceOpen(type 0) kr=0xe00002c7
+class IOReport                         (no instances)

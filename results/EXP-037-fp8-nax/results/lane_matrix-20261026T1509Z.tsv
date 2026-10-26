@@ -1,0 +1,33 @@
+tool	M	shape	reps	gpu_med_ms	min_ms	tflops	window=loaded-concurrent
+  f32 precheck M=128 N=128 K=128 tiles=8: bad=0 zeros=0/16384 -> PASS
+lane_arms	arm=f32	M=128 N=128 K=128	reps=60	gpu_med_ms=0.0155	min_ms=0.0124	tflops=0.27
+  i8 precheck M=128 N=128 K=128 tiles=8: bad=0 zeros=0/16384 -> PASS
+lane_arms	arm=i8	M=128 N=128 K=128	reps=60	gpu_med_ms=0.0179	min_ms=0.0128	tflops=0.23
+  f32 precheck M=256 N=256 K=256 tiles=32: bad=0 zeros=0/65536 -> PASS
+lane_arms	arm=f32	M=256 N=256 K=256	reps=60	gpu_med_ms=0.0414	min_ms=0.0290	tflops=0.81
+  i8 precheck M=256 N=256 K=256 tiles=32: bad=0 zeros=0/65536 -> PASS
+lane_arms	arm=i8	M=256 N=256 K=256	reps=60	gpu_med_ms=0.0240	min_ms=0.0236	tflops=1.40
+  f32 precheck M=512 N=512 K=512 tiles=128: bad=0 zeros=0/262144 -> PASS
+lane_arms	arm=f32	M=512 N=512 K=512	reps=60	gpu_med_ms=0.1338	min_ms=0.1308	tflops=2.01
+  i8 precheck M=512 N=512 K=512 tiles=128: bad=0 zeros=0/262144 -> PASS
+lane_arms	arm=i8	M=512 N=512 K=512	reps=60	gpu_med_ms=0.0412	min_ms=0.0404	tflops=6.52
+  f32 precheck M=1024 N=1024 K=1024 tiles=512: bad=0 zeros=0/1048576 -> PASS
+lane_arms	arm=f32	M=1024 N=1024 K=1024	reps=15	gpu_med_ms=0.2548	min_ms=0.2365	tflops=8.43
+  i8 precheck M=1024 N=1024 K=1024 tiles=512: bad=328997 zeros=0/1048576 -> FAIL
+lane_arms	arm=i8	M=1024 N=1024 K=1024	reps=15	gpu_med_ms=0.1876	min_ms=0.1867	tflops=11.45
+  f32 precheck M=2048 N=2048 K=2048 tiles=2048: bad=0 zeros=0/4194304 -> PASS
+lane_arms	arm=f32	M=2048 N=2048 K=2048	reps=15	gpu_med_ms=1.1835	min_ms=1.1786	tflops=14.52
+  i8 precheck M=2048 N=2048 K=2048 tiles=2048: bad=3115828 zeros=0/4194304 -> FAIL
+lane_arms	arm=i8	M=2048 N=2048 K=2048	reps=15	gpu_med_ms=1.3925	min_ms=0.3048	tflops=12.34
+  f32 precheck M=4096 N=4096 K=4096 tiles=8192: bad=0 zeros=0/16777216 -> PASS
+lane_arms	arm=f32	M=4096 N=4096 K=4096	reps=15	gpu_med_ms=9.8184	min_ms=9.8090	tflops=14.00
+  i8 precheck M=4096 N=4096 K=4096 tiles=8192: bad=10067032 zeros=0/16777216 -> FAIL
+lane_arms	arm=i8	M=4096 N=4096 K=4096	reps=15	gpu_med_ms=2.4916	min_ms=2.4825	tflops=55.16
+  f32 precheck M=64 N=2048 K=2048 tiles=64: bad=0 zeros=0/2048 -> PASS
+lane_arms	arm=f32-decodepadded	M=64 N=2048 K=2048	reps=30	gpu_med_ms=0.0620	min_ms=0.0610	tflops=0.14
+  f32 precheck M=64 N=4096 K=4096 tiles=128: bad=0 zeros=0/4096 -> PASS
+lane_arms	arm=f32-decodepadded	M=64 N=4096 K=4096	reps=30	gpu_med_ms=0.2365	min_ms=0.2337	tflops=0.14
+  i8 precheck M=64 N=2048 K=2048 tiles=64: bad=820 zeros=0/2048 -> FAIL
+lane_arms	arm=i8-decodepadded	M=64 N=2048 K=2048	reps=30	gpu_med_ms=0.0249	min_ms=0.0246	tflops=0.34
+  i8 precheck M=64 N=4096 K=4096 tiles=128: bad=3277 zeros=0/4096 -> FAIL
+lane_arms	arm=i8-decodepadded	M=64 N=4096 K=4096	reps=30	gpu_med_ms=0.0679	min_ms=0.0584	tflops=0.49

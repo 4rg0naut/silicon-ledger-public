@@ -1,0 +1,11 @@
+# EXP-033 C-73 door matrix — fleet x context open-type results
+# machine join keys = ledger fingerprints (ncm-run ledger provenance standard,
+# bda452aabd60bf26 = studio M5 Max Mac17,14; 057b28dd036ddbe8 = mini M4 Mac16,10)
+# captured 2026-10-23 on macOS 27.0.1 (26A434) both boxes
+# types_probed = 70-value set in tools/ane_door_probe/probe2.c kTypes
+# all rows: zero residue verified (ioreg IOUserClientCreator sorted diff before/after)
+machine	context	sandbox_enforced	types_opened	types_other	services_seen	raw_file
+studio unsandboxed-uid501	no	0x1,0x4	kIOReturnUnsupported(0xe00002c7)	ANEDriverRoot (ANEDriver + H1xANELoadBalancer)	door_studio_unsandboxed.txt
+studio sandboxed-adhoc-app	yes	0x1,0x4	kIOReturnUnsupported(0xe00002c7)	ANEDriverRoot (same)	door_studio_sandboxed.txt
+mini unsandboxed-uid501	no	0x1,0x4	kIOReturnUnsupported(0xe00002c7)	ANEDriverRoot (ANEDriver + H1xANELoadBalancer)	door_mini_unsandboxed.txt
+mini sandboxed-adhoc-app	yes	0x1,0x4	kIOReturnUnsupported(0xe00002c7)	ANEDriverRoot (same)	door_mini_sandboxed.txt

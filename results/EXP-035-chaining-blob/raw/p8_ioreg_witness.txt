@@ -1,0 +1,27 @@
+# zero-residue witness (structural ioreg, busy/retain stripped), 2026-10-23T19:01:07Z
+## baseline (no open client): DirectPathClient count = 0 (see prior p8_struct diff, run 2026-10-23 21:0x local)
+## sensor validation: with tools/ane_door_probe/hold 1 20 alive, child H1xANELoadBalancerDirectPathClient id 0x100002161 appears under ANEDriverRoot <class H1xANELoadBalancer>
+## probe8_replay run while hold alive -> after-run snapshot identical, count back to 1 (hold own client only):
+    | |   +-o ane0@8000000  <class AppleARMIODevice, id 0x10000050a, registered, matched, active>
+    | |   | +-o H11ANE  <class H11ANEIn, id 0x100000713, registered, matched, active>
+    | |   | +-o ANEExclaveProxy  <class ANEExclaveProxy, id 0x100000f79, registered, matched, active>
+    | |   +-o dart-ane0@9800000  <class AppleARMIODevice, id 0x10000050b, registered, matched, active>
+    | |   |   +-o mapper-ane0@0  <class IODARTMapperNub, id 0x10000076e, registered, matched, active>
+    | |   |   +-o mapper-ane0-iso1@1  <class IODARTMapperNub, id 0x100000770, registered, matched, active>
+    | |   |   +-o mapper-ane0-iso2@2  <class IODARTMapperNub, id 0x100000772, registered, matched, active>
+    | |   |   +-o mapper-ane0-iso3@3  <class IODARTMapperNub, id 0x100000773, registered, matched, active>
+    | |   |   +-o mapper-ane0-iso4@4  <class IODARTMapperNub, id 0x100000774, registered, matched, active>
+    | |   |   +-o mapper-ane0-iso5@5  <class IODARTMapperNub, id 0x100000775, registered, matched, active>
+    | |   |   +-o mapper-ane0-iso6@6  <class IODARTMapperNub, id 0x100000785, registered, matched, active>
+    | |   |   +-o mapper-ane0-iso7@7  <class IODARTMapperNub, id 0x100000796, registered, matched, active>
+    | |   |   +-o mapper-ane0-mpm@B  <class IODARTMapperNub, id 0x100000797, registered, matched, active>
+    | +-o ANEDriverRoot  <class H1xANELoadBalancer, id 0x100000390, registered, matched, active>
+    | | +-o ANEClientHints  <class ANEClientHints, id 0x100000476, registered, matched, active>
+    | | +-o H1xANELoadBalancerDirectPathClient  <class H1xANELoadBalancerDirectPathClient, id 0x100002161, !registered, !matched, active, busy 0>
+    | +-o AppleT6050ANEHAL  <class AppleT6050ANEHAL, id 0x100000396, registered, matched, active>
+# probe8_rerun (2026-10-23) stderr/header:
+live handle=6157 state=3
+open type1 kr=0x0
+sel1 pre-arm kr=0x0
+{"arm":"N-zero","handle":"0x0","proc":0,"txn":"0x0","off28":0,"cnt":0,"kr":"0xe00002c2","oSz_back":64,"scalar0":"0xface0000face","out_hex":"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"}
+{"arm":"B-bogus","handle":"0x4d58","proc":0,"txn":"0x0","off28":0,"cnt":1,"kr":"0xe00002c2","oSz_back":64,"scalar0":"0xface0000face","out_hex":"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"}

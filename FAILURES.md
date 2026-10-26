@@ -147,6 +147,26 @@ Format: **symptom → what I wrongly assumed → actual cause → fix → rule.*
 - **Rule:** **measure cold vs warm before attributing a cost.** Load costs amortise;
   per-request costs do not.
 
+### F-51 · Ad-hoc re-signing with ANE entitlements to unlock kANE perf-stats (`EXP-031`)
+- **Symptom:** `codesign -s -` + `com.apple.ane.iokit-user-access` (and
+  `com.apple.ANECompilerService.allow`) on `ncm0` → instant SIGKILL (rc=137);
+  AMFI "code signature validation failed fatally", kernel "load code signature
+  error 4". Without the keys the binary ran fine and reached the ANE.
+- **Assumption:** the `statsMask` zeroing EXP-029 measured is an
+  entitlement-KEY gate, so any signature that asserts the key satisfies it.
+- **Cause:** those keys are AMFI-restricted — they require an Apple-issued
+  signature; ad-hoc assertion is fatal, not merely ineffective. And the
+  stats classification never consulted them anyway: `aned` labels clients
+  `ThirdPartyAppUsingANE` from the audit-token **signing identity**
+  (`SecTaskCopyTeamIdentifier` → `teamIdentity=""` for ad-hoc) and zeroes the
+  mask server-side; only `com.apple.security.*` is ad-hoc-assertable, and with
+  it the probe is unchanged (`size=0`, rc=138, `StatsMask=0`, both fleet boxes).
+- **Rule:** **an entitlement you can copy is only useful if the gate reads the
+  key — read the gate, not the wish-list.** For ANE per-eval counters the gate
+  is identity-bound (hard); do not spend another pickpocket round until a real
+  codesigning identity exists on the box (`security find-identity` → 0).
+  Evidence: `results/EXP-031-ane-perfstats-spy/`, `knowledge/ane/12-perfstats-and-entitlements.md` Q4.
+
 ---
 
 ## D. Containers / zvec-grep (`zg`)

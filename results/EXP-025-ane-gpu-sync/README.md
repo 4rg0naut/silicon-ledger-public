@@ -42,7 +42,9 @@ primitive, and does the eval dispatch actually consume them?
   "shared events require package-backed models (ModelTypePackage)").
 - Caveat 2: Path B never ran end-to-end here (toolchain gap below), so the latency
   table's event column carries `PATHB_ONLY`, not numbers. Baseline CPU-completion
-  floor: 0.10–0.63 ms/eval, events overhead 0.005–0.053 ms (`results/latency.md`).
+  floor: **0.095–0.621 ms/eval; baseline CPU-completion extra 0.020–0.053 ms** (raw:
+  `results/latency.txt`; corrected 2026-10-26 — the earlier 0.10–0.63/0.005–0.053 rounded the lower
+  bounds up and pulled the overhead floor below any raw row).
 
 ## Chaining result (2026-10-10) — data crosses the wire, both ways
 

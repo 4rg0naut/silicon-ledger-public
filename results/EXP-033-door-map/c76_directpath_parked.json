@@ -1,0 +1,27 @@
+{
+  "exp": "EXP-033",
+  "criterion": "C-76 (gated: direct-path submit payoff probe)",
+  "date": "2026-10-23",
+  "verdict": "PARKED_WITH_MEASUREMENT — submit-class candidate identified (sel 2, chaining prepare) and attempted; payload token forge (ANEClientInfo/handle fields) not implemented this round; failure mode named, bounded single-session attempt per criterion",
+  "machine": {"model": "Mac17,14 M5 Max", "os": "27.0.1 (26A434)", "fingerprint": "bda452aabd60bf26"},
+  "provenance": {"git_commit": "c4440bc+", "build_config": "release (clang -O2, ad-hoc signed)", "instrument": "tools/ane_door_probe/probe4_grammar.c", "evidence": "raw/kext/live_grammar_verdicts.txt"},
+  "dispatch_latency_us": {
+    "sel0_success_136B_roundtrip": [4.0, 4.1, 3.5],
+    "sel1_success_zero_arg": [7.1, 3.5, 3.2],
+    "error_paths_range": [0.6, 5.2],
+    "reference_points": {
+      "aned_xpc_mediated_eval_hop": "~100s of us (framework eval path, EXP-025 class)",
+      "maderix_dispatch": "~95 us"
+    },
+    "note": "kernel-door method round trip 1.2-7.1 us = ~20x below the daemon hop; the door itself is cheap — the cost of going direct is payload forging, not dispatch"
+  },
+  "attempt": {
+    "selector": 2,
+    "contract": "3152B struct in, 64B out + 1 scalar out (decoded from _sANEDriverDirectPathClientMethods)",
+    "payload": "zeroed struct + 0xface0000face scalar (poison rule); capability fields from sel0 (u64@88=1, u64@112=4) noted for future forge",
+    "result": "kIOReturnBadArgument (handler payload validation) — table contract accepted, client/session token fields not forged",
+    "failure_mode": "chaining-prepare args require user-mode handle/token construction (ANEClientInfo::create(task*,uint,bool,bool) semantics; framework guest-path serializers _ANEProcedureData/_ANEWeight) — named, not guessed"
+  },
+  "weight_mutation_trio_note": "virtio selectors 0x1c-0x1e (doc 13) have NO counterpart in the 11-entry direct-path table; weight mutation over the raw door is NOT established — follow-up logged in ncm-run backlog",
+  "meter": "no probe-attributable ANE engine work claimed (ambient ANE DCS ~30 MB/s confounds isolation); verdicts rest on kr codes + zero-residue witnesses"
+}

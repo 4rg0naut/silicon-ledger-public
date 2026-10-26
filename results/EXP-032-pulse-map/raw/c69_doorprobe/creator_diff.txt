@@ -1,0 +1,19 @@
+# ANE door probe — server-side client object evidence (ioreg -l -w0 IOUserClientCreator)
+# captured 2026-10-23T12:18-12:20Z while tools/ane_door_probe/hold held ANEDriverRoot connections open
+# written 2026-10-23T12:19:37Z
+
+## hold-opened type-4 client (pid 90860):
+    | | |   
+    | | +-o H1xANELoadBalancerDirectPathClient  <class H1xANELoadBalancerDirectPathClient, id 0x1001c150d, !registered, !matched, active, busy 0, retain 5>
+    | |     {
+    | |       "IOUserClientDefaultLocking" = Yes
+    | |       "IOUserClientCreator" = "pid 90860, hold"
+
+## hold-opened type-1 client earlier in-session (pid 89599, transcript):
+    | | +-o H1xANELoadBalancerDirectPathClient  <class H1xANELoadBalancerDirectPathClient, id 0x1001c149d, !registered, !matched, active, busy 0, retain 5>
+    | |       "IOUserClientCreator" = "pid 89599, hold"
+
+## ANE load-balancer family clients, class-by-creator histogram:
+   1 H1xANELoadBalancerClient "pid 23399, aned"
+   8 H1xANELoadBalancerDirectPathClient "pid 22631, mediaanalysisd"
+   1 H1xANELoadBalancerDirectPathClient "pid 90860, hold"

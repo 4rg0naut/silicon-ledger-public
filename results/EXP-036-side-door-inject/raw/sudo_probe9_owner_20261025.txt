@@ -1,0 +1,39 @@
+Owner-run sudo arm of probe9, 2026-10-25 (post-EXP-036 close), <user>@studio, macOS 27.0.1/26A434.
+Question: does root (uid 0) attain open type 2 (aned's client class) where uid-501 got
+kIOReturnNotPrivileged — i.e. is a self-run root daemon a sidecar without an entitlement ask?
+
+Transcript (pasted by owner, verbatim):
+
+<user>@studio bare % cd /Volumes/data/OpenFox/dev_m5max_re/silicon-ledger/tools/ane_door_probe && sudo ./probe9_opentype
+Password:
+live handle=133260 state=3
+TYPE 0 open kr=0xe00002c7 (skipped)
+TYPE 1 open kr=0x0
+  sel0 kr=0xe00002c2  sel1(pre-arm) kr=0x0
+  sel2 zero     handle=0x0 cnt=0 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  sel2 live     handle=0x2088c cnt=1 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  sel2 bogus    handle=0x25dd9 cnt=1 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  closed
+TYPE 2 open kr=0xe00002c7 (skipped)
+TYPE 3 open kr=0xe00002c7 (skipped)
+TYPE 4 open kr=0x0
+  sel0 kr=0xe00002c2  sel1(pre-arm) kr=0x0
+  sel2 zero     handle=0x0 cnt=0 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  sel2 live     handle=0x2088c cnt=1 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  sel2 bogus    handle=0x25dd9 cnt=1 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  closed
+TYPE 5 open kr=0xe00002c7 (skipped)
+TYPE 8 open kr=0xe00002c7 (skipped)
+TYPE 16 open kr=0xe00002c7 (skipped)
+
+Verdicts from this run:
+1. SUDO DOES NOT UNLOCK TYPE-2 — root gets 0xe00002c7 like uid 501. The class gate keys on
+   signing identity / client properties, not uid. Self-run root daemon sidecar theory: CLOSED
+   at the same Mach-permission layer as the unprivileged arm. Entitlement (or Apple-internal
+   signing) is the only known path to the type-2 class.
+2. TYPE-4 ≡ TYPE-1 CONFIRMED on the sel-2 ladder (zero/live/bogus all 0xe00002c2, identical
+   oSz/latency signature, poison round-trips ok) — first direct equivalence measurement;
+   EXP-033 had only shown both spawn the same class.
+3. Load as root works (live handle 133260, state=3); sel0 BadArgument here is probe9's
+   known no-struct contract arm, not a change (probe4's 136 B struct send remains kr=0).
+4. Poison scalars untouched on every arm; connections closed.

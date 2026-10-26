@@ -1,0 +1,11 @@
+### whoami type 1
+== before open ==
+IOServiceOpen(type 1) kr=0x0
+== after open (conn port 0x1c3f) ==
+== after close ==
+
+### whoami type 4
+== before open ==
+IOServiceOpen(type 4) kr=0x0
+== after open (conn port 0x1c53) ==
+== after close ==

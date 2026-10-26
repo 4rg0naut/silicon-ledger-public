@@ -204,3 +204,37 @@ gunzip -c raw/p2b_model_src/na_tiles_binary_0.hwx.gz > /tmp/h.hwx && \
 API-068 (liveInputList strides — K5 fix recipe anchor);
 ledger `FAILURES.md` F-45 (trigger-assertion rule), F-50 (ktrace exclusivity +
 in-process-compiler rule); `EXP-025-ane-gpu-sync/docs/P2-LANE-A.md` §7.
+
+## K2 taxonomy addendum — 2026-10-23 (EXP-032 C-70): the working MIL door's accept/reject table
+
+K2's 7/7 `InvalidMILProgram` was later characterized from the OTHER side: the
+`_ANEInMemory` path that works (ncm-run ANEBridge) was fed a 20-case one-feature-per-program
+battery (`../EXP-032-pulse-map/harness/mil_battery.m` + `run_battery.py`; matrices
+`../EXP-032-pulse-map/mil_battery_matrix_{studio,mini}.jsonl`, fresh process per case).
+Results on 27.0.1/26A434, **identical verdicts on M5 Max and M4 mini (20/20 cases)**:
+
+| feature | verdict | note |
+| --- | --- | --- |
+| conv→(relu/none/tanh)→conv chain, int8-affine BLOBFILE weights | **ACCEPT** | the ncm0 ctx grammar at Cin=128/S∈{16,32,48} |
+| softmax over non-power-of-2 dim (100 channels; axis=3 spatial) | **ACCEPT** | hollance-44 gotcha #1 does NOT reproduce at compile on this door/OS |
+| `reduce_mean` | **REJECT** | hollance-44 #3 confirmed absent |
+| `reduce_sum` bare (x only) | **REJECT** | workaround needs FULL signature |
+| `reduce_sum(axes=…, keep_dims=…, x=…)` | **ACCEPT** | the real rule: explicit axes/keep_dims mandatory, not a missing op |
+| `slice_by_index` — on input, on const, and full `axes/begin/end` form | **REJECT (all 3)** | hollance-44 #2 is broader than reported: absent from this door entirely, not just function-input position |
+| `gelu` op | **REJECT** | tanh stands in (accepted) |
+| fp32 function input (`tensor<fp32,…> x`) | **REJECT** | io is fp16-only on this door |
+| inline `constexpr` fp16 array literal (`val = tensor<fp16,[4]>(…)`) | **REJECT** | weight-baked BLOBFILE/constexpr_affine_dequantize form is the accepted constexpr carrier |
+| Cin=1088 / 1200 (non-128-multiple), S=100 | **ACCEPT at compile** | the alignment cliff is a RUNTIME property (−inf class, EXP-025 era) — invisible in the accept verdict |
+
+Taxonomy update for K2: `InvalidMILProgram` on the modern door is **one opaque
+signature with zero op-level attribution** (no op name, no line number — stderr
+`err=(InvalidMILProgram)` is all you get). It also fires for out-of-range BLOBFILE
+weight offsets (measured accidentally: a wrong chunk-offset arithmetic produced the
+same signature before any syntax complaint) — so at this door, rejection is a
+binary and the battery (one feature per program, fresh process) is the only
+attribution instrument. That is the measured accept/reject rule table for the K2
+row; the legacy C door's uniform 7/7 refusal now has a differential control: the
+same op families are individually ACCEPTed through `_ANEInMemory`, so K2's
+"dialect-level refusal, not model complexity" conclusion is reconfirmed and
+sharpened — the legacy door refuses everything current, the modern door is a
+narrow, individually-testable op grammar.

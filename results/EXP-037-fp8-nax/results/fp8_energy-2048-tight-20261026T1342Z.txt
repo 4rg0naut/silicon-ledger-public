@@ -1,0 +1,30 @@
+arm=f16 M=2048 execs=2004
+  GPU Energy window: 119429.7 mJ over 1.60 s -> 59.596 mJ/GEMM, 3468.9 mJ/TFLOP
+  PS13 engagement max: 1973
+  channels seen: 180
+  run:   f16 precheck M=2048 N=2048 K=2048 tiles=2048: bad=0 zeros=0/4096 -> PASS
+  run: fp8_ladder	arm=f16	M=2048	reps=2000	gpu_med_ms=0.5504	min_ms=0.5359	tflops=31.21
+arm=f8 M=2048 execs=2004
+  GPU Energy window: 119454.1 mJ over 1.59 s -> 59.608 mJ/GEMM, 3469.6 mJ/TFLOP
+  PS13 engagement max: 2178
+  channels seen: 187
+  run:   f8 precheck M=2048 N=2048 K=2048 tiles=2048: bad=0 zeros=0/4096 -> PASS
+  run: fp8_ladder	arm=f8	M=2048	reps=2000	gpu_med_ms=0.5381	min_ms=0.5330	tflops=31.93
+arm=mix8 M=2048 execs=2004
+  GPU Energy window: 112779.4 mJ over 1.60 s -> 56.277 mJ/GEMM, 3275.8 mJ/TFLOP
+  PS13 engagement max: 2422
+  channels seen: 204
+  run:   mix8 precheck M=2048 N=2048 K=2048 tiles=2048: bad=0 zeros=0/4096 -> PASS
+  run: fp8_ladder	arm=mix8	M=2048	reps=2000	gpu_med_ms=0.5367	min_ms=0.5332	tflops=32.01
+arm=f16 M=2048 execs=2004
+  GPU Energy window: 102956.3 mJ over 1.60 s -> 51.375 mJ/GEMM, 2990.4 mJ/TFLOP
+  PS13 engagement max: 2487
+  channels seen: 201
+  run:   f16 precheck M=2048 N=2048 K=2048 tiles=2048: bad=0 zeros=0/4096 -> PASS
+  run: fp8_ladder	arm=f16	M=2048	reps=2000	gpu_med_ms=0.5541	min_ms=0.5372	tflops=31.00
+arm=f8 M=2048 execs=2004
+  GPU Energy window: 122121.1 mJ over 1.61 s -> 60.939 mJ/GEMM, 3547.1 mJ/TFLOP
+  PS13 engagement max: 2067
+  channels seen: 180
+  run:   f8 precheck M=2048 N=2048 K=2048 tiles=2048: bad=0 zeros=0/4096 -> PASS
+  run: fp8_ladder	arm=f8	M=2048	reps=2000	gpu_med_ms=0.5401	min_ms=0.5330	tflops=31.81

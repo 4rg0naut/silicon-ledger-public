@@ -25,7 +25,11 @@ personal.sort(key=lambda t: len(t[0]), reverse=True)
 
 KEEP_DIRS = ("bench/", "ports/", "tools/", "knowledge/", "evaluation/", "schemas/")
 KEEP_TOP = (".md", ".txt", ".json", "LICENSE")
-KEEP_RESULTS_EXT = (".md", ".json", ".txt", ".sh")
+KEEP_RESULTS_EXT = (".md", ".json", ".txt", ".sh", ".tsv", ".jsonl", ".ll")
+# .tsv/.jsonl/.ll widened 2026-10-26: these are captured DATA (numbers the mirror exists to carry),
+# not harness sources — the 2026-10-15 rule (producers live in silicon-ledger-bench) is untouched.
+# doc-16 v2 cites EXP-037/023/036 tsv/jsonl rows and the s0 toolchain pin (.ll) as receipts; readers
+# must be able to open them.
 # NOT widened to harness sources (2026-10-15, reverted same day): the instruments already have a
 # purpose-built public home — `silicon-ledger-bench` (public, MIT, its own `_producer` + facet
 # schema per CROSS-REPO-CONTRACT). One repo, one producer: the mirror carries the knowledge and the

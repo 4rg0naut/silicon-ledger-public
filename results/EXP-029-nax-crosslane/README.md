@@ -114,7 +114,9 @@ required** (no oMLX, no display-pinned load elsewhere).
 ## 5. Deliverable
 
 A decision table — *for shape S, use lane L* — with the NAX eligibility predicates from §2 as the
-first column, backed by measured numbers rather than vendor TFLOPS. Records: API (limits/measured
+first column, backed by measured numbers rather than vendor TFLOPS. **(Consolidated 2026-10-26 as
+"Consolidated lane table" in `knowledge/ane/16-neural-accelerators.md` — every lane this fleet has
+measured, by surface, with speed/parity/dispatch/energy + window state per row.)** Records: API (limits/measured
 envelope) + GOTCHAS (the practical "can I use NAX here?" gate).
 
 ## Deviations (declared)
@@ -176,9 +178,11 @@ Measured 2026-10-15 in the same certified quiet window, `reps=5`, capture
 | **MAT-DOT-005 (4096²)** | **nax** | **NAX** | **4.521** | **4.470** | ✔ |
 | MAT-DOT-005 (4096²) | steel | Steel64 | 10.611 | 10.472 | ✔ |
 
-NAX vs the hand-rolled SIMT path: **+31 % at 1024², +57 % at 4096²**. NAX vs CoopTF32: −2.8 % at
-1024² (noise-level, single tilegroup), **+4.9 % at 4096²**. n=5 per cell; `mlx_ms` is the MLX leg of
-the same runner, so these are timing ratios, not joule numbers.
+NAX vs the hand-rolled SIMT path: **+45.9 % faster-by (1.46×) at 1024², +134.7 % (2.35×) at 4096²**
+[corrected 2026-10-26 from "+31 %/+57 %" — those were ms-saved fractions of steel's time, not the
+faster-by percentages this sentence's "+N%" phrasing reads as]. NAX vs CoopTF32: nax 2.8 % slower
+(−2.8 % saved vs coop) at 1024² (noise-level, single tilegroup), +4.9 % saved at 4096². n=5 per cell;
+`mlx_ms` is the MLX leg of the same runner, so these are timing ratios, not joule numbers.
 
 Still open, and *not* a toolchain problem: the sustained-load sonde used for the energy window
 (`p27_load_coreai.py`) dies on a 4 KB IOSurface allocation because `.venv-conv` moved to torch 2.14.1

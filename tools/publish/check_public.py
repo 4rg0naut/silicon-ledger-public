@@ -92,9 +92,11 @@ ANCHOR_LINK = re.compile(r"\[[^\]]*\]\(([^)\s]*#[^)\s]+)\)")
 
 
 def slugify(heading: str) -> str:
-    h = heading.strip().lstrip("#").strip().lower()
+    # GitHub's algorithm: lowercase, drop chars outside [\w\s-], then each
+    # whitespace -> "-", underscores KEPT, doubled spaces yield doubled hyphens.
+    h = heading.strip().lower()
     h = re.sub(r"[^\w\s-]", "", h)
-    return re.sub(r"[\s_]+", "-", h).strip("-")
+    return re.sub(r"\s", "-", h).strip("-")
 
 
 def _case_differs(stage: Path, rel: str) -> str | None:

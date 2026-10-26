@@ -1,0 +1,20 @@
+# INVALID FOR ARM COMPARISON - do not cite as a lane matrix.
+# Reason: the nax_gemm probe writes a bare stablehlo.dot_general; MetalHLO routes that to a path
+# that never reaches the MPP/NAX codegen (no '[matmul]' debug line is printed) so the
+# METALHLO_NAX_GEMM / COOP_GEMM / FORCE_STEEL switches are inert -> all three arms are the SAME
+# backend and the times are identical (f32 4096^3: 10.47/10.47/10.51 ms).
+# Valid route for GPU-datapath A/B: the comparison runner's own benchmarks (they do print the
+# [matmul] line), which have NO fp16 cells. See API-172.
+dtype	M	N	K	arm	kernel	med_ms	min_ms	p90_ms	maxabs
+f16	2048	2048	2048	nax	?	1.7710	1.7600	1.8680	0
+f16	2048	2048	2048	coop	?	1.8170	1.7980	1.9491	0
+f16	2048	2048	2048	steel	?	1.8500	1.7780	1.8880	0
+f16	4096	4096	4096	nax	?	2.9831	2.9349	3.1301	0
+f16	4096	4096	4096	coop	?	2.9560	2.9120	3.0110	0
+f16	4096	4096	4096	steel	?	2.9850	2.9520	3.0110	0
+f32	2048	2048	2048	nax	?	2.7591	1.7140	3.0810	0
+f32	2048	2048	2048	coop	?	1.7370	1.6601	3.0669	0
+f32	2048	2048	2048	steel	?	1.6769	1.6431	1.6910	0
+f32	4096	4096	4096	nax	?	10.4710	10.4660	10.5150	0
+f32	4096	4096	4096	coop	?	10.4690	10.4390	10.5261	0
+f32	4096	4096	4096	steel	?	10.5131	10.5070	10.5420	0

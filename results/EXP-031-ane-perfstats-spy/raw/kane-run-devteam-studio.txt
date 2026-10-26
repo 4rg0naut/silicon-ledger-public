@@ -1,0 +1,9 @@
+ANE compile: OK (conv-relu-conv int8 W8A16, 2 parity kernels)
+ANE field compile: OK (unified parity-input int8 W8A16, S=160, all 6 levels in one conv pass)
+field: rows=100 cells=15800 evals=100 median=307.9us
+field parity: max_delta_deq=1.716e+01 mismatch_deq=19 mismatch_float=476/15800 bad_cells=0
+field ctx_bits(float model)=19.2275 over 15800 cells
+kane: step1 create(65536)
+KANE-TRACE t0: try pre-factory
+KANE-TRACE t0.5: probe st=0x0 size=0
+./dev/ane_teamid_test.sh: line 85: 62326 Bus error: 10           NCM_ANE_KANE=1 "$SCRATCH" anectx --field

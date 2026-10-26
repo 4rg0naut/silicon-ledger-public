@@ -1,0 +1,22 @@
+# EXP-033 C-75 selector matrix — H1xANELoadBalancerDirectPathClient (open type 1), macOS 27.0.1/26A434
+# Kernel truth: _sANEDriverDirectPathClientMethods @0xfffffe00080a1e00, 11 entries x 40 B (count w4=0xb),
+#   inside com.apple.driver.AppleH16ANEInterface 10.19.2 from kernelcache 26A434__Mac17,14 (C-74 route A).
+# Entry layout: [0] PAC func ptr, [8] u32 flags, [12] u32 structInSize, [16] u32 scalarInCount(+), [20] u32 structOutSize, [24] u32 scalarOutCount (+pad)
+# Live verdicts: tools/ane_door_probe/probe4_grammar.c with decoded exact contracts (raw/kext/live_grammar_verdicts.txt)
+# Meter proof: no probe-attributable ANE-engine work — ambient ANE ~30 MB/s DCS present in all windows (confounds
+#   isolation; engine-counter lanes uninformative for bookkeeping calls); basis = kr codes + zero residue (ioreg witness).
+# Note: the earlier EXP-032 probe used selector 0x12 — OUT OF RANGE for this 11-entry table; the kernel-side
+#   bound is now measured (this doc) — prior "wrong table" reading is superseded by "beyond table bound".
+sel	handler_addr	live_kr	live_note	kext_side_id
+0	0x92c88d0	0x00000000	SUCCESS 136B struct roundtrip (bytes back: all-0 except u64@88=1, u64@112=4)	capability/negotiate (retainSharedEvents callee)
+1	0x92c8a28	0x00000000	SUCCESS zero-arg call	callee chain: retainSharedEvents + ANEClientDeviceCore::setDataChainingClient + ANE_ProgramChainingPrepare
+2	0x92c9764	0xe00002c2	BadArgument (struct passes table, handler rejects zeroed payload)	ANE_ProgramChainingPrepare-args candidate (3152B in, 64B out, 1 scalar out)
+3	0x92c9a48	0xe00002c2	BadArgument	40B args (init/token trio candidate; ANEClientInfo::create nearby)
+4	0x92c9b38	0xe00002c2	BadArgument	3104B args (program-prepare payload candidate)
+5	0x92c9c28	0xe00002c2	BadArgument	2088B args + 1 scalar in
+6	0x92c9dbc	0xe00002f0	NotReady — handler state machine reached with valid contract	lifecycle (clientDied/free path symbols)
+7	0x92c9f3c	0xe00002c2	BadArgument	16B in, 24B out
+8	0x92ca0c4	0xe00002c2	BadArgument	32B args
+9	0x92ca1b4	0xe00002c2	BadArgument	520B args + 1 scalar in
+10	0x92ca470	0xe00002c2	BadArgument	no struct, 1 scalar out (H1xANELoadBalancerClient nearby)
+11	(none)	0xe00002c2	out-of-bounds control (table is 11 entries)	bound-check verdict

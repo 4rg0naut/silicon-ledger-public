@@ -1,0 +1,18 @@
+TYPE 0 open kr=0xe00002c7 (skipped)
+TYPE 1 open kr=0x0
+  sel0 kr=0xe00002c2  sel1(pre-arm) kr=0x0
+  sel2 zero     handle=0x0 cnt=0 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  sel2 live     handle=0x18cb cnt=1 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  sel2 bogus    handle=0x4d9e cnt=1 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  closed
+TYPE 2 open kr=0xe00002c7 (skipped)
+TYPE 3 open kr=0xe00002c7 (skipped)
+TYPE 4 open kr=0x0
+  sel0 kr=0xe00002c2  sel1(pre-arm) kr=0x0
+  sel2 zero     handle=0x0 cnt=0 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  sel2 live     handle=0x18cb cnt=1 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  sel2 bogus    handle=0x4d9e cnt=1 kr=0xe00002c2 scalar0=0xface0000face oSz=64
+  closed
+TYPE 5 open kr=0xe00002c7 (skipped)
+TYPE 8 open kr=0xe00002c7 (skipped)
+TYPE 16 open kr=0xe00002c7 (skipped)

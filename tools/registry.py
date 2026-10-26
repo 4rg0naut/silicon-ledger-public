@@ -100,9 +100,18 @@ def load() -> dict[str, dict]:
 
 
 def save(entries: dict[str, dict]) -> None:
+    # ids are append-only: an existing path keeps its id forever — commits, spine citations,
+    # and README cross-refs quote INSTR ids (renumbering bug, review 2026-10-26). Only new
+    # paths take the next free id.
+    used = {r["id"] for r in entries.values() if r.get("id", "").startswith("INSTR-")}
+    nxt = max((int(i[len("INSTR-"):]) for i in used), default=0) + 1
+    for r in entries.values():
+        if not r.get("id"):
+            while f"INSTR-{nxt:03d}" in used:
+                nxt += 1
+            r["id"] = f"INSTR-{nxt:03d}"
+            used.add(r["id"])
     ordered = sorted(entries.values(), key=lambda r: r["path"])
-    for i, r in enumerate(ordered, 1):
-        r["id"] = f"INSTR-{i:03d}"
     REG.write_text("".join(json.dumps(r, sort_keys=True) + "\n" for r in ordered))
 
 

@@ -153,6 +153,10 @@ Full method list from the generated bindings [DOCUMENTED, (gen) for colon struct
 `modelWithNetworkDescription:...` is the non-MIL (Espresso/network-plist) sibling and is not exercised by
 any project I read. `hexStringIdentifier` on the descriptor is a hash of the program; the **model**'s own
 `hexStringIdentifier` is what projects use as a temp-directory name.
+*Amendment 2026-10-23 (EXP-032 C-71, MEASURE-157): the model hash is cracked to byte precision — the
+compile staging dir is `<SHA256upper(model.mil)>_<B>_<SHA256upper("")>` and its first component equals
+the model's `hexStringIdentifier` (3/3 byte-exact); the compiled `data` blob inside is readable
+unprivileged (the aned cache itself is EPERM). Component B's formula stays open. See 13-pulse-map.md §C-71.*
 
 ### 3.2 `_ANEInMemoryModel`
 

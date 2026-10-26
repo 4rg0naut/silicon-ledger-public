@@ -1,81 +1,87 @@
-# silicon-ledger — what the Neural Engine in your Mac actually does
+# silicon-ledger — every AI compute lane in Apple silicon, measured
 
-A home lab, two Macs, one obsession: the **Neural Engine** (ANE) — Apple's
-built-in AI chip that almost no software actually uses. We measured it,
-broke it, fixed it, and wrote down every number, including the embarrassing
-ones. Nothing here is a vendor claim.
+A home lab, two Macs (an M5 Max and an M4 mini), one discipline: run the same
+AI workloads on **every compute lane** — the Neural Engine (ANE), the GPU's
+tensor units, the GPU's shader path, the CPU — and publish every number,
+including the embarrassing ones, the silent detours, and the outright failures.
+Nothing here is a vendor claim.
 
-## What's new (2026-10-10)
+## The numbers first
 
-Latest round, with an honest **new vs already-public** verdict on each — full detail and
-evidence in [**WHATSNEW.md**](WHATSNEW.md):
+Six rows off the front page, one per lane pair. Every cell links to the
+experiment that produced it; every experiment names its measurement window and
+its caveats. State you are reading: mixed — rows marked *loaded-window* are
+declared upper bounds, certified-quiet re-takes are open.
 
-- **ANE activity, finally measurable** — the unprivileged IOReport counter `PMP0/SOC-NI9
-  "ANEXL U"` is *lane-exclusive*: zero unless the Neural Engine is working, ~19.6k when it is
-  (calibrated against matched idle/GPU/CPU runs). **New** as a discriminator.
-- **Apple's hidden AI cache decoded** — the `~/Library/Caches/coreai-cache` layout and its key
-  derivation (`modelHash` per model; `optsHash` a pure function of the compute-unit options).
-  **New**.
-- **The compiled plan is readable** — the cached `mpsgraph` bytecode printed as real MLIR: the
-  op graph, `mps.aneArch`, and every ANE/GPU region function with its signature. **New** technique
-  (that the format is MLIR is already public; the private dialects and the printing method are not).
-- **Which architecture your Mac actually targets** — measured `h17c` (M5 Max) vs `h16g` (M4
-  mini); a correction to a published ANE table is filed upstream
-  ([issue](https://github.com/sbryngelson/ane-guide/issues/1)). **Extends** published work.
-- **Apple's Foundation Model on the ANE, measured unprivileged** — `ANEXL U` reads 0 at idle and
-  10,862 across an `fm` burst; no GPU engagement above idle.
-- **The ANE↔GPU link carries data, both ways** — a GPU kernel writes an IOSurface and signals,
-  the ANE-side wrapper waits, content verified every iteration (~123/136 µs, 500/500).
-  **New** (the wire is driven end-to-end; attaching a live ANE program is still blocked).
+| lane · surface | measured | receipt |
+|---|---|---|
+| ANE, hand-re-authored model vs its stock export | **83 vs 10,390 mW** GPU power — 125× less, *and* faster (4.00 vs 4.33 ms) | [EXP-005](results/EXP-005-ane-residency/README.md) |
+| GPU tensor units (`matmul2d`) vs hand-written shader, same 4096² | **2.26× faster**, ~2× less GPU energy | [EXP-029 matrix](results/EXP-029-nax-crosslane/results/NAX-LANE-MATRIX.md) |
+| GPU vs ANE, identical fp16 GEMMs (M=1 / 512 / 2048) | GPU wins **10.2× / 7.3× / 5.4×** — including decode | [EXP-029](results/EXP-029-nax-crosslane/docs/NAX-ACTIVATION-AND-MEMORY.md) |
+| NAX tensor units, hand-written MSL, fp8 (loaded window) | **32.0 TF** @2048³, bit-exact 24/24; needs Metal 4.1 — measured | [EXP-037](results/EXP-037-fp8-nax/results/fp8_matrix-20261026T1356Z.tsv) |
+| NAX, same harness, int8 (loaded window) | **55.2 TF** @4096³ = **1.74× the fp16/fp8 band**, bit-exact 16/16 | [EXP-037](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) |
+| NAX, same harness, fp32 — the first fp32 lane measurement here | **14.0 TF** @4096³, bit-exact 16/16 | [EXP-037](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) |
 
-### The GPU side (round 2)
+The full per-lane reference — every lane this fleet has measured, by surface,
+with window, metric convention and instrument per cell — is
+[knowledge/ane/16 §Consolidated lane table v2](knowledge/ane/16-neural-accelerators.md#consolidated-lane-table-v2--every-lane-measured-on-this-fleet-by-surface-2026-10-26-v1-same-date-superseded).
 
-The M5 also has **Neural Accelerators inside its GPU cores** — one per core. We measured them
-against everything else, and filed the results with the same honesty labels:
+## Five numbers that surprised us
 
-- **GPU vs the shader path** — the tensor path (`matmul2d`) is **2.26× faster than the hand-written
-  shader kernel at 4096² and uses ~2× less GPU energy** for the same work; at decode (M=1) all GPU
-  datapaths collapse to the same number, i.e. the tensor units buy nothing there. **New.**
-- **GPU vs the Neural Engine on identical GEMMs** — the GPU wins **5–10×**, including at decode;
-  and a plain matmul *does* reach the ANE at 2048³, while the 1×1-conv form of the same GEMM is
-  2.1× slower there. **New** (measured); that the ANE prefers conv shapes is **known**.
-- **A correction worth knowing** — the widespread "M5 multi-tile `matmul2d` silently no-ops, Apple's
-  compiler bug" is **refuted on this box**: third-party MetalHLO runs 8/8 GEMMs correct including
-  4096×4096. Our own earlier no-op was a *usage* artifact.
-- **Why joules lie here** — GPU idle power swings **25→104 mW inside 30 s**, and this machine's only
-  "display" is the screenshot-sharing **virtual display** (the headless floor is ≈0–3 mW). Both are
-  measured in [QUIET-STATE](results/EXP-029-nax-crosslane/results/QUIET-STATE.md).
+1. **55.2 TF** — int8 on the GPU tensor units at 4096³, 1.74× the fp16/fp8
+   band, bit-exact, in a 200-line hand-written harness
+   ([EXP-037](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv)).
+   Narrower is not just smaller; on this silicon it is *faster*.
+2. **0 vs 19,648** — a single unprivileged IOReport counter (`ANEXL U`) that
+   reads zero unless the Neural Engine is working. The only honest way to see
+   Apple's silent GPU-default routing
+   ([WHATSNEW #4](WHATSNEW.md)).
+3. **25 → 104 mW in 30 s** — GPU idle power swings that much while *nothing
+   runs*; the headless floor is ≈0–3 mW. Without this, every joule on this
+   page would be noise ([QUIET-STATE](results/EXP-029-nax-crosslane/results/QUIET-STATE.md)).
+4. **83 vs 10,390 mW** — the same embedder, hand-re-authored for the ANE, at
+   125× less GPU power and faster than its published GPU build
+   ([EXP-005](results/EXP-005-ane-residency/README.md)).
+5. **1.7–8.5× slower** — the *same* GEMMs routed through Apple's generic MSL
+   lowering instead of the graph path; and via that path even fp4 buys nothing
+   (≤ 1.3 TF vs 32–55 TF native). Where your work goes matters more than what
+   it is
+   ([raw diff](results/EXP-022-m5max-baseline/raw/1427z-bench-diff-vs-example.txt)).
 
-Details: [NAX activation and memory](results/EXP-029-nax-crosslane/docs/NAX-ACTIVATION-AND-MEMORY.md) ·
-[the lane matrix](results/EXP-029-nax-crosslane/results/NAX-LANE-MATRIX.md) ·
-[the tooling inventory](results/EXP-029-nax-crosslane/docs/TOOLING-INVENTORY.md).
+## What's new
+
+The current round, every finding labelled **NEW / extends-public / already-public**
+with its evidence link, is [**WHATSNEW.md**](WHATSNEW.md) — that page carries
+the dates; this one doesn't go stale.
 
 ## How to use this repo
+
 Three layers, by what you came for:
 
-1. **Front door** (5 minutes) — this page, [**WHATSNEW.md**](WHATSNEW.md) (findings with a
-   NEW/EXT/KNOWN verdict each), and [PUBLIC-INDEX.md](PUBLIC-INDEX.md) (every experiment in plain words).
-2. **Reusable instruments** — [`bench/`](bench/) (identity probe, power A/B, latency protocol),
-   [`tools/`](tools/) (the `enginemon` engine monitor, the instrument registry), [`schemas/`](schemas/),
-   and [`CROSS-REPO-CONTRACT.md`](CROSS-REPO-CONTRACT.md) for the join with the benchmark repo.
-3. **Receipts** (verification, deliberately verbose) — [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md),
-   `knowledge/ane/` (the knowledge base *and* its machine-checkable records), and the raw evidence
-   under `results/`. Read this layer when you want to verify, not to browse.
+1. **Front door** (5 minutes) — this page, [**WHATSNEW.md**](WHATSNEW.md), and
+   [PUBLIC-INDEX.md](PUBLIC-INDEX.md) (every experiment in plain words).
+2. **Reusable instruments** — [`bench/`](bench/) (identity probe, power A/B,
+   latency protocol), [`tools/`](tools/) (the `enginemon` engine monitor, the
+   instrument registry), [`schemas/`](schemas/), and
+   [`CROSS-REPO-CONTRACT.md`](CROSS-REPO-CONTRACT.md) for the join with the
+   benchmark repo.
+3. **Receipts** (verification, deliberately verbose) —
+   [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md), `knowledge/ane/` (the
+   knowledge base *and* its machine-checkable records), and the evidence under
+   `results/`. Read this layer when you want to verify, not to browse.
 
-[**PUBLISH-POLICY.md**](PUBLISH-POLICY.md) states exactly what is published, what is private by
-design (harness sources, gzipped raw captures, private clones), and why a prose mention of a private
-path is a pointer, not a broken reference.
+[**PUBLISH-POLICY.md**](PUBLISH-POLICY.md) states exactly what is published,
+what is private by design (harness sources, gzipped raw captures, private
+clones), and why a prose mention of a private path is a pointer, not a broken
+reference.
 
 ## Why this exists
 
 Apple's own toolchains quietly route "AI" workloads to the GPU even when you
 ask for the Neural Engine — and say nothing about it. We built small
 instruments to catch that happening, then learned which graphs the ANE will
-accept, and how much faster it is when it says yes.
-
-The short version: the same model, re-authored by hand for the ANE, ran
-**3× faster and used 5× less GPU power** than its out-of-the-box export.
-And the official compile path still lands on the GPU — silently.
+accept, how much faster each lane is when it says yes, and how much the whole
+picture costs in joules. Apple publishes none of this; we publish all of ours.
 
 ## Start here (5 minutes, any Apple Silicon Mac)
 
@@ -89,14 +95,20 @@ cd bench && clang -O2 -o /tmp/ane-probe ane-probe.m -framework Foundation && /tm
 
 ## What's in here
 
-- `results/measurements.json` — every measurement ever taken, machine-checked (920 rows).
-- `results/EXP-001..029` — the experiment records, one folder each. `PUBLIC-INDEX.md` maps them in plain words.
+- `results/measurements.json` — every measurement ever taken, machine-checked (966 rows).
+- `results/EXP-001..037` — the experiment records, one folder each. `PUBLIC-INDEX.md` maps them in plain words.
+- `knowledge/ane/16-neural-accelerators.md` — the consolidated lane table: every lane measured on this fleet, by surface, single reference before any speed/energy comparison.
 - `results/LADDER.md` — the five-rung summary: silicon ceiling → official overhead → port fidelity → task quality → energy.
 - `results/FLEET.md` — which tool runs on which machine (and honestly, which don't).
 - `MINEFIELD.md` — 18 lessons from everything that broke. Read this before debugging.
 - `PUBLIC-OPENCLAIMS.md` — how our claims are recorded with receipts, and how you can verify them yourself.
-- `knowledge/ane/` — the reverse-engineering knowledge base behind all of it.
 - `tools/TOOLS.md` — the instrument registry: which tool is *the* one for a job (timing, joules, lane activity…).
+
+## The family
+
+- **[silicon-ledger-bench](https://github.com/4rg0naut/silicon-ledger-bench)** — the runnable side: burst-mode ANE/GPU/memory benchmark harnesses that emit the measurement rows this repo records. Run it yourself.
+- **[memory-knowledge](https://github.com/4rg0naut/memory-knowledge)** — the claim-provenance infrastructure underneath: quote-gated capture, hash-chained ledger, the OpenClaims spine.
+- **[ai-project-spine](https://github.com/4rg0naut/ai-project-spine)** — the one-file ledger gate, extracted, if you want the discipline without the lab.
 
 ## The house rules
 

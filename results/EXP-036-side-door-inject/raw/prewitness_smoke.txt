@@ -1,0 +1,14 @@
+open type 1 kr=0x0
+sel  0 contract(sIn=0 sSZ=136 sOut=0 oSZ=136) kr=0x0 oSz_back=136 scalar_out0=0xface0000face poison_echo=none lat_us=6.2
+   out hex (first 136): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+sel  1 contract(sIn=0 sSZ=0 sOut=0 oSZ=0) kr=0x0 oSz_back=0 scalar_out0=0xface0000face poison_echo=none lat_us=4.5
+sel  2 contract(sIn=0 sSZ=3152 sOut=1 oSZ=64) kr=0xe00002c2 oSz_back=64 scalar_out0=0xface0000face poison_echo=none lat_us=1.3
+sel  3 contract(sIn=0 sSZ=40 sOut=0 oSZ=0) kr=0xe00002c2 oSz_back=0 scalar_out0=0xface0000face poison_echo=none lat_us=14.1
+sel  4 contract(sIn=0 sSZ=3104 sOut=0 oSZ=0) kr=0xe00002c2 oSz_back=0 scalar_out0=0xface0000face poison_echo=none lat_us=12.2
+sel  5 contract(sIn=1 sSZ=2088 sOut=0 oSZ=0) kr=0xe00002c2 oSz_back=0 scalar_out0=0xface0000face poison_echo=none lat_us=1.4
+sel  6 contract(sIn=0 sSZ=2088 sOut=0 oSZ=0) kr=0xe00002f0 oSz_back=0 scalar_out0=0xface0000face poison_echo=none lat_us=5.8
+sel  7 contract(sIn=0 sSZ=16 sOut=0 oSZ=24) kr=0xe00002c2 oSz_back=24 scalar_out0=0xface0000face poison_echo=none lat_us=1.6
+sel  8 contract(sIn=0 sSZ=32 sOut=0 oSZ=0) kr=0xe00002c2 oSz_back=0 scalar_out0=0xface0000face poison_echo=none lat_us=1.2
+sel  9 contract(sIn=1 sSZ=520 sOut=0 oSZ=0) kr=0xe00002c2 oSz_back=0 scalar_out0=0xface0000face poison_echo=none lat_us=1.2
+sel 10 contract(sIn=0 sSZ=0 sOut=1 oSZ=0) kr=0xe00002c2 oSz_back=0 scalar_out0=0xface0000face poison_echo=none lat_us=0.5
+closed

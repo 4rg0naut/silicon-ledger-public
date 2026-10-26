@@ -1,0 +1,72 @@
+class ANEDriver                        instance=ANEDriverRoot
+  open type 0x0 kr=0xe00002c7
+  open type 0x1 kr=0x0 (OPENED)
+  open type 0x2 kr=0xe00002c7
+  open type 0x3 kr=0xe00002c7
+  open type 0x4 kr=0x0 (OPENED)
+  open type 0x10 kr=0xe00002c7
+  open type 0x20 kr=0xe00002c7
+  open type 0x30 kr=0xe00002c7
+  open type 0x32 kr=0xe00002c7
+  open type 0x7100 kr=0xe00002c7
+  open type 0x7101 kr=0xe00002c7
+  open type 0x8000 kr=0xe00002c7
+class ANEHWDevice                      instance=H11ANE
+  open type 0x0 kr=0xe00002c7
+  open type 0x1 kr=0xe00002c7
+  open type 0x2 kr=0xe00002c7
+  open type 0x3 kr=0xe00002c7
+  open type 0x4 kr=0xe00002c7
+  open type 0x10 kr=0xe00002c7
+  open type 0x20 kr=0xe00002c7
+  open type 0x30 kr=0xe00002c7
+  open type 0x32 kr=0xe00002c7
+  open type 0x7100 kr=0xe00002c7
+  open type 0x7101 kr=0xe00002c7
+  open type 0x8000 kr=0xe00002c7
+class ANEClientInterface               (no instances)
+class ANEScheduler                     (no instances)
+class H1xANELoadBalancer               instance=ANEDriverRoot
+  open type 0x0 kr=0xe00002c7
+  open type 0x1 kr=0x0 (OPENED)
+  open type 0x2 kr=0xe00002c7
+  open type 0x3 kr=0xe00002c7
+  open type 0x4 kr=0x0 (OPENED)
+  open type 0x10 kr=0xe00002c7
+  open type 0x20 kr=0xe00002c7
+  open type 0x30 kr=0xe00002c7
+  open type 0x32 kr=0xe00002c7
+  open type 0x7100 kr=0xe00002c7
+  open type 0x7101 kr=0xe00002c7
+  open type 0x8000 kr=0xe00002c7
+class H1xANELoadBalancerClient         (no instances)
+class ANEClientHints                   instance=ANEClientHints
+  open type 0x0 kr=0xe00002c7
+  open type 0x1 kr=0xe00002c7
+  open type 0x2 kr=0xe00002c7
+  open type 0x3 kr=0xe00002c7
+  open type 0x4 kr=0xe00002c7
+  open type 0x10 kr=0xe00002c7
+  open type 0x20 kr=0xe00002c7
+  open type 0x30 kr=0xe00002c7
+  open type 0x32 kr=0xe00002c7
+  open type 0x7100 kr=0xe00002c7
+  open type 0x7101 kr=0xe00002c7
+  open type 0x8000 kr=0xe00002c7
+class ANEInVMAllocator                 (no instances)
+class ANEPrivilegedVMAccess            (no instances)
+class ANEExclaveProxy                  instance=ANEExclaveProxy
+  open type 0x0 kr=0xe00002c7
+  open type 0x1 kr=0xe00002c7
+  open type 0x2 kr=0xe00002c7
+  open type 0x3 kr=0xe00002c7
+  open type 0x4 kr=0xe00002c7
+  open type 0x10 kr=0xe00002c7
+  open type 0x20 kr=0xe00002c7
+  open type 0x30 kr=0xe00002c7
+  open type 0x32 kr=0xe00002c7
+  open type 0x7100 kr=0xe00002c7
+  open type 0x7101 kr=0xe00002c7
+  open type 0x8000 kr=0xe00002c7
+class ANEDriverDebugClient             (no instances)
+class IOReport                         (no instances)

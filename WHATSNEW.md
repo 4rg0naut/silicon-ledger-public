@@ -1,3 +1,18 @@
+# What's new — 2026-10-26 (round 3: the integer lanes, and the door)
+
+Same status key: **NEW** = we could not find it published · **EXT** = extends published work · **KNOWN** = already public.
+Earlier rounds follow below, newest first.
+
+| # | Finding | Status | Evidence |
+|---|---|---|---|
+| 15 | **First published int8 and fp32 lane numbers for the M5 Max NAX tensor units** — hand-written MSL `matmul2d`, bit-exact against exact-integer oracles: **int8 55.2 TF @4096³ = 1.74× the fp16/fp8 band** (independently matches a published A19 ratio of 1.8×), **fp32 14.0 TF** @4096³, decode (M=1, 64-row padded tile) i8 0.0679 ms @K4096. Measured in a loaded-box window and declared as upper bounds. | **NEW** | [`results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv`](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) · [`README`](results/EXP-037-fp8-nax/README.md) |
+| 16 | **fp8 (`metal_fp8_e4m3_format`) executes natively on NAX** — 32.0 TF @2048³, bit-exact 24/24, energy at parity-with-noise vs fp16; it **requires `-std=metal4.1`** (4.0 rejects the type — measured), and the 4.1 gate is fp8-specific, not device-tensor-general (the f32/f16 arms compile at 4.0 too). | **NEW** | [`results/EXP-037-fp8-nax/results/fp8_matrix-20261026T1356Z.tsv`](results/EXP-037-fp8-nax/results/fp8_matrix-20261026T1356Z.tsv) |
+| 17 | **The IOKit side door into the ANE, mapped** — direct-path round-trips 3.2–7.1 µs (success), error returns from 0.6 µs, and the submit gate is **CLOSED and load-blind** (36/36 cells): the door answers whether the box is busy, not how busy; side-door injection observed 0.5–7.3 µs (n=141). | **NEW** | [`results/EXP-033-door-map/README.md`](results/EXP-033-door-map/README.md) · [`raw sweep`](results/EXP-036-side-door-inject/raw/probe10_sweep_run1.jsonl) |
+| 18 | **int8 flips sign between fleets**: 4.8× *slower* than fp16 on the M4 mini's ANE (round-1 finding) vs **1.74× faster** on the M5 Max's GPU tensor lane — quantization advice does not transfer between engines, even within one vendor generation. | **EXT** — extends our own M4 result | [`results/EXP-005-ane-residency/README.md`](results/EXP-005-ane-residency/README.md) · [`lane_matrix tsv`](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) |
+| 19 | **A single consolidated lane reference, gated** — every lane measured on this fleet in one table, per surface, each cell carrying window·metric-convention·instrument·capture-link; 13 contaminated sets quarantined (kept, stamped, excluded); 9 open flags with named deciders. | **NEW** (process; published because drift is the failure mode it prevents) | [`knowledge/ane/16-neural-accelerators.md`](knowledge/ane/16-neural-accelerators.md) |
+
+---
+
 # What's new — 2026-10-10 (round 2: the GPU Neural Accelerators, and the tooling memory)
 
 This mirror is the **distilled** public slice of a private Apple-silicon reverse-engineering
@@ -26,7 +41,7 @@ A correction note for finding #1 is filed upstream:
 ## What this mirror is (and is not)
 - **Is:** measured numbers, the failure corpus, and the instruments, with every claim carrying its
   command and its caveats. The claim layer is machine-checkable — see
-  [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md) (677 claims, 802 provenance events, 0 invalid).
+  [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md) (699 claims, 824 provenance events, 0 invalid).
 - **Is not:** vendor claims, or a promise that any of the private/documented Apple interfaces are
   stable. Where a claim is an AI's check rather than a human's, it says so.
 

@@ -1,0 +1,123 @@
+Filtering the log data using "process == "kernel" AND (subsystem == "com.apple.driver.AppleH16ANEInterface" OR composedMessage CONTAINS[c] "ANE" OR composedMessage CONTAINS[c] "program handle")"
+Timestamp               Ty Process[PID:TID]
+2026-10-23 21:28:54.805 Df kernel[0:3ebea] (apfs) clear_purgeability_log:1873: disk3s5 apfs_vnop_remove : ANECompilerService clearing purgeability on ino 6049746 (204A66051A3C66B1A1E5CDC3BC918F80E317B10548D3AD7C86C9B35C7CF71892_469FB3EFECAC3EE63F79C5ABB4F15B67ADE2A360652AF0FC7CD77AFD5006DF8A_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855 ; parent-id 6049745)
+2026-10-23 21:28:54.812 Df kernel[0:3f084] (AppleH16ANEInterface) : newUserClient: ANEDriver::newUserClient type=2
+2026-10-23 21:28:54.812 Df kernel[0:3f084] (AppleH16ANEInterface) : ANE_UserClientOpen:
+2026-10-23 21:28:54.812 Df kernel[0:3f084] (AppleH16ANEInterface) : ANE_UserClientOpen: Adding client name: aned, client: <decode: bad range for [%p] got [offs:25 len:0 within:0]> pid: 957
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) : aneVnodeSecureLookup: Success vnode: <decode: bad range for [%p] got [offs:22 len:0 within:0]> iocount: 1 usecount: 1 size: 98304 filePath: /Library/Caches/com.apple.aned/26A434/InMemoryModelCache/probe8_replay-5555494409a63d6daf713107a9b5062b95dcfd33_unsigned/204A66051A3C66B1A1E5CDC3BC918F80E317B10548D3AD7C86C9B35C7CF71892_469FB3EFECAC3EE63F79C5ABB4F15B67ADE2A360652AF0FC7CD77AFD5006DF8A_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/model.hwx
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) : aneVnodeTrustVerification: on-device compiled model DataVault verification succeeded
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) : aneMachoReadHeaderLoadCommands: macho headerAndLoadCommand: 0x<decode: bad range for [%llx] got [offs:32 len:0 within:0]>, size: 12824
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) ANE: __TEXT __text filesize: 808 fileoffset: 32768
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) ANE: __TEXT __const filesize: 16384 fileoffset: 33600
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) ANE: __KERN_0 __kern_0 filesize: 18432 fileoffset: 65536
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) : ANE_ProgramInitialSetup: Model verification passed - isPrecompiledModel: 0 isModelVerifiedBySignatureCheck: 0
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) : ANEProgramResource: Dart page size program initi:16384
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) : preProcess: Program Identifier: ANEC v1
+zin_ane_compiler v10.26.6
+
+coremlc-component-MIL: 3600.16.1
+coremlc-version: 3600.25.1
+
+ Module ANEC: 
+	 ModuleBundleName: com.apple.ANECompilerFramework
+	 ModuleVersion: 10.26.6
+	 ModuleCompilationFlags: 
+	-t h17g
+	--fno-fold-scale=true
+	--fdram-allocator=ffreuse
+	--fdram-tensor-priority=sizebyliverange
+	--fl2-allocator=ffreuse
+	--fl3-allocator=ffreuse
+	--fl2-cache-mode=resident
+	--fsignature=ident
+	--fdisable-bonded-networks=true
+	--enable-param-and-map-rtgraph-refactor=false
+	--enable-work-stealing-for-bonded-networks=false
+	--memcache-size=4194304
+	--fspatial-split=disabled
+	--fenable-circular-buffer-in-spatial-split=-1
+	--fkernel-rewind=enabled
+	--fuse-runtime-matmul-scaling=false
+	--max-td-latency=10000.000000
+	--ne-frequency=-1.000000
+	--pstate-dcs=-1
+	--pstate-soc=-1
+	--bss-limit=8589934592
+	--foptimize-ne-utilization=true
+	--disable-cache-prefetch-mask=1
+	--optimize-mutable-kernel-section=true
+	--enable-summary-performance-stats=false
+	--split-kernel-sect<…>
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) ANEC v1
+zin_ane_compiler v10.26.6
+
+coremlc-component-MIL: 3600.16.1
+coremlc-version: 3600.25.1
+
+ Module ANEC: 
+	 ModuleBundleName: com.apple.ANECompilerFramework
+	 ModuleVersion: 10.26.6
+	 ModuleCompilationFlags: 
+	-t h17g
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) ANE0: ANE_HWDevicePowerOn_gated: Powering on ANE. blocking: 1, fHWDevicePowerAssertions: 1
+2026-10-23 21:28:54.813 Df kernel[0:3f084] (AppleH16ANEInterface) ANE0: ANE_WaitForPowerOn: Wait until ANE gets powered up retries=1
+2026-10-23 21:28:54.813 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: setPowerState: powerStateOrdinal=1, whatDevice=<decode: bad range for [%p] got [offs:19 len:0 within:0]>
+2026-10-23 21:28:54.813 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: setPowerStateGatedPriv: Requested power state: 1
+2026-10-23 21:28:54.813 Df kernel[0:190a5] (AppleT6050ANEHAL)  IOReturn AppleT6050ANEHAL::AppleANETunableApplyFunction(uint64_t, uint64_t, uint64_t) WE are here: AppleT6050ANEHAL: 96,
+2026-10-23 21:28:54.814 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: power_on_hardware_gated: EnableANEClocksAndPower result = 0x0
+2026-10-23 21:28:54.814 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_Init: fFirmwareIsSuspended: 0
+2026-10-23 21:28:54.814 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_Init: Wait for wake signal from first rANE_SCRATCH7 ANECPU
+2026-10-23 21:28:54.817 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_Init: Initializing IPC channels
+2026-10-23 21:28:54.817 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_Init: FW App image...
+2026-10-23 21:28:54.818 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_Init: cmd_buffer_base: 0x10000384000, size: 262144
+2026-10-23 21:28:54.825 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_InitFirmwareConfiguration: CSNE_CMD_SET_SNE_PMU_BASE2 command to firmware, res=0x00000000
+2026-10-23 21:28:54.825 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_InitFirmwareConfiguration: fNumANEs: 1 fANEMaxCacheRequestSharedEvents: 8
+2026-10-23 21:28:54.825 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_InitFirmwareConfiguration: fANEMaxCacheRequests: 8
+2026-10-23 21:28:54.825 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_InitFirmwareConfiguration: fANEMaxGlobalWaitEvent: 32
+2026-10-23 21:28:54.825 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_InitFirmwareConfiguration: fFWSupportsRTGraph: 1
+2026-10-23 21:28:54.825 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_InitFirmwareConfiguration: CPU load throttler enabled (fEnableANECpuLoadThrottle=1, useLoadMonitor=1)
+2026-10-23 21:28:54.825 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: handleISPClientMCacheRequest: Starting ISP client mcache request handling
+2026-10-23 21:28:54.825 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: handleISPClientMCacheRequest: Peer IPC service not enabled, skipping ISP client mcache request
+2026-10-23 21:28:54.825 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: initializeInferenceRequestMemoryPool: fANEInferenceCallPropertyMemoryPoolSize=256 totalMemPoolSize=3719168 fANEInferenceTotalMemoryPoolSize=0 blocksize=14488
+2026-10-23 21:28:54.826 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_Init: Statistics: ColdStarts: 48, JetsamTriggeredColdStarts: 0, Resumes: 0, ResumesFailed: 0, SuspendsSuccessful: 0, SuspendsFailed: 0 FirmwareTimeouts: 0 ANEDeInits: 47 ANEInitFailures: 0
+2026-10-23 21:28:54.826 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_Init: Work Stats:  WorkSubmit: 384 WorkSubmitFailed: 0 WorkBegin: 384 WorkEnd: 384
+2026-10-23 21:28:54.826 Df kernel[0:190a5] (AppleH16ANEInterface) ANE0: ANE_ExclaveRestoreState: No exclave state to restore
+2026-10-23 21:28:54.826 Df kernel[0:3f084] (AppleH16ANEInterface) : _dartMap: dartMap[aneId=0 surfaceID=0 usageType=11]: dartAddress=0x100016ec000 offset=0x0 finalAddr=0x100016ec000
+2026-10-23 21:28:54.826 Df kernel[0:3f084] (AppleH16ANEInterface) : _dartMap: dartMap[aneId=0 surfaceID=0 usageType=9]: dartAddress=0x10001700000 offset=0x340 finalAddr=0x10001700340
+2026-10-23 21:28:54.826 Df kernel[0:3f084] (AppleH16ANEInterface) : _dartMap: dartMap[aneId=0 surfaceID=0 usageType=8]: dartAddress=0x1000170c000 offset=0x0 finalAddr=0x1000170c000
+2026-10-23 21:28:54.826 Df kernel[0:3f084] (AppleH16ANEInterface) : ANE_ProgramPrepare: Network doesn't require intermediate buffer, return 0 for sharedIntermediateHandle
+2026-10-23 21:28:54.826 Df kernel[0:3f0db] (AppleH16ANEInterface) : newUserClient: ANEDriver::newUserClient type=1
+2026-10-23 21:28:54.826 Df kernel[0:3f0db] (AppleH16ANEInterface) : ANE_UserClientOpen:
+2026-10-23 21:28:54.826 Df kernel[0:3f0db] (AppleH16ANEInterface) : ANE_UserClientOpen: Adding client name: probe8_replay, client: <decode: bad range for [%p] got [offs:34 len:0 within:0]> pid: 77007
+2026-10-23 21:28:54.826 Df kernel[0:3f0db] (AppleH16ANEInterface) : ANE_AddClientForProgram: Adding client <decode: bad range for [%p] got [offs:25 len:0 within:0]>:  probe8_replay to programHandle: 0x186d, programResource: <decode: bad range for [%p] got [offs:39 len:0 within:0]>
+2026-10-23 21:28:54.829 Df kernel[0:3f0db] (AppleH16ANEInterface) : newUserClient: ANEDriver::newUserClient type=1
+2026-10-23 21:28:54.829 Df kernel[0:3f0db] (AppleH16ANEInterface) : ANE_UserClientOpen:
+2026-10-23 21:28:54.829 Df kernel[0:3f0db] (AppleH16ANEInterface) : ANE_UserClientOpen: Adding client name: probe8_replay, client: <decode: bad range for [%p] got [offs:34 len:0 within:0]> pid: 77007
+2026-10-23 21:28:54.829 Df kernel[0:3f0db] (AppleH16ANEInterface) : ANE_UserClientCleanup:
+2026-10-23 21:28:54.829 Df kernel[0:3f0db] (AppleH16ANEInterface) : ANE_UserClientCleanup: Client <decode: bad range for [%p] got [offs:23 len:0 within:0]> cleanup done 2
+2026-10-23 21:28:54.829 Df kernel[0:3f0db] (AppleH16ANEInterface) : ANE_UserClientCleanup: -
+2026-10-23 21:28:54.829 Df kernel[0:3f0db] (AppleH16ANEInterface) : ANE_UserClientClose: client closing :<decode: bad range for [%p] got [offs:21 len:0 within:0]>
+2026-10-23 21:28:54.830 Df kernel[0:3f084] (AppleH16ANEInterface) : ANE_ProgramDestroy: programHandle: 0x186d, client: 0x<decode: bad range for [%llx] got [offs:20 len:0 within:0]>
+2026-10-23 21:28:54.830 Df kernel[0:3f084] (AppleH16ANEInterface) : ANE_ProgramDestroy: WARN: Process not found. ProgramHandle: 0x186d
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientDeviceCore: +
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientDeviceCore: -
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientContext: Removing client: <decode: bad range for [%p] got [offs:19 len:0 within:0]>, clientName: probe8_replay
+2026-10-23 21:28:54.830 Df kernel[0:3f084] (AppleH16ANEInterface) : ANE_UserClientCleanup:
+2026-10-23 21:28:54.830 Df kernel[0:3f084] (AppleH16ANEInterface) : ANE_UserClientCleanup: Client <decode: bad range for [%p] got [offs:23 len:0 within:0]> cleanup done 2
+2026-10-23 21:28:54.830 Df kernel[0:3f084] (AppleH16ANEInterface) : ANE_UserClientCleanup: -
+2026-10-23 21:28:54.830 Df kernel[0:3f084] (AppleH16ANEInterface) : ANE_UserClientClose: client closing :<decode: bad range for [%p] got [offs:21 len:0 within:0]>
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ANE_UserClientCleanup:
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ANE_UserClientCleanup: Client <decode: bad range for [%p] got [offs:23 len:0 within:0]> cleanup done 2
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ANE_UserClientCleanup: -
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ANE_UserClientClose: client closing :<decode: bad range for [%p] got [offs:21 len:0 within:0]>
+2026-10-23 21:28:54.830 Df kernel[0:3422a] (AppleH16ANEInterface) : operator(): Process Unprepare For aneId:0 epoch:47 processId:0
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientDeviceCore: +
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientDeviceCore: -
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientContext: Removing client: <decode: bad range for [%p] got [offs:19 len:0 within:0]>, clientName: probe8_replay
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientDeviceCore: +
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientDeviceCore: -
+2026-10-23 21:28:54.830 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientContext: Removing client: <decode: bad range for [%p] got [offs:19 len:0 within:0]>, clientName: aned
+2026-10-23 21:28:54.830 Df kernel[0:3422a] (AppleH16ANEInterface) : operator(): Program Unprepare For aneId:0 epoch:47 programId:0
+2026-10-23 21:28:54.830 Df kernel[0:25a2] (AppleH16ANEInterface) : ~ANEProgramResource: totalPrograms = 0 keyWasRemoved=1
+2026-10-23 21:28:54.830 Df kernel[0:25a2] (AppleH16ANEInterface) : ~ANEProgramResource: Release vnode iocount: 0 usecount: 2 machoFilePath=/Library/Caches/com.apple.aned/26A434/InMemoryModelCache/probe8_replay-5555494409a63d6daf713107a9b5062b95dcfd33_unsigned/204A66051A3C66B1A1E5CDC3BC918F80E317B10548D3AD7C86C9B35C7CF71892_469FB3EFECAC3EE63F79C5ABB4F15B67ADE2A360652AF0FC7CD77AFD5006DF8A_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/model.hwx
+2026-10-23 21:28:54.830 Df kernel[0:3422a] (AppleH16ANEInterface) : canEnableSchedulerMaintenanceTimer: fInactiveResources->size(): 0 pendingRequestsCount() : 0. Not re-enabling maintenance timer

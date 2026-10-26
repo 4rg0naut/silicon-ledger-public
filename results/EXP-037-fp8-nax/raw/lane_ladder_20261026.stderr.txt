@@ -1,0 +1,2 @@
+device: Apple M5 Max
+library compiled (metal4.1)

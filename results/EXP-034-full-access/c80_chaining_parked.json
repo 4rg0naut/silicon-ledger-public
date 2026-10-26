@@ -1,0 +1,21 @@
+{
+  "exp": "EXP-034",
+  "criterion": "C-80 (chaining spike: hot submit through type-1 door with real client token)",
+  "date": "2026-10-23",
+  "verdict": "PARKED-WITH-NAMED-GAP — sel-2 3152B payload rejected uniformly kIOReturnBadArgument (0xe00002c2) across a 12-candidate word[0] handle ladder, and a successful zero-arg sel-1 pre-arm (kr=0x0) on the same connection does NOT change sel-2 behavior; therefore the first rejection gate is upstream of chaining-client/handle state: the ANEProgramChainingPrepareArgs blob grammar itself, whose validation is delegated to the callee deserializer",
+  "machine": {"model": "Mac17,14 M5 Max", "os": "27.0.1 (26A434)", "fingerprint": "bda452aabd60bf26"},
+  "mini_attempted": false,
+  "provenance": {"git_commit": "cbd9a96+", "build_config": "release (clang -O2, ad-hoc signed)", "instruments": ["tools/ane_door_probe/probe6_chain.c", "tools/ane_door_probe/probe6b_chain.c"], "evidence": "raw/p6_chain_studio.txt, raw/p6b_prearm_studio.txt, raw/ioreg_zero_residue_witness.txt"},
+  "ladder": {
+    "word0_candidates": ["0x0", "0x1", "0x2", "0x3", "0x4", "0x8", "0x10", "0x20", "0x64", "0xb4fe (pid-low, p6)", "0xbad4 (pid-low, p6b)", "0x1000", "0xffff"],
+    "scalar_poison": "0xface0000face (scalarOut returned unchanged — handler never wrote it)",
+    "result": "uniform kr=0xe00002c2, oSz_back=64 on every candidate, pre-armed and unarmed alike"
+  },
+  "named_gap": {
+    "layer": "argument validation inside ANE_ProgramChainingPrepare callee chain (not selector table, not chaining-client state)",
+    "disasm_evidence": "results/EXP-033-door-map/raw/kext/deep_sel2.asm — no direct compare of any input word against the scalar window; first visible checks are a device-type switch (cmp w8,#3) and OSValueObject<ANEClientDevice*>::init(), i.e. the 3152B blob embeds serialized value-object references (ANEClientDevice), not raw scalars",
+    "next_step": "reproduce the user-mode serializer that builds ANEProgramChainingPrepareArgs (ANEClientInfo::create + _ANEProcedureData/_ANEWeight serializer chain) — a bounded serialization session, not blind fuzzing; one bounded session already spent this round per C-76 stop-rule precedent"
+  },
+  "meter": "no probe-attributable ANE engine work claimed (rejection at payload validation; dispatch-only cost per MEASURE-161); zero-residue witnesses cover every run",
+  "consumer_lane_note": "C-81 closes as NOT-TRIGGERED with pointer to this gap (gate allows parked outcome); dual-path A/B awaits a chaining-proven handoff or the EXP-025 shared-events mailbox route"
+}

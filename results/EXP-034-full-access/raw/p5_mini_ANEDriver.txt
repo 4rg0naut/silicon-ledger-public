@@ -1,0 +1,66 @@
+service: ANEDriver instance=ANEDriverRoot
+--- DeviceProperties ---
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ANEDevicePropertyNumANEs</key>
+	<integer>1</integer>
+</dict>
+</plist>
+--- full properties tree ---
+props kr=0x0
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.driver.AppleH16ANEInterface</string>
+	<key>CFBundleIdentifierKernel</key>
+	<string>com.apple.driver.AppleH16ANEInterface</string>
+	<key>DeviceProperties</key>
+	<dict>
+		<key>ANEDevicePropertyNumANEs</key>
+		<integer>1</integer>
+	</dict>
+	<key>IOClass</key>
+	<string>H1xANELoadBalancer</string>
+	<key>IOGeneralInterest</key>
+	<string>IOCommand is not serializable</string>
+	<key>IOMatchCategory</key>
+	<string>H1xANELoadBalancer</string>
+	<key>IOMatchedAtBoot</key>
+	<true/>
+	<key>IOPersonalityPublisher</key>
+	<string>com.apple.driver.AppleH16ANEInterface</string>
+	<key>IOProbeScore</key>
+	<integer>0</integer>
+	<key>IOProviderClass</key>
+	<string>IOResources</string>
+	<key>IOResourceMatch</key>
+	<string>IOKit</string>
+</dict>
+</plist>
+open type 1 kr=0x0
+sel0 136/136 kr=0x0 oSz_back=136
+  out136:
+  0000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0010: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0020: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0030: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0040: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0050: 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00
+  0060: 00 00 00 80 02 00 00 00 00 00 00 00 00 00 00 00
+  0070: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0080: 00 00 00 00 00 00 00 00
+sel0 0x68/0x68 (mdaiter arm) kr=0xe00002c2 oSz_back=104
+  out104:
+  0000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0010: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0020: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0030: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0040: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0050: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0060: 00 00 00 00 00 00 00 00
+sel0 0x68 (int32@0x18=-1) kr=0xe00002c2 oSz_back=104
+done
