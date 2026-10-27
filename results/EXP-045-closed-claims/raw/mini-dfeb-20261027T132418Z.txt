@@ -1,0 +1,16 @@
+27.0.1
+17179869184
+device: Apple M4
+armD	bytes=262144	gpu_copy_ms=0.0053	gpu_GBs=99.1	cpu_memcpy_into_shared_ms=0.0030	cpu_GBs=174.8	ratio_cpu_over_gpu=0.57
+armD	bytes=1048576	gpu_copy_ms=0.0132	gpu_GBs=158.3	cpu_memcpy_into_shared_ms=0.0150	cpu_GBs=139.8	ratio_cpu_over_gpu=1.13
+armD	bytes=4194304	gpu_copy_ms=0.0657	gpu_GBs=127.6	cpu_memcpy_into_shared_ms=0.0690	cpu_GBs=121.6	ratio_cpu_over_gpu=1.05
+armD	bytes=67108864	gpu_copy_ms=1.3816	gpu_GBs=97.1	cpu_memcpy_into_shared_ms=2.2790	cpu_GBs=58.9	ratio_cpu_over_gpu=1.65
+armD	bytes=268435456	gpu_copy_ms=5.3578	gpu_GBs=100.2	cpu_memcpy_into_shared_ms=5.7010	cpu_GBs=94.2	ratio_cpu_over_gpu=1.06
+armF_pre	free_GB=4054.18	active_GB=0.00	compressed_GB=30662.80	speculative_GB=0.00
+armF_allocated	GB=2.20	touch_s=0.16
+armF_latency_us	p50=0.00	p99=2.00	p999=7.00	max=1182.0	sink=4878440025
+armF_post	free_GB=4054.18	compressed_GB=30662.80	swap_used_GB=0.71	of=2.15
+armE	loaders=9_default_class	window_s=5	itps_DEFAULT=282037600	itps_USER_INITIATED=401158200	ratio_default_over_ui=0.703
+armB5_sgemm	size=512x512x512	reps=200	GFLOPS=1493.9
+armB5_vdsp	elements=4194304	GBs=105.8
+DONE

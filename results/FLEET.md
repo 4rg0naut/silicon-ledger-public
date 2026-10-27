@@ -20,6 +20,13 @@ machines — EXP-005 two-throughput-states applies per machine). Platform identi
 | iPad Air M2 | — (not powered for RE yet) | — | planned; constrained target |
 | Lenovo P11 Pro | Android/ARM (non-Apple) | n/a | future contrast column |
 
+Window gate update (2026-10-27, round-6): `quiet_probe.sh` QUIET-KEY now also captures
+`console=<user|none> share=<up|down>` (GUI session via `who`, live Screen Sharing via the
+`screensharingd` "Remote user is connected" power assertion). Joule figures require
+`console=none share=down` (RULES-5 rail trap, 0–3 vs 27–85 mW); figures captured before the
+field exist are labelled `console-unrecorded` — a gap label, never a silent re-run.
+
+
 ### Per-model hardware truth (2026-10-10, Apple-sourced)
 
 Fetched 2026-10-10: apple.com/newsroom 2026/03 M5 Pro/Max release, apple.com/mac-studio/specs,

@@ -87,3 +87,8 @@ inference is GPU load on the machine under test. Any measurement window requires
 agent and oMLX stopped — enforced by scheduled captures with a load-guard, never by
 "the machine looks idle mid-session". Contamination is quantified in
 `EXP-022-m5max-baseline/README.md` (gpu_copy 380.5 → 59–85 GB/s while generating).
+
+**The joule rule (2026-10-27, round-6):** a rail/joule figure is only comparable when its window
+stamp shows `console=none share=down` — Screen Sharing inflates GPU rails 27–85 mW against the
+≈0–3 mW headless floor. `quiet_probe.sh` captures the field now; figures taken before it existed
+carry the `console-unrecorded` label (gap label, not a re-run permit to overwrite the old row).

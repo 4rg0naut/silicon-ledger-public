@@ -66,8 +66,15 @@ powerd thermald ScreenTimeAgent VTEncoderXPCService avconferenced"
   echo "## verdict"
   n=$(for p in $WATCH; do pgrep -qx "$p" 2>/dev/null && echo x; done | wc -l | tr -d ' ')
   echo "  suspect_daemons_up=$n"
+  # console/share added 2026-10-27 (round-6 fleet gate, RULES-5 Screen-Sharing rail trap):
+  # a GUI/console session or an attached Screen Sharing client inflates GPU rails 27-85 mW
+  # vs ~0-3 mW headless — energy arms are only valid with console=none AND share=down.
+  cs=$(who | awk '$2=="console"{print $1; exit}')
+  [ -n "$cs" ] && console="$cs" || console=none
+  if pmset -g assertions 2>/dev/null | grep -q "Remote user is connected"; then share=up; else share=down; fi
+  echo "  console_session=$console screenshare=$share"
   pgrep -qx oMLX 2>/dev/null && echo "  oMLX=UP  (measurement host is LOADED; energy arms invalid)" || echo "  oMLX=down"
-  echo "  QUIET-KEY: omlx=$(pgrep -qx oMLX && echo up || echo down) loadavg=$(sysctl -n vm.loadavg | tr -d '{}' | awk '{print $2}') suspects=$n"
+  echo "  QUIET-KEY: omlx=$(pgrep -qx oMLX && echo up || echo down) loadavg=$(sysctl -n vm.loadavg | tr -d '{}' | awk '{print $2}') suspects=$n console=$console share=$share"
 } > "$out" 2>&1
 
 echo "wrote $out"

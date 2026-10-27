@@ -1,0 +1,32 @@
+device: Apple M5 Max
+MSL compile FAIL (4.1): program_source:13:19: error: automatic variable qualified with an address space
+    constant uint G = 8;
+                  ^
+program_source:49:1: warning: unknown attribute 'threadgroup_index_in_grid' ignored [-Wunknown-attributes]
+ARMB(pb_f16, half,            half,             float,   128, 64, 8)
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+program_source:29:28: note: expanded from macro 'ARMB'
+               uint3 gid [[threadgroup_index_in_grid]])                                      \
+                           ^~~~~~~~~~~~~~~~~~~~~~~~~
+program_source:49:1: error: invalid type 'thread uint3' (vector of 3 'unsigned int' values) for input declaration in a kernel function
+ARMB(pb_f16, half,            half,             float,   128, 64, 8)
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+program_source:29:16: note: expanded from macro 'ARMB'
+               uint3 gid [[threadgroup_index_in_grid]])                                      \
+               ^~~~~~~~~
+program_source:50:1: error: expected expression
+ARMB(pb_f8,  metal_fp8_e4m3_format, metal_fp8_e4m3_format, float, 128, 64, 8)
+^
+program_source:22:93: note: expanded from macro 'ARMB'
+#define ARMB(FN, TA, TB, TC, TH, TW, SG)                                                    \
+                                                                                            ^
+program_source:51:69: error: expected '}'
+ARMB(ps_f16, half,            half,             float,   64,  32, 4)
+                                                                    ^
+program_source:49:1: note: to match this '{'
+ARMB(pb_f16, half,            half,             float,   128, 64, 8)
+^
+program_source:29:94: note: expanded from macro 'ARMB'
+               uint3 gid [[threadgroup_index_in_grid]])                                      \
+                                                                                             ^
+

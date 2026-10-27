@@ -112,7 +112,7 @@ def save(entries: dict[str, dict]) -> None:
             r["id"] = f"INSTR-{nxt:03d}"
             used.add(r["id"])
     ordered = sorted(entries.values(), key=lambda r: r["path"])
-    REG.write_text("".join(json.dumps(r, sort_keys=True) + "\n" for r in ordered))
+    REG.write_text("".join(json.dumps(r, sort_keys=True, ensure_ascii=False) + "\n" for r in ordered))
 
 
 def seed() -> int:
@@ -150,7 +150,16 @@ def check() -> int:
     if unclassified:
         print(f"WARN: {len(unclassified)} entr(y|ies) still unclassified (status TODO): "
               f"{' '.join(unclassified[:12])}{' …' if len(unclassified) > 12 else ''}")
-    if not missing and not dead:
+    # determinism (round-6, 2026-10-27): the committed instruments.jsonl must already BE the
+    # canonical serialization, so every future regen is a zero-diff no-op. Churn class finding,
+    # flagged twice (unicode re-encoding buried real one-line changes in ~all-line diffs).
+    canon = "".join(json.dumps(r, sort_keys=True, ensure_ascii=False) + "\n"
+                    for r in sorted(entries.values(), key=lambda r: r["path"]))
+    stale = REG.read_text() != canon
+    if stale:
+        print("FAIL: instruments.jsonl is not the canonical serialization — run --seed (idempotent) "
+              "and commit; the writer is byte-stable since 2026-10-27")
+    if not missing and not dead and not stale:
         print(f"registry OK: {len(found)} instruments on disk, {len(entries)} registered, "
               f"{len(unclassified)} unclassified")
         return 0
@@ -227,6 +236,10 @@ CANON = {
         "enginemon-based; NOT a joule source - use power_ab.py for joules"),
     "results/EXP-029-nax-crosslane/harness/ane_gemm_energy.sh": ("canonical", "ANE activity + GPU energy during a CoreML run",
         "enginemon-based; ANE joules need the sudo powermetrics window"),
+    "results/EXP-047-tile-probe/harness/tile_probe.m": ("canonical", "big-tile 128x64/sg8 + block-swizzle matmul2d arm (EXP-047 / O-6)",
+        "same device-tensor form as fp8_ladder/lane_arms; f16_s arm restates the naive band in-run; grid padded, overhang early-return"),
+    "results/EXP-038-nax-quiet-retake/harness/round6_quiet_campaign.sh": ("canonical", "single-watcher certified-window campaign queue",
+        "stage order EXP-038 retake -> EXP-047 tile timing -> O-1 paired arms -> O-10 probe stdout; per-stage re-gate, DECLINED-window never fabricated"),
     "results/EXP-038-nax-quiet-retake/harness/quiet_retake.sh": ("canonical", "certified-quiet NAX ladder re-take (EXP-037 cells)",
         "waits for quiet_probe QUIET-KEY (omlx=down loadavg<1.0) then re-runs EXP-037 fp8/lane ladders with window stamps; production oMLX must be cut by the operator"),
     "results/EXP-041-multi-input/harness/multi_input_probe.m": ("canonical", "multi-input ANE battery (N=1..4, unequal surfaces)",

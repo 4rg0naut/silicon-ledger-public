@@ -36,11 +36,13 @@ stays private is the chat logs and the scratch, never the conclusions.
 - `.omp/` — the agent rule files.
 
 ## Path hygiene
-Since 2026-10-26 the published tree carries **no local absolute paths at all**: no `/Volumes/…`
-(laptop layout) and no `/Users/…` (account names) anywhere a reader could see them. The publish
-step rewrites lab paths to neutral forms (`/data/…` → `/data/…`), the privacy grep in
-the pipeline asserts nothing leaked, and the gate refuses to publish a tree that still carries a
-path we would have to explain. The only place those literals survive is the machinery itself
+Since 2026-10-26 the published tree carries **no unsanitized personal paths**: every lab-volume mount
+prefix (`/Volumes/…` layout paths) is rewritten to neutral `/data/…` form by the publish step, and every
+account name to `<user>`. What *may* remain, by design, are **sanitized system paths inside raw captures**
+— `/Users/<user>/Library/Caches/…` in a compiler error line, `/System/Volumes/…` in a `ps` snapshot: the
+machinery quotes them because the capture *is* the evidence, and the name behind them is already masked.
+The privacy grep asserts nothing unmasked leaked, and the gate refuses to publish a tree that still carries
+a path we would have to explain. The only place unmasked lab literals survive is the machinery itself
 (`tools/publish/`), which must quote them to filter them — that directory is deliberately
 scrub-exempt, and nothing else is.
 

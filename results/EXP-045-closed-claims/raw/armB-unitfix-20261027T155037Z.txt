@@ -1,0 +1,6 @@
+# arm B retake after unit-label fix 20261027T155037Z (loaded window, upper-bound; label class: GOTCHAS-096)
+# loadavg=2,02
+armB	variants=128	runtime_compile_ms=2	offline_compile_ms=1109	metallib_load_ms=0.2	runtime_ms_per_variant=0.012	offline_ms_per_variant=8.666	load_ms_per_variant=0.0016
+armB	variants=512	runtime_compile_ms=3	offline_compile_ms=209	metallib_load_ms=0.4	runtime_ms_per_variant=0.006	offline_ms_per_variant=0.407	load_ms_per_variant=0.0007
+armB	variants=2048	runtime_compile_ms=11	offline_compile_ms=547	metallib_load_ms=1.0	runtime_ms_per_variant=0.005	offline_ms_per_variant=0.267	load_ms_per_variant=0.0005
+armB_extrap	N=8582	runtime_est_ms=47.0	offline_est_ms=2292.1	metallib_load_est_ms=4.4

@@ -1,0 +1,604 @@
+== studio window: loadavg : 3,33 3,50 2,98 at 2026-10-27T13:24:18Z
+device: Apple M5 Max
+A: lib0 FAIL program_source:3:93: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void k(device float *o[[buffer(0)]]){float x = (float)0; for (int n=0;n<200;n++) x = fmaf(x, 1.000001f, 0.0f); o[0] = x; }
+                                                                                            ^~~~
+                                                                                            fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+
+elapsed 0.0 s
+device: Apple M5 Max
+B: N=128 runtime compile FAIL program_source:3:91: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v0(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000000000e+00f,0.000000000e+00f);o[0]=x; }
+                                                                                          ^~~~
+                                                                                          fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:4:91: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v1(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000000954e+00f,9.999999747e-06f);o[1]=x; }
+                                                                                          ^~~~
+                                                                                          fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:5:91: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v2(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000002027e+00f,1.999999949e-05f);o[2]=x; }
+                                                                                          ^~~~
+                                                                                          fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:6:91: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v3(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000002980e+00f,2.999999924e-05f);o[3]=x; }
+                                                                                          ^~~~
+                                                                                          fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:7:91: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v4(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000004053e+00f,3.999999899e-05f);o[4]=x; }
+                                                                                          ^~~~
+                                                                                          fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:8:91: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v5(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000005007e+00f,4.999999874e-05f);o[5]=x; }
+                                                                                          ^~~~
+                                                                                          fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:9:91: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v6(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000005960e+00f,5.999999848e-05f);o[6]=x; }
+                                                                                          ^~~~
+                                                                                          fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:10:91: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v7(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000007033e+00f,6.999999459e-05f);o[7]=x; }
+                                                                                          ^~~~
+                                                                                          fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:11:91: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v8(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000007987e+00f,7.999999798e-05f);o[8]=x; }
+                                                                                          ^~~~
+                                                                                          fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:12:91: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v9(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000008941e+00f,9.000000136e-05f);o[9]=x; }
+                                                                                          ^~~~
+                                                                                          fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:13:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v10(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000010014e+00f,9.999999747e-05f);o[10]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:14:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v11(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000010967e+00f,1.099999936e-04f);o[11]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:15:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v12(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000012040e+00f,1.199999970e-04f);o[12]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:16:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v13(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000012994e+00f,1.300000004e-04f);o[13]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:17:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v14(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000013947e+00f,1.399999892e-04f);o[14]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:18:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v15(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000015020e+00f,1.499999926e-04f);o[15]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:19:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v16(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000015974e+00f,1.599999960e-04f);o[0]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:20:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v17(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000017047e+00f,1.699999993e-04f);o[1]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:21:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v18(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000018001e+00f,1.800000027e-04f);o[2]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:22:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v19(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000018954e+00f,1.899999916e-04f);o[3]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:23:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v20(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000020027e+00f,1.999999949e-04f);o[4]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:24:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v21(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000020981e+00f,2.099999983e-04f);o[5]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:25:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v22(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000022054e+00f,2.199999872e-04f);o[6]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:26:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v23(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000023007e+00f,2.299999906e-04f);o[7]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:27:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v24(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000023961e+00f,2.399999939e-04f);o[8]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:28:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v25(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000025034e+00f,2.499999828e-04f);o[9]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:29:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v26(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000025988e+00f,2.600000007e-04f);o[10]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:30:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v27(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000026941e+00f,2.699999895e-04f);o[11]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:31:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v28(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000028014e+00f,2.799999784e-04f);o[12]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:32:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v29(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000028968e+00f,2.899999963e-04f);o[13]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:33:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v30(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000030041e+00f,2.999999851e-04f);o[14]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:34:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v31(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000030994e+00f,3.100000031e-04f);o[15]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:35:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v32(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000031948e+00f,3.199999919e-04f);o[0]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:36:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v33(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000033021e+00f,3.299999807e-04f);o[1]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:37:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v34(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000033975e+00f,3.399999987e-04f);o[2]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:38:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v35(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000035048e+00f,3.499999875e-04f);o[3]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:39:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v36(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000036001e+00f,3.600000055e-04f);o[4]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:40:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v37(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000036955e+00f,3.699999943e-04f);o[5]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:41:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v38(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000038028e+00f,3.799999831e-04f);o[6]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:42:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v39(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000038981e+00f,3.900000011e-04f);o[7]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:43:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v40(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000040054e+00f,3.999999899e-04f);o[8]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:44:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v41(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000041008e+00f,4.099999787e-04f);o[9]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:45:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v42(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000041962e+00f,4.199999967e-04f);o[10]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:46:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v43(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000043035e+00f,4.299999855e-04f);o[11]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:47:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v44(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000043988e+00f,4.399999743e-04f);o[12]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:48:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v45(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000044942e+00f,4.499999923e-04f);o[13]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:49:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v46(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000046015e+00f,4.599999811e-04f);o[14]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:50:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v47(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000046968e+00f,4.699999990e-04f);o[15]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:51:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v48(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000048041e+00f,4.799999879e-04f);o[0]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:52:92: error: use of undeclared identifier 'fmaf'; did you mean 'fma'?
+kernel void v49(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000048995e+00f,4.900000058e-04f);o[1]=x; }
+                                                                                           ^~~~
+                                                                                           fma
+/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/32023/Libraries/lib/clang/32023/include/metal/metal_math:4687:18: note: 'fma' declared here
+METAL_FUNC float fma(float x, float y, float z)
+                 ^
+program_source:53:92: error: use of undeclared identifier 'fmaf'
+kernel void v50(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000049949e+00f,4.999999655e-04f);o[2]=x; }
+                                                                                           ^
+program_source:54:92: error: use of undeclared identifier 'fmaf'
+kernel void v51(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000051022e+00f,5.099999835e-04f);o[3]=x; }
+                                                                                           ^
+program_source:55:92: error: use of undeclared identifier 'fmaf'
+kernel void v52(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000051975e+00f,5.200000014e-04f);o[4]=x; }
+                                                                                           ^
+program_source:56:92: error: use of undeclared identifier 'fmaf'
+kernel void v53(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000053048e+00f,5.299999611e-04f);o[5]=x; }
+                                                                                           ^
+program_source:57:92: error: use of undeclared identifier 'fmaf'
+kernel void v54(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000054002e+00f,5.399999791e-04f);o[6]=x; }
+                                                                                           ^
+program_source:58:92: error: use of undeclared identifier 'fmaf'
+kernel void v55(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000054955e+00f,5.499999970e-04f);o[7]=x; }
+                                                                                           ^
+program_source:59:92: error: use of undeclared identifier 'fmaf'
+kernel void v56(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000056028e+00f,5.599999567e-04f);o[8]=x; }
+                                                                                           ^
+program_source:60:92: error: use of undeclared identifier 'fmaf'
+kernel void v57(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000056982e+00f,5.699999747e-04f);o[9]=x; }
+                                                                                           ^
+program_source:61:92: error: use of undeclared identifier 'fmaf'
+kernel void v58(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000058055e+00f,5.799999926e-04f);o[10]=x; }
+                                                                                           ^
+program_source:62:92: error: use of undeclared identifier 'fmaf'
+kernel void v59(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000059009e+00f,5.900000106e-04f);o[11]=x; }
+                                                                                           ^
+program_source:63:92: error: use of undeclared identifier 'fmaf'
+kernel void v60(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000059962e+00f,5.999999703e-04f);o[12]=x; }
+                                                                                           ^
+program_source:64:92: error: use of undeclared identifier 'fmaf'
+kernel void v61(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000061035e+00f,6.099999882e-04f);o[13]=x; }
+                                                                                           ^
+program_source:65:92: error: use of undeclared identifier 'fmaf'
+kernel void v62(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000061989e+00f,6.200000062e-04f);o[14]=x; }
+                                                                                           ^
+program_source:66:92: error: use of undeclared identifier 'fmaf'
+kernel void v63(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000062943e+00f,6.299999659e-04f);o[15]=x; }
+                                                                                           ^
+program_source:67:92: error: use of undeclared identifier 'fmaf'
+kernel void v64(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000064015e+00f,6.399999838e-04f);o[0]=x; }
+                                                                                           ^
+program_source:68:92: error: use of undeclared identifier 'fmaf'
+kernel void v65(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000064969e+00f,6.500000018e-04f);o[1]=x; }
+                                                                                           ^
+program_source:69:92: error: use of undeclared identifier 'fmaf'
+kernel void v66(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000066042e+00f,6.599999615e-04f);o[2]=x; }
+                                                                                           ^
+program_source:70:92: error: use of undeclared identifier 'fmaf'
+kernel void v67(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000066996e+00f,6.699999794e-04f);o[3]=x; }
+                                                                                           ^
+program_source:71:92: error: use of undeclared identifier 'fmaf'
+kernel void v68(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000067949e+00f,6.799999974e-04f);o[4]=x; }
+                                                                                           ^
+program_source:72:92: error: use of undeclared identifier 'fmaf'
+kernel void v69(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000069022e+00f,6.899999571e-04f);o[5]=x; }
+                                                                                           ^
+program_source:73:92: error: use of undeclared identifier 'fmaf'
+kernel void v70(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000069976e+00f,6.999999750e-04f);o[6]=x; }
+                                                                                           ^
+program_source:74:92: error: use of undeclared identifier 'fmaf'
+kernel void v71(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000071049e+00f,7.099999930e-04f);o[7]=x; }
+                                                                                           ^
+program_source:75:92: error: use of undeclared identifier 'fmaf'
+kernel void v72(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000072002e+00f,7.200000109e-04f);o[8]=x; }
+                                                                                           ^
+program_source:76:92: error: use of undeclared identifier 'fmaf'
+kernel void v73(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000072956e+00f,7.299999706e-04f);o[9]=x; }
+                                                                                           ^
+program_source:77:92: error: use of undeclared identifier 'fmaf'
+kernel void v74(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000074029e+00f,7.399999886e-04f);o[10]=x; }
+                                                                                           ^
+program_source:78:92: error: use of undeclared identifier 'fmaf'
+kernel void v75(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000074983e+00f,7.500000065e-04f);o[11]=x; }
+                                                                                           ^
+program_source:79:92: error: use of undeclared identifier 'fmaf'
+kernel void v76(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000076056e+00f,7.599999662e-04f);o[12]=x; }
+                                                                                           ^
+program_source:80:92: error: use of undeclared identifier 'fmaf'
+kernel void v77(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000077009e+00f,7.699999842e-04f);o[13]=x; }
+                                                                                           ^
+program_source:81:92: error: use of undeclared identifier 'fmaf'
+kernel void v78(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000077963e+00f,7.800000021e-04f);o[14]=x; }
+                                                                                           ^
+program_source:82:92: error: use of undeclared identifier 'fmaf'
+kernel void v79(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000079036e+00f,7.899999619e-04f);o[15]=x; }
+                                                                                           ^
+program_source:83:92: error: use of undeclared identifier 'fmaf'
+kernel void v80(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000079989e+00f,7.999999798e-04f);o[0]=x; }
+                                                                                           ^
+program_source:84:92: error: use of undeclared identifier 'fmaf'
+kernel void v81(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000080943e+00f,8.099999977e-04f);o[1]=x; }
+                                                                                           ^
+program_source:85:92: error: use of undeclared identifier 'fmaf'
+kernel void v82(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000082016e+00f,8.199999575e-04f);o[2]=x; }
+                                                                                           ^
+program_source:86:92: error: use of undeclared identifier 'fmaf'
+kernel void v83(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000082970e+00f,8.299999754e-04f);o[3]=x; }
+                                                                                           ^
+program_source:87:92: error: use of undeclared identifier 'fmaf'
+kernel void v84(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000084043e+00f,8.399999933e-04f);o[4]=x; }
+                                                                                           ^
+program_source:88:92: error: use of undeclared identifier 'fmaf'
+kernel void v85(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000084996e+00f,8.499999531e-04f);o[5]=x; }
+                                                                                           ^
+program_source:89:92: error: use of undeclared identifier 'fmaf'
+kernel void v86(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000085950e+00f,8.599999710e-04f);o[6]=x; }
+                                                                                           ^
+program_source:90:92: error: use of undeclared identifier 'fmaf'
+kernel void v87(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000087023e+00f,8.699999889e-04f);o[7]=x; }
+                                                                                           ^
+program_source:91:92: error: use of undeclared identifier 'fmaf'
+kernel void v88(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000087976e+00f,8.799999487e-04f);o[8]=x; }
+                                                                                           ^
+program_source:92:92: error: use of undeclared identifier 'fmaf'
+kernel void v89(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000089049e+00f,8.899999666e-04f);o[9]=x; }
+                                                                                           ^
+program_source:93:92: error: use of undeclared identifier 'fmaf'
+kernel void v90(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000090003e+00f,8.999999845e-04f);o[10]=x; }
+                                                                                           ^
+program_source:94:92: error: use of undeclared identifier 'fmaf'
+kernel void v91(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000090957e+00f,9.100000025e-04f);o[11]=x; }
+                                                                                           ^
+program_source:95:92: error: use of undeclared identifier 'fmaf'
+kernel void v92(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000092030e+00f,9.199999622e-04f);o[12]=x; }
+                                                                                           ^
+program_source:96:92: error: use of undeclared identifier 'fmaf'
+kernel void v93(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000092983e+00f,9.299999801e-04f);o[13]=x; }
+                                                                                           ^
+program_source:97:92: error: use of undeclared identifier 'fmaf'
+kernel void v94(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000094056e+00f,9.399999981e-04f);o[14]=x; }
+                                                                                           ^
+program_source:98:92: error: use of undeclared identifier 'fmaf'
+kernel void v95(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000095010e+00f,9.499999578e-04f);o[15]=x; }
+                                                                                           ^
+program_source:99:92: error: use of undeclared identifier 'fmaf'
+kernel void v96(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000095963e+00f,9.599999757e-04f);o[0]=x; }
+                                                                                           ^
+program_source:100:92: error: use of undeclared identifier 'fmaf'
+kernel void v97(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000097036e+00f,9.699999937e-04f);o[1]=x; }
+                                                                                           ^
+program_source:101:92: error: use of undeclared identifier 'fmaf'
+kernel void v98(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000097990e+00f,9.800000116e-04f);o[2]=x; }
+                                                                                           ^
+program_source:102:92: error: use of undeclared identifier 'fmaf'
+kernel void v99(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000098944e+00f,9.899999714e-04f);o[3]=x; }
+                                                                                           ^
+program_source:103:93: error: use of undeclared identifier 'fmaf'
+kernel void v100(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000100017e+00f,9.999999311e-04f);o[4]=x; }
+                                                                                            ^
+program_source:104:93: error: use of undeclared identifier 'fmaf'
+kernel void v101(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000100970e+00f,1.010000007e-03f);o[5]=x; }
+                                                                                            ^
+program_source:105:93: error: use of undeclared identifier 'fmaf'
+kernel void v102(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000102043e+00f,1.019999967e-03f);o[6]=x; }
+                                                                                            ^
+program_source:106:93: error: use of undeclared identifier 'fmaf'
+kernel void v103(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000102997e+00f,1.029999927e-03f);o[7]=x; }
+                                                                                            ^
+program_source:107:93: error: use of undeclared identifier 'fmaf'
+kernel void v104(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000103951e+00f,1.040000003e-03f);o[8]=x; }
+                                                                                            ^
+program_source:108:93: error: use of undeclared identifier 'fmaf'
+kernel void v105(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000105023e+00f,1.049999963e-03f);o[9]=x; }
+                                                                                            ^
+program_source:109:93: error: use of undeclared identifier 'fmaf'
+kernel void v106(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000105977e+00f,1.059999922e-03f);o[10]=x; }
+                                                                                            ^
+program_source:110:93: error: use of undeclared identifier 'fmaf'
+kernel void v107(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000107050e+00f,1.069999998e-03f);o[11]=x; }
+                                                                                            ^
+program_source:111:93: error: use of undeclared identifier 'fmaf'
+kernel void v108(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000108004e+00f,1.079999958e-03f);o[12]=x; }
+                                                                                            ^
+program_source:112:93: error: use of undeclared identifier 'fmaf'
+kernel void v109(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000108957e+00f,1.089999918e-03f);o[13]=x; }
+                                                                                            ^
+program_source:113:93: error: use of undeclared identifier 'fmaf'
+kernel void v110(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000110030e+00f,1.099999994e-03f);o[14]=x; }
+                                                                                            ^
+program_source:114:93: error: use of undeclared identifier 'fmaf'
+kernel void v111(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000110984e+00f,1.109999954e-03f);o[15]=x; }
+                                                                                            ^
+program_source:115:93: error: use of undeclared identifier 'fmaf'
+kernel void v112(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000112057e+00f,1.119999913e-03f);o[0]=x; }
+                                                                                            ^
+program_source:116:93: error: use of undeclared identifier 'fmaf'
+kernel void v113(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000113010e+00f,1.129999990e-03f);o[1]=x; }
+                                                                                            ^
+program_source:117:93: error: use of undeclared identifier 'fmaf'
+kernel void v114(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000113964e+00f,1.139999949e-03f);o[2]=x; }
+                                                                                            ^
+program_source:118:93: error: use of undeclared identifier 'fmaf'
+kernel void v115(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000115037e+00f,1.150000026e-03f);o[3]=x; }
+                                                                                            ^
+program_source:119:93: error: use of undeclared identifier 'fmaf'
+kernel void v116(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000115991e+00f,1.159999985e-03f);o[4]=x; }
+                                                                                            ^
+program_source:120:93: error: use of undeclared identifier 'fmaf'
+kernel void v117(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000116944e+00f,1.169999945e-03f);o[5]=x; }
+                                                                                            ^
+program_source:121:93: error: use of undeclared identifier 'fmaf'
+kernel void v118(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000118017e+00f,1.180000021e-03f);o[6]=x; }
+                                                                                            ^
+program_source:122:93: error: use of undeclared identifier 'fmaf'
+kernel void v119(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000118971e+00f,1.189999981e-03f);o[7]=x; }
+                                                                                            ^
+program_source:123:93: error: use of undeclared identifier 'fmaf'
+kernel void v120(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000120044e+00f,1.199999941e-03f);o[8]=x; }
+                                                                                            ^
+program_source:124:93: error: use of undeclared identifier 'fmaf'
+kernel void v121(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000120997e+00f,1.210000017e-03f);o[9]=x; }
+                                                                                            ^
+program_source:125:93: error: use of undeclared identifier 'fmaf'
+kernel void v122(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000121951e+00f,1.219999976e-03f);o[10]=x; }
+                                                                                            ^
+program_source:126:93: error: use of undeclared identifier 'fmaf'
+kernel void v123(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000123024e+00f,1.229999936e-03f);o[11]=x; }
+                                                                                            ^
+program_source:127:93: error: use of undeclared identifier 'fmaf'
+kernel void v124(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000123978e+00f,1.240000012e-03f);o[12]=x; }
+                                                                                            ^
+program_source:128:93: error: use of undeclared identifier 'fmaf'
+kernel void v125(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000125051e+00f,1.249999972e-03f);o[13]=x; }
+                                                                                            ^
+program_source:129:93: error: use of undeclared identifier 'fmaf'
+kernel void v126(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000126004e+00f,1.259999932e-03f);o[14]=x; }
+                                                                                            ^
+program_source:130:93: error: use of undeclared identifier 'fmaf'
+kernel void v127(device float *o[[buffer(0)]]){float x=(float)o[0]; for(int n=0;n<50;n++) x=fmaf(x,1.000126958e+00f,1.270000008e-03f);o[15]=x; }
+                                                                                            ^
+
+elapsed 0.0 s
+armP46	load=0	commit2complete_us_p50=113.0_p99=215.0	gpu_exec_us_p50=2.00_p99=17.50
+armP46	load=1	commit2complete_us_p50=121.0_p99=215.0	gpu_exec_us_p50=7.25_p99=59.75
+armE	loaders=17_default_class	window_s=5	itps_DEFAULT=348087000	itps_USER_INITIATED=347151000	ratio_default_over_ui=1.003
+armB5_sgemm	size=512x512x512	reps=200	GFLOPS=1428.9
+armB5_vdsp	elements=4194304	GBs=53.6
+DONE

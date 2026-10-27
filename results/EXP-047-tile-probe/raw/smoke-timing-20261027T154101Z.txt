@@ -1,0 +1,14 @@
+# EXP-047 loaded-window smoke timing — NOT the measured cell (certified-quiet window runs tonight; this only proves the timing path works)
+# loadavg=2,71
+device: Apple M5 Max
+library compiled (metal4.1)
+  f16_s precheck M=2048 N=2048 K=2048 tiles=2048: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+tile_probe	arm=f16_s	M=2048 N=2048 K=2048	reps=50	gpu_med_ms=0.5410	min_ms=0.5364	tflops=31.76	grid=block-swizzle-32x64	sg=4
+device: Apple M5 Max
+library compiled (metal4.1)
+  f16_b precheck M=2048 N=2048 K=2048 tiles=512: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+tile_probe	arm=f16_b	M=2048 N=2048 K=2048	reps=50	gpu_med_ms=0.3615	min_ms=0.3039	tflops=47.53	grid=block-swizzle-16x32	sg=8
+device: Apple M5 Max
+library compiled (metal4.1)
+  f8_b precheck M=2048 N=2048 K=2048 tiles=512: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+tile_probe	arm=f8_b	M=2048 N=2048 K=2048	reps=50	gpu_med_ms=0.2925	min_ms=0.2715	tflops=58.73	grid=block-swizzle-16x32	sg=8

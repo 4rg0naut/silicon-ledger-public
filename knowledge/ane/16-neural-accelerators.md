@@ -74,7 +74,13 @@ stamp; dispatch figure relabeled to its own shape (M512). EXP-037 energy shows b
 Hand-MSL floor is 5.3–5.4 µs (no 7 µs figure exists in any M128 row).
 
 **Reading rules:** metric is always stated as `×N faster` (÷time) or `% saved` (of baseline time) — never
-bare %. Window ∈ {**certified-quiet** (headless SSH + `quiet_probe.sh` gate), **clean-window** (02:14Z cron /
+bare %. **Every OS-sensitive result (a ceiling, a refusal, a gate, a penalty ratio, a dispatch floor) carries
+its OS build literal (26A428 / 26A434 / 25G83) — the un-stamped default "assumed current OS" is retired
+2026-10-27 after EXP-044/API-174 pinned ceilings to the OS.** **Joule rule (2026-10-27): a rail/joule figure
+is only comparable when its window stamp shows `console=none share=down`** (Screen Sharing inflates GPU rails
+27–85 mW vs ≈0–3 mW headless — RULES-5); figures captured before `quiet_probe.sh` recorded console/share state
+are labelled `console-unrecorded` — a gap label, never a re-run excuse to overwrite the old row.
+Window ∈ {**certified-quiet** (headless SSH + `quiet_probe.sh` gate), **clean-window** (02:14Z cron /
 dawn, stability 3×GOOD), **loaded** (co-tenant agent work — timings are upper bounds), **desktop** (GUI up,
 unqualified), **regime-split** (do not average)}. `unrecorded` = the capture never logged that version; not
 invented. All links relative to `knowledge/ane/`. Instrument kinds: **bare-metal** = hand-written ObjC+MSL,
@@ -94,18 +100,20 @@ is the **compile** gate (Xcode generation); running the produced metallib is a s
 
 | lane (kernel by construction) | measured | parity | instrument·kind | capture · summary |
 |---|---|---|---|---|
-| `mm_f8` fp8×fp8→f32, 64×32×dynK, sg4 | **32.0 TF** @2048³ (0.5367 ms med) · 31.7 @4096³ · 30.0 @1024³ · 19.2 @512 · 4.85 @256 · 0.80 @128 | **bit-exact 24/24 maxabs=0**; needs `-std=metal4.1` (4.0 rejects the type — measured) | fp8_ladder.m · bare-metal, metalfe-32023.921.6 | [tsv](../../results/EXP-037-fp8-nax/results/fp8_matrix-20261026T1356Z.tsv) · [EXP-037 README §verdict](../../results/EXP-037-fp8-nax/README.md) |
+| `mm_f8` fp8×fp8→f32, 64×32×dynK, sg4 | **32.0 TF** @2048³ (0.5367 ms med) · 31.7 @4096³ · 30.0 @1024³ · 19.2 @512 · 4.85 @256 · 0.80 @128 | **bit-exact 24/24 maxabs=0**; needs `-std=metal4.1` (4.0 rejects the type — measured; capture OS 26A434, run gate macOS 27 per surface header) | fp8_ladder.m · bare-metal, metalfe-32023.921.6 | [tsv](../../results/EXP-037-fp8-nax/results/fp8_matrix-20261026T1356Z.tsv) · [EXP-037 README §verdict](../../results/EXP-037-fp8-nax/README.md) |
 | `mm_mix8` half×fp8→f32 | **32.0 TF** @2048³ (0.5362) · 30.8 @4096³ | bit-exact | same | same |
 | `mm_f16` half×half→f32 | **31.5 TF** @2048³ (0.5458) · 30.2 @4096³ | bit-exact (baseline arm) | same | same |
 | dispatch floor (all three arms) | M128 med **5.3–5.4 µs** | n/a | same | same tsv M128 rows |
 | energy @2048³ (2004 GEMMs/window) | f16 **59.6 / 51.4** · f8 **59.6 / 60.9** · mix8 **56.3** mJ/GEMM — parity ±15%; different pass per arm, second f16 window (51.4) would put f8 +18.5 % over f16: parity claim is within-noise, not zero-delta | precheck bit-exact in-window | [fp8_energy.sh](../../results/EXP-037-fp8-nax/harness/fp8_energy.sh) (INSTR-188) + enginemon · bare-metal | [capture](../../results/EXP-037-fp8-nax/results/fp8_energy-2048-tight-20261026T1342Z.txt) · [README §S3/S4](../../results/EXP-037-fp8-nax/README.md) |
-| **`mm_f32` fp32×fp32→f32 (tf32-class lane) NEW** | **14.0 TF** @4096³ (9.8184 ms) · 14.5 @2048³ · 8.43 @1024³ | **bit-exact 16/16 maxabs=0**; compiles at metal **4.0 AND 4.1** — the 4.1 gate is fp8-type-specific, not device-tensor-general | [lane_arms.m](../../results/EXP-037-fp8-nax/README.md#reproduce) · bare-metal, metalfe-32023.921.6 | [tsv](../../results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) · [ladder](../../results/EXP-037-fp8-nax/raw/lane_ladder_20261026.txt) |
+| **`mm_f32` fp32×fp32→f32 (tf32-class lane) NEW** | **14.0 TF** @4096³ (9.8184 ms) · 14.5 @2048³ · 8.43 @1024³ | **bit-exact 16/16 maxabs=0**; compiles at metal **4.0 AND 4.1** — the 4.1 gate is fp8-type-specific, not device-tensor-general. **Re-adjudicated 2026-10-27 [EXP-045 N2]: 0xFF-poison + tf32-needle pass — true-fp32 mantissa CONFIRMED, mechanism ok** (not written-zero, not a tf32 artifact); the exact-int oracle alone was tf32-blind ([GOTCHAS-094](./05-gotchas.md), [GOTCHAS-095](./05-gotchas.md)) | [lane_arms.m](../../results/EXP-037-fp8-nax/README.md#reproduce) poison mode · bare-metal, metalfe-32023.921.6 | [lane_matrix tsv](../../results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) · [ladder](../../results/EXP-037-fp8-nax/raw/lane_ladder_20261026.txt) · [poison canonical run3](../../results/EXP-045-closed-claims/raw/poison_run3-20261027T141021Z.txt) (run1/run2 superseded, retained in EXP-045 raw/) |
 | **`mm_i8` uint8×uint8→i32 NEW** | **55.2 TF** @4096³ (2.4916 med / 2.4825 min) = **1.74× the fp16/fp8 band**; @2048³ med 1.3925 is mid-run-contaminated (min 0.3048 ≈ 57 TF ceiling); 11.45 @1024³ | bit-exact 16/16; MSL `int8_t` (=signed char) is **not** a tensor element type — measured; storage biased +128, exact-integer oracle | same | same |
 | **decode M=1 (padded to 64-row tile) NEW** | f32 0.0620 ms @K2048 / 0.2365 @K4096 · i8 0.0249 / 0.0679 — still 1.8–6.3× faster than MetalHLO's M=1 arm (0.43 ms) despite doing 64× the padded flops; geometry tax of fixed 64×32 tiles made visible | row-0 oracle PASS | same | same |
 | **`mm_bf16` bfloat×bfloat→f32 NEW (EXP-044)** | **31.79 TF** @2048³ (0.5404 ms med) · 31.53 @4096³ (4.3588) — sits exactly in the fp16/fp8 band (f16 same-run 31.77/31.40); the "bf16 decode fast route" rides the same lane, it does not unlock one | bit-exact ladders 16/16 + full-shape @4096³ oracle 16.7 M samples maxabs=0 | [lane_arms44.m](../../results/EXP-044-metal-generations/README.md#reproduce) · bare-metal, metalfe-32023.921.6 | [lanes tsv-log](../../results/EXP-044-metal-generations/raw/lanes-20261027T101521Z.log) |
 | **decode M=1 f8/f16/bf16 K-ladder NEW (EXP-044)** | med ms K2048/4096/8192: f8 **0.1424 / 0.1719 / 0.3290** · f16 0.1503 / 0.2834(contam, min 0.1734) / 0.3134 · bf16 0.1504 / 0.2174 / 0.3132. Min-vs-min: f8 **+8.4 %** @K2048, +1.3 % @K4096, **−2.8 % @K8192** — the half-byte advantage exists at small K and DISSOLVES at large K exactly where operand streaming should make it ~2×; dequant/dispatch cost eats it. fp8 stays footprint-only in the decode regime too | precheck oracles PASS every cell | [run_lanes44.sh](../../results/EXP-044-metal-generations/README.md#reproduce) · bare-metal | [decode tsv-log](../../results/EXP-044-metal-generations/raw/decode-4096-20261027T101456Z.log) |
 
 **Cross-arm reading @4096³, EXP-044 re-run (2026-10-27, loaded):** f8 31.92 | bf16 31.53 | f16 31.40 TF — parity band reproduced within 1.7 %; i8 @2048³ 57.87 TF (1.82× the f16 band) in the same interleaved run.
+
+| **CPU AMX + vDSP lane NEW (EXP-045 B5)** — not a tensor lane, the scalar/vector baseline the NCM project cites | M5 Max cblas_sgemm 512³ **1428.9 GF** (loaded 3.3, upper bound) · vDSP_sve stream **53.6 GB/s**; M4 mini **1493.9 → 1688.5 GF** across load 1.4→1.2 · vDSP **105.4–105.8 GB/s** (stable under load) | n/a (timing-only arm; oracle = result sanity) | [retro_probe.m](../../results/EXP-045-closed-claims/README.md#reproduce) `b` (INSTR-206) · bare-metal | [studio raw](../../results/EXP-045-closed-claims/raw/studio-ABp-eb-20261027T132418Z.txt) · [mini](../../results/EXP-045-closed-claims/raw/mini-quiet-B5D-20261027T133701Z.txt) — NCM external claims 1540 GF / 37.8 GB/s: consistent-below ours, and **their vDSP figure is path-limited, not a ceiling** ([MEASURE-167/168](./06-measurement.md)) |
 
 ### Surface 1b — `matmul2d` fp16 on the M4 BASE (Mac16,13, macOS 26.6.2), offline-metallib route (bare-metal, EXP-044)
 
@@ -168,12 +176,17 @@ medians (median-30). Ledger: [results/measurements.json](../../results/measureme
 
 ### Surface 4 — ANE (all routes: raw private API, daemon, CoreML, CoreAI, espresso, mailbox)
 
+OS-stamp appended 2026-10-27 (API-174 lesson): **every row below was captured on macOS 27.0.1/26A434**
+(the M5 Studio and the M4 mini's current build; its pre-.1 era was 26A428) unless the row says otherwise —
+no row here came from a 25G83 box. Energy-bearing rows pre-dating the `console/share` field in
+`quiet_probe.sh` carry the `console-unrecorded` label per the reading rules.
+
 | lane | measured | parity | instrument·kind | capture · summary |
 |---|---|---|---|---|
 | raw private-API eval floor | **0.119 ms/eval** (16:05Z 0.108, 14:27Z 0.110; final-night loaded 0.276) | bench-suite checksum | suite + `_ANEInMemoryModel` **API** | ledger `[m5max-s3-dispatch-floor]` · [§Numbers](../../results/EXP-022-m5max-baseline/README.md#numbers) |
 | raw ANE scale ladder d256→4096 | 0.119→0.259→1.82→26.8 ms/eval; SRAM cliff 94→168 MB: 0.102→1.86 (low-band 3.07→5.34) | checksum | same | [diff capture](../../results/EXP-022-m5max-baseline/raw/1427z-bench-diff-vs-example.txt) |
 | peak int8 W8A16 | **13.1 TOPS** (0.3184 ms/eval 512×64 d128) | checksum | same | ledger `[m5max-s3-peak-int8-d128]` |
-| int8 palettization A/B (granite-97M, W8A16) | w8+fp16 **19.11 ms vs fp16 12.17 ms = 1.57× SLOWER** (M4 comparator 4.8×, EXP-005 — magnitude machine-pinned); load 1663 vs 202 ms; both arms ANE-placed (ANE-LNK 142–267 M ev/phase) | gate PASS cos 0.99938 | [EXP-039](../../results/EXP-039-w8-palettization/README.md) · API(granite-runner), loaded window declared; energy cell DECLINED (ambient-swamped) | ledger `[granite97m-w8-m5max]` `[granite97m-fp16-m5max]` · [LANDSCAPE-078](./01-landscape.md) |
+| int8 palettization A/B (granite-97M, W8A16) | w8+fp16 **19.11 ms vs fp16 12.17 ms = 1.57× SLOWER** (M5 Max 27.0.1/26A434) vs 4.8× on M4 (EXP-005: mini, 27.0/26A428-era — both machines macOS 27, so the split is chip not OS; magnitude machine-pinned); load 1663 vs 202 ms; both arms ANE-placed (ANE-LNK 142–267 M ev/phase) | gate PASS cos 0.99938 | [EXP-039](../../results/EXP-039-w8-palettization/README.md) · API(granite-runner), loaded window declared; energy cell DECLINED (ambient-swamped) | ledger `[granite97m-w8-m5max]` `[granite97m-fp16-m5max]` · [LANDSCAPE-078](./01-landscape.md) |
 | peak fp16 | **6.9 TOPS** (0.3052 ms/eval 256×64 d256) | checksum | same | ledger `[m5max-s3-peak-fp16-256x64-d256]` |
 | ANE fp8 compute | **no datapath** (documentary; pre-27 API survey) | — | [EXP-005 §step-4](../../results/EXP-005-ane-residency/README.md#step-4--the-dtype-ceiling-why-fp8-cant-help-and-what-can) |
 | ncm0 signed-build field lane | median **320.1 µs**/eval (int8-affine MIL; identical across all entitlement arms) | counters unchanged | [EXP-031](../../results/EXP-031-ane-perfstats-spy/README.md) probe · **bare-metal-signed tool** | [kane capture](../../results/EXP-031-ane-perfstats-spy/raw/kane-run-c5-signed-studio.txt) |
@@ -185,9 +198,9 @@ medians (median-30). Ledger: [results/measurements.json](../../results/measureme
 | granite ANE per-emb energy | **1.357 mJ/emb ×795, reproducible 0.05 %** (clean window, floor-checked) | after-idle == quiet floor | enginemon rail-delta · bare-metal | [EXP-023 tsv](../../results/EXP-023-m5max-energy/measurements.tsv) — **reconstructed ledger, raw txt lost (F-037)** — quarantine-listed with data kept |
 | mailbox (GPU↔ANE, no compute) | extra **20–53 µs**/eval over baseline; with-completion floor **0.095–0.621 ms/eval**; porttest hop ~62 µs | T1–T3 PASS | [EXP-025](../../results/EXP-025-ane-gpu-sync/README.md#headline) · API+bare-metal | [latency raw](../../results/EXP-025-ane-gpu-sync/results/latency.txt) (README+latency.md now carry a dated correction from the old 0.005–0.053/0.10–0.63 rounding drift — O-7 RESOLVED 2026-10-26) |
 | IOKit direct-path door (no compute lane) | success round-trips **3.2–7.1 µs**; error-path returns from 0.6; EXP-036 observed 0.5–7.3 (n=141); submit **CLOSED load-blind** (36/36 cells) | kr-code + poison verified | [ane_door_probe](../../tools/ane_door_probe/README.md) · bare-metal C | [EXP-033 §Q5](../../results/EXP-033-door-map/README.md) · [EXP-036 sweeps](../../results/EXP-036-side-door-inject/raw/probe10_sweep_run1.jsonl) |
-| GPU vs ANE wall-clock, identical fp16 GEMM K=N=4096 | M=1 **0.444 vs 4.543** ms (GPU **10.2×**), M=512 **0.951 vs 6.939** (**7.3×**), M=2048 **2.811 vs 15.274** (**5.4×**) — GPU wins GEMMs at every shape **including decode**; bare matmul **does reach the ANE** (5.39 ms med, maxabs=0) while the conv1x1 form of the same GEMM is ANE too but **2.1× slower** (11.50 ms) | maxabs=0 ANE arm; GPU side checksummed vs MLX; attribution symmetric (ANE arm GPU-energy 0.00 mJ with ANEXL U=896; GPU arm ANEXL U=0) | CoreML predict **API** vs vendored MetalHLO totalTime; lane readout MLComputePlan + enginemon | [API-172 spine record](./02-private-api.md) — harness stdout was never captured as a results file (open flag **O-10**) · 2026-10-10 session, window state not declared · [EXP-029](../../results/EXP-029-nax-crosslane/README.md) |
+| GPU vs ANE wall-clock, identical fp16 GEMM K=N=4096 | M=1 **0.444 vs 4.543** ms (GPU **10.2×**), M=512 **0.951 vs 6.939** (**7.3×**), M=2048 **2.811 vs 15.274** (**5.4×**) — GPU wins GEMMs at every shape **including decode** (both boxes 26A434, flag O-10); bare matmul **does reach the ANE** (5.39 ms med, maxabs=0) while the conv1x1 form of the same GEMM is ANE too but **2.1× slower** (11.50 ms) | maxabs=0 ANE arm; GPU side checksummed vs MLX; attribution symmetric (ANE arm GPU-energy 0.00 mJ with ANEXL U=896; GPU arm ANEXL U=0) | CoreML predict **API** vs vendored MetalHLO totalTime; lane readout MLComputePlan + enginemon | [API-172 spine record](./02-private-api.md) — harness stdout was never captured as a results file (open flag **O-10**) · 2026-10-10 session, window state not declared · [EXP-029](../../results/EXP-029-nax-crosslane/README.md) |
 
-### Surface 5 — M4 fleet lanes (base M4, h16g ANE; macOS 26.x era; tool versions `unrecorded` unless stated)
+### Surface 5 — M4 fleet lanes (base M4, h16g ANE; ~~macOS 26.x era~~ **CORRECTED 2026-10-27 (append-only): macOS 27.0 era (26A428, later 27.0.1/26A434)** per `results/env.md` — the era label was wrong the moment OS proved load-bearing (EXP-044/API-174); the fleet's only 26.6.2/25G83 box is the Air `Mac16,13`, whose rows live in Surface 1b; tool versions `unrecorded` unless stated)
 
 | lane | measured | parity | kind | capture · summary |
 |---|---|---|---|---|
@@ -203,7 +216,7 @@ medians (median-30). Ledger: [results/measurements.json](../../results/measureme
 | GPU-server reranker | 170 ms/pair (3.4 s/query K=20); zoo M4 **Max** 45.7 ms/pair = external comparator | zoo agreement 0.994 | API | [EXP-012](../../results/EXP-012-reranker/README.md) |
 | Von ANE ladder | v0 74 ms (31 regions) → **24 ms (3)**; GPU 39; JevBench 105 (per-option NLI pass — why Von ~1× and Laya 29×) | cos gate · acc 70.3 % repro | API | ledger `[von-*]` · [EXP-016](../../results/EXP-016-von-ane/README.md) |
 | Laya ANE | S256 11.83 ms P50; GPU power **9.8 vs 255.9 mW forced** (26×); S512 68.1 ms; full-suite **GPU Energy 15.9 vs 773.8 mW = 48.7×**, 549 GB moved by ANE | accuracy tables | API + sudo | [EXP-017](../../results/EXP-017-laya-ane/README.md) (`coreai-build 3600.83.1`/`coreai-torch 0.4.2`) · [EXP-018](../../results/EXP-018-jevbench-ane/README.md) |
-| ANE DMA notch (M4 erratum) | 1 MiB/core transfer: **23.65 vs 43.53 GB/s** control — split-in-two recovers **1.84×** | byte-identical both arms | [EXP-020](../../results/EXP-020-ane-dma-notch/README.md#results--6-runs-per-arm-3-forward-and-3-reverse-medians) · bare-metal | **measured, never merged to ledger — open cell O-8** |
+| ANE DMA notch (M4 erratum) | 1 MiB/core transfer: **23.65 vs 43.53 GB/s** control — split-in-two recovers **1.84×** | byte-identical both arms | [EXP-020](../../results/EXP-020-ane-dma-notch/README.md#results--6-runs-per-arm-3-forward-and-3-reverse-medians) · bare-metal | **measured · merged to ledger 2026-10-27 as `exp020-ane-dma-*` (O-8 closed)** |
 | Apple FM on-device (ANE active) | cold turn e2e **1.08 s**; inference pass **130.16 ms**; warm 133–190 ms | output sanity | ledger `[cold-*]` `[style-*]` `[load-*]` | [EXP-002](../../results/EXP-002-apple-fm-baseline/README.md) |
 
 External comparators (kept out of all cross-arm math): zoo M4 Max 45.7 ms/pair, Laya M3 Max 4.98 ms @S96,
@@ -228,8 +241,9 @@ Ryzen 5 3600 790/2200 ms p50/p95, Zakharko A19 tops-table, MetalHLO M5 Pro ~18 T
   128×64 + `execution_simdgroups<8>` swizzled grid.
 - **O-7 RESOLVED 2026-10-26** EXP-025 README bounds drift — dated corrections now in `README.md`
   (caveat 2) and `results/latency.md`; raw (`results/latency.txt`: eval 0.095–0.621, extra 0.020–0.053) governs.
-- **O-8** EXP-020 DMA-notch rows never entered the ledger — merge via
-  `python3 bench/build_measurements.py` + `verify_extraction.py` (gate-checkable).
+- **O-8 RESOLVED 2026-10-27** EXP-020 DMA-notch rows merged to the measurements ledger
+  (`bench/build_measurements.py --apply-new`, ids `exp020-ane-dma-*`); the table row above keeps
+  the byte-identical-parity note.
 - **O-9** ANE unprivileged joule cell: does not exist (counters only, doc-13); decider = owner sudo window
   with `bench/power_mlcore.py` against an ANE-placed model.
 - **O-10** GPU-vs-ANE wall-clock pairs (0.444/4.543, 0.951/6.939, 2.811/15.274, conv 11.50 vs matmul 5.39 ms)
@@ -258,3 +272,12 @@ yet as a *product path* (large-tile recipe is the missing variable). The ANE rem
 per-token energy at fixed compiled models (M4 2.06 mJ; M5 granite 1.357 mJ/emb ±0.05 %) but its dispatch
 floor (119 µs certified / 276 µs loaded) is ~22× the GPU tensor submit floor (5.3 µs). CoreAI placement
 lands GPU on both boxes; its "ANE" device key is an attribution trap (rails: ANE 0.0).
+
+**Comparability-protocol nuance — cross-chip numerics [2026-10-27, EXP-045 N3]:** numerics MAY be
+bit-identical across M4/M5 — two independent confirmations: our EXP-040 (one bundle, 35 fixtures,
+`.aimodel` fp16 ANE dumps **bit-identical** Studio↔mini, re-run 2026-10-27 still bit-identical, our-own
+measured) and the NCM field dump diff (**0 differing f32 of 8,089,600, maxULP=0, argmax flips 0/15,800**,
+external-claimed [MEASURE-166](./06-measurement.md) — their parity counters are era-split, 60 pre-retrain
+vs 10038 post-retrain, never mix them). This licenses *numerical* cross-chip citation pairs; it licenses
+nothing about **timing** — the same EXP-040 run shows warm p50 9.98 vs 12.39 ms on the identical bundle.
+Timing rows stay strictly per-machine (fleet protocol v2 unchanged).

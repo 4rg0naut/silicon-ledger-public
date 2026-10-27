@@ -1,0 +1,24 @@
+device: Apple M5 Max
+library compiled (metal4.1)
+lane_poison matrix (prefill 0xFF; needle thresholds: <1e-3 full / >1e-2 tf32)
+  f32 single M=64 N=32 K=64 tiles=1: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f32 single/needle M=64 N=32 K=64 tiles=1: bad=2048 zeros=0 nan=0 maxabs=2.313e-05/fp32-full -> FAIL
+  f32 multiN M=64 N=64 K=64 tiles=2: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f32 multiN/needle M=64 N=64 K=64 tiles=2: bad=4096 zeros=0 nan=0 maxabs=2.325e-05/fp32-full -> FAIL
+  f32 multiK M=64 N=32 K=256 tiles=1: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f32 multiK/needle M=64 N=32 K=256 tiles=1: bad=2048 zeros=0 nan=0 maxabs=9.179e-05/fp32-full -> FAIL
+  f32 big M=512 N=512 K=128 tiles=128: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f32 big/needle M=512 N=512 K=128 tiles=128: bad=262144 zeros=0 nan=0 maxabs=4.613e-05/fp32-full -> FAIL
+  tf32 single/needle M=64 N=32 K=64 tiles=1: bad=2048 zeros=0 nan=0 maxabs=1.099e-01/tf32-trunc -> FAIL
+  tf32 multiN/needle M=64 N=64 K=64 tiles=2: bad=4096 zeros=0 nan=0 maxabs=1.099e-01/tf32-trunc -> FAIL
+  tf32 multiK/needle M=64 N=32 K=256 tiles=1: bad=2048 zeros=0 nan=0 maxabs=4.381e-01/tf32-trunc -> FAIL
+  tf32 big/needle M=512 N=512 K=128 tiles=128: bad=262144 zeros=0 nan=0 maxabs=2.193e-01/tf32-trunc -> FAIL
+  f16 single M=64 N=32 K=64 tiles=1: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16 multiN M=64 N=64 K=64 tiles=2: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16 multiK M=64 N=32 K=256 tiles=1: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16 big M=512 N=512 K=128 tiles=128: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  i8 single M=64 N=32 K=64 tiles=1: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  i8 multiN M=64 N=64 K=64 tiles=2: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  i8 multiK M=64 N=32 K=256 tiles=1: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  i8 big M=512 N=512 K=128 tiles=128: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+VERDICT poison: FAILS PRESENT

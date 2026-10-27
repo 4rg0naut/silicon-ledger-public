@@ -282,6 +282,81 @@ def check_machine_names(stage: Path) -> list[str]:
     return bad
 
 
+# --- digest-count gate (added 2026-10-27, round-6 review: FAILURES.md called MINEFIELD an
+# "eighteen-entry digest" while MINEFIELD itself said twenty — the COUNTS gate covers spine and
+# ledger numbers but not prose digest counts, so the class drifted silently again) ---
+NUMWORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
+            "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12, "thirteen": 13,
+            "fourteen": 14, "fifteen": 15, "sixteen": 16, "seventeen": 17, "eighteen": 18,
+            "nineteen": 19, "twenty": 20, "twenty-one": 21, "twenty-two": 22}
+
+
+def check_digest_counts(stage: Path) -> list[str]:
+    bad = []
+    mine = stage / "MINEFIELD.md"
+    if not mine.exists():
+        return ["MINEFIELD.md missing from the public tree"]
+    mtext = mine.read_text(errors="replace")
+    n = len(re.findall(r"^\*\*\d+\.\s", mtext, re.M))
+    title = re.search(r"MINEFIELD — ([a-z-]+) things", mtext)
+    if not title or NUMWORDS.get(title.group(1)) != n:
+        bad.append(f"MINEFIELD.md: title says {title.group(1) if title else '?'} entries, file carries {n}")
+    fail = stage / "FAILURES.md"
+    if fail.exists():
+        ftext = fail.read_text(errors="replace")
+        for m in re.finditer(r"the ([a-z-]+)-entry digest", ftext):
+            if NUMWORDS.get(m.group(1)) != n:
+                bad.append(f"FAILURES.md: calls MINEFIELD a {m.group(1)}-entry digest, file carries {n}")
+    return bad
+
+
+# --- machine-attribution gate (added 2026-10-27, round-6: sessions repeatedly wrote "reproduced
+# on M5" for results measured on the M4 mini — the fleet has exactly ONE M5 (Studio Mac17,14)
+# and TWO base-M4 boxes (mini Mac16,10, Air Mac16,13). A misattributed chip in published prose
+# is the same failure class as a wrong number.) ---
+ATTR_BAD = re.compile(r"\bM5[ -]+mini\b|\bmini[ -]+M5\b", re.I)
+
+
+def check_machine_attribution(stage: Path) -> list[str]:
+    bad = []
+    for p in sorted(stage.rglob("*.md")):
+        rel = os.path.relpath(p, stage)
+        if "/raw/" in rel or rel.split(os.sep)[:2] == ["tools", "publish"]:
+            continue
+        for i, line in enumerate(p.read_text(errors="replace").splitlines(), 1):
+            m = ATTR_BAD.search(line)
+            if m and "M4 mini" not in line and "Mac16,1" not in line:
+                bad.append(f"{rel}:{i}: M5/mini juxtaposition without M4/Mac16,1x qualifier -> {m.group(0)!r}")
+            low = line.lower()
+            if re.search(r"\breproduc\w*\b", low) and re.search(r"\bon (the )?m5\b", low) \
+               and (re.search(r"\bmini\b", low) or "mac16,10" in low) \
+               and "mac17,14" not in low and "studio" not in low:
+                bad.append(f"{rel}:{i}: 'reproduced on M5' phrasing on an M4-mini result (mini is base M4)")
+    return bad
+
+
+# --- OS-stamp gate (added 2026-10-27, round-6 / C-2: EXP-044 proved ceilings are OS-pinned the
+# same way EXP-022 proved windows matter; the lane table is the single speed/energy reference, so
+# every OS-sensitive row must be traceable to an OS build — per row, or via its surface header) ---
+OS_SENSITIVE = re.compile(r"wall|refuse[d]?\b|Code=10|metal4\.1|Metal 4\.1|penalty|2\^32", re.I)
+OS_LITERAL = re.compile(r"26A428|26A434|25G83|\bmacOS 27\b|macOS 26\.6")
+
+
+def check_os_stamps(stage: Path) -> list[str]:
+    doc = stage / "knowledge" / "ane" / "16-neural-accelerators.md"
+    if not doc.exists():
+        return ["knowledge/ane/16-neural-accelerators.md missing from staging"]
+    bad, hdr = [], False
+    for i, line in enumerate(doc.read_text(errors="replace").splitlines(), 1):
+        if line.startswith("### Surface"):
+            hdr = bool(OS_LITERAL.search(line))
+        if line.startswith("OS-stamp appended"):
+            hdr = True
+        if line.startswith("|") and OS_SENSITIVE.search(line) and not (OS_LITERAL.search(line) or hdr):
+            bad.append(f"16-neural-accelerators.md:{i}: OS-sensitive row without OS literal (row or header)")
+    return bad
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--staging", default=str(ROOT.parent / "silicon-ledger-public-staging"))
@@ -296,9 +371,13 @@ def main() -> int:
     counts = check_counts(stage)
     machine = check_machine_names(stage)
     chat = check_chat_voice(stage)
+    digest = check_digest_counts(stage)
+    attrib = check_machine_attribution(stage)
+    osstamps = check_os_stamps(stage)
     for label, bad in (("LINKS", links), ("NOVELTY", novelty), ("CASE/ANCHORS", case_anchor),
                        ("PRIVATE-SLUG", priv), ("COUNTS", counts), ("MACHINE-NAMES", machine),
-                       ("CHAT-VOICE", chat)):
+                       ("CHAT-VOICE", chat), ("DIGEST-COUNTS", digest),
+                       ("MACHINE-ATTRIBUTION", attrib), ("OS-STAMPS", osstamps)):
         if bad:
             print(f"FAIL {label}: {len(bad)} violation(s)")
             for b in bad[:15]:
@@ -307,7 +386,8 @@ def main() -> int:
                 print(f"  … {len(bad) - 15} more")
         else:
             print(f"OK   {label}")
-    return 1 if (links or novelty or case_anchor or priv or counts or machine or chat) else 0
+    return 1 if (links or novelty or case_anchor or priv or counts or machine or chat
+               or digest or attrib or osstamps) else 0
 
 
 if __name__ == "__main__":

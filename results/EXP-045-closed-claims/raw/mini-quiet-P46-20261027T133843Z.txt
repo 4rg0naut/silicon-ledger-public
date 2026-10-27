@@ -1,0 +1,9 @@
+== 2026-10-27T13:38:43Z
+mkdir: /tmp/../results: Permission denied
+/tmp/quiet_probe.sh: line 71: /tmp/../results/quiet-20261027T133843Z-unlabelled.txt: No such file or directory
+wrote /tmp/../results/quiet-20261027T133843Z-unlabelled.txt
+grep: /tmp/../results/quiet-20261027T133843Z-unlabelled.txt: No such file or directory
+14:38  up 24 days, 17:12, 2 users, load averages: 1,23 1,35 1,44
+armP46	load=0	commit2complete_us_p50=185.0_p99=720.0	gpu_exec_us_p50=3.46_p99=221.29
+armP46	load=1	commit2complete_us_p50=239.0_p99=769.0	gpu_exec_us_p50=3.08_p99=131.25
+DONE

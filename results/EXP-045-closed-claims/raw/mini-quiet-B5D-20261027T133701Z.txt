@@ -1,0 +1,11 @@
+14:37  up 24 days, 17:10, 2 users, load averages: 1,20 1,40 1,47
+sh: /tmp/quiet_probe.sh: No such file or directory
+armB5_sgemm	size=512x512x512	reps=200	GFLOPS=1688.5
+armB5_vdsp	elements=4194304	GBs=105.4
+device: Apple M4
+armD	bytes=262144	gpu_copy_ms=0.0055	gpu_GBs=95.3	cpu_memcpy_into_shared_ms=0.0030	cpu_GBs=174.8	ratio_cpu_over_gpu=0.55
+armD	bytes=1048576	gpu_copy_ms=0.0135	gpu_GBs=155.8	cpu_memcpy_into_shared_ms=0.0150	cpu_GBs=139.8	ratio_cpu_over_gpu=1.11
+armD	bytes=4194304	gpu_copy_ms=0.0644	gpu_GBs=130.3	cpu_memcpy_into_shared_ms=0.0690	cpu_GBs=121.6	ratio_cpu_over_gpu=1.07
+armD	bytes=67108864	gpu_copy_ms=1.3706	gpu_GBs=97.9	cpu_memcpy_into_shared_ms=1.5950	cpu_GBs=84.1	ratio_cpu_over_gpu=1.16
+armD	bytes=268435456	gpu_copy_ms=5.3605	gpu_GBs=100.2	cpu_memcpy_into_shared_ms=5.7890	cpu_GBs=92.7	ratio_cpu_over_gpu=1.08
+DONE

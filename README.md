@@ -1,8 +1,8 @@
 # silicon-ledger (public mirror) — every AI compute lane in Apple silicon, measured
 
 [![license: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![measurements](https://img.shields.io/badge/measurements-968-blue)](results/measurements.json)
-[![experiments](https://img.shields.io/badge/experiments-42-blue)](PUBLIC-INDEX.md)
+[![measurements](https://img.shields.io/badge/measurements-983-blue)](results/measurements.json)
+[![experiments](https://img.shields.io/badge/experiments-45-blue)](PUBLIC-INDEX.md)
 [![platforms](https://img.shields.io/badge/platform-Apple%20silicon-black)](results/FLEET.md)
 [![claims machine--checkable](https://img.shields.io/badge/claims-machine--checkable-yellow)](PUBLIC-OPENCLAIMS.md)
 
@@ -176,8 +176,9 @@ picture costs in joules. Apple publishes none of this; we publish all of ours.
 
 ## What's in here
 
-- `results/measurements.json` — every measurement ever taken, machine-checked (968 rows).
-- `results/EXP-001..043` — the experiment records, one folder each (`EXP-038` is still in flight —
+- `results/measurements.json` — every measurement ever taken, machine-checked (983 rows).
+- `results/EXP-001..047` — the experiment records, one folder each (there is no `EXP-030` — that id is
+  deliberately unclaimed, see the README namespace table; `EXP-038` is still in flight —
   its numbers ship in the next round). `PUBLIC-INDEX.md` maps them in plain words.
 - `knowledge/ane/16-neural-accelerators.md` — the consolidated lane table: every lane measured on this fleet, by surface, single reference before any speed/energy comparison.
 - `results/LADDER.md` — the five-rung summary: silicon ceiling → official overhead → port fidelity → task quality → energy.

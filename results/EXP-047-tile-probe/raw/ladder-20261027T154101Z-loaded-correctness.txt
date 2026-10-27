@@ -1,0 +1,42 @@
+device: Apple M5 Max
+library compiled (metal4.1)
+  f16_s k128 M=128 N=64 K=128 tiles=4: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s k256 M=128 N=64 K=256 tiles=4: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s full M=256 N=256 K=128 tiles=32: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s k128 M=256 N=64 K=128 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s k256 M=128 N=128 K=256 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s full M=256 N=256 K=256 tiles=32: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s k128 M=512 N=64 K=128 tiles=16: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s k256 M=128 N=256 K=256 tiles=16: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s full M=256 N=256 K=512 tiles=32: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s k128 M=1024 N=64 K=128 tiles=32: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s k256 M=128 N=512 K=256 tiles=32: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_s full M=256 N=256 K=1024 tiles=32: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+f16_s LADDER: PASS
+  f16_b k128 M=128 N=64 K=128 tiles=1: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b k256 M=128 N=64 K=256 tiles=1: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b full M=256 N=256 K=128 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b k128 M=256 N=64 K=128 tiles=2: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b k256 M=128 N=128 K=256 tiles=2: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b full M=256 N=256 K=256 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b k128 M=512 N=64 K=128 tiles=4: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b k256 M=128 N=256 K=256 tiles=4: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b full M=256 N=256 K=512 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b k128 M=1024 N=64 K=128 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b k256 M=128 N=512 K=256 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f16_b full M=256 N=256 K=1024 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+f16_b LADDER: PASS
+  f8_b k128 M=128 N=64 K=128 tiles=1: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b k256 M=128 N=64 K=256 tiles=1: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b full M=256 N=256 K=128 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b k128 M=256 N=64 K=128 tiles=2: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b k256 M=128 N=128 K=256 tiles=2: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b full M=256 N=256 K=256 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b k128 M=512 N=64 K=128 tiles=4: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b k256 M=128 N=256 K=256 tiles=4: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b full M=256 N=256 K=512 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b k128 M=1024 N=64 K=128 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b k256 M=128 N=512 K=256 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+  f8_b full M=256 N=256 K=1024 tiles=8: bad=0 zeros=0 nan=0 maxabs=0.000e+00/int-exact -> PASS
+f8_b LADDER: PASS
+VERDICT: ALL PASS

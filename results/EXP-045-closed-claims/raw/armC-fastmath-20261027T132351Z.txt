@@ -1,0 +1,6 @@
+device: Apple M5 Max
+armC	fn=tanh	samples=1024	fastMathOFF_vs_ON_bitEq=0.556	builtins_vs_fast::_bitEq=0.556	maxRelErrOFF=1.29e-07	maxRelErrON=4.73e-07	naN_ON=0	naN_fast=0
+armC	fn=exp	samples=1024	fastMathOFF_vs_ON_bitEq=0.366	builtins_vs_fast::_bitEq=0.366	maxRelErrOFF=1.47e-07	maxRelErrON=6.53e-07	naN_ON=0	naN_fast=0
+armC	fn=sin	samples=1024	fastMathOFF_vs_ON_bitEq=1.000	builtins_vs_fast::_bitEq=1.000	maxRelErrOFF=1.54e-07	maxRelErrON=1.54e-07	naN_ON=0	naN_fast=0
+armC	fn=sqrt	samples=1024	fastMathOFF_vs_ON_bitEq=0.717	builtins_vs_fast::_bitEq=0.717	maxRelErrOFF=5.56e-08	maxRelErrON=8.68e-08	naN_ON=0	naN_fast=0
+elapsed 0.2 s

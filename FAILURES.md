@@ -13,7 +13,7 @@ tooling](#b-xcode--xctrace-tooling) · [C. ANE measurement](#c-ane-measurement) 
 [D. Containers / zvec-grep](#d-containers--zvec-grep-zg) · [E. Agent / harness
 behaviour](#e-agent--harness-behaviour) · [Meta-rule](#meta-rule)
 
-New here? [MINEFIELD.md](MINEFIELD.md) is the eighteen-entry digest of this file,
+New here? [MINEFIELD.md](MINEFIELD.md) is the twenty-entry digest of this file,
 in plain words.
 
 ---

@@ -126,7 +126,7 @@ A correction note for finding #1 is filed upstream:
 ## What this mirror is (and is not)
 - **Is:** measured numbers, the failure corpus, and the instruments, with every claim carrying its
   command and its caveats. The claim layer is machine-checkable — see
-  [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md) (702 claims, 827 provenance events, 0 invalid).
+  [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md) (714 claims, 839 provenance events, 0 invalid).
 - **Is not:** vendor claims, or a promise that any of the private/documented Apple interfaces are
   stable. Where a claim is an AI's check rather than a human's, it says so.
 
