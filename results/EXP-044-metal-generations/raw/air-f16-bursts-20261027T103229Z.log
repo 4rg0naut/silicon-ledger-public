@@ -1,0 +1,14 @@
+== EXP-044 C4 Air fp16-lane bursts  — Mac16,13 26.6.2, OFFLINE metallib route (metal4.0 g_f16), quiet-ish cockpit ==
+stamp=2026-10-27T10:32:29Z
+11:32  up 1 day, 23:39, 2 users, load averages: 2,40 2,09 2,03
+Note: No thermal warning level has been recorded Note: No performance warning level has been recorded Note: No CPU power status has been recorded 
+host: air.local | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_ctl40b.metallib -> OK
+FN g_f16 -> OK
+PS g_f16 -> OK
+RUN g_f16 -> PASS bad=0 maxabs=0 (n=4194304)
+TIME g_f16 M=2048 N=2048 K=2048 reps=100 gpu_med_ms=5.2276 min_ms=5.2185 tflops=3.29
+host: air.local | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_ctl40b.metallib -> OK
+FN g_f16 -> OK
+PS g_f16 -> OK

@@ -16,6 +16,7 @@ machines — EXP-005 two-throughput-states applies per machine). Platform identi
 |---|---|---|---|
 | Mac Studio M5 Max | `Mac17,14`, 18C, 128 GB, macOS 27.0.1 (26A434) | h17c (CoreAI compile-target string; IOReport-visible board is the coarse `h17g` — per-die cores 32 vs 8 on h16g, arXiv 2606.22283 Ch24, `knowledge/ane/10` Q8) | calibration bench (`bda452aabd60bf26`, EXP-022) |
 | Mac mini M4 | `Mac16,10`, base M4 + 10GbE, 16 GB | h16g (per-die 8 — arXiv 2606.22283 Ch24) | historical corpus (EXP-001..021, 716 `M4` rows) |
+| MacBook Air 15" M4 | `Mac16,13`, base M4 (10-core GPU), 16 GB, **macOS 26.6.2 (25G83)** — the fleet's only pre-27 box | h16g (`ane-probe` 2026-10-27, `EXP-044/raw/air-identity-20261027T120913Z.txt`) | pre-27 control: EXP-044 gates/wall counter-case (API-174, GOTCHAS-093); cockpit box — bursts only, load declared |
 | iPad Air M2 | — (not powered for RE yet) | — | planned; constrained target |
 | Lenovo P11 Pro | Android/ARM (non-Apple) | n/a | future contrast column |
 

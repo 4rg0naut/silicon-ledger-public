@@ -1,0 +1,22 @@
+stamp=2026-10-27T10:42:59Z
+11:42  up 1 day, 23:49, 2 users, load averages: 2,92 2,67 2,35
+host: air.local | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_ctl40b.metallib -> OK
+FN g_f16 -> OK
+PS g_f16 -> OK
+RUN g_f16 -> PASS bad=0 maxabs=0 (n=16777216)
+TIME g_f16 M=4096 N=4096 K=4096 reps=30 gpu_med_ms=42.3473 min_ms=42.1942 tflops=3.25
+host: air.local | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_ctl40b.metallib -> OK
+FN g_f16 -> OK
+PS g_f16 -> OK
+RUN g_f16 -> PASS bad=0 maxabs=0 (n=262144)
+TIME g_f16 M=64 N=4096 K=4096 reps=150 gpu_med_ms=1.0211 min_ms=0.8057 tflops=2.10
+host: air.local | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_ctl40b.metallib -> OK
+FN g_f16 -> OK
+PS g_f16 -> OK
+RUN g_f16 -> PASS bad=0 maxabs=0 (n=524288)
+TIME g_f16 M=64 N=8192 K=8192 reps=150 gpu_med_ms=6.3651 min_ms=5.6930 tflops=1.35
+Note: No thermal warning level has been recorded Note: No performance warning level has been recorded Note: No CPU power status has been recorded 
+11:43  up 1 day, 23:49, 2 users, load averages: 2,86 2,67 2,36

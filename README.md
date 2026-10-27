@@ -86,7 +86,7 @@ its caveats. Rows marked *loaded-window* are declared upper bounds
 | NAX tensor units, hand-written MSL, fp8 (loaded window[^loaded]) | **32.0 TF** @2048³, bit-exact 24/24; needs Metal 4.1 — measured | [EXP-037](results/EXP-037-fp8-nax/results/fp8_matrix-20261026T1356Z.tsv) |
 | NAX, same harness, int8 (loaded window[^loaded]) | **55.2 TF** @4096³ = **1.74× the fp16/fp8 band**, bit-exact 16/16 | [EXP-037](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) |
 | NAX, same harness, fp32 — the first fp32 lane measurement here | **14.0 TF** @4096³, bit-exact 16/16 | [EXP-037](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) |
-| ANE weight budget · shared-blob private path, **both chips** | accepted **4,228,124,672 B** exact output · refused **4,294,971,392 B = 2^32+4096** (`verifyBundleAtPath Code=10`) — the wall is a 32-bit file size, not 1 GiB | [EXP-043](results/EXP-043-m5max-weight-budget/README.md) |
+| ANE weight budget · shared-blob private path, **both chips** | accepted **4,228,124,672 B** exact output · refused **4,294,971,392 B = 2^32+4096** (`verifyBundleAtPath Code=10`) — the wall is a 32-bit file size, not 1 GiB; **macOS 27 only**: the same h16g generation accepts ≥13.18 GiB exact on 26.6.2 | [EXP-043](results/EXP-043-m5max-weight-budget/README.md) · [EXP-044 wall log](results/EXP-044-metal-generations/raw/air-wall-26.6.2-20261027T104348Z.log) |
 
 The full per-lane reference — every lane this fleet has measured, by surface,
 with window, metric convention and instrument per cell — is
@@ -106,7 +106,10 @@ bare-metal hand-written MSL, every arm bit-exact against exact oracles:
 
 *Loaded-concurrent window (upper bounds declared); certified-quiet re-take is
 an open cell. The fp8 lane needs `-std=metal4.1` — Metal 4.0 rejects the type
-(measured, not quoted).*
+(measured, not quoted) — and 4.1 code needs **macOS 27 to run**: on 26.6.2 the
+same OS refuses a 4.1 metallib at load even when Xcode 27's own toolchain built
+it locally (the compile gate is the Xcode generation, the runtime gate is the
+OS — [EXP-044](results/EXP-044-metal-generations/README.md)).*
 
 ## Six numbers that surprised us
 
@@ -134,7 +137,11 @@ an open cell. The fp8 lane needs `-std=metal4.1` — Metal 4.0 rejects the type
    4,228,124,672-byte blob loads and computes exact, and 2^32+4096 bytes gets
    refused with a 32-bit-truncation signature. The "1 GiB limit" repeated in
    guides is one chip's number, and it understates this budget ~4×
-   ([EXP-043](results/EXP-043-m5max-weight-budget/README.md)).
+   ([EXP-043](results/EXP-043-m5max-weight-budget/README.md)). **OS-stamped
+   afterthought:** that refusal appeared with macOS 27 — the same h16g ANE
+   generation on 26.6.2 accepts ≥13.18 GiB with exact output, so every weight
+   ceiling is an OS-version-pinned number, never a constant
+   ([EXP-044](results/EXP-044-metal-generations/README.md)).
 
 ## What's new
 

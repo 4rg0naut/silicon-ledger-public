@@ -239,6 +239,16 @@ CANON = {
         "interleaves fp16/w8 with 8 s idle gaps under enginemon --json so lane bursts align to phases; energy arms INVALID unless quiet_probe shows omlx=down"),
     "results/EXP-040-m4-fp16-zero-collapse/harness/fp64_oracle.py": ("canonical", "fp64 CPU oracle for granite embedding dumps",
         "uv PEP723 script; fp64 padding sentinel clamped to -1e30 (finfo(double).min overflows stacked masks); compares raw emb-*.json dumps in raw/"),
+    "results/EXP-044-metal-generations/harness/lane_arms44.m": ("canonical", "five-lane matmul2d matrix f32/i8/f16/bf16/f8 one binary",
+        "EXP-044 lineage of EXP-037 lane_arms+fp8_ladder; bf16 lane added (API-168 row); decode M=1 padded to 64-row tile; exact-oracle maxabs MUST be 0; time/decode take arm name"),
+    "results/EXP-044-metal-generations/harness/gate_kernels44.metal": ("canonical", "metal version-gate probe kernels c_write/g_f16/g_f8",
+        "g_f8 wrapped in __HAVE_METAL_FP8_E4M3_FORMAT_TYPE__; compile per-std with -mmacosx-version-min pinned (GOTCHAS-093)"),
+    "results/EXP-044-metal-generations/harness/compile_gate44.sh": ("canonical", "build gate metallibs at metal4.0/4.1 on toolchain box",
+        "run on the 4.1-capable toolchain (Studio); artifacts gate_ctl40*.metallib / gate_all41*.metallib ship to older-OS boxes"),
+    "results/EXP-044-metal-generations/harness/gate_load44.m": ("canonical", "offline-metallib load/dispatch probe for cross-OS gate tests",
+        "newLibraryWithFile + optional sparse-oracle timed mode (argv7=reps switches gm-step 512); prints LOAD/FN/PS/RUN/TIME stage lines with verbatim OS errors; for 26.x boxes without Metal Toolchain"),
+    "results/EXP-044-metal-generations/harness/run_lanes44.sh": ("canonical", "decode|full interleaved arm matrix driver for lane_arms44",
+        "arms round-robin per shape (common-mode); run under declared window; TSV lines to stdout, stamp the log yourself"),
 }
 DUPES = {
     "results/EXP-029-nax-crosslane/harness/nax_ladder.m": ("superseded", "matmul2d ladder",

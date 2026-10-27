@@ -1,0 +1,31 @@
+stamp=2026-10-27T10:43:48Z
+11:43  up 1 day, 23:50, 2 users, load averages: 3,01 2,72 2,38
+-- C=8128 expect ACCEPT (file 32*(128+2*8128^2)=4228124672B < 2^32) --
+  chip: h16g (h16), 16 cores | hw_model=Mac16,13 os=26.6.2 os_build=25G83
+      [shared blob: 32 convs x 132128768 B payload = 4129028.0 KB, one file]
+    8128,8128,64,32  32 conv  Cin 8128 -> Cout 8128  |   63.163 ms    66.94 GB/s  264257536 B/core (252.016 MiB)  out[0]=8128.0 CORRECT
+  done
+-- C=8192 expect REFUSE Code=10 (4294971392B = 2^32+4096) --
+  chip: h16g (h16), 16 cores | hw_model=Mac16,13 os=26.6.2 os_build=25G83
+      [shared blob: 32 convs x 134217728 B payload = 4194308.0 KB, one file]
+    8192,8192,64,32  32 conv  Cin 8192 -> Cout 8192  |  177.336 ms    24.22 GB/s  268435456 B/core (256.000 MiB)  out[0]=8192.0 CORRECT
+  done
+stamp=2026-10-27T10:44:29Z
+11:44  up 1 day, 23:51, 2 users, load averages: 2,73 2,69 2,39
+disk-free=
+-- C=9216 file=5435822080B --
+      [shared blob: 32 convs x 169869312 B payload = 5308420.0 KB, one file]
+    9216,9216,64,32  32 conv  Cin 9216 -> Cout 9216  |   80.926 ms    67.17 GB/s  339738624 B/core (324.000 MiB)  out[0]=9216.0 CORRECT
+  done
+-- C=10240 file=6710890496B --
+      [shared blob: 32 convs x 209715200 B payload = 6553604.0 KB, one file]
+    10240,10240,64,32  32 conv  Cin 10240 -> Cout 10240  |  100.032 ms    67.09 GB/s  419430400 B/core (400.000 MiB)  out[0]=10240.0 CORRECT
+  done
+-- C=12288 file=9663680512B --
+      [shared blob: 32 convs x 301989888 B payload = 9437188.0 KB, one file]
+    12288,12288,64,32  32 conv  Cin 12288 -> Cout 12288  |  143.623 ms    67.28 GB/s  603979776 B/core (576.000 MiB)  out[0]=12288.0 CORRECT
+  done
+stamp=2026-10-27T10:45:23Z
+-- C=14336 file=13177139200B (>12.3GiB, past safe RAM on a 16GB box -- result either way is the ceiling signal) --
+      [shared blob: 32 convs x 411041792 B payload = 12845060.0 KB, one file]
+    14336,14336,64,32  32 conv  Cin 14336 -> Cout 14336  |  195.304 ms    67.35 GB/s  822083584 B/core (784.000 MiB)  out[0]=14336.0 CORRECT

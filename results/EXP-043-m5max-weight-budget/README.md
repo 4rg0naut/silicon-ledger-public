@@ -92,3 +92,11 @@ Plan-deviation declared: the task cap said artifacts ≤2 GiB; the byte ladder n
 locate the real wall (2 GiB would have stopped at the harness bug, see correction below). Largest
 artifact is a transient tmp bundle, not a kept file; kept raws are text/JSON only. Lane claim via
 unprivileged enginemon ANE-lens (no MLComputePlan exists for the private path — stated, not faked).
+
+## OS-regression addendum (append-only, 2026-10-27, EXP-044)
+The "wall at 2^32" is **OS-version-pinned, not silicon**: on macOS 26.6.2/25G83 the same h16g
+generation (Mac16,13 M4 Air) ACCEPTED C=8192 (4,294,971,392 B = 2^32+4096) and every larger size
+tested up to C=14336 (13.18 GiB file), exact to the out[0]==C oracle (`../EXP-044-metal-generations/raw/air-wall-26.6.2-20261027T104348Z.log`).
+Everything above remains true as measured — on 27.0.1/26A434. Read "the wall is 4 GiB file size"
+as "the wall appeared at 4 GiB with macOS 27.0"; filed API-174. This is the "one OS build" caveat
+paying rent.

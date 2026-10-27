@@ -1,0 +1,355 @@
+== EXP-044 fleet-join identity receipt — Air M4 15" via ssh, 20261027T120913Z ==
+-- python3 bench/identity.py (on air) --
+{
+ "chip": "Apple M4",
+ "hw_model": "Mac16,13",
+ "cores": 10,
+ "arch": "arm64",
+ "os": "26.6.2",
+ "os_build": "25G83"
+}
+-- ane-probe (on air) --
+=== AppleNeuralEngine.framework on this machine ===
+  identity: chip=Apple M4 hw_model=Mac16,13 cores=10 arch=arm64 os=26.6.2 os_build=25G83
+  dlopen: OK
+
+=== _ANEDeviceInfo ===
+      numANECores            -> 16        [I16@0:8]
+      numANEs                -> 1        [I16@0:8]
+      aneArchitectureType    -> h16g
+      aneSubType             -> h16
+      productName            -> macOS
+      isVirtualMachine       -> NO        [B16@0:8]
+      aneBoardType           -> 256        [q16@0:8]
+
+=== class existence vs what our KB documents ===
+  class                          exists     prior art said
+  -----                          ------     -------------
+  _ANEClient                     YES        documented, used by ane-infer
+  _ANEInMemoryModel              YES        documented, used by maderix + ANE-LM
+  _ANEInMemoryModelDescriptor    YES        documented
+  _ANEModel                      YES        documented, kernel-side handle
+  _ANEProgramForEvaluation       YES        documented, fast-path dispatch
+  _ANERequest                    YES        documented
+  _ANEChainingRequest            YES        documented; chaining
+  _ANEIOSurfaceObject            YES        documented
+  _ANEIOSurfaceOutputSets        YES        documented; error 15 came from the wrong factory
+  _ANEDeviceInfo                 YES        documented; core counts
+  _ANEDeviceController           YES        documented
+  _ANEQoSMapper                  YES        documented
+  _ANEStrings                    YES        documented; error domains
+  _ANEErrors                     YES        documented; error factories
+  _ANEMemoryModel                no         NO evidence it exists
+  _ANECompiler                   no         NO class dump; likely just a log prefix
+  _ANESharedEvents               YES        documented; crashes on MIL path
+  _ANEProgram                    no         seen in some dumps
+  _ANEModelCache                 no         seen in some dumps
+
+  15 present, 4 absent
+
+=== _ANEInMemoryModel ===
+    instance (41):
+      -.cxx_destruct   v16@0:8
+      -sharedConnection   @16@0:8
+      -descriptor   @16@0:8
+      -program   @16@0:8
+      -setDescriptor:   v24@0:8@16
+      -modelURL   @16@0:8
+      -setModelURL:   v24@0:8@16
+      -setModel:   v24@0:8@16
+      -setState:   v24@0:8Q16
+      -init   @16@0:8
+      -state   Q16@0:8
+      -model   @16@0:8
+      -dealloc   v16@0:8
+      -queueDepth   c16@0:8
+      -setQueueDepth:   v20@0:8c16
+      -setProgram:   v24@0:8@16
+      -modelAttributes   @16@0:8
+      -evaluateWithQoS:options:request:error:   B44@0:8I16@20@28^@36
+      -loadWithQoS:options:error:   B36@0:8I16@20^@28
+      -unloadWithQoS:error:   B28@0:8I16^@20
+      -hexStringIdentifier   @16@0:8
+      -intermediateBufferHandle   Q16@0:8
+      -programHandle   Q16@0:8
+      -purgeCompiledModel   v16@0:8
+      -compileWithQoS:options:error:   B36@0:8I16@20^@28
+      -compiledModelExists   B16@0:8
+      -compilerOptionsFileName   @16@0:8
+      -compilerOptionsWithOptions:isCompiledModelCached:   @28@0:8@16B24
+      -initWithDesctiptor:   @24@0:8@16
+      -isMILModel   B16@0:8
+      -localModelPath   @16@0:8
+      -mapIOSurfacesWithRequest:cacheInference:error:   B36@0:8@16B24^@28
+      -perfStatsMask   I16@0:8
+      -saveModelFiles   @16@0:8
+      -setCompilerOptionsFileName:   v24@0:8@16
+      -setIntermediateBufferHandle:   v24@0:8Q16
+      -setModelAttributes:   v24@0:8@16
+      -setPerfStatsMask:   v20@0:8I16
+      -setProgramHandle:   v24@0:8Q16
+      -string_id   Q16@0:8
+      -unmapIOSurfacesWithRequest:   v24@0:8@16
+    class (3):
+      +new   @16@0:8
+      +initialize   v16@0:8
+      +inMemoryModelWithDescriptor:   @24@0:8@16
+
+=== _ANEClient ===
+    instance (46):
+      -conn   @16@0:8
+      -compiledModelExistsMatchingHash:   B24@0:8@16
+      -.cxx_destruct   v16@0:8
+      -compileModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -sessionHintWithModel:hint:options:report:error:   B56@0:8@16@24@32@40^@48
+      -loadModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -purgeCompiledModelMatchingHash:   v24@0:8@16
+      -compiledModelExistsFor:   B24@0:8@16
+      -endRealTimeTask   B16@0:8
+      -connections   @16@0:8
+      -mapIOSurfacesWithModel:request:cacheInference:error:   B44@0:8@16@24B32^@36
+      -loadModelNewInstance:options:modelInstParams:qos:error:   B52@0:8@16@24@32I40^@44
+      -beginRealTimeTask   B16@0:8
+      -init   @16@0:8
+      -purgeCompiledModel:   v24@0:8@16
+      -echo:   B24@0:8@16
+      -dealloc   v16@0:8
+      -evaluateWithModel:options:request:qos:error:   B52@0:8@16@24@32I40^@44
+      -unloadModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -evaluateRealTimeWithModel:options:request:error:   B48@0:8@16@24@32^@40
+      -loadRealTimeModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -unloadRealTimeModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -unmapIOSurfacesWithModel:request:   v32@0:8@16@24
+      -connectionsUsedForLoadingModels   @16@0:8
+      -isVirtualClient   B16@0:8
+      -allowRestrictedAccess   B16@0:8
+      -buffersReadyWithModel:inputBuffers:options:qos:error:   B52@0:8@16@24@32I40^@44
+      -connectionForLoadingModel:options:   @32@0:8@16@24
+      -connectionUsedForLoadingModel:   @24@0:8@16
+      -doBuffersReadyWithModel:inputBuffers:options:qos:error:   B52@0:8@16@24@32I40^@44
+      -doEnqueueSetsWithModel:outputSet:options:qos:error:   B52@0:8@16@24@32I40^@44
+      -doEvaluateDirectWithModel:options:request:qos:error:   B52@0:8@16@24@32I40^@44
+      -doLoadModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -doLoadModelNewInstance:options:modelInstParams:qos:error:   B52@0:8@16@24@32I40^@44
+      -doPrepareChainingWithModel:options:chainingReq:qos:error:   B52@0:8@16@24@32I40^@44
+      -doUnloadModel:options:qos:error:   B44@0:8@16@24I32^@36
+      -enqueueSetsWithModel:outputSet:options:qos:error:   B52@0:8@16@24@32I40^@44
+      -fastConn   @16@0:8
+      -fastConnWithoutLock   @16@0:8
+      -initWithRestrictedAccessAllowed:   @20@0:8B16
+      -isAnetoolRootDaemonConnection   B16@0:8
+      -isRootDaemon   B16@0:8
+      -prepareChainingWithModel:options:chainingReq:qos:error:   B52@0:8@16@24@32I40^@44
+      -priorityQ   @16@0:8
+      -reportEvaluateFailure:failureReason:qIdx:   v36@0:8@16I24Q28
+      -virtualClient   @16@0:8
+    class (4):
+      +new   @16@0:8
+      +initialize   v16@0:8
+      +sharedConnection   @16@0:8
+      +sharedPrivateConnection   @16@0:8
+
+=== _ANEIOSurfaceOutputSets ===
+    instance (9):
+      -.cxx_destruct   v16@0:8
+      -description   @16@0:8
+      -encodeWithCoder:   v24@0:8@16
+      -init   @16@0:8
+      -initWithCoder:   @24@0:8@16
+      -dealloc   v16@0:8
+      -initWithstatsSurRef:outputBuffer:   @32@0:8^{__IOSurface=}16@24
+      -outputBuffer   @16@0:8
+      -statsSurRef   ^{__IOSurface=}16@0:8
+    class (3):
+      +new   @16@0:8
+      +supportsSecureCoding   B16@0:8
+      +objectWithstatsSurRef:outputBuffer:   @32@0:8^{__IOSurface=}16@24
+
+=== _ANEProgramForEvaluation ===
+    instance (19):
+      -.cxx_destruct   v16@0:8
+      -description   @16@0:8
+      -controller   @16@0:8
+      -init   @16@0:8
+      -dealloc   v16@0:8
+      -queueDepth   c16@0:8
+      -intermediateBufferHandle   Q16@0:8
+      -programHandle   Q16@0:8
+      -currentAsyncRequestsInFlight   q16@0:8
+      -initWithController:intermediateBufferHandle:queueDepth:   @36@0:8@16Q24c32
+      -processInputBuffers:model:options:error:   B48@0:8@16@24@32^@40
+      -processOutputSet:model:options:error:   B48@0:8@16@24@32^@40
+      -processRequest:model:qos:qIndex:modelStringID:options:returnValue:error:   B76@0:8@16@24I32Q36Q44@52^I60^@68
+      -processSessionHint:options:report:error:   B48@0:8@16@24@32^@40
+      -programInferenceOtherErrorForMessage:model:methodName:   @40@0:8^{ANENotificationMessageStruct=ii^v[4^v][4I]}16@24@32
+      -requestsInFlight   @16@0:8
+      -setCurrentAsyncRequestsInFlight:   v24@0:8q16
+      -setIntermediateBufferHandle:   v24@0:8Q16
+      -setProgramHandle:   v24@0:8Q16
+    class (3):
+      +new   @16@0:8
+      +programWithController:intermediateBufferHandle:queueDepth:   @36@0:8@16Q24c32
+      +programWithHandle:intermediateBufferHandle:queueDepth:   @36@0:8Q16Q24c32
+
+=== _ANEStrings (class-method string constants) ===
+      +machServiceName                                    = com.apple.appleneuralengine
+      +errorDomainGeneric                                 = com.apple.appleneuralengine
+      +modelBinaryName                                    = model.hwx
+      +pps_internalDir                                    = /AppleInternal
+      +adapterWeightsAccessEntitlement                    = com.apple.aned.private.adapterWeight.allow
+      +adapterWeightsAccessEntitlementBypassBootArg       = ane_skipAdapterWeightAccessCheck
+      +aggressivePowerSavingEntitlement                   = com.apple.aned.private.aggressivePowerSaving.allow
+      +binExtension                                       = .bin
+      +buildSpecificModelDataVaultDirectory               = /Library/Caches/com.apple.aned/25G83
+      +buildSpecificUserModelDataVaultDirectory           = /Library/Caches/com.apple.aneuserd/25G83
+      +cloneDirectory                                     = /Library/Caches/com.apple.aned/clones
+      +compilerServiceAccessEntitlement                   = com.apple.ANECompilerService.allow
+      +coreAnalyticsANEUsageDefaultReportedClient         = ThirdPartyAppUsingANE
+      +coreAnalyticsANEUsageKeyGroup                      = com.apple.ANEUsage
+      +dataVaultStorageClass                              = ane_model_cache
+      +defaultANECIRFileName                              = net.plist
+      +defaultANECIROptionsFileName                       = compiler_options.plist
+      +defaultCompilerOptionsFilename                     = net_options.plist
+      +defaultLLIRBundleName                              = model.llir.bundle
+      +defaultMILFileName                                 = model.mil
+      +defaultMLIRFileName                                = model.bc.mlir
+      +defaultWeightFileName                              = weight.bin
+      +errorDomainCompiler                                = com.apple.appleneuralengine.compiler
+      +errorDomainEspresso                                = com.apple.appleneuralengine.espresso
+      +errorDomainVirtIO                                  = com.apple.applevirtioneuralengine
+      +hwxExtension                                       = .hwx
+      +inMemoryModelCacheName                             = InMemoryModelCache
+      +internalLibraryPath                                = /AppleInternal/Library
+      +launchIOKitEvent                                   = com.apple.aned.launch
+      +launchUserIOKitEvent                               = com.apple.aneuserd.launch
+      +llirBundleExtension                                = .llir.bundle
+      +machServiceNamePrivate                             = com.apple.appleneuralengine.private
+      +memoryUnwireAccessEntitlement                      = com.apple.ane.memoryUnwiringOptOutAccess.allow
+      +mlirExtension                                      = .mlir
+      +modelAssetsCacheName                               = ModelAssetsCache
+      +modelCacheRetainName                               = model.retain
+      +modelDataVaultDirectory                            = /Library/Caches/com.apple.aned
+      +modelPurgeInAllPartitionsEntitlement               = com.apple.private.modelPurgeInAllPartitions.allow
+      +modelSourceStoreName                               = model.src
+      +noSandboxExtension                                 = 
+      +ppsCategoryForANE                                  = (
+    modelLoad,
+    modelUnload,
+    newInstanceModelLoad,
+    newInstanceModelUnload,
+    modelCompilation,
+    modelInference,
+    ANEStatus
+)
+      +ppsSubsystemForANE                                 = ANE
+      +pps_applicationDir                                 = /Applications
+      +pps_catalogDir                                     = /var/MobileAsset/AssetV2
+      +pps_defaultSystemPathDir                           = (
+    "/AppleInternal/Tests/AppleNeuralEngine/AppleNeuralEngine_tests-Runner.app/Contents/PlugIns/AppleNeuralEngine_tests.xctest/TestModels",
+    "/System/Library",
+    "/AppleInternal/Library",
+    "/Frameworks",
+    "/PrivateFrameworks",
+    "/var",
+    "/tmp",
+    "/AppleInternal",
+    "/Applications",
+    "/var/MobileAsset/AssetV2"
+)
+      +pps_defaultUserPathPrefix                          = /Users
+      +pps_frameworkDir                                   = /Frameworks
+      +pps_privateFrameworkDir                            = /PrivateFrameworks
+      +pps_tmpDir                                         = /tmp
+      +pps_varDir                                         = /var
+      +processModelShareAccessEntitlement                 = com.apple.aned.private.processModelShare.allow
+      +restrictedAccessEntitlement                        = com.apple.aned.private.allow
+      +secondaryANECompilerServiceAccessEntitlement       = com.apple.aned.private.secondaryANECompilerServiceAccess.allow
+      +storageMaintainerAccessEntitlement                 = com.apple.private.ANEStorageMaintainer.allow
+      +systemLibraryPath                                  = /System/Library
+      +systemModelsCacheDirectory                         = com.apple.SHARED_SYSTEM_MODELS
+      +tempDirectory                                      = /Library/Caches/com.apple.aned/tmp
+      +testing_ThreeSixtyModelName                        = threeSixtyModel
+      +testing_cacheDirectory                             = /var/tmp/com.apple.aned/Cache/
+      +testing_dataVaultStorageClass                      = testing_ane_model_cache
+      +testing_defaultMLIRModelName                       = mlir
+      +testing_encryptedModelNames                        = (
+    encryptedModel
+)
+      +testing_external_modelPath                         = /System/Library/Frameworks/Vision.framework/bodynet_v1.0.espresso.net
+      +testing_external_precompiledModelPath              = /System/Library/PrivateFrameworks/FRC.framework/Versions/A/Resources/Networks/synthesis_net_GridNet_pyrlite.H13.espresso.hwx
+      +testing_inputDirectory                             = /AppleInternal/Tests/AppleNeuralEngine/AppleNeuralEngine_tests-Runner.app/Contents/PlugIns/AppleNeuralEngine_tests.xctest
+      +testing_modelDirectory                             = TestModels
+      +testing_modelNames                                 = (
+    smallModel,
+    overflowModel,
+    zeroModel
+)
+      +testing_userCacheDirectory                         = /var/tmp/com.apple.aneuserd/Cache/
+      +testing_zeroModelName                              = zeroModel
+      +userCloneDirectory                                 = /Library/Caches/com.apple.aneuserd/clones
+      +userMachServiceName                                = com.apple.aneuserd
+      +userModelDataVaultDirectory                        = /Library/Caches/com.apple.aneuserd
+      +userTempDirectory                                  = /Library/Caches/com.apple.aneuserd/tmp
+      +vm_allowPrecompiledBinaryBootArg                   = ane_vm_allowPrecompiledBinary
+      +vm_debugDumpBootArg                                = ane_vm_debugDumpBootArg
+      +vm_forceValidationOnGuestBootArg                   = ane_vm_forceValidationOnGuest
+      +vm_tmpBaseDirectory                                = /var/tmp/com.apple.ane/
+      (77 string constants of 87 class methods)
+
+=== every class whose name starts with _ANE ===
+  _ANESharedWaitEvent
+  _ANECloneHelper
+  _ANEBuffer
+  _ANESandboxingHelper
+  _ANEInputBuffersReady
+  _ANEPerformanceStats
+  _ANESharedSignalEvent
+  _ANEDaemonConnection
+  _ANEProgramIOSurfacesMapper
+  _ANEHashEncoding
+  _ANEOutputSetEnqueue
+  _ANEPerformanceStatsIOSurface
+  _ANEModelInstanceParameters
+  _ANEWeight
+  _ANEProcedureData
+  _ANEDataReporter
+  _ANEModelToken
+  _ANESharedEvents
+  _ANEErrors
+  _ANEStrings
+  _ANEQoSMapper
+  _ANEDeviceController
+  _ANEIOSurfaceOutputSets
+  _ANEIOSurfaceObject
+  _ANEChainingRequest
+  _ANERequest
+  _ANEProgramForEvaluation
+  _ANEModel
+  _ANEInMemoryModelDescriptor
+  _ANEInMemoryModel
+  _ANEClient
+  _ANELog
+  _ANEVirtualClient
+  _ANEDeviceInfo
+  (34 of 9672 runtime classes)
+-- GPU/ANE display identity (system_profiler) --
+Graphics/Displays:
+
+    Apple M4:
+
+      Chipset Model: Apple M4
+      Type: GPU
+      Bus: Built-In
+      Total Number of Cores: 10
+      Vendor: Apple (0x106b)
+      Metal Support: Metal 4
+      Displays:
+        Color LCD:
+          Display Type: Built-in Liquid Retina Display
+          Resolution: 2880 x 1864 Retina
+          Main Display: Yes
+          Mirror: Off
+          Online: Yes
+          Automatically Adjust Brightness: No
+          Connection Type: Internal
+

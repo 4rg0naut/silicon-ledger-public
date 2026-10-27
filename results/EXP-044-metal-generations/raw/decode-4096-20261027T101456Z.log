@@ -1,0 +1,37 @@
+== EXP-044 C3 decode matrix 20261027T101456Z host=Mac17,14 os=27.0.1/26A434 toolchain=Apple metal version 32023.921 (metalfe-32023.921.6) ==
+device: Apple M5 Max | Version 27.0.1 (Build 26A434) lane_arms44
+library compiled (metal4.1 runtime)
+  f8 precheck M=64 N=2048 K=2048 tiles=64: bad=0 zeros=0/2048 maxabs=0 -> PASS
+lane_arms44	arm=f8-decodepadded	M=64 N=2048 K=2048	reps=300	gpu_med_ms=0.1424	min_ms=0.1352	tflops=0.06
+device: Apple M5 Max | Version 27.0.1 (Build 26A434) lane_arms44
+library compiled (metal4.1 runtime)
+  f16 precheck M=64 N=2048 K=2048 tiles=64: bad=0 zeros=0/2048 maxabs=0 -> PASS
+lane_arms44	arm=f16-decodepadded	M=64 N=2048 K=2048	reps=300	gpu_med_ms=0.1503	min_ms=0.1476	tflops=0.06
+device: Apple M5 Max | Version 27.0.1 (Build 26A434) lane_arms44
+library compiled (metal4.1 runtime)
+  bf16 precheck M=64 N=2048 K=2048 tiles=64: bad=0 zeros=0/2048 maxabs=0 -> PASS
+lane_arms44	arm=bf16-decodepadded	M=64 N=2048 K=2048	reps=300	gpu_med_ms=0.1504	min_ms=0.1470	tflops=0.06
+device: Apple M5 Max | Version 27.0.1 (Build 26A434) lane_arms44
+library compiled (metal4.1 runtime)
+  f8 precheck M=64 N=4096 K=4096 tiles=128: bad=0 zeros=0/4096 maxabs=0 -> PASS
+lane_arms44	arm=f8-decodepadded	M=64 N=4096 K=4096	reps=300	gpu_med_ms=0.1719	min_ms=0.1712	tflops=0.20
+device: Apple M5 Max | Version 27.0.1 (Build 26A434) lane_arms44
+library compiled (metal4.1 runtime)
+  f16 precheck M=64 N=4096 K=4096 tiles=128: bad=0 zeros=0/4096 maxabs=0 -> PASS
+lane_arms44	arm=f16-decodepadded	M=64 N=4096 K=4096	reps=300	gpu_med_ms=0.2834	min_ms=0.1734	tflops=0.12
+device: Apple M5 Max | Version 27.0.1 (Build 26A434) lane_arms44
+library compiled (metal4.1 runtime)
+  bf16 precheck M=64 N=4096 K=4096 tiles=128: bad=0 zeros=0/4096 maxabs=0 -> PASS
+lane_arms44	arm=bf16-decodepadded	M=64 N=4096 K=4096	reps=300	gpu_med_ms=0.2174	min_ms=0.1738	tflops=0.15
+device: Apple M5 Max | Version 27.0.1 (Build 26A434) lane_arms44
+library compiled (metal4.1 runtime)
+  f8 precheck M=64 N=8192 K=8192 tiles=256: bad=0 zeros=0/8192 maxabs=0 -> PASS
+lane_arms44	arm=f8-decodepadded	M=64 N=8192 K=8192	reps=300	gpu_med_ms=0.3290	min_ms=0.3182	tflops=0.41
+device: Apple M5 Max | Version 27.0.1 (Build 26A434) lane_arms44
+library compiled (metal4.1 runtime)
+  f16 precheck M=64 N=8192 K=8192 tiles=256: bad=0 zeros=0/8192 maxabs=0 -> PASS
+lane_arms44	arm=f16-decodepadded	M=64 N=8192 K=8192	reps=300	gpu_med_ms=0.3134	min_ms=0.3096	tflops=0.43
+device: Apple M5 Max | Version 27.0.1 (Build 26A434) lane_arms44
+library compiled (metal4.1 runtime)
+  bf16 precheck M=64 N=8192 K=8192 tiles=256: bad=0 zeros=0/8192 maxabs=0 -> PASS
+lane_arms44	arm=bf16-decodepadded	M=64 N=8192 K=8192	reps=300	gpu_med_ms=0.3132	min_ms=0.3097	tflops=0.43

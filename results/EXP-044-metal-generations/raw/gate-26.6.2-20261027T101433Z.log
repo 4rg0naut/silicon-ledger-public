@@ -1,0 +1,27 @@
+== EXP-044 C2a gate matrix 20261027T101433Z — Air M4 15" (Mac16,13) macOS 26.6.2/25G83, metallibs offline-built on Studio toolchain metalfe-32023.921.6 ==
+-- probe: fp8 type vs -std (Studio, bare + MPP-include) --
+metal4.0 bare       -> REJECT unknown type name metal_fp8_e4m3_format
+metal4.1 bare       -> REJECT (probe cast; type name itself accepted past decl) [artifact: no include]
+metal4.0 + MPP hdr  -> REJECT unknown type name metal_fp8_e4m3_format
+metal4.1 + MPP hdr  -> type exists (error moved to cast line = ACCEPT as type)
+-- first Air attempt: unpinned floor (default -mmacosx-version-min=27.0 from Studio SDK) --
+LOAD gate_ctl40.metallib -> FAIL: This library is using a deployment target (0x00020009) that is not supported on this OS. [metal4.0 lib too — deployment-target gate, ORTHOGONAL, undocumented]
+-- matrix with -mmacosx-version-min=15.0 pinned --
+host: air.local | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_ctl40b.metallib -> OK
+FN c_write -> OK
+PS c_write -> OK
+RUN c_write -> PASS (n=2048)
+rc=0
+host: air.tailf7b38a.ts.net | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_ctl40b.metallib -> OK
+FN g_f16 -> OK
+PS g_f16 -> OK
+RUN g_f16 -> PASS bad=0 maxabs=0 (n=2048)
+rc=0
+host: air.home | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_all41b.metallib -> FAIL: This library is using language version 4.1 which is not supported on this OS.
+rc=1
+host: air.home | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_all41b.metallib -> FAIL: This library is using language version 4.1 which is not supported on this OS.
+rc=1

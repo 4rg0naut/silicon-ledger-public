@@ -110,7 +110,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-187 | `tools/rerank-server/rerank_server_ane.py` | duplicate | The AOT-compiled ANE reranker over the same /v1/rerank API as the GPU server. |
 | INSTR-171 | `tools/archive/inventory.py` | superseded | inventory.py — cross-volume archive sweep that produces knowledge/ane/ARCHIVE-MAP.md. |
 
-## experiment-harness (102)
+## experiment-harness (107)
 
 | id | path | status | purpose |
 |---|---|---|---|
@@ -154,6 +154,11 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-195 | `results/EXP-041-multi-input/harness/multi_input_probe.m` | canonical | multi_input_probe.m — EXP-041: how wide is the ANE single-input limitation, per machine? |
 | INSTR-197 | `results/EXP-042-cold-compile/harness/compile_ladder.m` | canonical | compile_ladder.m — EXP-042: ANE compile-time ladder, cold (cache-busted) vs warm (cache hit). |
 | INSTR-196 | `results/EXP-043-m5max-weight-budget/harness/byte_bracket.sh` | canonical | byte_bracket.sh — EXP-043: h17c ANE weight-byte bracket at fixed count (shared single blob). |
+| INSTR-200 | `results/EXP-044-metal-generations/harness/compile_gate44.sh` | canonical | compile_gate44 — EXP-044 C2a: build the three offline gate metallibs on a metal4.1-capable |
+| INSTR-201 | `results/EXP-044-metal-generations/harness/gate_kernels44.metal` | canonical | gate_kernels44 — EXP-044 C2a: three kernels spanning the metal version gate. |
+| INSTR-202 | `results/EXP-044-metal-generations/harness/gate_load44.m` | canonical | gate_load44 — EXP-044 C2a host: attempt to LOAD an offline-compiled .metallib on THIS |
+| INSTR-203 | `results/EXP-044-metal-generations/harness/lane_arms44.m` | canonical | lane_arms44 — EXP-044: five matmul2d lanes in ONE interleaved binary, two generations. |
+| INSTR-204 | `results/EXP-044-metal-generations/harness/run_lanes44.sh` | canonical | run_lanes44 — EXP-044 C3/C4 timed matrix runner. Interleaves arms round-robin per shape |
 | INSTR-066 | `results/EXP-025-ane-gpu-sync/harness/ane_bridge_dbg.m` | duplicate | ane_bridge.m — Objective-C implementation of the ANE private API bridge. |
 | INSTR-067 | `results/EXP-025-ane-gpu-sync/harness/ane_bridge_mrr.m` | duplicate | ane_bridge.m — Objective-C implementation of the ANE private API bridge. |
 | INSTR-144 | `results/EXP-029-nax-crosslane/harness/nax_gemm_matrix.sh` | duplicate | nax_gemm_matrix.sh — dtype-fair, MLX-free GEMM matrix on the local nax_gemm probe. |

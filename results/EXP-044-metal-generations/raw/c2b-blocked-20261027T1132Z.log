@@ -1,0 +1,5 @@
+== EXP-044 C2b BLOCKED capture 2026-10-27T11:32Z ==
+host: Air Mac16,13 macOS 26.6.2/25G83, xcode-select -> /Applications/Xcode.app, Xcode 27.0 (27A266a), thin install (3.7 GB, CoreSimulator.framework absent system-wide)
+xcodebuild -downloadComponent MetalToolchain -> exit 70 before download: xcodebuild aborts on IDESimulatorFoundation plugin dlopen failure (missing /Library/Developer/PrivateFrameworks/CoreSimulator.framework). Fix needs interactive sudo: xcodebuild -runFirstLaunch.
+softwareupdate --list: no Metal Toolchain / CLT component offered.
+NOTE air runs Xcode 27.0 on macOS 26.6.2 -> compile-surface (Xcode-27 toolchain) and OS-runtime gate separable in principle; runtime gate already measured: 4.1 metallib REFUSED on 26.6.2 (gate-26.6.2-20261027T101433Z.log). Open cell: what __METAL_VERSION__ the 27.0 toolchain emits here once component installs.

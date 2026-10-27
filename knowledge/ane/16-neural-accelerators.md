@@ -100,6 +100,25 @@ declare upper bounds; certified-quiet re-take is an open cell). Cross-arm parity
 | **`mm_f32` fp32×fp32→f32 (tf32-class lane) NEW** | **14.0 TF** @4096³ (9.8184 ms) · 14.5 @2048³ · 8.43 @1024³ | **bit-exact 16/16 maxabs=0**; compiles at metal **4.0 AND 4.1** — the 4.1 gate is fp8-type-specific, not device-tensor-general | [lane_arms.m](../../results/EXP-037-fp8-nax/README.md#reproduce) · bare-metal, metalfe-32023.921.6 | [tsv](../../results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) · [ladder](../../results/EXP-037-fp8-nax/raw/lane_ladder_20261026.txt) |
 | **`mm_i8` uint8×uint8→i32 NEW** | **55.2 TF** @4096³ (2.4916 med / 2.4825 min) = **1.74× the fp16/fp8 band**; @2048³ med 1.3925 is mid-run-contaminated (min 0.3048 ≈ 57 TF ceiling); 11.45 @1024³ | bit-exact 16/16; MSL `int8_t` (=signed char) is **not** a tensor element type — measured; storage biased +128, exact-integer oracle | same | same |
 | **decode M=1 (padded to 64-row tile) NEW** | f32 0.0620 ms @K2048 / 0.2365 @K4096 · i8 0.0249 / 0.0679 — still 1.8–6.3× faster than MetalHLO's M=1 arm (0.43 ms) despite doing 64× the padded flops; geometry tax of fixed 64×32 tiles made visible | row-0 oracle PASS | same | same |
+| **`mm_bf16` bfloat×bfloat→f32 NEW (EXP-044)** | **31.79 TF** @2048³ (0.5404 ms med) · 31.53 @4096³ (4.3588) — sits exactly in the fp16/fp8 band (f16 same-run 31.77/31.40); the "bf16 decode fast route" rides the same lane, it does not unlock one | bit-exact ladders 16/16 + full-shape @4096³ oracle 16.7 M samples maxabs=0 | [lane_arms44.m](../../results/EXP-044-metal-generations/README.md#reproduce) · bare-metal, metalfe-32023.921.6 | [lanes tsv-log](../../results/EXP-044-metal-generations/raw/lanes-20261027T101521Z.log) |
+| **decode M=1 f8/f16/bf16 K-ladder NEW (EXP-044)** | med ms K2048/4096/8192: f8 **0.1424 / 0.1719 / 0.3290** · f16 0.1503 / 0.2834(contam, min 0.1734) / 0.3134 · bf16 0.1504 / 0.2174 / 0.3132. Min-vs-min: f8 **+8.4 %** @K2048, +1.3 % @K4096, **−2.8 % @K8192** — the half-byte advantage exists at small K and DISSOLVES at large K exactly where operand streaming should make it ~2×; dequant/dispatch cost eats it. fp8 stays footprint-only in the decode regime too | precheck oracles PASS every cell | [run_lanes44.sh](../../results/EXP-044-metal-generations/README.md#reproduce) · bare-metal | [decode tsv-log](../../results/EXP-044-metal-generations/raw/decode-4096-20261027T101456Z.log) |
+
+**Cross-arm reading @4096³, EXP-044 re-run (2026-10-27, loaded):** f8 31.92 | bf16 31.53 | f16 31.40 TF — parity band reproduced within 1.7 %; i8 @2048³ 57.87 TF (1.82× the f16 band) in the same interleaved run.
+
+### Surface 1b — `matmul2d` fp16 on the M4 BASE (Mac16,13, macOS 26.6.2), offline-metallib route (bare-metal, EXP-044)
+
+The pre-NAX generation, measured here for the first time on this fleet. No Metal toolchain component on
+the 26.x box — kernels compile on the Studio toolchain and ship as `.metallib` (`-std=metal4.0` +
+`-mmacosx-version-min=15.0` pinned; see GOTCHAS-093 for why the pin is load-bearing). A `metal4.1` lib
+(freeing the fp8 type) will NOT load on 26.6.2 at all: runtime refuses language version 4.1 — the fp8
+lane is OS-locked to macOS 27, not chip-gated. Window: cockpit-load (user laptop, load ~2.7, no thermal
+warnings logged); absolute TFLOPS are load-stamped; per-core ratios are the transportable number.
+
+| lane | measured | parity/exactness | instrument·kind | capture |
+|---|---|---|---|---|
+| `g_f16` half×half→f32 64×32×dynK sg4 | **3.29 TF** @2048³ (5.2276 ms med, 100 reps) · **3.25 TF** @4096³ (42.35 ms, 30 reps) | bit-exact: full-shape oracle 16.7 M samples maxabs=0 @4096³ | [gate_load44.m](../../results/EXP-044-metal-generations/README.md#reproduce) + gate_kernels44.metal · bare-metal, offline metallib (metalfe-32023.921.6 build, 26.6.2 runtime) | [bursts](../../results/EXP-044-metal-generations/raw/air-f16-bursts2-20261027T104259Z.log) |
+| decode-padded M=64 N=K | 1.021 ms @K4096 · 6.365 ms @K8192 (med) | sparse oracles PASS | same | same |
+| per-core cross-check vs Rigel (M4 Max, 40c, 14.8 TF) | ours 3.25/10c = 0.33 TF/core vs their 14.8/40c = 0.37 TF/core — **~88 % per-core parity** | independent corroboration that matmul2d fp16 rides the per-core shader/simdgroup path pre-NAX | — | [gate log](../../results/EXP-044-metal-generations/raw/gate-26.6.2-20261027T101433Z.log) |
 
 Cross-arm reading @4096³: f32 14.0 | f16 30.2 | f8 31.7 | i8 55.2 TF. Two independent confirmations:
 fp8=f16 parity at naive 64×32 tiles stands (31.7 vs 30.2, ≤5 %); **int8/fp16 = 1.74× matches Zakharko's

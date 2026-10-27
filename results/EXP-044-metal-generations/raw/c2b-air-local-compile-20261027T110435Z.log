@@ -1,0 +1,30 @@
+stamp=2026-10-27T11:04:35Z
+-- __METAL_VERSION__ emitted by Air-local toolchain (Xcode 27.0 on 26.6.2) --
+metal4.0 -> __METAL_VERSION__ == 400 (assert passed)
+metal4.1 -> __METAL_VERSION__ == 410 (assert passed)
+-- local 4.1 build incl fp8 type, load on same 26.6.2 box --
+BUILD-FAIL
+metal: error: no such file or directory: 'gate_kernels44.metal'
+metal: error: no input files
+host: air.local | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_all41c.metallib -> FAIL: library not found
+rc=1
+host: air.local | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_all41c.metallib -> FAIL: library not found
+rc=1
+stamp=2026-10-27T11:04:53Z
+local-4.1 metallib BUILT OK (24066 B) — fp8 type COMPILES on 26.6.2 box
+host: air.local | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_all41c.metallib -> FAIL: This library is using language version 4.1 which is not supported on this OS.
+rc=1
+host: 192-168-1-61.lan | macOS Version 26.6.2 (Build 25G83) | device Apple M4
+LOAD gate_ctl40c.metallib -> OK
+FN g_f16 -> OK
+PS g_f16 -> OK
+RUN g_f16 -> PASS bad=0 maxabs=0 (n=2048)
+rc=0
+VERDICT C2b: Xcode 27.0 (metalfe-32023.921) on macOS 26.6.2 emits __METAL_VERSION__==410 and COMPILES
+metal_fp8_e4m3_format on a 26.x box; the locally-built 4.1 metallib is then REFUSED at load by its own
+OS. Two-part gate fully separated: compile-side = Xcode generation (27+), runtime-side = macOS (27.0+).
+4.0 local build loads + bit-exact same box. Rigel's finding fully corroborated on independent silicon;
+their "Xcode 26.5/26.6 emit 4.0" half not directly tested (Air carries Xcode 27).

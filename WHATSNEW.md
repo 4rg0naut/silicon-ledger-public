@@ -1,3 +1,41 @@
+# What's new — 2026-10-27 (round 5: ceilings are OS-pinned — the 4 GiB "wall" is a macOS 27 regression)
+
+Same status key: **NEW** = we could not find it published · **EXT** = extends published work · **KNOWN** = already public — house terms decoded in [`GLOSSARY.md`](GLOSSARY.md).
+Finding numbers remain global and monotonic; this round adds `#26`–`#29` on top of `#1`–`#25`.
+Priors behind every verdict: [`knowledge/ane/SOURCES.md`](knowledge/ane/SOURCES.md).
+
+A third machine joined the fleet — a 15" MacBook Air M4 base (`Mac16,13`, 16 GB, **macOS 26.6.2**),
+the first pre-27 bench box — and it immediately paid for itself: the 2^32 byte wall from round 4
+(`#20`) **does not exist on macOS 26**. Round 4's numbers stand exactly as measured — on 27.0.1 —
+and `#26` restates them OS-stamped. Same round: the two orthogonal gates that decide whether a
+metallib loads (one of them undocumented), a lane-parity replication, and a cross-lab per-core
+corroboration on the pre-NAX chip.
+
+| # | Finding | Status | Evidence |
+|---|---|---|---|
+| 26 | **The 2^32 B ANE weight wall is a macOS 27 regression, not silicon** — at 27.0.1/26A434 both h17g (M5 Max) and h16g (M4 mini) refuse the 4,294,971,392 B blob (`Code=10 verifyBundleAtPath`), while the **same bench, same h16g ANE generation** on 26.6.2/25G83 (M4 base Air) accepts that size and keeps accepting, exact to the `out[0]==C` oracle, up to 13,177,139,200 B (784 MiB/core) at a steady 66.9–67.4 GB/s. **Every published ANE ceiling is an OS-stamped number.** | **NEW as a correction** — supersedes the un-OS-stamped reading of `#20` (whose measurements stand as taken on 27.0.1) | [`EXP-044 wall log`](results/EXP-044-metal-generations/raw/air-wall-26.6.2-20261027T104348Z.log) · [`EXP-044 README`](results/EXP-044-metal-generations/README.md) · [`EXP-043 README + addendum`](results/EXP-043-m5max-weight-budget/README.md) |
+| 27 | **Two orthogonal gates decide metallib loading — pin the deployment target** — a 27-SDK build without `-mmacosx-version-min` is refused on 26.6.2 by a **deployment-target floor** ("deployment target (0x00020009) not supported on this OS" — the error names the target, not the language version); pinned to 15.0, the Metal 4.0 lib loads and computes bit-exact. The Metal 4.1 **language** gate is separate and OS-bound, not Xcode-bound: the Air runs Xcode 27.0 on 26.6.2, its local toolchain emits `__METAL_VERSION__ == 410` and compiles fp8 — then the same OS refuses the 4.1 metallib at load. **Compile surface = Xcode generation; runtime = macOS version.** | **NEW** (deployment-target floor gate); **EXT** (published Metal 4.1 language gate, reproduced verbatim on our silicon) | [`gate matrix log`](results/EXP-044-metal-generations/raw/gate-26.6.2-20261027T101433Z.log) · [`C2b local-compile log`](results/EXP-044-metal-generations/raw/c2b-air-local-compile-20261027T110435Z.log) · [`EXP-044 README`](results/EXP-044-metal-generations/README.md) |
+| 28 | **NAX lane parity replicates; bf16 rides the fp16 lane; fp8's byte advantage dissolves at decode** — @4096³ (loaded window): f8 31.92 / bf16 31.53 / f16 31.40 TF (our own prior band ±1.7 %); @2048³: i8 57.87 TF = **1.82×** fp16 (matches an independently published A19 ratio of 1.8×), f32 11.63 TF; decode M=1 K-ladder: f8 is 8.4 % faster than f16 at K2048, 1.3 % at K4096, and **2.8 % slower** at K8192. Full-shape @4096³ oracles 16,777,216 samples, maxabs=0. | **EXT** (replicates our EXP-037 band on a new session/window; corroborates published M4-Max ratios on NAX silicon) | [`lane matrix log`](results/EXP-044-metal-generations/raw/lanes-20261027T101521Z.log) · [`decode ladder`](results/EXP-044-metal-generations/raw/decode-4096-20261027T101456Z.log) · [`EXP-044 README`](results/EXP-044-metal-generations/README.md) |
+| 29 | **Pre-NAX `matmul2d` fp16 rides the per-core shader path — cross-lab corroboration at 88 %** — M4 base on 26.6.2 via offline metallib (pin per `#27`): 3.29 TF @2048³, 3.25 TF @4096³ bit-exact, decode-padded 1.021 ms @K4096; **0.33 vs 0.37 TF/core** against an independent lab's clock-stable M4 Max figures on the same 10-core-per-GPU framing. | **EXT** (independent two-lab confirmation of a published per-core rate) | [`M4 bursts log`](results/EXP-044-metal-generations/raw/air-f16-bursts2-20261027T104259Z.log) · [`EXP-044 README`](results/EXP-044-metal-generations/README.md) |
+
+### The numbers behind round 5
+
+- `#26` — the refusal bracket from `#20` simply disappears on 26.6.2: C=8192/9216/10240/12288/14336
+  all accepted with exact output. Different chassis (Air vs mini), **same ANE generation (h16g),
+  same bench binary**; OS build is the only material variable. 13.18 GiB is a **lower bound** — the
+  16 GB Air hits RAM/disk pressure before any ceiling does; the 26.x ceiling above it stays open.
+- `#27` — the two errors read alike at a glance; only one names a language version. Filed
+  internally as GOTCHAS-093; the shipping rule: pass `-mmacosx-version-min` explicitly, and stamp
+  the OS on every limit you publish.
+- `#28` — Studio window was production-loaded (oMLX up): **ratios are the claim**, absolutes are
+  window-stamped, per house convention.
+- `#29` — Air ran cockpit-loaded (~2.7) with clean thermal logs; the per-core comparison borrows
+  the published clock-stable regime and claims no cross-box absolute parity.
+
+EXP-038 (certified-quiet lane re-take) remains in flight and is still not shipping numbers here.
+
+---
+
 # What's new — 2026-10-27 (round 4: the real ANE weight wall, and the trap that fakes limits)
 
 Same status key: **NEW** = we could not find it published · **EXT** = extends published work · **KNOWN** = already public — house terms decoded in [`GLOSSARY.md`](GLOSSARY.md).
@@ -88,7 +126,7 @@ A correction note for finding #1 is filed upstream:
 ## What this mirror is (and is not)
 - **Is:** measured numbers, the failure corpus, and the instruments, with every claim carrying its
   command and its caveats. The claim layer is machine-checkable — see
-  [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md) (700 claims, 825 provenance events, 0 invalid).
+  [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md) (702 claims, 827 provenance events, 0 invalid).
 - **Is not:** vendor claims, or a promise that any of the private/documented Apple interfaces are
   stable. Where a claim is an AI's check rather than a human's, it says so.
 

@@ -50,7 +50,8 @@ House vocabulary (surface, lane, window, DECLINED, p50…) is decoded in
 | [EXP-040](results/EXP-040-m4-fp16-zero-collapse/) | Testing a published "M4 fp16 collapses to zero" claim on our M4: it doesn't — and our two chips' fp16 embeddings come out bit-identical, hashes included. |
 | [EXP-041](results/EXP-041-multi-input/) | Chasing the "multi-input requests fail" folklore: ten arms, two chips, zero failures — and the compiler-cache trap that pretends to be that limitation. |
 | [EXP-042](results/EXP-042-cold-compile/) | How long the Neural Engine compiler actually takes, per layer of your graph — and the disappointing finding that it remembers nothing between runs. |
-| [EXP-043](results/EXP-043-m5max-weight-budget/) | Bracketing the real weight-budget walls on both chips: the byte ceiling is a 4 GiB file-size truncation, not 1 GiB — and there is a second, operator-count wall hiding behind it. |
+| [EXP-043](results/EXP-043-m5max-weight-budget/) | Bracketing the real weight-budget walls on both chips: the byte ceiling is a 4 GiB file-size truncation, not 1 GiB — and there is a second, operator-count wall hiding behind it. (Append-only: the byte wall later proved OS-pinned — see EXP-044.) |
+| [EXP-044](results/EXP-044-metal-generations/) | The first pre-27 machine in the fleet settles it: the 2^32 byte wall is a macOS 27 regression (26.6.2 accepts ≥13.18 GiB exact), plus the two orthogonal metallib load gates and a lane-parity replication across two chip generations. |
 
 *Three numbering notes, so citations don't trip.* Two folders share the EXP-023
 slot: the small-LLM pilot (linked above) and a reconstructed per-engine energy
