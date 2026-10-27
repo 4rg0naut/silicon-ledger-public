@@ -1,0 +1,22 @@
+window:   QUIET-KEY: omlx=up loadavg=3.19 suspects=22 ts=20261026T232934Z
+identity: chip=h17g os=Version 27.0.1 (Build 26A434)
+
+nconv=1   rep0 cold=    15.8 ms warm=    15.9 ms ratio=1.0x
+nconv=1   rep1 cold=    15.0 ms warm=    27.0 ms ratio=0.6x
+nconv=1   rep2 cold=    13.9 ms warm=    14.1 ms ratio=1.0x
+nconv=2   rep0 cold=    16.3 ms warm=    22.6 ms ratio=0.7x
+nconv=2   rep1 cold=    15.1 ms warm=    14.9 ms ratio=1.0x
+nconv=2   rep2 cold=    15.1 ms warm=    23.1 ms ratio=0.7x
+nconv=4   rep0 cold=    18.4 ms warm=    20.2 ms ratio=0.9x
+nconv=4   rep1 cold=    19.0 ms warm=    26.8 ms ratio=0.7x
+nconv=4   rep2 cold=    17.8 ms warm=    17.9 ms ratio=1.0x
+nconv=8   rep0 cold=    24.4 ms warm=    32.5 ms ratio=0.8x
+nconv=8   rep1 cold=    24.6 ms warm=    26.3 ms ratio=0.9x
+nconv=8   rep2 cold=    23.8 ms warm=    32.4 ms ratio=0.7x
+nconv=16  rep0 cold=    38.2 ms warm=    38.9 ms ratio=1.0x
+nconv=16  rep1 cold=    37.7 ms warm=    44.8 ms ratio=0.8x
+nconv=16  rep2 cold=    37.1 ms warm=    37.2 ms ratio=1.0x
+nconv=32  rep0 cold=    66.6 ms warm=    66.6 ms ratio=1.0x
+nconv=32  rep1 cold=    66.8 ms warm=    77.3 ms ratio=0.9x
+nconv=32  rep2 cold=    67.2 ms warm=    68.4 ms ratio=1.0x
+done

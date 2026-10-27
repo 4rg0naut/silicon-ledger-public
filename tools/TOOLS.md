@@ -110,7 +110,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-187 | `tools/rerank-server/rerank_server_ane.py` | duplicate | The AOT-compiled ANE reranker over the same /v1/rerank API as the GPU server. |
 | INSTR-171 | `tools/archive/inventory.py` | superseded | inventory.py — cross-volume archive sweep that produces knowledge/ane/ARCHIVE-MAP.md. |
 
-## experiment-harness (96)
+## experiment-harness (102)
 
 | id | path | status | purpose |
 |---|---|---|---|
@@ -148,6 +148,12 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-190 | `results/EXP-037-fp8-nax/harness/fp8_matrix.sh` | canonical | fp8_matrix.sh — EXP-037 S2/S4: timed GEMM matrix, arms f8 | mix8 | f16 on identical shapes. |
 | INSTR-192 | `results/EXP-037-fp8-nax/harness/lane_arms.m` | canonical | lane_arms — EXP-037 lineage: fill the hand-written matmul2d lane cells left open by fp8_ladder: |
 | INSTR-191 | `results/EXP-037-fp8-nax/harness/s0_compile_probe.sh` | canonical | s0_compile_probe.sh — S0 preflight for EXP-037: does the Metal 4.0 compiler accept |
+| INSTR-194 | `results/EXP-038-nax-quiet-retake/harness/quiet_retake.sh` | canonical | quiet_retake.sh — EXP-038: certified-quiet re-take of the EXP-037 Surface-1 NAX ladders. |
+| INSTR-198 | `results/EXP-039-w8-palettization/harness/e39_ab_marker.sh` | canonical | e39_ab_marker.sh — EXP-039 matched-A/B wrapper for enginemon capture. |
+| INSTR-199 | `results/EXP-040-m4-fp16-zero-collapse/harness/fp64_oracle.py` | canonical | EXP-040 fp64 oracle: zoo torch graph in float64 on the checkpoint weights, |
+| INSTR-195 | `results/EXP-041-multi-input/harness/multi_input_probe.m` | canonical | multi_input_probe.m — EXP-041: how wide is the ANE single-input limitation, per machine? |
+| INSTR-197 | `results/EXP-042-cold-compile/harness/compile_ladder.m` | canonical | compile_ladder.m — EXP-042: ANE compile-time ladder, cold (cache-busted) vs warm (cache hit). |
+| INSTR-196 | `results/EXP-043-m5max-weight-budget/harness/byte_bracket.sh` | canonical | byte_bracket.sh — EXP-043: h17c ANE weight-byte bracket at fixed count (shared single blob). |
 | INSTR-066 | `results/EXP-025-ane-gpu-sync/harness/ane_bridge_dbg.m` | duplicate | ane_bridge.m — Objective-C implementation of the ANE private API bridge. |
 | INSTR-067 | `results/EXP-025-ane-gpu-sync/harness/ane_bridge_mrr.m` | duplicate | ane_bridge.m — Objective-C implementation of the ANE private API bridge. |
 | INSTR-144 | `results/EXP-029-nax-crosslane/harness/nax_gemm_matrix.sh` | duplicate | nax_gemm_matrix.sh — dtype-fair, MLX-free GEMM matrix on the local nax_gemm probe. |

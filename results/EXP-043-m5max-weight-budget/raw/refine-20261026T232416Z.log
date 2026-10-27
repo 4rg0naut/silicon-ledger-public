@@ -1,0 +1,65 @@
+refine window: 
+      [shared blob: 160 convs x 2097152 B payload = 327700.0 KB, one file]
+    1024,1024,64,160 160 conv  Cin 1024 -> Cout 1024  |    3.855 ms    87.05 GB/s  20971520 B/core (20.000 MiB)  out[0]=1024.0 CORRECT
+      [shared blob: 192 convs x 2097152 B payload = 393240.0 KB, one file]
+    1024,1024,64,192 192 conv  Cin 1024 -> Cout 1024  |    4.712 ms    85.45 GB/s  25165824 B/core (24.000 MiB)  out[0]=1024.0 CORRECT
+      [shared blob: 224 convs x 2097152 B payload = 458780.0 KB, one file]
+    1024,1024,64,224 224 conv  Cin 1024 -> Cout 1024  |    5.252 ms    89.45 GB/s  29360128 B/core (28.000 MiB)  out[0]=1024.0 CORRECT
+  armed from maderix/ANE (MIT) + mechramc/Orion mil_builder (MIT)
+
+  classes: desc=ok imm=ok req=ok aio=ok
+
+=== ANE kernel-DMA notch test — does the M4 have it? ===
+  chip: h17g (h17), 16 cores | hw_model=Mac17,14 os=27.0.1 os_build=26A434
+  custom shapes (5 iters):
+*** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '*** -[NSConcreteMutableData initWithCapacity:]: absurd capacity: 18446744071830507520, maximum size: 9223372036854775808 bytes'
+*** First throw call stack:
+(
+	0   CoreFoundation                      0x00000001844ca8c0 __exceptionPreprocess + 176
+	1   libobjc.A.dylib                     0x0000000183f2860c objc_exception_throw + 88
+	2   Foundation                          0x0000000185b2e0bc -[NSConcreteMutableData appendBytes:length:] + 0
+	3   Foundation                          0x0000000185b2de70 +[NSMutableData(NSMutableData) dataWithCapacity:] + 32
+	4   ane-dma-test                        0x0000000102011174 run_arm + 220
+	5   ane-dma-test                        0x0000000102010f4c main + 1396
+	6   dyld                                0x0000000183fc3e80 start + 6688
+)
+libc++abi: terminating due to uncaught exception of type NSException
+== 6144 rebuild rerun ==
+      [shared blob: 32 convs x 75497472 B payload = 2359300.0 KB, one file]
+    6144,6144,64,32  32 conv  Cin 6144 -> Cout 6144  |   15.412 ms   156.76 GB/s  150994944 B/core (144.000 MiB)  out[0]=6144.0 CORRECT
+== count 256 rerun (confirm earlier fail with fixed binary) ==
+      [shared blob: 256 convs x 2097152 B payload = 524320.0 KB, one file]
+    1024,1024,64,256 COMPILE FAILED (386 ms) Error Domain=com.apple.appleneuralengine.compiler Code=1 "_ANECompiler : ANECCompile() FAILED" UserInfo={NSLocalizedDescription=_ANECompiler : ANECCompile() FAILED, NSUnderlyingError=0x78b10546c0 {Error Domain=com.apple.appleneuralengine.compiler Code=1 "ANECCompile(/var/folders/m8/3t601d9x0ygczs1yl9vzmgpc0000gn/T/2CD1CCD186E8DCADDFE106553637A1AA50DE86090C0B4F2021125F14F85D1D91_8E91B07120217AA37A324474FB145B6E434A6B59D8104B9F1D46C9553AC54A69_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+)" UserInfo={NSLocalizedDescription=ANECCompile(/var/folders/m8/3t601d9x0ygczs1yl9vzmgpc0000gn/T/2CD1CCD186E8DCADDFE106553637A1AA50DE86090C0B4F2021125F14F85D1D91_8E91B07120217AA37A324474FB145B6E434A6B59D8104B9F1D46C9553AC54A69_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+== byte probe 7168 (3.22GB blob) ==
+      [shared blob: 32 convs x 102760448 B payload = 3211268.0 KB, one file]
+    7168,7168,64,32  32 conv  Cin 7168 -> Cout 7168  |   20.645 ms   159.28 GB/s  205520896 B/core (196.000 MiB)  out[0]=7168.0 CORRECT
+== byte probe 8192 (4.29GB blob) ==
+      [shared blob: 32 convs x 134217728 B payload = 4194308.0 KB, one file]
+    8192,8192,64,32 COMPILE FAILED (2456 ms) Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+== byte probe 7680 ==
+      [shared blob: 32 convs x 117964800 B payload = 3686404.0 KB, one file]
+    7680,7680,64,32  32 conv  Cin 7680 -> Cout 7680  |   23.674 ms   159.46 GB/s  235929600 B/core (225.000 MiB)  out[0]=7680.0 CORRECT
+== byte probe 7424 ==
+      [shared blob: 32 convs x 110231552 B payload = 3444740.0 KB, one file]
+    7424,7424,64,32  32 conv  Cin 7424 -> Cout 7424  |   22.137 ms   159.35 GB/s  220463104 B/core (210.250 MiB)  out[0]=7424.0 CORRECT
+== byte probe 7808 (payload 3.83GiB, file 4295006208B < 2^32) ==
+      [shared blob: 32 convs x 121929728 B payload = 3810308.0 KB, one file]
+    7808,7808,64,32  32 conv  Cin 7808 -> Cout 7808  |   24.458 ms   159.53 GB/s  243859456 B/core (232.562 MiB)  out[0]=7808.0 CORRECT
+n=64     1024,1024,64,64  64 conv  Cin 1024 -> Cout 1024  |    2.938 ms    45.68 GB/s   8388608 B/core (8.000 MiB)  out[0]=1024.0 CORRECT
+n=128     1024,1024,64,128 128 conv  Cin 1024 -> Cout 1024  |    5.823 ms    46.10 GB/s  16777216 B/core (16.000 MiB)  out[0]=1024.0 CORRECT
+n=192     1024,1024,64,192 192 conv  Cin 1024 -> Cout 1024  |    8.547 ms    47.11 GB/s  25165824 B/core (24.000 MiB)  out[0]=1024.0 CORRECT
+n=224     1024,1024,64,224 224 conv  Cin 1024 -> Cout 1024  |   10.674 ms    44.01 GB/s  29360128 B/core (28.000 MiB)  out[0]=1024.0 CORRECT
+n=256     1024,1024,64,256 COMPILE FAILED (529 ms) Error Domain=com.apple.appleneuralengine.compiler Code=1 "_ANECompiler : ANECCompile() FAILED" UserInfo={NSLocalizedDescription=_ANECompiler : ANECCompile() FAILED, NSUnderlyingError=0x7cc0c287e0 {Error Domain=com.apple.appleneuralengine.compiler Code=1 "ANECCompile(/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/2CD1CCD186E8DCADDFE106553637A1AA50DE86090C0B4F2021125F14F85D1D91_8E91B07120217AA37A324474FB145B6E434A6B59D8104B9F1D46C9553AC54A69_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+n=256 )" UserInfo={NSLocalizedDescription=ANECCompile(/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/2CD1CCD186E8DCADDFE106553637A1AA50DE86090C0B4F2021125F14F85D1D91_8E91B07120217AA37A324474FB145B6E434A6B59D8104B9F1D46C9553AC54A69_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+n=384     1024,1024,64,384 COMPILE FAILED (946 ms) Error Domain=com.apple.appleneuralengine.compiler Code=1 "_ANECompiler : ANECCompile() FAILED" UserInfo={NSLocalizedDescription=_ANECompiler : ANECCompile() FAILED, NSUnderlyingError=0x7584c287e0 {Error Domain=com.apple.appleneuralengine.compiler Code=1 "ANECCompile(/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/7C52CF27088A0CB53E20915CAE03EBA5EFF5EC99EFB06A8986FBB151600BBAE4_B98C473825908F3EC41E7280380BC4A57C80138E1DECC3B509FD487D130CC473_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+n=384 )" UserInfo={NSLocalizedDescription=ANECCompile(/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/7C52CF27088A0CB53E20915CAE03EBA5EFF5EC99EFB06A8986FBB151600BBAE4_B98C473825908F3EC41E7280380BC4A57C80138E1DECC3B509FD487D130CC473_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+== mini byte probe 7168 ==
+mini hw.memsize: 17179869184
+    7168,7168,64,32  32 conv  Cin 7168 -> Cout 7168  |   49.117 ms    66.95 GB/s  205520896 B/core (196.000 MiB)  out[0]=7168.0 CORRECT
+    8192,8192,64,32 COMPILE FAILED (22566 ms) Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+n=232     1024,1024,64,232 232 conv  Cin 1024 -> Cout 1024  |    5.604 ms    86.82 GB/s  30408704 B/core (29.000 MiB)  out[0]=1024.0 CORRECT
+n=240     1024,1024,64,240 240 conv  Cin 1024 -> Cout 1024  |    5.781 ms    87.06 GB/s  31457280 B/core (30.000 MiB)  out[0]=1024.0 CORRECT
+n=248     1024,1024,64,248 248 conv  Cin 1024 -> Cout 1024  |    5.998 ms    86.71 GB/s  32505856 B/core (31.000 MiB)  out[0]=1024.0 CORRECT
+
+[correction 20261027T003500Z] echo header line 46 above: file size wrong. C=7808 true file = 32*(128+7808^2*2) = 3901755392 B, not 4295006208. Accepted max later refined to C=8128 = 4228124672 B < 2^32 (see raw/byte-wall-2_32-20261027T002835Z.log); refusal C=8192 = 4294971392 B = 2^32+4096. README corrected append-only.

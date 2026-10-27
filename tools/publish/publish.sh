@@ -28,13 +28,20 @@ personal.sort(key=lambda t: len(t[0]), reverse=True)
 
 KEEP_DIRS = ("bench/", "ports/", "tools/", "knowledge/", "evaluation/", "schemas/", "assets/")
 KEEP_TOP = (".md", ".txt", ".json", ".svg", "LICENSE")
-KEEP_RESULTS_EXT = (".md", ".json", ".txt", ".sh", ".tsv", ".jsonl", ".ll")
+KEEP_RESULTS_EXT = (".md", ".json", ".txt", ".sh", ".tsv", ".jsonl", ".ll", ".log")
+# .log widened 2026-10-27: EXP-039/040/043 cite raw arm logs per-file as receipts (byte-wall
+# brackets, window/gate stamps); the private .gitignore exception (same date) makes them tracked,
+# so the mirror must carry them or the LINKS gate breaks. Narrowly scoped, mirrors the F-37 pair.
 # .svg widened 2026-10-26 (C9): assets/lane-tf.svg is generated data (a chart drawn from published
 # numbers by tools/publish/make_lane_chart.py), not scratch.
 # Working-notes exclusion (2026-10-26, C3): chat-era scratch stays private — the public tree carries
 # the records, not the sessions that produced them. PUBLISH-POLICY.md states this openly.
 WORKROOM = ("results/CONSISTENCY-PLAN.md", "results/MORNING-BRIEF.md", "results/TRAINING-PLAN.md",
             "results/TRAINING-RESULTS.md", "results/RESEARCH-WORKFLOW.md")
+# In-flight window exclusion (2026-10-27): EXP-038's certified-quiet retake is still running;
+# unfinished windows ship no numbers (its README says so). Ships with the round that carries its
+# certified ladder. PUBLIC-INDEX points this out instead of silent-cutting the id.
+INFLIGHT = ("results/EXP-038-nax-quiet-retake/",)
 # The publish machinery itself is scrub-exempt: check_public.py and redaction.json quote the
 # personal labels as their deny-list — scrubbing the gate would disarm it (2026-10-26 finding).
 SCRUB_EXEMPT = ("tools/publish/",)
@@ -56,6 +63,8 @@ def keep(f):
         return False
     if f in WORKROOM:
         return False  # chat-era working notes; private by design (see PUBLISH-POLICY.md)
+    if f.startswith(INFLIGHT):
+        return False  # unfinished measurement window (2026-10-27)
     if f == "knowledge/ane/ARCHIVE-MAP.md":
         return False  # machine-local paths inside; stays private by rule
     if f.startswith(OVERLAY_PREFIX):

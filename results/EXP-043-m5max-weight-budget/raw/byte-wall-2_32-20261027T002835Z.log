@@ -1,0 +1,26 @@
+== byte-wall-2 refine 20261027T002835Z host=Mac17,14 os=27.0.1 ==
+QUIET-KEY: omlx=up loadavg= 2,34 2,46 2,49  suspects=21 note=accept-arms-only timing-invalid
+-- byte probe 8064 file=4161802240B --
+  armed from maderix/ANE (MIT) + mechramc/Orion mil_builder (MIT)
+
+  classes: desc=ok imm=ok req=ok aio=ok
+
+=== ANE kernel-DMA notch test — does the M4 have it? ===
+  chip: h17g (h17), 16 cores | hw_model=Mac17,14 os=27.0.1 os_build=26A434
+  custom shapes (3 iters):
+      [shared blob: 32 convs x 130056192 B payload = 4064260.0 KB, one file]
+    8064,8064,64,32  32 conv  Cin 8064 -> Cout 8064  |   26.008 ms   160.02 GB/s  260112384 B/core (248.062 MiB)  out[0]=8064.0 CORRECT
+  done
+-- arm exit=0 --
+-- byte probe 8128 file=4228124672B --
+  armed from maderix/ANE (MIT) + mechramc/Orion mil_builder (MIT)
+
+  classes: desc=ok imm=ok req=ok aio=ok
+
+=== ANE kernel-DMA notch test — does the M4 have it? ===
+  chip: h17g (h17), 16 cores | hw_model=Mac17,14 os=27.0.1 os_build=26A434
+  custom shapes (3 iters):
+      [shared blob: 32 convs x 132128768 B payload = 4129028.0 KB, one file]
+    8128,8128,64,32  32 conv  Cin 8128 -> Cout 8128  |   26.472 ms   159.72 GB/s  264257536 B/core (252.016 MiB)  out[0]=8128.0 CORRECT
+  done
+-- arm exit=0 --

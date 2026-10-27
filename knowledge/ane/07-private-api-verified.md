@@ -134,7 +134,7 @@ Alongside `+sharedConnection`. A second connection class, distinct from the shar
 
 ## Signatures, as the runtime reports them
 
-Encoding legend: `@` object · `Q` uint64 · `I` uint32 · `q` int64 · `c` char · `B` BOOL · `^@` NSError**
+Encoding legend: `@` object · `Q` uint64 · `I` uint32 · `q` int64 · `c` char · `B` BOOL · `^@` `NSError**`
 
 ### `_ANEInMemoryModel` — the Path A lifecycle
 

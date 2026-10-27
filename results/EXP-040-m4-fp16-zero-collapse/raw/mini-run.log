@@ -1,0 +1,14 @@
+ 0:38  up 24 days,  3:12, 2 users, load averages: 1,28 1,50 1,42
+bundle       : granite97m_fp16_s128.aimodel
+compute      : neuralEngine
+sequence len : 128   fixtures: 35
+inputs       : ["input_ids", "attention_mask"]
+outputs      : ["embedding"]
+load         : 94 ms
+embeddings   : dumped 35 vectors -> /tmp/y.json
+tokenizer    : 35/35 exact (mismatches 0)
+numeric gate : min cosine 0.999957561 | max |err| 1.46e-03 | failures 0/35
+first after load : 21.40 ms
+warm median  : 12.39 ms | p95 12.45 ms | min 12.32 ms | n=3
+VERDICT      : compute=neuralEngine gate=PASS median_ms=12.391
+1592dd009b6dba7fe41a2ccdf47ab0531cc3626b09d1f1992e1e19d1f08f120a  /tmp/y.json

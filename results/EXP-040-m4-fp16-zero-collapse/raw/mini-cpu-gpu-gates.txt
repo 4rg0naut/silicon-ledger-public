@@ -1,0 +1,35 @@
+== mini cpu/gpu gate re-run 2026-10-27T00:55Z (fills gap: original gate lines were terminal-only) ==
+== dumps re-run bit-identical to raw/emb-cpu.json and raw/emb-gpu.json (sha256 below) ==
+2026-10-27T00:31:34Z
+ 1:31  up 24 days,  4:05, 2 users, load averages: 1,39 1,70 1,65
+bundle       : granite97m_fp16_s128.aimodel
+compute      : cpu
+sequence len : 128   fixtures: 35
+inputs       : ["input_ids", "attention_mask"]
+outputs      : ["embedding"]
+load         : 18 ms
+embeddings   : dumped 35 vectors -> /tmp/e40-cpu2.json
+tokenizer    : 35/35 exact (mismatches 0)
+numeric gate : min cosine 0.999963701 | max |err| 2.14e-03 | failures 0/35
+first after load : 10.21 ms
+warm median  : 4.89 ms | p95 5.13 ms | min 4.86 ms | n=3
+VERDICT      : compute=cpu gate=PASS median_ms=4.889
+exit=0
+
+2026-10-27T00:31:38Z
+ 1:31  up 24 days,  4:05, 2 users, load averages: 1,36 1,69 1,65
+bundle       : granite97m_fp16_s128.aimodel
+compute      : gpu
+sequence len : 128   fixtures: 35
+inputs       : ["input_ids", "attention_mask"]
+outputs      : ["embedding"]
+load         : 371 ms
+embeddings   : dumped 35 vectors -> /tmp/e40-gpu2.json
+tokenizer    : 35/35 exact (mismatches 0)
+numeric gate : min cosine 0.999993980 | max |err| 8.07e-04 | failures 0/35
+first after load : 36.00 ms
+warm median  : 6.83 ms | p95 7.38 ms | min 6.82 ms | n=3
+VERDICT      : compute=gpu gate=PASS median_ms=6.833
+exit=0
+f23cf9ce34a71be7669278509fdafdd2faec7a49cc491d10c95268055a710804  raw/emb-cpu.json (match)
+794760739a6e38373cf411fc4d39790e2d5e1377c90fa190d46dbd16c5e19edb  raw/emb-gpu.json (match)

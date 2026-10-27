@@ -11,7 +11,7 @@ of each non-obvious claim is marked inline as **(MEASURED)**, **(DOCUMENTED)**, 
 ## 1. The two doors
 
 The ANE is a fixed-function matrix accelerator that has shipped in A-series chips since the A11
-(2017) and in Mac chips since the M1 **(DOCUMENTED**, arXiv:2606.22283 abstract**)**. Apple exposes
+(2017) and in Mac chips since the M1 **(DOCUMENTED, arXiv:2606.22283 abstract)**. Apple exposes
 it to third-party applications through exactly one public door — the model frameworks — and the
 community reaches it through a second, private one.
 
@@ -20,8 +20,8 @@ community reaches it through a second, private one.
 You hand Apple a converted model. Apple's compiler decides what code becomes an ANE program, what
 is split off to the GPU or CPU, and when it runs. You cannot ask which processor ran your model:
 `MLModelConfiguration.computeUnits = .all` merely *expresses a preference*, and Core ML provides no
-runtime API to query the actual device used **(DOCUMENTED**, hollance/neural-engine
-`docs/running-on-ane.md` and `docs/is-model-using-ane.md`**)**.
+runtime API to query the actual device used **(DOCUMENTED, hollance/neural-engine
+`docs/running-on-ane.md` and `docs/is-model-using-ane.md`)**.
 
 What this buys you: it is supported, it is shippable, and it is the only route Apple will accept in
 an App Store app. What it costs you: placement is a compiler decision, the graph may fall back
@@ -31,37 +31,37 @@ On macOS 27 the official door is **Core AI**, Apple's Core ML successor announce
 keeps the "convert once, run on ANE/GPU/CPU" idea but replaces `.mlpackage` + coremltools with a new
 IR, compiler and runtime; the converter and optimization repos are open source while the compiler and
 runtime remain closed, shipped as the `coreai-core` wheel and `CoreAI.framework`
-**(DOCUMENTED**, `coreai-model-zoo/knowledge/coreai-overview.md`**)**.
+**(DOCUMENTED, `coreai-model-zoo/knowledge/coreai-overview.md`)**.
 
 Core AI is still a preference, not a control. Our own measurement on this machine: the published
 Granite-Embedding-97M fp32 bundle compiles to **0 ANE regions** on the ANE despite
 `preferredComputeUnitKind: .neuralEngine` — the zoo's own definition of "silent GPU fallback"
-**(MEASURED**, `results/EXP-005-ane-residency/README.md`**)**. Re-exporting at fp16 produced 14
+**(MEASURED, `results/EXP-005-ane-residency/README.md`)**. Re-exporting at fp16 produced 14
 regions; removing three fp32 operations took it to **1 region**, at which point the ANE path was
-4.00 ms with **83 mW** of GPU power against 10,390 mW for the fp32 GPU path **(MEASURED**, same
-source**)**. Apple's authoring rules for Core AI list the ANE's supported dtypes as **fp16, int8,
-int16** — any fp32 op creates a buffer the engine cannot execute **(DOCUMENTED**, quoted in
-`EXP-005`**)**.
+4.00 ms with **83 mW** of GPU power against 10,390 mW for the fp32 GPU path **(MEASURED, same
+source)**. Apple's authoring rules for Core AI list the ANE's supported dtypes as **fp16, int8,
+int16** — any fp32 op creates a buffer the engine cannot execute **(DOCUMENTED, quoted in
+`EXP-005`)**.
 
 ### Door 2 — `AppleNeuralEngine.framework`, where you write the program
 
 `/System/Library/PrivateFrameworks/AppleNeuralEngine.framework` is the framework Core ML itself uses
 to drive the engine. Its classes are not secret in shape — `nst/iOS-Runtime-Headers` publishes
 headers for `_ANEClient`, `_ANEModel`, `_ANERequest`, `_ANEIOSurfaceObject`, `_ANEProgramForEvaluation`,
-`_ANEDaemonConnection` and others **(DOCUMENTED**, nst/iOS-Runtime-Headers tree**)** — but Apple
+`_ANEDaemonConnection` and others **(DOCUMENTED, nst/iOS-Runtime-Headers tree)** — but Apple
 documents none of them, and there is no importable SDK.
 
 The community loads this framework at runtime with `dlopen`/`objc_msgSend` and drives the
 compile → load → evaluate pipeline itself: build MIL (Machine Learning Intermediate Language)
 program text, compile it in memory through `_ANEInMemoryModelDescriptor`, load the program, pass
-tensors through IOSurfaces, and evaluate **(DOCUMENTED**, maderix/ANE README and
-`maderix.substack.com` Part 1**)**.
+tensors through IOSurfaces, and evaluate **(DOCUMENTED, maderix/ANE README and
+`maderix.substack.com` Part 1)**.
 
 We wrote our own Core ML graph into an ANE-resident one at level 1; the private route is what lets
 anyone go below that. Its own honest description, from the reference paper: the direct route "is
 callable from ordinary user space but remains undocumented, unsupported, and version-fragile; it is
 intended for measurement, research, and on-device work, not for shipping software, where Core ML
-remains the supported path" **(DOCUMENTED**, arXiv:2606.22283**)**.
+remains the supported path" **(DOCUMENTED, arXiv:2606.22283)**.
 
 Concretely, what the private door gives you that the public one does not:
 
@@ -85,8 +85,8 @@ the hardware executes* and *how much you can see*.
 
 Core ML (or Core AI) plus `MLModelConfiguration`. You choose a preference among CPU/GPU/ANE and
 nothing else. Placement is the compiler's decision, and a graph that "looks like" it uses the ANE
-may be entirely on the GPU **(DOCUMENTED**, hollance `docs/running-on-ane.md`; **MEASURED**, our
-`EXP-005`, fp32 bundle at 0 ANE regions**)**.
+may be entirely on the GPU **(DOCUMENTED, hollance `docs/running-on-ane.md`; MEASURED, our
+`EXP-005`, fp32 bundle at 0 ANE regions)**.
 
 ### Level 2 — inspection: nobody decides differently, but you can finally see
 
@@ -95,34 +95,34 @@ where you diagnose level-1 failures, and it needs no private dispatch.
 
 - **`MLComputePlan`** — a public Core ML API that reports, per operation, which compute devices
   support it. `ane-probe` uses it to build minimal one-op Core ML models and produce an op-by-device
-  support matrix per chip/OS/coremltools version **(DOCUMENTED**, `repos/ane-probe/README.md`**)**.
+  support matrix per chip/OS/coremltools version **(DOCUMENTED, `repos/ane-probe/README.md`)**.
 - **`anemll-profile`** — combines `MLComputePlan` placement with Espresso `[CostModelFeature]` logs
   captured by forking `/usr/bin/log stream`, parses `Unsupported op` compiler messages for the
-  fallback reason, and runs real predictions for measured throughput **(DOCUMENTED**,
-  `repos/anemll-profile/README.md`**)**.
+  fallback reason, and runs real predictions for measured throughput **(DOCUMENTED,
+  `repos/anemll-profile/README.md`)**.
 - **`enginemon`** (ours) — reads Apple's **IOReport** counters from a fully unprivileged process and
   reports ANE bytes moved and ANE interrupt counts, with no root and no entitlement
-  **(DOCUMENTED/DOCUMENTED-our-own**, `tools/enginemon/README.md`**)**.
+  **(DOCUMENTED/DOCUMENTED-our-own, `tools/enginemon/README.md`)**.
 - **Debugger symbols** — a symbolic breakpoint on `-[_ANEModel program]` tells you Core ML is using
   the ANE; Espresso engine names (`Espresso::ANERuntimeEngine`, `Espresso::MPSEngine`,
-  `Espresso::BNNSEngine`) tell you which engine is on the stack **(DOCUMENTED**, hollance
-  `docs/is-model-using-ane.md`**)**.
+  `Espresso::BNNSEngine`) tell you which engine is on the stack **(DOCUMENTED, hollance
+  `docs/is-model-using-ane.md`)**.
 
 Two traps at this level, both measured by us and both capable of producing a confident wrong answer:
 
 - On M4, IOReport's `Energy Model → ANE` channel is **frozen** at a constant and reads 0 even under
   a workload that provably uses the ANE. Reporting its zero as "the ANE was not used" is a fabricated
   negative. The usable signals are `AMC Stats → ANE DCS RD` (bytes) and the second-level `ane 0`
-  interrupt count **(MEASURED**, `tools/enginemon/README.md`**)**.
+  interrupt count **(MEASURED, `tools/enginemon/README.md`)**.
 - `xctrace`'s `ane-hw-intervals` is **blind to Core AI graphs** — 0 intervals recorded for a Core AI
-  run while a Core ML control in the same session logged 1310 **(MEASURED**, same source**)**.
+  run while a Core ML control in the same session logged 1310 **(MEASURED, same source)**.
 
 ### Level 3 — the private framework: you write the program
 
 This is where the community actually lives. You construct MIL text, compile it with
 `_ANEInMemoryModelDescriptor` (or `compileModel:` on a model directory), load it onto the engine, and
 evaluate it with IOSurface inputs and outputs. The canonical sequence, from maderix's Part 1
-**(DOCUMENTED**, `maderix.substack.com` Part 1**)**:
+**(DOCUMENTED, `maderix.substack.com` Part 1)**:
 
 ```objc
 id client = [_ANEClient sharedConnection];
@@ -138,7 +138,7 @@ id req = [_ANERequest requestWithInputs:@[wA, wB] inputIndices:@[@0,@1]
 ```
 
 And the in-memory variant, which is what makes training possible because it avoids a filesystem
-round-trip per weight update **(DOCUMENTED**, same source**)**:
+round-trip per weight update **(DOCUMENTED, same source)**:
 
 ```objc
 id desc  = [_ANEInMemoryModelDescriptor modelWithMILText:milData   // NSData, not NSString
@@ -151,13 +151,13 @@ id model = [_ANEInMemoryModel inMemoryModelWithDescriptor:desc];
 
 Note the two silent failure modes maderix documents: `milText` must be `NSData` holding UTF-8 bytes
 (an `NSString` fails silently), and `weights` must be an `NSDictionary` mapping names to blobs, not a
-single buffer **(DOCUMENTED**, same source**)**.
+single buffer **(DOCUMENTED, same source)**.
 
 A newer discovery sits at the edge of this level: `_ANEClient` also exposes **multi-procedure
 programs** (several MIL functions in one compiled program, dispatched by `procedureIndex`, with
 `inputIndex`/`outputIndex` equal to the procedure ID), and `do`-prefixed direct methods such as
 `doEvaluateDirectWithModel:` that bypass the ANE daemon XPC path — 106 µs against 117 µs for the
-daemon path on M5 **(MEASURED**, ane-infer `docs/ane-internals.md`**)**.
+daemon path on M5 **(MEASURED, ane-infer `docs/ane-internals.md`)**.
 
 ### Level 4 — program descriptors and register values
 
@@ -166,19 +166,19 @@ Below MIL there is the compiled artefact and, below that, the registers.
 - The compiler emits an **hwx** (or **E5**) program — a Mach-O-like file whose ops begin at offset
   `0x4000` — and `tinygrad` maintains a register map (`aneregs`) of the fields each op uses:
   `Common.InDim.*`, `KernelDMASrc`, `TileDMASrc`, `L2`, `NE`, `TileDMADst`, with all tensor strides
-  required to be multiples of `0x40` bytes **(DOCUMENTED**, tinygrad `extra/accel/ane` README at
-  commit `d0e7520`**)**.
+  required to be multiples of `0x40` bytes **(DOCUMENTED, tinygrad `extra/accel/ane` README at
+  commit `d0e7520`)**.
 - Real level-4 work is being done today: the M3 1 MiB DMA erratum was diagnosed by sweeping and
   hex-diffing live register-file values such as `TD+0x004`, `TD+0x078` (core base addresses) and
-  `TD+0x134` (`Common.Cin`) across configurations **(DOCUMENTED** in method, **MEASURED** in result:
-  the post reports 2.4× Llama 3.2 1B throughput recovery, eiln.github.io**)**.
+  `TD+0x134` (`Common.Cin`) across configurations **(DOCUMENTED in method, MEASURED in result:
+  the post reports 2.4× Llama 3.2 1B throughput recovery, eiln.github.io)**.
 
 ### Where the frontier is
 
 The frontier is level 3 with frequent excursions into level 4, and occasionally level 2 as the
 instrument. Everything that is new in this field — ANE training, batched prefill, program chaining,
-multi-procedure dispatch, the DMA erratum — is a level-3 or level-4 result **(INFERRED**, from the
-prior-art survey below**)**. Level 1 work is not where the frontier is because the interesting
+multi-procedure dispatch, the DMA erratum — is a level-3 or level-4 result **(INFERRED, from the
+prior-art survey below)**. Level 1 work is not where the frontier is because the interesting
 knobs are not reachable from there.
 
 ---
@@ -205,7 +205,7 @@ Two licence observations, both verified directly on 2026-09-23: **`anemll/anemll
 file at its repository root**, and **`thebasedcapital/ane-infer` has no `LICENSE` file either**;
 GitHub's API reports no detected licence for both. For a corpus we intend to share, that matters —
 unlicensed source can be read and cited, but its text cannot be redistributed
-**(DOCUMENTED**, GitHub API `license` field and the raw `LICENSE` path returning 404**)**.
+**(DOCUMENTED, GitHub API `license` field and the raw `LICENSE` path returning 404)**.
 
 Reading the table as a whole:
 
@@ -241,8 +241,8 @@ requirements for interoperability, is **fair use**. The Copyright Office's own s
 reasoning: the copying was "legitimate, essentially non-exploitative"; the defendant "did not usurp
 plaintiff's market" but produced its own independently creative work; and, critically, "without a
 fair use exception for disassembling object code, the owner of the work would have a de facto
-monopoly over the functional aspects of the work" **(DOCUMENTED**, copyright.gov Fair Use Index
-summary**)**. Applied to the ANE, the analogous argument is: reading `AppleNeuralEngine.framework`
+monopoly over the functional aspects of the work" **(DOCUMENTED, copyright.gov Fair Use Index
+summary)**. Applied to the ANE, the analogous argument is: reading `AppleNeuralEngine.framework`
 to learn the interface for driving hardware you own is exactly the Accolade situation.
 
 **17 U.S.C. § 1201(f)** is the statutory counterpart. Its reverse-engineering exception permits
@@ -250,7 +250,7 @@ circumventing an access control "for the sole purpose of identifying and analyzi
 the program that are necessary to achieve interoperability of an independently created computer
 program with other programs", where those elements were not previously readily available — and it
 permits developing and sharing the means to do so, to the extent the acts do not themselves infringe
-**(DOCUMENTED**, law.cornell.edu, 17 U.S.C. § 1201(f)(1)–(3)**)**. The statutory definition of
+**(DOCUMENTED, law.cornell.edu, 17 U.S.C. § 1201(f)(1)–(3))**. The statutory definition of
 "interoperability" is "the ability of computer programs to exchange information, and of such programs
 mutually to use the information which has been exchanged" — a definition that reads awkwardly when
 applied to a hardware accelerator rather than two programs, which is one reason the analogy is
@@ -261,12 +261,12 @@ argued rather than settled **(INFERRED)**.
 The community's original reference states the practical position bluntly: "There currently is no
 public framework for programming the ANE. There are several private, undocumented frameworks but
 obviously we cannot use them as Apple rejects apps that use private frameworks"
-**(CLAIMED**, hollance/neural-engine `docs/programming-ane.md`; note this is the author's assertion
-about App Review behaviour, not an Apple document**)**.
+**(CLAIMED, hollance/neural-engine `docs/programming-ane.md`; note this is the author's assertion
+about App Review behaviour, not an Apple document)**.
 
 Apple's actual rule is written down: **App Store Review Guideline 2.5.1 — "Apps may only use public
-APIs and must run on the currently shipping OS"** **(DOCUMENTED**,
-developer.apple.com/app-store/review/guidelines/**)**. A private framework is by definition not a
+APIs and must run on the currently shipping OS"** **(DOCUMENTED,
+developer.apple.com/app-store/review/guidelines/)**. A private framework is by definition not a
 public API, so an app that links or `dlopen`s `AppleNeuralEngine.framework` is out of policy. Linking
 against it is also separately impossible for a shippable app: there is no public SDK stub to link
 against, which is why every project in the table resolves symbols at runtime with `dlopen` and
@@ -286,13 +286,13 @@ So the operating position is:
 First, **I could not verify that any of the ten listed projects cites Sega v. Accolade or §1201(f) by
 name.** I checked the READMEs and, where reachable, the docs directories of all ten on 2026-09-23 and
 found no such citation; the repositories rely on the argument implicitly rather than citing it
-**(INFERRED**, from reading those files**)**. The interoperability framing in this section is
+**(INFERRED, from reading those files)**. The interoperability framing in this section is
 therefore the general legal basis for this class of work, not a quotation from the projects.
 
 Second, at least one project's guidance is a different and more aggressive posture than
 interoperability reverse engineering: tinygrad's ANE README documents **patching the `amfid` daemon
 in memory to disable the entitlement check** so that unsigned binaries can reach the engine, noting
-it verified this on macOS 12.4 **(DOCUMENTED**, tinygrad `extra/accel/ane` README**)**. Patching a
+it verified this on macOS 12.4 **(DOCUMENTED, tinygrad `extra/accel/ane` README)**. Patching a
 system security daemon is not the same act as reading an interface, and the fair-use and §1201(f)
 arguments should not be assumed to cover it. Nothing in this knowledge base asks us to do that;
 levels 3 and 4 on a normal user account work without it.
@@ -308,74 +308,74 @@ Four concrete capability differences, each with a source. The honest counterweig
 Apple's compiler decides fusion at the public door. At the private door you decide, and it is worth
 a lot. ane-infer fused an entire FFN — gate projection conv → sigmoid → mul → up-projection conv →
 mul → down-projection conv, **8 operations in one dispatch** — and measured **3.6 TFLOPS** against
-**1.1 TFLOPS** for the same work dispatched op-by-op **(MEASURED**, ane-infer
-`docs/ane-internals.md` / README**)**. maderix's Part 2 found the same shape of result from the other
+**1.1 TFLOPS** for the same work dispatched op-by-op **(MEASURED, ane-infer
+`docs/ane-internals.md` / README)**. maderix's Part 2 found the same shape of result from the other
 direction: a single matmul uses only about 30% of the engine's capacity, and deep graphs of 16–64
-chained ops are what approach peak **(MEASURED**, `maderix.substack.com` Part 2**)**. At batch scale
+chained ops are what approach peak **(MEASURED, `maderix.substack.com` Part 2)**. At batch scale
 the effect is larger still: batching 32 tokens per dispatch instead of one raised ANE prefill
-throughput **11.3×** on Qwen3.5-0.8B and **7.3×** on Qwen3.5-2B **(MEASURED**, AtomGradient README
-and paper**)**.
+throughput **11.3×** on Qwen3.5-0.8B and **7.3×** on Qwen3.5-2B **(MEASURED, AtomGradient README
+and paper)**.
 
 ### 5.2 The overhead tax disappears, which matters most exactly where the ANE is used
 
 For small operations Core ML adds **2–4× overhead** over direct `_ANEClient` dispatch; the gap closes
-only when the compute time dominates **(MEASURED**, `maderix.substack.com` Part 2**)**. LLM token
+only when the compute time dominates **(MEASURED, `maderix.substack.com` Part 2)**. LLM token
 decode is the regime made of small operations. The private route also exposes a direct evaluation
 path that skips the ANE daemon's XPC hop — 106 µs against 117 µs per eval on M5, about 10%
-**(MEASURED**, ane-infer `docs/ane-internals.md`**)** — and one independent fit of dispatch cost on
+**(MEASURED, ane-infer `docs/ane-internals.md`)** — and one independent fit of dispatch cost on
 M3 Max is `latency ≈ 119 µs + bytes / 78 GB/s`, which tells you the fixed cost is real and large
-relative to a single matvec **(MEASURED**, skyfallsin field guide, quoted in the ane.cpp README**)**.
+relative to a single matvec **(MEASURED, skyfallsin field guide, quoted in the ane.cpp README)**.
 
 ### 5.3 Training exists, and only here
 
 There is no Core ML training API. Not "an awkward one" — none. Training a transformer on the engine
 required reverse-engineering `_ANEClient`/`_ANECompiler` and building a dynamic-weight pipeline where
 weights are passed as runtime data rather than baked as `const()` tensors
-**(DOCUMENTED**, maderix/ANE README; **MEASURED**, the results: Stories110M 109M params at 91 ms/step,
-Qwen3-0.6B 596M at 412 ms/step, loss 9.11 → 1.02 over 50K steps**)**. Whether it is *useful* is a
+**(DOCUMENTED, maderix/ANE README; MEASURED, the results: Stories110M 109M params at 91 ms/step,
+Qwen3-0.6B 596M at 412 ms/step, loss 9.11 → 1.02 over 50K steps)**. Whether it is *useful* is a
 separate question answered below.
 
 ### 5.4 Visibility — you can see the machine, and measure it honestly
 
-At level 1 you cannot ask which processor ran your model **(DOCUMENTED**, hollance
-`docs/is-model-using-ane.md`**)**. At levels 2–4 you can: breakpoints on `-[_ANEModel program]` and
+At level 1 you cannot ask which processor ran your model **(DOCUMENTED, hollance
+`docs/is-model-using-ane.md`)**. At levels 2–4 you can: breakpoints on `-[_ANEModel program]` and
 the Espresso engine symbols, `MLComputePlan` placement, Espresso cost-model logs, and unprivileged
-IOReport counters for ANE bytes and interrupts **(DOCUMENTED**, hollance, `ane-probe`,
-`anemll-profile`, `enginemon`, as cited in §2**)**. This is not a nicety. Our own EXP-005 is the
+IOReport counters for ANE bytes and interrupts **(DOCUMENTED, hollance, `ane-probe`,
+`anemll-profile`, `enginemon`, as cited in §2)**. This is not a nicety. Our own EXP-005 is the
 proof: the whole finding — that a "preferred compute unit: Neural Engine" graph was running entirely
 on the GPU — depended on having both `MLComputePlan` region counts and IOReport byte counters. A
-level-1-only workflow would have shipped the wrong claim **(MEASURED**, our own**)**.
+level-1-only workflow would have shipped the wrong claim **(MEASURED, our own)**.
 
 Speed, separately, is *not* automatically a win. Measured outcomes are workload-shaped:
 
 - ANE prefill drew **0.22 W of GPU power**, a **282×** reduction against 62.05 W for GPU prefill, and
   beat the GPU on short prompts for the 0.8B model (148.7 vs 138.2 tok/s) while losing badly on long
-  prompts (268.0 vs 736.2) **(MEASURED**, AtomGradient README**)**.
+  prompts (268.0 vs 736.2) **(MEASURED, AtomGradient README)**.
 - LFM2.5-VL-450M ran with **100% vision residency** and **~92% of language cost** on the ANE at
-  **1–2 W** against 8–15 W on the GPU **(MEASURED**, lfm2.5-vl-ane README**)**.
+  **1–2 W** against 8–15 W on the GPU **(MEASURED, lfm2.5-vl-ane README)**.
 - ane.cpp reported Qwen3.5-4B int8 at 30.08 tok/s prompt and 11.66 tok/s generate on M3 Max — real,
-  but "still modest" in its own words **(MEASURED**, ane.cpp README**)**.
+  but "still modest" in its own words **(MEASURED, ane.cpp README)**.
 - The reference paper's own verdict on decode is that it is bandwidth- and dispatch-bound, with GPU
-  at batch 16 **2.7× faster and 4.6× more energy-efficient** **(MEASURED**, arXiv:2606.22283,
-  as distilled in `coreai-model-zoo/knowledge/ane-silicon-reference.md`**)** — while our own
+  at batch 16 **2.7× faster and 4.6× more energy-efficient** **(MEASURED, arXiv:2606.22283,
+  as distilled in `coreai-model-zoo/knowledge/ane-silicon-reference.md`)** — while our own
   embedder measurement on M4 found the ANE path slightly *faster* and using ~125× less GPU power
-  **(MEASURED**, our own `EXP-005`**)**. These are different workloads and they do not contradict each
+  **(MEASURED, our own `EXP-005`)**. These are different workloads and they do not contradict each
   other; see the contested records for both positions.
 
 And the costs, stated without hedging:
 
 - **Private-API code breaks on macOS updates.** maderix: the APIs "may change or break with any macOS
   update"; ane-infer: "Private API usage means it breaks with macOS updates"
-  **(CLAIMED**, both READMEs**)**.
+  **(CLAIMED, both READMEs)**.
 - **Compile is a resource leak.** maderix hit a ceiling at roughly **119 ANE compiles per process**
   and worked around it with an `exec()` restart; the reference paper puts the load-time ceiling at
   ~**128 programs per process** with **127 in-flight requests per program** **(MEASURED/
-  DOCUMENTED**, maderix README; `ane-silicon-reference.md`**)**.
+  DOCUMENTED, maderix README; `ane-silicon-reference.md`)**.
 - **Training is immature.** The author's own numbers: **~5–9% utilization of peak**, many elementwise
   ops falling back to CPU, and "this does not replace GPU training for anything beyond small research
-  models today" **(CLAIMED**, maderix README**)**. Apple's sanctioned route for on-device training
-  remains MLX, not the ANE **(INFERRED**, from the WWDC26 MLX sessions recorded in our
-  `results/RESEARCH-SWEEP.md`**)**.
+  models today" **(CLAIMED, maderix README)**. Apple's sanctioned route for on-device training
+  remains MLX, not the ANE **(INFERRED, from the WWDC26 MLX sessions recorded in our
+  `results/RESEARCH-SWEEP.md`)**.
 
 **The summary a newcomer should leave with:** the ANE is reachable two ways; the public way is the
 shippable one and it hides everything; the private way is the one where the field's knowledge is
@@ -464,6 +464,7 @@ project in §3 that has produced a genuinely new fact about the hardware did it 
 {"id":"LANDSCAPE-075","claim":"exelban/stats issue #2897 (2026-01-04 to 2026-09-05) records the community position that macOS exposes no usable system-wide ANE utilization signal: mactop's ANE percent is a power heuristic (ANE watts divided by a hard-coded 8.0 W), and Stats' own ANE-utilization attempt did not track ANE correctly — strengthening our calibrated ANEXL counter as a genuinely new capability rather than a re-derivation.","kind":"fact","confidence":"documented","source":"https://github.com/exelban/stats/issues/2897","source_type":"primary","retrieved":"2026-10-10","topic":["prior-art","ane","observability","counters"],"entities":["exelban/stats","mactop","ANEXL"],"evidence":"issue thread: maintainer 'no good way to obtain this data'; mactop's internal/app/ioreport.m sums channels whose name starts with ANE into anePower and menubar.go divides by 8.0; user reports Stats' ANE module not tracking","caveat":"a community thread, not a specification; predates any later monitor that may have found a better signal","contested":false}
 {"id":"LANDSCAPE-076","claim":"The M4 architecture split is already public in our own merged upstream contribution: john-rocky/coreai-model-zoo PR #36 (merged 2026-10-02) states the M4 mini resolves to h16g, not h16c (M4 Max), and that coreai-build inspect prints 'This device's architecture' while omitting --architecture compiles all 22 targets — so the M4 half of the cross-chip finding (API-138) is prior art, not new.","kind":"fact","confidence":"documented","source":"https://github.com/john-rocky/coreai-model-zoo/pull/36","source_type":"primary","retrieved":"2026-10-10","topic":["prior-art","coreai","architecture"],"entities":["coreai-model-zoo PR #36","h16g","h16c","coreai-build inspect","M4"],"evidence":"merged PR body: 'arch h16g', 'ours is h16g, not h16c (M4 Max)', 'coreai-build inspect prints This device's architecture'","caveat":"our own contribution, upstream-merged; covers the M4 mini/Max split only — the M5 Max h17c target and the private-selector divergence are not in it","contested":false}
 {"id":"LANDSCAPE-077","claim":"That Apple's MPSGraph plan format is MLIR bytecode is already public — Apple's own 'MPS dialect in MLIR' RFC (LLVM discourse, 2024) and the shipping /usr/bin/mpsgraphtool that converts coremlpackage to an MLIR-bytecode mpsgraphpackage — so the novelty of our readable-IR result (FORMAT-108) is the private aicode/placement dialects and the stub-plugin + rewrite printing technique, not the fact that the container is MLIR.","kind":"fact","confidence":"documented","source":"https://discourse.llvm.org/t/rfc-mps-dialect-in-mlir/77102","source_type":"primary","retrieved":"2026-10-10","topic":["prior-art","format","mlir"],"entities":["MPS dialect RFC","mpsgraphtool","MLIR bytecode"],"evidence":"RFC by Apple Compute Frameworks (2024-02-20) describing the MPS MLIR dialect + bytecode serialisation; mpsgraphtool ships macOS 14+","caveat":"established that the format is MLIR; says nothing about the private dialects' encoding or a way to print them","contested":false}
+{"id":"LANDSCAPE-078","claim":"The int8-palettization compute penalty on the ANE is machine-pinned, not a constant: on Granite-Embedding-97M (W8A16, 48 linears, seed 0, S=128, same artifact class as EXP-005) the w8+fp16 build runs 4.8x slower than fp16 on M4 mini (19.48 vs 4.05 ms) but only 1.57x slower on M5 Max (19.11 vs 12.17 ms warm median, matched same-window interleaved A/B). Direction replicates (storage lever, not compute lever); magnitude does not. The M5 Max h17c path also records 14 ANE regions vs 13 on h16g and per-op delegate warnings on the fp32 embedding-table I/O cast (accepted element types: fp16/f8E4M3/si8/ui8/si16/ui16).","kind":"measurement","confidence":"measured","source":"results/EXP-039-w8-palettization/README.md","source_type":"our-own","retrieved":"2026-10-26","topic":["quantization","palettization","performance","correction","cross-chip"],"entities":["Granite-Embedding-97M","h17c","h16g","W8A16","KMeansPalettizer","MPSGraph"],"evidence":"latency microbench rows granite97m-w8 (M4, EXP-005) vs granite97m-w8-m5max / granite97m-fp16-m5max (EXP-039, raw/lat-*-20261026T233525Z.json + ab-runs.log); numeric gate 0.99938 both machines","caveat":"loaded window (oMLX up): p50 ratios are valid within the matched window, absolute ms carry load noise; energy cell DECLINED-window (ambient GPU ~29 W swamps the delta — see README); S=512 untested on M5; this narrows but does not resolve LANDSCAPE-063 (W8A8 rate still unmeasured)","contested":false}
 ```
 
 ---

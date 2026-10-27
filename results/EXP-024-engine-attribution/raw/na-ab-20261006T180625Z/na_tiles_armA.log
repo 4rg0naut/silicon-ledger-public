@@ -1,0 +1,192 @@
+=== launch 2026-10-06T18:07:33Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    236.0 us/predict    1.111 GFLOPS
+round 1 tensorops_64x32    237.3 us/predict    1.105 GFLOPS
+round 2 tensorops_64x32    238.5 us/predict    1.099 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:07:39Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    235.7 us/predict    1.112 GFLOPS
+round 1 tensorops_64x32    235.9 us/predict    1.111 GFLOPS
+round 2 tensorops_64x32    235.9 us/predict    1.111 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:07:44Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    237.3 us/predict    1.105 GFLOPS
+round 1 tensorops_64x32    236.0 us/predict    1.111 GFLOPS
+round 2 tensorops_64x32    237.8 us/predict    1.102 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:07:49Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    234.7 us/predict    1.117 GFLOPS
+round 1 tensorops_64x32    236.3 us/predict    1.110 GFLOPS
+round 2 tensorops_64x32    237.7 us/predict    1.103 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:07:54Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    235.8 us/predict    1.112 GFLOPS
+round 1 tensorops_64x32    236.0 us/predict    1.111 GFLOPS
+round 2 tensorops_64x32    235.2 us/predict    1.115 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:00Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    234.5 us/predict    1.118 GFLOPS
+round 1 tensorops_64x32    236.0 us/predict    1.111 GFLOPS
+round 2 tensorops_64x32    238.2 us/predict    1.101 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:05Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    234.7 us/predict    1.117 GFLOPS
+round 1 tensorops_64x32    236.5 us/predict    1.108 GFLOPS
+round 2 tensorops_64x32    238.5 us/predict    1.099 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:10Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    238.1 us/predict    1.101 GFLOPS
+round 1 tensorops_64x32    237.2 us/predict    1.105 GFLOPS
+round 2 tensorops_64x32    238.2 us/predict    1.100 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:16Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    236.0 us/predict    1.111 GFLOPS
+round 1 tensorops_64x32    237.0 us/predict    1.106 GFLOPS
+round 2 tensorops_64x32    237.0 us/predict    1.106 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:21Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    237.0 us/predict    1.106 GFLOPS
+round 1 tensorops_64x32    238.7 us/predict    1.098 GFLOPS
+round 2 tensorops_64x32    237.4 us/predict    1.104 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:26Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    237.2 us/predict    1.105 GFLOPS
+round 1 tensorops_64x32    236.5 us/predict    1.109 GFLOPS
+round 2 tensorops_64x32    239.6 us/predict    1.094 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:31Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    235.1 us/predict    1.115 GFLOPS
+round 1 tensorops_64x32    236.6 us/predict    1.108 GFLOPS
+round 2 tensorops_64x32    235.4 us/predict    1.113 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:37Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    236.0 us/predict    1.111 GFLOPS
+round 1 tensorops_64x32    238.0 us/predict    1.102 GFLOPS
+round 2 tensorops_64x32    237.8 us/predict    1.102 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:42Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    236.1 us/predict    1.110 GFLOPS
+round 1 tensorops_64x32    236.2 us/predict    1.110 GFLOPS
+round 2 tensorops_64x32    238.0 us/predict    1.101 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:47Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    235.6 us/predict    1.112 GFLOPS
+round 1 tensorops_64x32    237.4 us/predict    1.104 GFLOPS
+round 2 tensorops_64x32    237.5 us/predict    1.104 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:08:53Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum tensorops_64x32 max_abs_err=7.744e-03 -> PASS
+round 0 tensorops_64x32    237.2 us/predict    1.105 GFLOPS
+round 1 tensorops_64x32    237.2 us/predict    1.105 GFLOPS
+round 2 tensorops_64x32    236.9 us/predict    1.107 GFLOPS
+VERDICT: single-arm run (['tensorops_64x32']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.

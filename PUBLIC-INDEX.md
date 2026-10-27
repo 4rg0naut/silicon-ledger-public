@@ -5,6 +5,8 @@ new-vs-already-public verdict on each.
 
 One line each; the full record (commands, numbers, caveats, raw artifacts)
 is in the linked folder. Chronological — this is also the story order.
+House vocabulary (surface, lane, window, DECLINED, p50…) is decoded in
+[GLOSSARY.md](GLOSSARY.md).
 
 | Experiment | In one line |
 |---|---|
@@ -44,10 +46,18 @@ is in the linked folder. Chronological — this is also the story order.
 | [EXP-035](results/EXP-035-chaining-blob/) | The 3 KB argument blob was never the gate — a client-state check upstream is, located by disassembly and a live-handle test battery. |
 | [EXP-036](results/EXP-036-side-door-inject/) | Closing the door question with a clean negative: zero weight codes move through the direct path for unprivileged clients — plus the grammar note that prevents the next misread. |
 | [EXP-037](results/EXP-037-fp8-nax/) | fp8 on the tensor units: native and bit-exact, yet fp16-parallel at naive tiles — and the compiler-version gate that explains why published numbers claim 7×. |
+| [EXP-039](results/EXP-039-w8-palettization/) | Re-running the famous "int8 makes it 4.8× slower" on the M5 Max: the penalty is real but machine-pinned — 1.57× there. Quantization advice does not transfer between machines. |
+| [EXP-040](results/EXP-040-m4-fp16-zero-collapse/) | Testing a published "M4 fp16 collapses to zero" claim on our M4: it doesn't — and our two chips' fp16 embeddings come out bit-identical, hashes included. |
+| [EXP-041](results/EXP-041-multi-input/) | Chasing the "multi-input requests fail" folklore: ten arms, two chips, zero failures — and the compiler-cache trap that pretends to be that limitation. |
+| [EXP-042](results/EXP-042-cold-compile/) | How long the Neural Engine compiler actually takes, per layer of your graph — and the disappointing finding that it remembers nothing between runs. |
+| [EXP-043](results/EXP-043-m5max-weight-budget/) | Bracketing the real weight-budget walls on both chips: the byte ceiling is a 4 GiB file-size truncation, not 1 GiB — and there is a second, operator-count wall hiding behind it. |
 
-*Two numbering notes, so citations don't trip.* Two folders share the EXP-023
+*Three numbering notes, so citations don't trip.* Two folders share the EXP-023
 slot: the small-LLM pilot (linked above) and a reconstructed per-engine energy
 baseline in [`results/EXP-023-m5max-energy/`](results/EXP-023-m5max-energy/) —
 both are first-class records, and the ledger row spells it out. **EXP-030 is
 deliberately unused** in this repo; that id belongs to a sibling project, and
-the full id map is in [`results/README.md`](results/README.md).
+the full id map is in [`results/README.md`](results/README.md). **EXP-038**
+exists and is real, but its measurement window had not completed at publish
+time — unfinished windows ship no numbers, so it joins this index in the next
+round.

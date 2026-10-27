@@ -1,4 +1,4 @@
-# MINEFIELD — eighteen things that broke, in plain words
+# MINEFIELD — twenty things that broke, in plain words
 
 Every lesson here cost real time. Each cites its full record (F-number in
 `FAILURES.md`, experiment in `results/`). Read it before you debug anything
@@ -118,6 +118,25 @@ expensive mistake in this log is hiding suppressed `stderr` — a tool
 printed nothing, we assumed silence meant health, and the real failure
 surfaced hours later two layers away. Capture everything, decide later.
 (F-07; pre-EXP record — FAILURES.md is the full trace here)
+
+**19. The size your own code crashed at is not the size the chip refused at.** A weight-budget
+ladder "refused" around 2 GB — actually the harness added up blob sizes in a 32-bit int and
+crashed in its own arithmetic before the Neural Engine was ever asked. The real wall, measured
+after the fix, sat exactly where a 32-bit truncation predicts: a 4,294,971,392-byte weight file
+(2^32 + 4096) is refused with `Code=10 verifyBundleAtPath` while 4,228,124,672 B computes
+exactly — on both our chips. The same log also printed echo-header file sizes that disagreed with
+their own payload lines; every figure we now recompute from the format definition instead of
+quoting the log. A plausible number beside a correct story survives for days. (F-51, EXP-043)
+
+**20. A failure that disappears when you rename a file was never a hardware limit.** Two-input
+ANE arms died at load with `Code=10` while single-input arms passed — in two of our harnesses,
+"confirmed" as the documented multi-input limitation. Truth: the compiler's cache key is derived
+from the graph's *text* only. Arms built from one template with different weight bytes share one
+cache entry, and the second load validates new bytes against the stale bundle and is refused.
+Give every test variant its own cache identity (we bake the varying constants into weight
+filenames) and all ten arms pass, on both chips, bit-exact — the famous multi-input refusal
+never appears at all. Before publishing "X fails," give the hypothesis a way to fail on
+different words. (F-52, EXP-041)
 
 ---
 *The meta-lesson, learned three separate times: a method that cannot fail

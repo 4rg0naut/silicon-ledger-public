@@ -1,0 +1,19 @@
+  identity: {"chip":"Apple M5 Max","hw_model":"Mac17,14","cores":18,"arch":"arm64","os":"27.0.1","os_build":"26A434"}
+
+=== ALL ===
+  inferences      : 11954 in 20.0s  ->  598 emb/s
+  ANE power       : mean      0.0 mW  max      0.0 mW  ->   0.000 mJ/embedding
+  GPU power       : mean   1426.3 mW  max   2679.0 mW  ->   2.386 mJ/embedding
+  CPU power       : mean   1530.9 mW  max   2641.0 mW  ->   2.561 mJ/embedding
+  Combined power  : mean   2954.9 mW  max   5231.0 mW  ->   4.944 mJ/embedding
+
+=== CPU_ONLY ===
+  inferences      : 14236 in 20.0s  ->  712 emb/s
+  ANE power       : mean      0.0 mW  max      0.0 mW  ->   0.000 mJ/embedding
+  GPU power       : mean    163.1 mW  max    209.0 mW  ->   0.229 mJ/embedding
+  CPU power       : mean   7951.9 mW  max  14512.0 mW  ->  11.171 mJ/embedding
+  Combined power  : mean   8114.7 mW  max  14663.0 mW  ->  11.400 mJ/embedding
+
+=== comparison ===
+  throughput  : ALL 598 emb/s  vs  CPU_ONLY 712 emb/s
+  ANE power   : ALL 0.0 mW  vs  CPU_ONLY 0.0 mW

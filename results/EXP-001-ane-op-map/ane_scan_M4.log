@@ -1,0 +1,794 @@
+Torch version 2.13.0 has not been tested with coremltools. You may run into unexpected errors. Torch 2.7.0 is the most recent version that has been tested.
+Detected macOS 27.0 -> target macOS26 has 0 registered ops, trying older target...
+Detected macOS 27.0 -> target macOS15 (spec version 9, 168 ops)
+ANE Probe — Operation Compatibility Scanner
+Target: 9
+coremltools version: 9.0
+======================================================================
+[1/168] _const_symbolic... SKIP (required Internal input: val)
+[2/168] abs... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 18587.44 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 91015.64 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[3/168] acos... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34343.98 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 90851.35 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[4/168] add... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29600.99 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 72419.64 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[5/168] affine... SKIP (required string input: sampling_mode)
+[6/168] argsort... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26236.84 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 58525.17 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[7/168] asin... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 33204.91 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 96791.63 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[8/168] atan... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 35503.78 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 104422.51 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[9/168] atanh... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34977.08 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 103350.41 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[10/168] avg_pool... SKIP (required string input: pad_type)
+[11/168] band_part... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 22782.10 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 56048.61 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[12/168] batch_norm... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 20381.53 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 44938.97 passes/s]
+OK [1x4x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[13/168] batch_to_space... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26948.39 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 55800.05 passes/s]
+OK [4x1x2x2] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[14/168] cast... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 31643.81 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 100062.92 passes/s]
+OK [8x8] -> preferred=ANE, supported=[CPU,GPU,ANE]
+[15/168] ceil... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 35595.75 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 104422.51 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[16/168] clamped_relu... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 27299.18 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 53092.46 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[17/168] classify... SKIP (required List input: classes)
+[18/168] clip... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26713.52 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 54295.20 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[19/168] concat... SKIP (required Tuple input: values)
+[20/168] cond... SKIP (primary input is bool-only)
+[21/168] const... SKIP (required Internal input: val)
+[22/168] constexpr_affine_dequantize... SKIP (constexpr: compile-time weight decompression)
+[23/168] constexpr_blockwise_shift_scale... SKIP (constexpr: compile-time blockwise dequantization)
+[24/168] constexpr_cast... SKIP (required string input: output_dtype)
+[25/168] constexpr_lut_to_dense... SKIP (constexpr: compile-time LUT decompression)
+[26/168] constexpr_lut_to_sparse... SKIP (constexpr: compile-time LUT sparse decompression)
+[27/168] constexpr_sparse_blockwise_shift_scale... SKIP (constexpr: compile-time sparse blockwise dequantization)
+[28/168] constexpr_sparse_to_dense... SKIP (constexpr: compile-time sparse decompression)
+[29/168] conv... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 18370.63 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 23629.88 passes/s]
+OK [1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[30/168] conv_quantized... SKIP (required string input: quantization_type)
+[31/168] conv_transpose... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 16903.91 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 28565.07 passes/s]
+OK [1x2x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[32/168] cos... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 35109.60 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 102717.65 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[33/168] cosh... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 32884.28 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 99078.05 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[34/168] crop... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 27259.96 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 58254.22 passes/s]
+OK [1x1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[35/168] crop_resize... SKIP (crashes Core ML compiler (segfault) on iOS17+)
+[36/168] cumsum... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 25137.78 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 50635.46 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[37/168] depth_to_space... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 28972.51 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 72838.85 passes/s]
+OK [1x1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[38/168] dequantize... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29384.87 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]
+Input 'input_0' is of dtype int8. The Core ML I/O does not support this dtype (supported dtypes are: ['int32', 'fp32', 'fp16']). Consider setting `minimum_deployment_target` to a higher IOS version for more supported dtypes. This input is changed to int32.
+
+Trying to insert a cast op at the beginning of the program to convert the input to the originally defined dtype (int8).
+
+Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 23956.04 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[39/168] einsum... SKIP (required Tuple input: values)
+[40/168] elu... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29977.35 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 69711.42 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[41/168] equal... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30006.69 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]
+Output 'equal_0' is of dtype bool. The Core ML runtime does not support outputs with this dtype (supported dtypes are: {<class 'coremltools.converters.mil.mil.types.type_int.make_int.<locals>.int'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>}). This output will changed to fp32 by adding a cast op at the end of the program.
+
+Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 30302.02 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[42/168] erf... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34234.80 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 100865.03 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[43/168] exp... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34721.06 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 103350.41 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[44/168] exp2... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34406.26 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 99864.38 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[45/168] expand_dims... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30477.20 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 73584.28 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[46/168] fill... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26228.20 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 72838.85 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[47/168] fill_like... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 22529.62 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 47215.43 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[48/168] flatten2d... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30733.43 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 75121.86 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[49/168] floor... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34558.45 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 99864.38 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[50/168] floor_div... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29789.09 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 71902.35 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[51/168] gather... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 20076.53 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 38836.15 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[52/168] gather_along_axis... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 22259.03 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 46689.84 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[53/168] gather_nd... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 22485.12 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 48164.26 passes/s]
+OK [4x4] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[54/168] gelu... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30686.09 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 74455.10 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[55/168] greater... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 28842.48 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]
+Output 'greater_0' is of dtype bool. The Core ML runtime does not support outputs with this dtype (supported dtypes are: {<class 'coremltools.converters.mil.mil.types.type_int.make_int.<locals>.int'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>}). This output will changed to fp32 by adding a cast op at the end of the program.
+
+Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 31734.96 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[56/168] greater_equal... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29829.23 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]
+Output 'greater_equal_0' is of dtype bool. The Core ML runtime does not support outputs with this dtype (supported dtypes are: {<class 'coremltools.converters.mil.mil.types.type_int.make_int.<locals>.int'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>}). This output will changed to fp32 by adding a cast op at the end of the program.
+
+Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 31835.32 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[57/168] gru... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 14834.66 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 26146.31 passes/s]
+OK [4x1x8] -> preferred=CPU, supported=[CPU,GPU]
+[58/168] identity... SKIP (required ListOrTensorOrDict input: x)
+[59/168] instance_norm... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 25687.14 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 68571.73 passes/s]
+/data/local_ai_stack/.venv/lib/python3.13/site-packages/coremltools/models/model.py:628: RuntimeWarning: You will not be able to run predict() on this Core ML model. Underlying exception message was: Error compiling model: "Failed to parse the model specification. Error: Unable to parse ML Program: in operation instance_norm_0_cast_fp16: parameter x[0] has invalid rank 2, expected [3, 4].".
+  _warnings.warn(
+Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 27344.14 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 70989.63 passes/s]
+OK [1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[60/168] inverse... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 28999.92 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 61305.30 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[61/168] l2_norm... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 27130.04 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 70591.37 passes/s]
+OK [1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[62/168] l2_pool... SKIP (required string input: pad_type)
+[63/168] layer_norm... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 23695.22 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 56111.09 passes/s]
+OK [1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[64/168] leaky_relu... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30556.66 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 74565.40 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[65/168] less... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30158.86 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]
+Output 'less_0' is of dtype bool. The Core ML runtime does not support outputs with this dtype (supported dtypes are: {<class 'coremltools.converters.mil.mil.types.type_int.make_int.<locals>.int'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>}). This output will changed to fp32 by adding a cast op at the end of the program.
+
+Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 31320.25 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[66/168] less_equal... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30456.23 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]
+Output 'less_equal_0' is of dtype bool. The Core ML runtime does not support outputs with this dtype (supported dtypes are: {<class 'coremltools.converters.mil.mil.types.type_int.make_int.<locals>.int'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>}). This output will changed to fp32 by adding a cast op at the end of the program.
+
+Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 25003.30 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[67/168] linear... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26302.65 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 56552.41 passes/s]
+OK [1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[68/168] linear_activation... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26287.04 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 55492.45 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[69/168] list_gather... SKIP (required List input: ls)
+[70/168] list_length... SKIP (required List input: ls)
+[71/168] list_read... SKIP (required List input: ls)
+[72/168] list_scatter... SKIP (required List input: ls)
+[73/168] list_write... SKIP (required List input: ls)
+[74/168] local_response_norm... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 18864.64 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 39168.60 passes/s]
+/data/local_ai_stack/.venv/lib/python3.13/site-packages/coremltools/models/model.py:628: RuntimeWarning: You will not be able to run predict() on this Core ML model. Underlying exception message was: Error compiling model: "Failed to parse the model specification. Error: Unable to parse ML Program: in operation local_response_norm_0_cast_fp16: parameter x[0] has invalid rank 2, expected [3, 5].".
+  _warnings.warn(
+Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 19261.32 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 42118.53 passes/s]
+OK [1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[75/168] log... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30379.60 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 75009.91 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[76/168] logical_and... SKIP (primary input is bool-only)
+[77/168] logical_not... SKIP (primary input is bool-only)
+[78/168] logical_or... SKIP (primary input is bool-only)
+[79/168] logical_xor... SKIP (primary input is bool-only)
+[80/168] lstm... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 12932.36 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 18752.48 passes/s]
+OK [4x1x8] -> preferred=CPU, supported=[CPU,GPU]
+[81/168] make_list... SKIP (required Tuple input: elem_shape)
+[82/168] matmul... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 24241.58 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 48349.33 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[83/168] max_pool... SKIP (required string input: pad_type)
+[84/168] maximum... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30006.69 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 74126.14 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[85/168] minimum... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29550.50 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 71902.35 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[86/168] mod... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29715.78 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 70591.37 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[87/168] mul... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30188.57 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 74565.40 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[88/168] non_maximum_suppression... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 21281.79 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 40265.32 passes/s]
+OK [1x4x4] -> preferred=CPU, supported=[CPU]
+[89/168] non_zero... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34311.45 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 101680.10 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU]
+[90/168] not_equal... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29959.31 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]
+Output 'not_equal_0' is of dtype bool. The Core ML runtime does not support outputs with this dtype (supported dtypes are: {<class 'coremltools.converters.mil.mil.types.type_int.make_int.<locals>.int'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>, <class 'coremltools.converters.mil.mil.types.type_double.make_float.<locals>.double'>}). This output will changed to fp32 by adding a cast op at the end of the program.
+
+Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 31675.05 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[91/168] one_hot... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 22571.74 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 40136.88 passes/s]
+OK [8] -> preferred=CPU, supported=[CPU,GPU]
+[92/168] pad... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 22426.91 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 48349.33 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[93/168] pixel_shuffle... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30081.45 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 71799.78 passes/s]
+OK [1x1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[94/168] pixel_unshuffle... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30596.55 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 74126.14 passes/s]
+OK [1x1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[95/168] pow... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29585.60 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 70099.79 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[96/168] prelu... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 27825.34 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 73050.29 passes/s]
+OK [1x4x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[97/168] quantize... SKIP (required string input: output_dtype)
+[98/168] random_bernoulli... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 15219.39 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 27162.25 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[99/168] random_categorical... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 24259.29 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 41221.66 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU]
+[100/168] random_normal... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 14735.91 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 24492.29 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[101/168] random_uniform... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 14742.45 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 23956.04 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[102/168] range_1d... Saving value type of float64 into a builtin type of fp32, might lose precision!
+Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 17905.05 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 37393.50 passes/s]
+OK [8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[103/168] read_state... SKIP (required State input: input)
+[104/168] real_div... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 27761.37 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 72838.85 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[105/168] reduce_argmax... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 23578.84 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 48395.82 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[106/168] reduce_argmin... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 24358.66 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 42981.77 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[107/168] reduce_l1_norm... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30467.88 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 72419.64 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[108/168] reduce_l2_norm... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30986.77 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 72419.64 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[109/168] reduce_log_sum... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30833.31 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 74455.10 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[110/168] reduce_log_sum_exp... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29733.52 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 73584.28 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[111/168] reduce_max... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30409.74 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 73692.02 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[112/168] reduce_mean... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 28341.91 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 61832.49 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[113/168] reduce_min... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30298.75 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 73584.28 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[114/168] reduce_prod... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30854.80 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 70591.37 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[115/168] reduce_sum... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30674.28 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 73584.28 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[116/168] reduce_sum_square... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29829.23 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 71493.82 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[117/168] relu... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 35500.61 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 103350.41 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[118/168] relu6... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34980.15 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 103563.06 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[119/168] resample... SKIP (required string input: sampling_mode)
+[120/168] reshape... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29780.19 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 73584.28 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[121/168] reshape_like... SKIP (required Tuple input: ref_tensors)
+[122/168] resize... SKIP (iOS17+ resize requires dynamic shape inference; use resize_bilinear/resize_nearest_neighbor)
+[123/168] resize_bilinear... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 25164.76 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 50031.46 passes/s]
+OK [1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[124/168] resize_nearest_neighbor... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 27235.74 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 59074.70 passes/s]
+/data/local_ai_stack/.venv/lib/python3.13/site-packages/coremltools/models/model.py:628: RuntimeWarning: You will not be able to run predict() on this Core ML model. Underlying exception message was: {
+    NSLocalizedDescription = "Failed to build the model execution plan using a model architecture file '/private/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/tmp5xkvdfw9.mlmodelc/model.mil' with error code: -5.";
+}
+  _warnings.warn(
+Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 27377.96 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 57919.04 passes/s]
+OK [1x1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[125/168] reverse... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34952.53 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 101680.10 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[126/168] reverse_sequence... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 25206.15 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 49200.05 passes/s]
+OK [8x4] -> preferred=CPU, supported=[CPU]
+[127/168] rnn... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 17450.24 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 28355.86 passes/s]
+OK [4x1x8] -> preferred=CPU, supported=[CPU,GPU]
+[128/168] round... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 33868.16 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 102508.45 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[129/168] rsqrt... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30398.14 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 73800.07 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[130/168] scaled_dot_product_attention... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26419.50 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 57130.13 passes/s]
+OK [1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[131/168] scaled_tanh... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 27080.26 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 57985.77 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[132/168] scatter... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 20527.48 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 36366.80 passes/s]
+OK [4x4] -> preferred=CPU, supported=[CPU,GPU]
+[133/168] scatter_along_axis... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 20131.30 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 37145.13 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[134/168] scatter_nd... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 22656.44 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 41943.04 passes/s]
+OK [4x4] -> preferred=CPU, supported=[CPU,GPU]
+[135/168] select... SKIP (primary input is bool-only)
+[136/168] shape... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34394.38 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 76842.21 passes/s]
+OK [8x8] -> preferred=unknown, supported=[]
+[137/168] sigmoid... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 32671.28 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 101680.10 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[138/168] sigmoid_hard... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26785.35 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 55800.05 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[139/168] sign... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 35134.37 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 103350.41 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[140/168] silu... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34672.72 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 98496.38 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[141/168] sin... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34873.00 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 103350.41 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[142/168] sinh... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 33531.84 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 102508.45 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[143/168] slice_by_index... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26106.20 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 56552.41 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[144/168] slice_by_size... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26942.92 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 59074.70 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[145/168] slice_update... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 23137.96 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 45100.04 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[146/168] sliding_windows... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 25360.16 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 49932.19 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU]
+[147/168] softmax... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30245.85 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 73262.95 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[148/168] softplus... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 35500.61 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 102508.45 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[149/168] softplus_parametric... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 26769.16 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 57919.04 passes/s]
+OK [1x4x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[150/168] softsign... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 35233.79 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 103350.41 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[151/168] space_to_batch... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 25878.99 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 57919.04 passes/s]
+OK [1x1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[152/168] space_to_depth... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29762.39 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 70989.63 passes/s]
+OK [1x1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[153/168] split... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 24643.38 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 51463.85 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[154/168] sqrt... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 35032.43 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 106184.91 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[155/168] square... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34760.44 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 102717.65 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[156/168] squeeze... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34270.14 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 103563.06 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[157/168] stack... SKIP (required Tuple input: values)
+[158/168] sub... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29733.52 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 71799.78 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[159/168] tan... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 34624.51 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 105076.51 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU]
+[160/168] tanh... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 32938.65 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 103563.06 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[161/168] threshold... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 30177.13 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 71392.41 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[162/168] thresholded_relu... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29467.45 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 68571.73 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[163/168] tile... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 29678.15 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 70989.63 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[164/168] topk... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 16010.08 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 25317.73 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[165/168] transpose... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 28341.91 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 71392.41 passes/s]
+OK [8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[166/168] upsample_bilinear... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 24967.66 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 48395.82 passes/s]
+OK [1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[167/168] upsample_nearest_neighbor... Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]Running MIL frontend_milinternal pipeline: 0 passes [00:00, ? passes/s]
+Running MIL default pipeline:   0%|          | 0/95 [00:00<?, ? passes/s]Running MIL default pipeline: 100%|██████████| 95/95 [00:00<00:00, 27529.29 passes/s]
+Running MIL backend_mlprogram pipeline:   0%|          | 0/12 [00:00<?, ? passes/s]Running MIL backend_mlprogram pipeline: 100%|██████████| 12/12 [00:00<00:00, 59990.05 passes/s]
+OK [1x8x8] -> preferred=CPU, supported=[CPU,GPU,ANE]
+[168/168] while_loop... SKIP (required internal input: _cond)
+
+======================================================================
+ANE PROBE RESULTS SUMMARY
+======================================================================
+Total ops:       168
+  Tested:        130
+    ANE support: 100
+    No ANE:      30
+  Skipped:       38
+  Errors:        0
+  No plan:       0
+
+--- ANE-supported ops (100) ---
+    abs                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    add                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    atan                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    batch_norm                     preferred=CPU  dtype=fp16   shape=1x4x8x8      supported=[CPU,GPU,ANE]
+    batch_to_space                 preferred=CPU  dtype=fp16   shape=4x1x2x2      supported=[CPU,GPU,ANE]
+  * cast                           preferred=ANE  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    ceil                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    clamped_relu                   preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    clip                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    conv                           preferred=CPU  dtype=fp16   shape=1x8x8        supported=[CPU,GPU,ANE]
+    conv_transpose                 preferred=CPU  dtype=fp16   shape=1x2x8x8      supported=[CPU,GPU,ANE]
+    cos                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    crop                           preferred=CPU  dtype=fp16   shape=1x1x8x8      supported=[CPU,GPU,ANE]
+    depth_to_space                 preferred=CPU  dtype=fp16   shape=1x1x8x8      supported=[CPU,GPU,ANE]
+    dequantize                     preferred=CPU  dtype=int8   shape=8x8          supported=[CPU,GPU,ANE]
+    elu                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    equal                          preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    erf                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    exp                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    exp2                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    expand_dims                    preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    fill                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    fill_like                      preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    flatten2d                      preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    floor                          preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    floor_div                      preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    gather                         preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    gather_along_axis              preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    gather_nd                      preferred=CPU  dtype=fp16   shape=4x4          supported=[CPU,GPU,ANE]
+    gelu                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    greater                        preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    greater_equal                  preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    instance_norm                  preferred=CPU  dtype=fp16   shape=1x8x8        supported=[CPU,GPU,ANE]
+    inverse                        preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    l2_norm                        preferred=CPU  dtype=fp16   shape=1x8x8        supported=[CPU,GPU,ANE]
+    layer_norm                     preferred=CPU  dtype=fp16   shape=1x8x8        supported=[CPU,GPU,ANE]
+    leaky_relu                     preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    less                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    less_equal                     preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    linear                         preferred=CPU  dtype=fp16   shape=1x8x8        supported=[CPU,GPU,ANE]
+    linear_activation              preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    local_response_norm            preferred=CPU  dtype=fp16   shape=1x8x8        supported=[CPU,GPU,ANE]
+    log                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    matmul                         preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    maximum                        preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    minimum                        preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    mul                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    not_equal                      preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    pad                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    pixel_shuffle                  preferred=CPU  dtype=fp16   shape=1x1x8x8      supported=[CPU,GPU,ANE]
+    pixel_unshuffle                preferred=CPU  dtype=fp16   shape=1x1x8x8      supported=[CPU,GPU,ANE]
+    pow                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    prelu                          preferred=CPU  dtype=fp16   shape=1x4x8x8      supported=[CPU,GPU,ANE]
+    range_1d                       preferred=CPU  dtype=fp32   shape=8            supported=[CPU,GPU,ANE]
+    real_div                       preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    reduce_l1_norm                 preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    reduce_l2_norm                 preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    reduce_log_sum                 preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    reduce_log_sum_exp             preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    reduce_max                     preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    reduce_mean                    preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    reduce_min                     preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    reduce_sum                     preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    reduce_sum_square              preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    relu                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    relu6                          preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    reshape                        preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    resize_bilinear                preferred=CPU  dtype=fp16   shape=1x8x8        supported=[CPU,GPU,ANE]
+    resize_nearest_neighbor        preferred=CPU  dtype=fp16   shape=1x1x8x8      supported=[CPU,GPU,ANE]
+    reverse                        preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    round                          preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    rsqrt                          preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    scaled_dot_product_attention   preferred=CPU  dtype=fp16   shape=1x8x8        supported=[CPU,GPU,ANE]
+    scaled_tanh                    preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    sigmoid                        preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    sigmoid_hard                   preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    sign                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    silu                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    sin                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    slice_by_index                 preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    slice_by_size                  preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    softmax                        preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    softplus                       preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    softplus_parametric            preferred=CPU  dtype=fp16   shape=1x4x8x8      supported=[CPU,GPU,ANE]
+    softsign                       preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    space_to_batch                 preferred=CPU  dtype=fp16   shape=1x1x8x8      supported=[CPU,GPU,ANE]
+    space_to_depth                 preferred=CPU  dtype=fp16   shape=1x1x8x8      supported=[CPU,GPU,ANE]
+    split                          preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    sqrt                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    square                         preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    squeeze                        preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    sub                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    tanh                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    threshold                      preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    thresholded_relu               preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    tile                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    topk                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    transpose                      preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU,ANE]
+    upsample_bilinear              preferred=CPU  dtype=fp16   shape=1x8x8        supported=[CPU,GPU,ANE]
+    upsample_nearest_neighbor      preferred=CPU  dtype=fp16   shape=1x8x8        supported=[CPU,GPU,ANE]
+  (* = ANE is preferred device)
+
+--- No ANE support (30) ---
+  acos                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  argsort                        preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  asin                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  atanh                          preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  band_part                      preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  cosh                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  cumsum                         preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  gru                            preferred=CPU  dtype=fp16   shape=4x1x8        supported=[CPU,GPU]
+  lstm                           preferred=CPU  dtype=fp16   shape=4x1x8        supported=[CPU,GPU]
+  mod                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  non_maximum_suppression        preferred=CPU  dtype=fp16   shape=1x4x4        supported=[CPU]
+  non_zero                       preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU]
+  one_hot                        preferred=CPU  dtype=int32  shape=8            supported=[CPU,GPU]
+  random_bernoulli               preferred=CPU  dtype=fp32   shape=8x8          supported=[CPU,GPU]
+  random_categorical             preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU]
+  random_normal                  preferred=CPU  dtype=fp32   shape=8x8          supported=[CPU,GPU]
+  random_uniform                 preferred=CPU  dtype=fp32   shape=8x8          supported=[CPU,GPU]
+  reduce_argmax                  preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  reduce_argmin                  preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  reduce_prod                    preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  reverse_sequence               preferred=CPU  dtype=fp16   shape=8x4          supported=[CPU]
+  rnn                            preferred=CPU  dtype=fp16   shape=4x1x8        supported=[CPU,GPU]
+  scatter                        preferred=CPU  dtype=fp16   shape=4x4          supported=[CPU,GPU]
+  scatter_along_axis             preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  scatter_nd                     preferred=CPU  dtype=fp16   shape=4x4          supported=[CPU,GPU]
+  shape                          preferred=unknown dtype=fp16   shape=8x8          supported=[]
+  sinh                           preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  slice_update                   preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+  sliding_windows                preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU]
+  tan                            preferred=CPU  dtype=fp16   shape=8x8          supported=[CPU,GPU]
+
+--- Skipped (38) ---
+  _const_symbolic                required Internal input: val
+  affine                         required string input: sampling_mode
+  avg_pool                       required string input: pad_type
+  classify                       required List input: classes
+  concat                         required Tuple input: values
+  cond                           primary input is bool-only
+  const                          required Internal input: val
+  constexpr_affine_dequantize    constexpr: compile-time weight decompression
+  constexpr_blockwise_shift_scale constexpr: compile-time blockwise dequantization
+  constexpr_cast                 required string input: output_dtype
+  constexpr_lut_to_dense         constexpr: compile-time LUT decompression
+  constexpr_lut_to_sparse        constexpr: compile-time LUT sparse decompression
+  constexpr_sparse_blockwise_shift_scale constexpr: compile-time sparse blockwise dequantization
+  constexpr_sparse_to_dense      constexpr: compile-time sparse decompression
+  conv_quantized                 required string input: quantization_type
+  crop_resize                    crashes Core ML compiler (segfault) on iOS17+
+  einsum                         required Tuple input: values
+  identity                       required ListOrTensorOrDict input: x
+  l2_pool                        required string input: pad_type
+  list_gather                    required List input: ls
+  list_length                    required List input: ls
+  list_read                      required List input: ls
+  list_scatter                   required List input: ls
+  list_write                     required List input: ls
+  logical_and                    primary input is bool-only
+  logical_not                    primary input is bool-only
+  logical_or                     primary input is bool-only
+  logical_xor                    primary input is bool-only
+  make_list                      required Tuple input: elem_shape
+  max_pool                       required string input: pad_type
+  quantize                       required string input: output_dtype
+  read_state                     required State input: input
+  resample                       required string input: sampling_mode
+  reshape_like                   required Tuple input: ref_tensors
+  resize                         iOS17+ resize requires dynamic shape inference; use resize_b
+  select                         primary input is bool-only
+  stack                          required Tuple input: values
+  while_loop                     required internal input: _cond
+
+Results written to results/M4/macOS_27.0/coremltools_v9.0/ane_support_results.csv

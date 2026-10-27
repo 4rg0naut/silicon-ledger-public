@@ -1,0 +1,18 @@
+
+== GEMM throughput (GPU: MPS / custom MSL / TensorOps) (s2_gemm) ==
+  name            variant       iters      median         p95      unit
+  gemm_4096_fp16  tensorops         0       0.000       0.000        ms  validation_failed
+  gemm_4096_bf16  tensorops         0       0.000       0.000        ms  validation_failed
+  gemm_4096_int8  tensorops         0       0.000       0.000        ms  validation_failed
+  gemm_4096_fp8   tensorops         0       0.000       0.000        ms  validation_failed
+  gemm_4096_fp4   tensorops         0       0.000       0.000        ms  validation_failed
+  note: tensorops/matmul2d probe: PASSED (single 64x32 tile, K=64, all elements correct); multi-tile/multi-K-chunk matmul2d dispatch silently no-ops on macOS 27.0 beta GPUCompiler (32023): full-size rows below report validation_failed, not skipped, because the op runs and returns zeros
+  note: tensorops/fp32: not supported (skipped)
+  note: tensorops/fp16/n4096: VALIDATION FAILED max_abs_err=117.55961608886719 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs/research-notes.md R8)
+  note: tensorops/bf16/n4096: VALIDATION FAILED max_abs_err=117.78874969482422 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs/research-notes.md R8)
+  note: tensorops/int8/n4096: VALIDATION FAILED max_abs_err=293960.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs/research-notes.md R8)
+  note: tensorops/fp8/n4096: VALIDATION FAILED max_abs_err=134.5546875 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs/research-notes.md R8)
+  note: tensorops/fp8e5m2: not supported (skipped)
+  note: tensorops/fp4/n4096: VALIDATION FAILED max_abs_err=161.0 rel_err=1.0 (excluded; multi-tile matmul2d silently no-ops on this beta toolchain, see docs/research-notes.md R8)
+
+report: /Users/<user>/Library/Application Support/openfox/workspaces/dev_m5max_re/silicon-ledger-publish/results/2026-10-06T07-31-59Z-bda452aabd60bf26.json

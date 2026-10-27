@@ -1,0 +1,10 @@
+  identity: {"chip":"Apple M5 Max","hw_model":"Mac17,14","cores":18,"arch":"arm64","os":"27.0.1","os_build":"26A434"}
+compute       gate        median    ANE mW    GPU mW    CPU mW
+neuralEngine  PASS       12.10ms     261.1     240.7    4963.9
+gpu           PASS        1.82ms       0.0     739.9    5980.0
+cpuOnly       PASS        4.43ms       0.0     174.9    7192.7
+
+--- raw logs ---
+  neuralEngine   results/EXP-004-coreai-ane/raw/power_neuralEngine.txt
+  gpu            results/EXP-004-coreai-ane/raw/power_gpu.txt
+  cpuOnly        results/EXP-004-coreai-ane/raw/power_cpuOnly.txt

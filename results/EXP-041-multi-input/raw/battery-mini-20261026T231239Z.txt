@@ -1,0 +1,11 @@
+classes: desc=ok imm=ok req=ok aio=ok
+identity: chip=h16g cores=16 os=Version 27.0.1 (Build 26A434) host=mini
+
+in1          OK eval | expected 512.0 observed[512.0,512.0,512.0] MATCH
+in2-add      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in2-rev      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in3-add      OK eval | expected 3072.0 observed[3072.0,3072.0,3072.0] MATCH
+in4-add      OK eval | expected 5120.0 observed[5120.0,5120.0,5120.0] MATCH
+in2-big      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in2-small    COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+done

@@ -1,0 +1,33 @@
+{
+ "window": "LOADED omlx-up, enginemon 100 ms, matched interleaved A/B 2x2",
+ "ambient_mW": 28994.0,
+ "phases": {
+  "fp16#1": {
+   "gpu_mJ": 189891.8,
+   "net_mJ": 30425.0,
+   "mj_per_iter": 304.25,
+   "ane_lnk_Mev": 266.77
+  },
+  "w8#1": {
+   "gpu_mJ": 127693.6,
+   "net_mJ": 40711.7,
+   "mj_per_iter": 407.12,
+   "ane_lnk_Mev": 141.76
+  },
+  "w8#2": {
+   "gpu_mJ": 97172.2,
+   "net_mJ": 10190.3,
+   "mj_per_iter": 101.9,
+   "ane_lnk_Mev": 142.87
+  },
+  "fp16#2": {
+   "gpu_mJ": 121296.2,
+   "net_mJ": 34314.3,
+   "mj_per_iter": 343.14,
+   "ane_lnk_Mev": 149.3
+  }
+ },
+ "fp16_mj_per_iter": 323.69,
+ "w8_mj_per_iter": 254.51,
+ "ratio": 0.786
+}

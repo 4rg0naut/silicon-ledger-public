@@ -1,0 +1,180 @@
+=== launch 2026-10-06T18:09:05Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      261.1 us/predict    1.004 GFLOPS
+round 1 msl_simdgroup      262.4 us/predict    0.999 GFLOPS
+round 2 msl_simdgroup      264.7 us/predict    0.990 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:09:11Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      264.3 us/predict    0.992 GFLOPS
+round 1 msl_simdgroup      265.4 us/predict    0.988 GFLOPS
+round 2 msl_simdgroup      262.6 us/predict    0.998 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:09:17Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      260.0 us/predict    1.008 GFLOPS
+round 1 msl_simdgroup      261.3 us/predict    1.003 GFLOPS
+round 2 msl_simdgroup      267.4 us/predict    0.980 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:09:23Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      260.0 us/predict    1.008 GFLOPS
+round 1 msl_simdgroup      261.6 us/predict    1.002 GFLOPS
+round 2 msl_simdgroup      261.7 us/predict    1.002 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:09:29Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      265.7 us/predict    0.987 GFLOPS
+round 1 msl_simdgroup      264.9 us/predict    0.989 GFLOPS
+round 2 msl_simdgroup      262.0 us/predict    1.001 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:09:34Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      258.0 us/predict    1.016 GFLOPS
+round 1 msl_simdgroup      259.6 us/predict    1.010 GFLOPS
+round 2 msl_simdgroup      262.5 us/predict    0.999 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:09:40Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      258.2 us/predict    1.015 GFLOPS
+round 1 msl_simdgroup      265.5 us/predict    0.987 GFLOPS
+round 2 msl_simdgroup      262.5 us/predict    0.999 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:09:46Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      258.4 us/predict    1.015 GFLOPS
+round 1 msl_simdgroup      260.5 us/predict    1.006 GFLOPS
+round 2 msl_simdgroup      264.2 us/predict    0.992 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:09:51Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      262.2 us/predict    1.000 GFLOPS
+round 1 msl_simdgroup      261.2 us/predict    1.004 GFLOPS
+round 2 msl_simdgroup      261.0 us/predict    1.004 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:09:57Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      262.6 us/predict    0.998 GFLOPS
+round 1 msl_simdgroup      265.0 us/predict    0.989 GFLOPS
+round 2 msl_simdgroup      260.1 us/predict    1.008 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:10:03Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      256.8 us/predict    1.021 GFLOPS
+round 1 msl_simdgroup      261.3 us/predict    1.003 GFLOPS
+round 2 msl_simdgroup      262.4 us/predict    0.999 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:10:09Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      259.5 us/predict    1.010 GFLOPS
+round 1 msl_simdgroup      259.5 us/predict    1.010 GFLOPS
+round 2 msl_simdgroup      262.9 us/predict    0.997 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:10:14Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      259.1 us/predict    1.012 GFLOPS
+round 1 msl_simdgroup      262.6 us/predict    0.998 GFLOPS
+round 2 msl_simdgroup      264.0 us/predict    0.993 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:10:20Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      257.2 us/predict    1.019 GFLOPS
+round 1 msl_simdgroup      264.0 us/predict    0.993 GFLOPS
+round 2 msl_simdgroup      260.0 us/predict    1.008 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.
+=== launch 2026-10-06T18:10:26Z
+/data/OpenFox/dev_m5max_re/silicon-ledger/bench/na_tiles.py:32: UserWarning: coreai-torch has only been validated with torch<=2.13.0; found torch 2.14.1. Some functionality may not work as expected.
+  from coreai_torch import TorchMetalKernel, TorchConverter, get_decomp_table, MetalParameter
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+coreai-torch 0.4.2: converting 1 program(s) to Core AI
+checksum msl_simdgroup   max_abs_err=7.744e-03 -> PASS
+round 0 msl_simdgroup      257.5 us/predict    1.018 GFLOPS
+round 1 msl_simdgroup      262.3 us/predict    0.999 GFLOPS
+round 2 msl_simdgroup      266.7 us/predict    0.983 GFLOPS
+VERDICT: single-arm run (['msl_simdgroup']); checksum PASS, GFLOPS above
+note: at 64x32 both arms may ride shader pipes (Tungsten envelope); NA attribution awaits the C7 sustained-load sudo window.

@@ -1,0 +1,24 @@
+window-at-start:   QUIET-KEY: omlx=up loadavg=2.99 suspects=22
+== byte ladder (nconv=32, seq=64, one shared blob; bytesMB=nconv*C*C*2) ==
+      [shared blob: 32 convs x 8388608 B payload = 262148.0 KB, one file]
+    2048,2048,64,32  32 conv  Cin 2048 -> Cout 2048  |    2.051 ms   130.88 GB/s  16777216 B/core (16.000 MiB)  out[0]=2048.0 CORRECT
+      [shared blob: 32 convs x 18874368 B payload = 589828.0 KB, one file]
+    3072,3072,64,32  32 conv  Cin 3072 -> Cout 3072  |    4.168 ms   144.92 GB/s  37748736 B/core (36.000 MiB)  out[0]=3072.0 CORRECT
+      [shared blob: 32 convs x 33554432 B payload = 1048580.0 KB, one file]
+    4096,4096,64,32  32 conv  Cin 4096 -> Cout 4096  |    6.970 ms   154.06 GB/s  67108864 B/core (64.000 MiB)  out[0]=4096.0 CORRECT
+      [shared blob: 32 convs x 42467328 B payload = 1327108.0 KB, one file]
+    4608,4608,64,32  32 conv  Cin 4608 -> Cout 4608  |    8.737 ms   155.55 GB/s  84934656 B/core (81.000 MiB)  out[0]=4608.0 CORRECT
+      [shared blob: 32 convs x 52428800 B payload = 1638404.0 KB, one file]
+    5120,5120,64,32  32 conv  Cin 5120 -> Cout 5120  |   10.702 ms   156.77 GB/s  104857600 B/core (100.000 MiB)  out[0]=5120.0 CORRECT
+== count ladder (C=1024, seq=64, one shared blob) ==
+      [shared blob: 64 convs x 2097152 B payload = 131080.0 KB, one file]
+    1024,1024,64,64  64 conv  Cin 1024 -> Cout 1024  |    1.362 ms    98.52 GB/s   8388608 B/core (8.000 MiB)  out[0]=1024.0 CORRECT
+      [shared blob: 128 convs x 2097152 B payload = 262160.0 KB, one file]
+    1024,1024,64,128 128 conv  Cin 1024 -> Cout 1024  |    3.059 ms    87.75 GB/s  16777216 B/core (16.000 MiB)  out[0]=1024.0 CORRECT
+      [shared blob: 256 convs x 2097152 B payload = 524320.0 KB, one file]
+    1024,1024,64,256 COMPILE FAILED (327 ms) Error Domain=com.apple.appleneuralengine.compiler Code=1 "_ANECompiler : ANECCompile() FAILED" UserInfo={NSLocalizedDescription=_ANECompiler : ANECCompile() FAILED, NSUnderlyingError=0x75cac886c0 {Error Domain=com.apple.appleneuralengine.compiler Code=1 "ANECCompile(/var/folders/m8/3t601d9x0ygczs1yl9vzmgpc0000gn/T/2CD1CCD186E8DCADDFE106553637A1AA50DE86090C0B4F2021125F14F85D1D91_8E91B07120217AA37A324474FB145B6E434A6B59D8104B9F1D46C9553AC54A69_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+)" UserInfo={NSLocalizedDescription=ANECCompile(/var/folders/m8/3t601d9x0ygczs1yl9vzmgpc0000gn/T/2CD1CCD186E8DCADDFE106553637A1AA50DE86090C0B4F2021125F14F85D1D91_8E91B07120217AA37A324474FB145B6E434A6B59D8104B9F1D46C9553AC54A69_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+      [shared blob: 384 convs x 2097152 B payload = 786480.0 KB, one file]
+    1024,1024,64,384 COMPILE FAILED (504 ms) Error Domain=com.apple.appleneuralengine.compiler Code=1 "_ANECompiler : ANECCompile() FAILED" UserInfo={NSLocalizedDescription=_ANECompiler : ANECCompile() FAILED, NSUnderlyingError=0x757ccac6c0 {Error Domain=com.apple.appleneuralengine.compiler Code=1 "ANECCompile(/var/folders/m8/3t601d9x0ygczs1yl9vzmgpc0000gn/T/7C52CF27088A0CB53E20915CAE03EBA5EFF5EC99EFB06A8986FBB151600BBAE4_B98C473825908F3EC41E7280380BC4A57C80138E1DECC3B509FD487D130CC473_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+)" UserInfo={NSLocalizedDescription=ANECCompile(/var/folders/m8/3t601d9x0ygczs1yl9vzmgpc0000gn/T/7C52CF27088A0CB53E20915CAE03EBA5EFF5EC99EFB06A8986FBB151600BBAE4_B98C473825908F3EC41E7280380BC4A57C80138E1DECC3B509FD487D130CC473_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+DONE

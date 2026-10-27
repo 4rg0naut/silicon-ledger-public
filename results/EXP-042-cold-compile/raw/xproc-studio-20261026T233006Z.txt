@@ -1,0 +1,22 @@
+xproc: same nonce 12345, two separate process launches; run2 = cross-process warm probe
+run1 window:   QUIET-KEY: omlx=up loadavg=3.17 suspects=22
+--- RUN1 ---
+identity: chip=h17g os=Version 27.0.1 (Build 26A434)
+
+nconv=1   rep0 cold=    14.4 ms warm=    13.9 ms ratio=1.0x
+nconv=2   rep0 cold=    15.6 ms warm=    25.0 ms ratio=0.6x
+nconv=4   rep0 cold=    17.9 ms warm=    19.0 ms ratio=0.9x
+nconv=8   rep0 cold=    24.1 ms warm=    31.5 ms ratio=0.8x
+nconv=16  rep0 cold=    37.2 ms warm=    37.4 ms ratio=1.0x
+nconv=32  rep0 cold=    65.8 ms warm=    68.2 ms ratio=1.0x
+done
+--- RUN2 ---
+identity: chip=h17g os=Version 27.0.1 (Build 26A434)
+
+nconv=1   rep0 cold=    14.6 ms warm=    13.8 ms ratio=1.1x
+nconv=2   rep0 cold=    21.5 ms warm=    15.0 ms ratio=1.4x
+nconv=4   rep0 cold=    19.0 ms warm=    18.5 ms ratio=1.0x
+nconv=8   rep0 cold=    32.6 ms warm=    25.0 ms ratio=1.3x
+nconv=16  rep0 cold=    37.5 ms warm=    37.3 ms ratio=1.0x
+nconv=32  rep0 cold=    74.7 ms warm=    67.8 ms ratio=1.1x
+done

@@ -193,7 +193,7 @@ static double run_arm(NSString *label, int in_dim, int out_dim, int seq, int nco
             // from the file start. Each block carries its OWN magic and size; a single header for
             // the whole file cannot describe more than one tensor.
             int block = 128 + perbytes;
-            NSMutableData *one = [NSMutableData dataWithCapacity:block * nconv];
+            NSMutableData *one = [NSMutableData dataWithCapacity:(size_t)block * (size_t)nconv];
             for (int c = 0; c < nconv; c++) {
                 uint8_t hdr[128]; memset(hdr, 0, sizeof(hdr));
                 hdr[0] = 1; hdr[4] = 2;
@@ -209,11 +209,11 @@ static double run_arm(NSString *label, int in_dim, int out_dim, int seq, int nco
             }
             wdict[@"@model_path/weights/shared.bin"] = @{@"offset": @64, @"data": one};
             printf("      [shared blob: %d convs x %d B payload = %.1f KB, one file]\n",
-                   nconv, perbytes, (block * nconv) / 1024.0);
+                   nconv, perbytes, (block * (double)nconv) / 1024.0);
             for (int c = 0; c < nconv; c++) {
                 [body appendString:mil_conv([[NSString stringWithFormat:@"c%03d", c] UTF8String],
                                             "x", in_dim, per, seq, "shared.bin",
-                                            (unsigned long long)(c * block + 64))];
+                                            (unsigned long long)((unsigned long long)c * block + 64))];
             }
         } else {
         for (int c = 0; c < nconv; c++) {

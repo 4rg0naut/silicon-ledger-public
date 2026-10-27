@@ -1,8 +1,8 @@
 # silicon-ledger (public mirror) — every AI compute lane in Apple silicon, measured
 
 [![license: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![measurements](https://img.shields.io/badge/measurements-966-blue)](results/measurements.json)
-[![experiments](https://img.shields.io/badge/experiments-37-blue)](PUBLIC-INDEX.md)
+[![measurements](https://img.shields.io/badge/measurements-968-blue)](results/measurements.json)
+[![experiments](https://img.shields.io/badge/experiments-42-blue)](PUBLIC-INDEX.md)
 [![platforms](https://img.shields.io/badge/platform-Apple%20silicon-black)](results/FLEET.md)
 [![claims machine--checkable](https://img.shields.io/badge/claims-machine--checkable-yellow)](PUBLIC-OPENCLAIMS.md)
 
@@ -22,7 +22,7 @@ spells out exactly what is public and why.
 - [Try it in five minutes](#try-it-in-five-minutes-any-apple-silicon-mac)
 - [The numbers first](#the-numbers-first)
 - [The lanes at a glance](#the-lanes-at-a-glance)
-- [Five numbers that surprised us](#five-numbers-that-surprised-us)
+- [Six numbers that surprised us](#six-numbers-that-surprised-us)
 - [What's new](#whats-new)
 - [How to use this repo](#how-to-use-this-repo)
 - [Why this exists](#why-this-exists)
@@ -73,7 +73,7 @@ against the real machine, output published verbatim.
 
 ## The numbers first
 
-Six rows off the front page, one per lane pair. Every cell links to the
+Seven rows off the front page — lane comparisons, and one wall. Every cell links to the
 experiment that produced it; every experiment names its measurement window and
 its caveats. Rows marked *loaded-window* are declared upper bounds
 (footnote [^loaded]); full window per cell in the lane table.
@@ -86,6 +86,7 @@ its caveats. Rows marked *loaded-window* are declared upper bounds
 | NAX tensor units, hand-written MSL, fp8 (loaded window[^loaded]) | **32.0 TF** @2048³, bit-exact 24/24; needs Metal 4.1 — measured | [EXP-037](results/EXP-037-fp8-nax/results/fp8_matrix-20261026T1356Z.tsv) |
 | NAX, same harness, int8 (loaded window[^loaded]) | **55.2 TF** @4096³ = **1.74× the fp16/fp8 band**, bit-exact 16/16 | [EXP-037](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) |
 | NAX, same harness, fp32 — the first fp32 lane measurement here | **14.0 TF** @4096³, bit-exact 16/16 | [EXP-037](results/EXP-037-fp8-nax/results/lane_matrix-20261026T1509Z.tsv) |
+| ANE weight budget · shared-blob private path, **both chips** | accepted **4,228,124,672 B** exact output · refused **4,294,971,392 B = 2^32+4096** (`verifyBundleAtPath Code=10`) — the wall is a 32-bit file size, not 1 GiB | [EXP-043](results/EXP-043-m5max-weight-budget/README.md) |
 
 The full per-lane reference — every lane this fleet has measured, by surface,
 with window, metric convention and instrument per cell — is
@@ -107,7 +108,7 @@ bare-metal hand-written MSL, every arm bit-exact against exact oracles:
 an open cell. The fp8 lane needs `-std=metal4.1` — Metal 4.0 rejects the type
 (measured, not quoted).*
 
-## Five numbers that surprised us
+## Six numbers that surprised us
 
 1. **5.3 µs** — the dispatch floor of a Neural Engine submission on this
    machine, measured across all three submission arms of the M128 ladder:
@@ -129,6 +130,11 @@ an open cell. The fp8 lane needs `-std=metal4.1` — Metal 4.0 rejects the type
    (≤ 1.3 TF vs 32–55 TF native). Where your work goes matters more than what
    it is
    ([raw diff](results/EXP-022-m5max-baseline/raw/1427z-bench-diff-vs-example.txt)).
+6. **2^32 + 4 KiB** — the actual ANE weight-file wall on both our chips: a
+   4,228,124,672-byte blob loads and computes exact, and 2^32+4096 bytes gets
+   refused with a 32-bit-truncation signature. The "1 GiB limit" repeated in
+   guides is one chip's number, and it understates this budget ~4×
+   ([EXP-043](results/EXP-043-m5max-weight-budget/README.md)).
 
 ## What's new
 
@@ -140,7 +146,8 @@ the dates; this one doesn't go stale.
 
 Three layers, by what you came for:
 
-1. **Front door** (5 minutes) — this page, [**WHATSNEW.md**](WHATSNEW.md), and
+1. **Front door** (5 minutes) — this page, [**WHATSNEW.md**](WHATSNEW.md),
+   [GLOSSARY.md](GLOSSARY.md) (house vocabulary in plain words), and
    [PUBLIC-INDEX.md](PUBLIC-INDEX.md) (every experiment in plain words).
 2. **Reusable instruments** — [`bench/`](bench/) (identity probe, power A/B,
    latency protocol), [`tools/`](tools/) (the `enginemon` engine monitor, the
@@ -162,12 +169,13 @@ picture costs in joules. Apple publishes none of this; we publish all of ours.
 
 ## What's in here
 
-- `results/measurements.json` — every measurement ever taken, machine-checked (966 rows).
-- `results/EXP-001..037` — the experiment records, one folder each. `PUBLIC-INDEX.md` maps them in plain words.
+- `results/measurements.json` — every measurement ever taken, machine-checked (968 rows).
+- `results/EXP-001..043` — the experiment records, one folder each (`EXP-038` is still in flight —
+  its numbers ship in the next round). `PUBLIC-INDEX.md` maps them in plain words.
 - `knowledge/ane/16-neural-accelerators.md` — the consolidated lane table: every lane measured on this fleet, by surface, single reference before any speed/energy comparison.
 - `results/LADDER.md` — the five-rung summary: silicon ceiling → official overhead → port fidelity → task quality → energy.
 - `results/FLEET.md` — which tool runs on which machine (and honestly, which don't).
-- `MINEFIELD.md` — 18 lessons from everything that broke. Read this before debugging.
+- `MINEFIELD.md` — 20 lessons from everything that broke. Read this before debugging.
 - `PUBLIC-OPENCLAIMS.md` — how our claims are recorded with receipts, and how you can verify them yourself.
 - `tools/TOOLS.md` — the instrument registry: which tool is *the* one for a job (timing, joules, lane activity…).
 

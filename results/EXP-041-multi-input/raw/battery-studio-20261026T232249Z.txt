@@ -1,0 +1,5 @@
+window: wrote /data/OpenFox/dev_m5max_re/silicon-ledger/results/EXP-029-nax-crosslane/harness/../results/quiet-20261026T232249Z-unlabelled.txt
+  suspect_daemons_up=22
+  oMLX=UP  (measurement host is LOADED; energy arms invalid)
+  QUIET-KEY: omlx=up loadavg=3.64 suspects=22 ts=20261026T232249Z
+classes: desc=ok imm=ok req=ok aio=ok

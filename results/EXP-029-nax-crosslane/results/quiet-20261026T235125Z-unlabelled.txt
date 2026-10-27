@@ -1,0 +1,362 @@
+# quiet_probe — 2026-10-27 00:51:25 +0100  label=unlabelled
+## identity
+  ProductName:		macOS
+  ProductVersion:		27.0.1
+  BuildVersion:		26A434
+  hw.model=Mac17,14  gpu_cores=40
+  uptime=3 days  load averages: 2.25 2.04 2.24
+## power / thermal / wake
+  Note: No thermal warning level has been recorded
+  Note: No performance warning level has been recorded
+  Note: No CPU power status has been recorded
+  Now drawing from 'AC Power'
+   Sleep On Power Button 1
+   powernap             1
+   networkoversleep     0
+   sleep                1 (sleep prevented by caffeinate)
+   displaysleep         10
+   womp                 1
+  assertions_holding_awake: sleep prevented by caffeinate)
+## memory
+  swap: total = 2048.00M  used = 797.81M  free = 1250.19M  (encrypted)
+  
+  System-wide memory free percentage: 16%
+  Pages free:                                   371882.
+  Pages active:                                 543582.
+  Pages wired down:                            6437626.
+  Pageins:                                   306608604.
+  Pageouts:                                      61546.
+## top cpu (cumulative since process start)
+    PID  %CPU %MEM     ELAPSED COMM
+   9557  44.0  0.2    03:21:17 /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent
+  62777  36.3  0.3 01-05:58:16 /opt/homebrew/Cellar/node/26.12.1/bin/node
+  63483  23.0 16.3 01-05:55:36 omlx-server
+  79659   7.3  0.0       00:04 /data/OpenFox/dev_m5max_re/silicon-ledger/tools/enginemon/enginemon
+    498   3.5  0.0 03-07:30:16 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer
+   1067   2.7  0.0 03-07:30:10 /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking
+    466   1.0  0.0 03-07:30:16 /usr/libexec/opendirectoryd
+  79718   1.0  0.0       00:01 sh
+  79717   0.7  0.0       00:01 /bin/zsh
+    499   0.6  0.0 03-07:30:16 /System/Library/PrivateFrameworks/TCC.framework/Support/tccd
+      1   0.5  0.0 03-07:30:46 /sbin/launchd
+   1006   0.5  0.0 03-07:30:10 /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder
+    815   0.5  0.0 03-07:30:14 /System/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+    424   0.5  0.0 03-07:30:16 /usr/libexec/logd
+    491   0.4  0.0 03-07:30:16 /usr/sbin/notifyd
+## watchlist (pid cpu% mem% threads elapsed name) — presence AND activity
+  63449   0.0  0.0 01-05:55:40 /Applications/oMLX.app/Contents/MacOS/oMLX
+  63483  34.0 16.3 01-05:55:36 omlx-server
+    952   0.0  0.1 03-07:30:12 /System/Library/PrivateFrameworks/MediaAnalysis.framework/Versions/A/mediaanalysisd
+    955   0.0  0.0 03-07:30:12 /System/Library/PrivateFrameworks/PhotoLibraryServices.framework/Versions/A/Support/photolibraryd
+    965   0.0  0.0 03-07:30:11 /System/Library/PrivateFrameworks/PhotoAnalysis.framework/Versions/A/Support/photoanalysisd
+    599   0.0  0.0 03-07:30:16 /System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd
+    799   0.0  0.0 03-07:30:14 /System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd
+    823   0.0  0.0 03-07:30:14 /System/Library/PrivateFrameworks/iCloudDriveCore.framework/Versions/A/Support/bird
+    623   0.0  0.0 03-07:30:16 /System/Library/CoreServices/TimeMachine/backupd
+    454   0.0  0.0 03-07:30:16 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds
+    293   0.0  0.0    05:32:37 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+    295   0.0  0.0    05:32:37 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+    322   0.0  0.0    05:32:37 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+    323   0.0  0.0    05:32:37 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+    324   0.0  0.0    05:32:37 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+    325   0.0  0.0    05:32:37 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+    327   0.0  0.0    05:32:37 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+    328   0.0  0.0    05:32:37 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+    329   0.0  0.0    05:32:36 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+    715   0.0  0.0 03-07:30:15 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+  92011   0.0  0.0    05:43:07 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+    855   0.0  0.0 03-07:30:13 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/corespotlightd
+    939   0.0  0.0 03-07:30:12 /System/Library/PrivateFrameworks/CoreSpeech.framework/corespeechd
+    822   0.0  0.0 03-07:30:14 /System/Library/PrivateFrameworks/AssistantServices.framework/Versions/A/Support/assistantd
+  79942   0.0  0.0 03:55:58 /System/Library/PrivateFrameworks/IntelligenceFlowRuntime.framework/Versions/A/intelligenceflowd
+   4745   0.0  0.0 05:28:30 /System/Library/PrivateFrameworks/ModelCatalogRuntime.framework/Versions/A/modelcatalogd
+  56964   0.0  0.0 06:36:23 /System/Library/PrivateFrameworks/IntelligencePlatformCore.framework/Versions/A/knowledgeconstructiond
+    957   0.0  0.0 03-07:30:12 /usr/libexec/aned
+  33717   0.0  0.0   46:59 /System/Library/PrivateFrameworks/AppleNeuralEngine.framework/XPCServices/ANECompilerService.xpc/Contents/MacOS/ANECompilerService
+    440   0.1  0.0 03-07:30:16 /System/Library/CoreServices/powerd.bundle/powerd
+  44564   0.0  0.0 02-19:30:10 /System/Library/PrivateFrameworks/ScreenTimeCore.framework/Versions/A/ScreenTimeAgent
+  64217   0.0  0.0 02-11:31:29 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTEncoderXPCService.xpc/Contents/MacOS/VTEncoderXPCService
+  80131   0.0  0.0    03:55:49 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTEncoderXPCService.xpc/Contents/MacOS/VTEncoderXPCService
+    916   0.0  0.0 03-07:30:12 /usr/libexec/avconferenced
+## engine baseline (enginemon, unprivileged, 5s) — observation only, no load generated
+  enginemon: euid=501 interval=500ms duration=5.0s
+  enginemon: identity chip=Apple M5 Max hw_model=Mac17,14 cores=18 os=27.0.1 os_build=26A434
+  
+  channel                                    group                         delta       unit engine
+  ------------------------------------------ -------------------- -------------- ---------- ------
+  GPU Energy                                 Energy Model               26353062         nJ gpu
+  status                                     PMP0                      123569616   24Mticks soc
+  update count                               PMP0                             10            soc
+  last update                                PMP0                        5149573            soc
+  Sleep count                                PMP0                           1313     events soc
+  Wake count                                 PMP0                           1297     events soc
+  Power state                                PMP0                        5148785         us soc
+  AMCC RD                                    PMP0                          17431     events soc
+  AMCC WR                                    PMP0                          17431     events soc
+  AMCC RD+WR                                 PMP0                          17431     events soc
+  AMCC RD                                    PMP0                          17431     events soc
+  AMCC WR                                    PMP0                          17431     events soc
+  AMCC RD+WR                                 PMP0                          17431     events soc
+  AMCC RD                                    PMP0                          17431     events soc
+  AMCC WR                                    PMP0                          17431     events soc
+  AMCC RD+WR                                 PMP0                          17431     events soc
+  SOC-NI2 ALL                                PMP0                             91     events soc
+  SOC-NI2 AVE1                               PMP0                             91     events soc
+  SOC-NI3 RT                                 PMP0                             94     events soc
+  SOC-NI3 ALL                                PMP0                             94     events soc
+  SOC-NI3 ATC0 UP                            PMP0                             94     events soc
+  SOC-NI3 ATC0 DN                            PMP0                             94     events soc
+  SOC-NI3 ATC1 UP                            PMP0                             94     events soc
+  SOC-NI3 ATC1 DN                            PMP0                             94     events soc
+  SOC-NI5 RT                                 PMP0                              1     events soc
+  SOC-NI5 ALL                                PMP0                              1     events soc
+  SOC-NI5 ATC2 UP                            PMP0                              1     events soc
+  SOC-NI5 ATC2 DN                            PMP0                              1     events soc
+  SOC-NI5 ATC3 UP                            PMP0                              1     events soc
+  SOC-NI5 ATC3 DN                            PMP0                              1     events soc
+  SOC-NI5 ATCUSS                             PMP0                              1     events soc
+  SOC-NI6 ALL                                PMP0                            491     events soc
+  SOC-NI6 PCIEGP                             PMP0                            982     events soc
+  SOC-NI6 ANS SL                             PMP0                            982     events soc
+  SOC-NI6 ANS RAI                            PMP0                            491     events soc
+  SOC-NI6 ANS RAO                            PMP0                            491     events soc
+  SOC-NI6 ANS NAN                            PMP0                            491     events soc
+  MACC0 RD                                   PMP0                             28     events cpu
+  MACC0 WR                                   PMP0                             28     events cpu
+  MACC0 RD+WR                                PMP0                             28     events cpu
+  MACC0 RD                                   PMP0                             28     events cpu
+  MACC0 WR                                   PMP0                             28     events cpu
+  MACC0 RD+WR                                PMP0                             28     events cpu
+  MACC0                                      PMP0                             28     events cpu
+  MACC0 SRAM                                 PMP0                             28     events cpu
+  MACC0_V_T                                  PMP0                      123596271     events cpu
+  Core Block Slot                            PMP0                              5     events soc
+  M$ Stall                                   PMP0                              5     events soc
+  DRAM Stall                                 PMP0                              5     events soc
+  MACC1 RD                                   PMP0                          12097     events cpu
+  MACC1 WR                                   PMP0                          12098     events cpu
+  MACC1 RD+WR                                PMP0                          12098     events cpu
+  MACC1 RD                                   PMP0                          12098     events cpu
+  MACC1 WR                                   PMP0                          12098     events cpu
+  MACC1 RD+WR                                PMP0                          12098     events cpu
+  MACC1                                      PMP0                          12098     events cpu
+  MACC1 SRAM                                 PMP0                          12098     events cpu
+  MACC1_V_T                                  PMP0                      123603655     events cpu
+  Core Block Slot                            PMP0                           9906     events soc
+  M$ Stall                                   PMP0                           9906     events soc
+  DRAM Stall                                 PMP0                           9906     events soc
+  PACC RD                                    PMP0                          10904     events cpu
+  PACC WR                                    PMP0                          10904     events cpu
+  PACC RD+WR                                 PMP0                          10904     events cpu
+  PACC RD                                    PMP0                          10904     events cpu
+  PACC WR                                    PMP0                          10904     events cpu
+  PACC RD+WR                                 PMP0                          10904     events cpu
+  PACC                                       PMP0                          10905     events cpu
+  PACC SRAM                                  PMP0                          10905     events cpu
+  PACC0_V_T                                  PMP0                      123611658     events cpu
+  Core Block Slot                            PMP0                          10347     events soc
+  M$ Stall                                   PMP0                          10347     events soc
+  DRAM Stall                                 PMP0                          10347     events soc
+  AGX RD                                     PMP0                            173     events gpu
+  AGX WR                                     PMP0                            173     events gpu
+  AGX RD+WR                                  PMP0                            173     events gpu
+  AGX RD                                     PMP0                            173     events gpu
+  AGX WR                                     PMP0                            173     events gpu
+  AGX RD+WR                                  PMP0                            173     events gpu
+  AGX                                        PMP0                            173     events gpu
+  AGX AFR                                    PMP0                            173     events gpu
+  AGX                                        PMP0                      123611623     events gpu
+  AGX_V_T                                    PMP0                      123611623     events gpu
+  Mem Latency                                PMP0                             14     events soc
+  #Mem Trans                                 PMP0                            173     events soc
+  ISP RT RD                                  PMP0                      123616148     events soc
+  ISP RT WR                                  PMP0                      123616152     events soc
+  ISP RT RW                                  PMP0                      123616198     events soc
+  DISP RT RD                                 PMP0                      123612479     events soc
+  DISP RT WR                                 PMP0                      123615447     events soc
+  DISP RT RW                                 PMP0                      123615447     events soc
+  DISPEXT0 RT RD                             PMP0                      123615337     events soc
+  DISPEXT0 RT WR                             PMP0                      123615354     events soc
+  DISPEXT0 RT RW                             PMP0                      123615345     events soc
+  DISPEXT1 RT RD                             PMP0                      123615392     events soc
+  DISPEXT1 RT WR                             PMP0                      123615384     events soc
+  DISPEXT1 RT RW                             PMP0                      123615383     events soc
+  DISPEXT2 RT RD                             PMP0                      123614501     events soc
+  DISPEXT2 RT WR                             PMP0                      123614519     events soc
+  DISPEXT2 RT RW                             PMP0                      123614519     events soc
+  DISPEXT3 RT RD                             PMP0                      123615389     events soc
+  DISPEXT3 RT WR                             PMP0                      123611498     events soc
+  DISPEXT3 RT RW                             PMP0                      123611506     events soc
+  AVE0                                       PMP0                      123616794     events soc
+  AVD                                        PMP0                      123616851     events soc
+  JPEG                                       PMP0                      123616362     events soc
+  SCODEC RT RD                               PMP0                      123607050     events soc
+  SCODEC RT WR                               PMP0                      123607051     events soc
+  SCODEC RT RW                               PMP0                      123603061     events soc
+  AUSBC0 ISOC RD                             PMP0                      123600019     events soc
+  AUSBC0 ISOC WR                             PMP0                      123600036     events soc
+  AUSBC0 ISOC RW                             PMP0                      123600066     events soc
+  AUSBC1 ISOC RD                             PMP0                      123600111     events soc
+  AUSBC1 ISOC WR                             PMP0                      123600117     events soc
+  AUSBC1 ISOC RW                             PMP0                      123596794     events soc
+  AUSBC2 ISOC RD                             PMP0                      123596835     events soc
+  AUSBC2 ISOC WR                             PMP0                      123596855     events soc
+  AUSBC2 ISOC RW                             PMP0                      123596761     events soc
+  AUSBC3 ISOC RD                             PMP0                      123597761     events soc
+  AUSBC3 ISOC WR                             PMP0                      123597776     events soc
+  AUSBC3 ISOC RW                             PMP0                      123597822     events soc
+  AUSS ISOC RD                               PMP0                      123597721     events soc
+  AUSS ISOC WR                               PMP0                      123597749     events soc
+  AUSS ISOC RW                               PMP0                      123597772     events soc
+  ANS RD                                     PMP0                            491     events soc
+  ANS WR                                     PMP0                            491     events soc
+  ANS RD+WR                                  PMP0                            491     events soc
+  DCS-BW                                     PMP0                      123595175     events soc
+  AFI-BW                                     PMP0                      123595176     events soc
+  AGX-AF-BW                                  PMP0                      123595177     events gpu
+  AGX-DCS-BW                                 PMP0                      123595176     events gpu
+  AGX-AFR-BW                                 PMP0                      123595188     events gpu
+  SOC-NI0-BW                                 PMP0                      123595167     events soc
+  SOC-NI2-BW                                 PMP0                      123595170     events soc
+  SOC-NI6-BW                                 PMP0                      123595170     events soc
+  ANE-LNK0-AF-BW                             PMP0                      123595173     events ane
+  ANE-LNK1-AF-BW                             PMP0                      123595173     events ane
+  ANS-NAND-AF-BW                             PMP0                      123595174     events soc
+  ANS-DMA-AF-BW                              PMP0                      123595172     events soc
+  ATC2-AF-BW                                 PMP0                      123595173     events soc
+  ANE-DCS-BW                                 PMP0                      123595171     events ane
+  ANS-DCS-BW                                 PMP0                      123595172     events soc
+  DELAY                                      PMP0                          18775     events soc
+  BUSY                                       PMP0                          18775     events soc
+  IDLE                                       PMP0                          18471     events soc
+  TICKS                                      PMP0                      603752250     events soc
+  STRESS-2-LIM0                              PMP0                       87917824     events soc
+  STRESS-2-LIM2                              PMP0                      603752064     events soc
+  STRESS-2-LIM3                              PMP0                      603752064     events soc
+  STRESS-3-LIM0                              PMP0                      515834336     events soc
+  STRESS-3-LIM1                              PMP0                      603752352     events soc
+  STRESS_LIM0                                PMP0                      603752160     events soc
+  STRESS_LIM1                                PMP0                      603752352     events soc
+  STRESS_LIM2                                PMP0                      603752064     events soc
+  STRESS_LIM3                                PMP0                      603752064     events soc
+  TICKS                                      PMP0                      605219918     events soc
+  STRESS-2-LIM0                              PMP0                      605219824     events soc
+  STRESS-2-LIM2                              PMP0                      605219824     events soc
+  STRESS-2-LIM3                              PMP0                      605219824     events soc
+  STRESS-3-LIM1                              PMP0                      605219792     events soc
+  STRESS_LIM0                                PMP0                      605219824     events soc
+  STRESS_LIM1                                PMP0                      605219792     events soc
+  STRESS_LIM2                                PMP0                      605219824     events soc
+  STRESS_LIM3                                PMP0                      605219824     events soc
+  RT RD                                      PMP0                      123601209     events soc
+  RT WR                                      PMP0                      123600721     events soc
+  RT RW                                      PMP0                      123600732     events soc
+  PMP                                        PMP0                      123578675     events soc
+  PMP                                        PMP0                      123578675     events soc
+  PMP                                        PMP0                      123578675     events soc
+  PMP                                        PMP0                      123578675     events soc
+  CLPC                                       PMP0                      123578675     events soc
+  CLPC                                       PMP0                      123578675     events soc
+  CLPC                                       PMP0                      123578675     events soc
+  CLPC                                       PMP0                      123578675     events soc
+  GFX                                        PMP0                      123578675     events soc
+  GFX                                        PMP0                      123578675     events soc
+  GFX                                        PMP0                      123578675     events soc
+  GFX                                        PMP0                      123578675     events soc
+  AP                                         PMP0                      123578675     events soc
+  AP                                         PMP0                      123578675     events soc
+  AP                                         PMP0                      123578675     events soc
+  AP                                         PMP0                      123578675     events soc
+  BWR                                        PMP0                      123578675     events soc
+  BWR                                        PMP0                      123578675     events soc
+  BWR                                        PMP0                      123578675     events soc
+  BWR                                        PMP0                      123578675     events soc
+  RMBS                                       PMP0                      123578675     events soc
+  RMBS                                       PMP0                      123578675     events soc
+  RMBS                                       PMP0                      123578675     events soc
+  RMBS                                       PMP0                      123578675     events soc
+  BOOST                                      PMP0                      123578675     events soc
+  BOOST                                      PMP0                      123578675     events soc
+  BOOST                                      PMP0                      123578675     events soc
+  BOOST                                      PMP0                      123578675     events soc
+  MISC                                       PMP0                      123578675     events soc
+  MISC                                       PMP0                      123578088     events soc
+  MISC                                       PMP0                      123578088     events soc
+  MISC                                       PMP0                      123578088     events soc
+  DISP0                                      PMP0                      123578088     events soc
+  DISPEXT0                                   PMP0                      123578088     events soc
+  DISPEXT1                                   PMP0                      123578088     events soc
+  DISPEXT2                                   PMP0                      123579102     events soc
+  DISPEXT3                                   PMP0                      123579102     events soc
+  ANS                                        PMP0                      123579102     events soc
+  Level                                      PMP0                      123578655     events soc
+  CLPC DCS                                   PMP0                       44737073   24Mticks soc
+  PMP SOC                                    PMP0                          12161   24Mticks soc
+  CLPC SOC                                   PMP0                       39137123   24Mticks soc
+  SOCxDCS                                    PMP0                      123579102     events soc
+  COP SOC                                    PMP0                        1344031   24Mticks soc
+  COP DCS                                    PMP0                           6772   24Mticks soc
+  LTR                                        PMP0                      123593190     events soc
+  VDD_SOC_CI_VOLTAGE_CHANGE_COMPLETION       SoC Stats                 123204171   24Mticks soc
+  VDD_PCPU_VOLTAGE_CHANGE_COMPLETION         SoC Stats                 123204219   24Mticks soc
+  VDD_MCPU0_VOLTAGE_CHANGE_COMPLETION        SoC Stats                 123204267   24Mticks soc
+  VDD_MCPU1_VOLTAGE_CHANGE_COMPLETION        SoC Stats                 123204316   24Mticks soc
+  VDD_PCPU_SRAM_VOLTAGE_CHANGE_COMPLETION    SoC Stats                 123204368   24Mticks soc
+  VDD_MCPU0_SRAM_VOLTAGE_CHANGE_COMPLETIO    SoC Stats                 123204417   24Mticks soc
+  VDD_MCPU1_SRAM_VOLTAGE_CHANGE_COMPLETIO    SoC Stats                 123204467   24Mticks soc
+  VDD_DISP_VOLTAGE_CHANGE_COMPLETION         SoC Stats                 123204517   24Mticks soc
+  VDD_DISP2_VOLTAGE_CHANGE_COMPLETION        SoC Stats                 123204570   24Mticks soc
+  VDD_B2B_C_VOLTAGE_CHANGE_COMPLETION        SoC Stats                 123204621   24Mticks soc
+  UT_EXT_THROTTLE_MGPU03                     SoC Stats                 123208390   24Mticks gpu
+  UT_EXT_THROTTLE_MGPU12                     SoC Stats                 123208453   24Mticks gpu
+  VDD_SOC_GM_VOLTAGE_CHANGE_COMPLETION       SoC Stats                 123224206   24Mticks soc
+  VDD_B2B_D_VOLTAGE_CHANGE_COMPLETION        SoC Stats                 123224333   24Mticks soc
+  VDD_DCS0_VOLTAGE_CHANGE_COMPLETION         SoC Stats                 123224468   24Mticks soc
+  VDD_DCS1_VOLTAGE_CHANGE_COMPLETION         SoC Stats                 123224605   24Mticks soc
+  VDD_DRAM_VOLTAGE_CHANGE_COMPLETION         SoC Stats                 123224743   24Mticks soc
+  VDD_DRAM1_VOLTAGE_CHANGE_COMPLETION        SoC Stats                 123224871   24Mticks soc
+  VDD_GPU03_VOLTAGE_CHANGE_COMPLETION        SoC Stats                 123224992   24Mticks gpu
+  VDD_GPU12_VOLTAGE_CHANGE_COMPLETION        SoC Stats                 123225122   24Mticks gpu
+  VDD_AFR_VOLTAGE_CHANGE_COMPLETION          SoC Stats                 123225253   24Mticks soc
+  GPUPH                                      GPU Stats                 123384699   24Mticks gpu
+  BSTGPUPH                                   GPU Stats                   1015630   24Mticks gpu
+  GPUDVDH                                    GPU Stats                 123404047   24Mticks gpu
+  GPU_CLTM                                   GPU Stats                 123384699   24Mticks gpu
+  PZRSDNCY                                   GPU Stats                 123384699   24Mticks gpu
+  PWRCTRL                                    GPU Stats                 123384699   24Mticks gpu
+  GPU_PPM                                    GPU Stats                 123406726   24Mticks gpu
+  AGX.Sum_UT_Engagement_Perf_State_1         GPU UT AggD Stats              1106            gpu-na
+  AGX.Count_UT_Engagement_Perf_State_1       GPU UT AggD Stats               156            gpu-na
+  AGX.UT_Not_Engaged_Perf_State_1            GPU UT AggD Stats                88            gpu-na
+  
+  (764 channels tracked, 520 showed no movement -- use --all to list them)
+  
+  SUMMARY (over 5.21s)
+    CPU Energy            0.0 mW
+    GPU0                  0.0 mW
+    ANE0                  0.0 mW   (frozen-or-idle: this channel's movement is only meaningful once calibration says so -- see README)
+    GPU Energy            5.1 mW
+    ANE handlers            0 interrupts
+    ANE DCS traffic          0 B (M4 names) + 0 B (M5 TOTAL DCS)
+    GFX DCS                 0 B (GPU<->ANE client lane)
+    ANE floor      F>=2 duty    0.0% (0/123595171 ticks) | LNK hi 0.0% (0/247190346)
+    GPU UT         window mean 7 centi-% (=0.07%); per-perf-state detail in --json; mean of means, do not rank across machines
+  
+  elapsed 5.21s
+## canary (fixed work; compare across sessions)
+  run1 canary scalar_loop_s=0.1113
+  run1 canary memcpy_GBps=35.29
+  run1 canary hash_loop_s=0.3771
+  run1 canary acc=5323371213918391040 hash=2243151161
+  run2 canary scalar_loop_s=0.1056
+  run2 canary memcpy_GBps=35.98
+  run2 canary hash_loop_s=0.3790
+  run2 canary acc=5323371213918391040 hash=2243151161
+  run3 canary scalar_loop_s=0.1076
+  run3 canary memcpy_GBps=35.52
+  run3 canary hash_loop_s=0.3768
+  run3 canary acc=5323371213918391040 hash=2243151161
+## verdict
+  suspect_daemons_up=22
+  oMLX=UP  (measurement host is LOADED; energy arms invalid)
+  QUIET-KEY: omlx=up loadavg=2.00 suspects=22

@@ -1,8 +1,53 @@
+# What's new — 2026-10-27 (round 4: the real ANE weight wall, and the trap that fakes limits)
+
+Same status key: **NEW** = we could not find it published · **EXT** = extends published work · **KNOWN** = already public — house terms decoded in [`GLOSSARY.md`](GLOSSARY.md).
+Finding numbers (`#1`–`#25`) are **global and monotonic** — oldest round first — so a number cited
+anywhere (issue, doc, chat) pins exactly one finding forever. Priors behind every verdict:
+[`knowledge/ane/SOURCES.md`](knowledge/ane/SOURCES.md).
+
+Two community constants took hits this round. The "1 GiB ANE weight limit" turns out to be a
+32-bit file-size wall on both of our chips — four times higher than the folklore. And the
+"multi-input requests fail (0x1d)" limitation does not reproduce at all; what does reproduce is a
+compiler-cache trap that presents exactly like it. Both measured on two chips, same OS build.
+
+| # | Finding | Status | Evidence |
+|---|---|---|---|
+| 20 | **The ANE weight wall on the shared-blob private path is a 2^32 B file-size limit, not a capacity policy** — accepted 4,228,124,672 B, refused 2^32+4096 (`Code=10 verifyBundleAtPath`), **identical on M5 Max and M4 mini at the same OS build**. The circulated "1 GiB" framing understates this budget ~4×. | **NEW as a correction** | [`EXP-043 README`](results/EXP-043-m5max-weight-budget/README.md) · [`byte-wall log`](results/EXP-043-m5max-weight-budget/raw/byte-wall-2_32-20261027T002835Z.log) |
+| 21 | **A second, count-shaped wall, cleanly separable from the byte wall** — 248 conv tensors compile and compute exact, 256 are refused (`ANECCompile Code=1`), identical on both chips. Distinct from the published 16-weight-files refusal, which counts separate files — a third axis. | **NEW** | [`EXP-043 README`](results/EXP-043-m5max-weight-budget/README.md) · [`count-256 arm`](results/EXP-043-m5max-weight-budget/raw/count-256-20261026T232416Z.json) |
+| 22 | **The multi-input ANE limitation does not reproduce on the eval path — a cache-key trap fakes it** — 10/10 arms (N=1..4, controls) compile AND evaluate bit-exact on both chips; zero 0x1d. The trap: the compile bundle key is derived from **MIL text only**, so arms sharing text but differing in weight bytes collide in the compiler cache. | **NEW** (the mechanism, with reproductions); **EXT** — replicates a published M4 two-input result, extended to N=4, unequal sizes, and the M5-era chip | [`EXP-041 README`](results/EXP-041-multi-input/README.md) · [`battery raw`](results/EXP-041-multi-input/raw/battery-studio-20261026T232314Z.txt) · [`rejected-load capture`](results/EXP-041-multi-input/raw/rejected-load-231150.txt) |
+| 23 | **Compile-time model for the in-memory path: ~1.6–1.8 ms/conv + ~14 ms fixed, and no compile-cache reuse** — a 32-conv graph cold-compiles in 66.9 ms (M5 Max) / 78.6 ms (M4 mini); repeat compiles are not faster. The only multi-second compile is the refusal-validation path (22.6 s). | **NEW** (per-conv compile scaling with a declared negative on reuse) | [`EXP-042 README`](results/EXP-042-cold-compile/README.md) · [`ladder raw`](results/EXP-042-cold-compile/raw/ladder-studio-20261026T232934Z.txt) |
+| 24 | **The W8-palettized embedding penalty is machine-pinned, not a constant** — same graph, matched same-window A/B: **1.57× slower than fp16 on M5 Max** vs **4.8× on M4 mini**; load penalty 8.2× vs 39×. Still a loss on this graph — a storage lever only. | **NEW** (the second machine's number); **KNOWN** that palettization is storage-only for this model class | [`EXP-039 README`](results/EXP-039-w8-palettization/README.md) · [`latency raw`](results/EXP-039-w8-palettization/raw/lat-w8-20261026T233525Z.json) · [`EXP-005 (M4 side)`](results/EXP-005-ane-residency/README.md) |
+| 25 | **A published "M4 fp16 zero-collapse" does not replicate on the M4 base — and ANE fp16 outputs are cross-chip bit-identical** — 0 zeros in 13,440 embedding components on every surface; the fp16 embedding dumps from both chips' ANEs are **sha256-identical** on the same OS build. | **NEW** (negative replication + cross-chip bit-identity we could not find published) | [`EXP-040 README`](results/EXP-040-m4-fp16-zero-collapse/README.md) · [`gate captures`](results/EXP-040-m4-fp16-zero-collapse/raw/mini-cpu-gpu-gates.txt) |
+
+### The numbers behind round 4
+
+- `#20` — accept/refuse bracket is 1.6% wide with 2^32 inside it; both chips at OS build
+  27.0.1/26A434; the accepted 4,228,124,672 B blob computes exact output. The reported
+  M1 Max ~1.022 GB refusal is real for that chip/surface, not a constant.
+- `#21` — bracket 3.2% wide, size-independent: the refused 512 MiB blob sits 8× below the
+  byte ceiling; empty error body on every refusal.
+- `#22` — arms covered index-reversal control, unequal input surface sizes, and three fill
+  patterns; the trap was caught on our own harnesses, with before/after captures filed.
+- `#23` — measured on M5 Max (66.9 ms) and M4 mini (78.6 ms); `ANECCompile` recompiles
+  in-process and cross-process; Apple publishes no compile-cost model here.
+- `#24` — warm p50 19.11 ms vs 12.17 (M5 Max), 19.48 vs 4.05 (M4 mini); the build is
+  2.3× smaller than the published fp32 build, 167 vs 195 MB against our own fp16 build.
+- `#25` — min cosine ≥ 0.99996 against an fp64 oracle on every surface (cpu/GPU/ANE);
+  "chip X is low-quality" reports are surface/software stories until a dump says otherwise.
+
+One experiment is deliberately not in this round: the certified-quiet re-take of the round-2 lane
+matrix (EXP-038) is still in flight — its ladder cells stay DECLINED, not estimated, until the quiet
+window completes. Rule stated in [`PUBLISH-POLICY.md`](PUBLISH-POLICY.md): unfinished windows do not
+ship numbers.
+
+---
+
 # What's new — 2026-10-26 (round 3: the integer lanes, and the door)
 
-Same status key: **NEW** = we could not find it published · **EXT** = extends published work · **KNOWN** = already public.
-Earlier rounds follow below, newest first. Finding numbers (`#1`–`#19`) are **global and
-monotonic** — oldest round first — so a number cited anywhere (issue, doc, chat) pins exactly
+Same status key: **NEW** = we could not find it published · **EXT** = extends published work · **KNOWN** = already public — house terms decoded in [`GLOSSARY.md`](GLOSSARY.md).
+Earlier rounds follow below, newest first. Finding numbers in this round ran `#1`–`#19`; the
+numbering has since been consolidated into one global monotonic sequence (see round 4) — so a
+number cited anywhere (issue, doc, chat) pins exactly
 one finding forever. Priors behind every verdict: [`knowledge/ane/SOURCES.md`](knowledge/ane/SOURCES.md).
 
 | # | Finding | Status | Evidence |
@@ -43,7 +88,7 @@ A correction note for finding #1 is filed upstream:
 ## What this mirror is (and is not)
 - **Is:** measured numbers, the failure corpus, and the instruments, with every claim carrying its
   command and its caveats. The claim layer is machine-checkable — see
-  [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md) (699 claims, 824 provenance events, 0 invalid).
+  [`PUBLIC-OPENCLAIMS.md`](PUBLIC-OPENCLAIMS.md) (700 claims, 825 provenance events, 0 invalid).
 - **Is not:** vendor claims, or a promise that any of the private/documented Apple interfaces are
   stable. Where a claim is an AI's check rather than a human's, it says so.
 
@@ -53,7 +98,7 @@ Start at [`README.md`](README.md) and [`PUBLIC-INDEX.md`](PUBLIC-INDEX.md).
 
 # Round 2 continued — same day, the GPU side (findings 8–14, published as it happened)
 
-Same status key: **NEW** = we could not find it published · **EXT** = extends published work · **KNOWN** = already public.
+Same status key: **NEW** = we could not find it published · **EXT** = extends published work · **KNOWN** = already public — house terms decoded in [`GLOSSARY.md`](GLOSSARY.md).
 
 | # | Finding | Status | Evidence |
 |---|---|---|---|

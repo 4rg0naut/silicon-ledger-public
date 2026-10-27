@@ -1,0 +1,15 @@
+window:   QUIET-KEY: omlx=up loadavg=2.36 suspects=22
+studio run:
+bundle       : granite97m_fp16_s128.aimodel
+compute      : neuralEngine
+sequence len : 128   fixtures: 35
+inputs       : ["input_ids", "attention_mask"]
+outputs      : ["embedding"]
+load         : 105 ms
+embeddings   : dumped 35 vectors -> /tmp/x.json
+tokenizer    : 35/35 exact (mismatches 0)
+numeric gate : min cosine 0.999957561 | max |err| 1.46e-03 | failures 0/35
+first after load : 19.10 ms
+warm median  : 9.98 ms | p95 10.09 ms | min 9.93 ms | n=3
+VERDICT      : compute=neuralEngine gate=PASS median_ms=9.985
+1592dd009b6dba7fe41a2ccdf47ab0531cc3626b09d1f1992e1e19d1f08f120a  /tmp/x.json

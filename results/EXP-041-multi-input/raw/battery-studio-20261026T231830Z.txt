@@ -1,0 +1,13 @@
+classes: desc=ok imm=ok req=ok aio=ok
+identity: chip=h17g cores=16 os=Version 27.0.1 (Build 26A434) host=studio
+
+in1          COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in1-w2       COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in2-add      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in2-w2fill   COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in2-rev      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in3-add      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in4-add      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in2-big      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in2-small    COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+done

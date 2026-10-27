@@ -45,8 +45,10 @@ usage: uv run bench/export_granite_w8_fp16.py --seq-len 128
 from __future__ import annotations
 
 import argparse
+import glob
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -69,11 +71,42 @@ from _gate_metrics import gate_vectors  # noqa: E402
 from _granite_model import load_granite  # noqa: E402
 from export_granite_embedding import inputs_of  # noqa: E402
 
-COREAI_BUILD = (
+_MT_GLOB = (
     "/private/var/run/com.apple.security.cryptexd/mnt/"
-    "com.apple.MobileAsset.MetalToolchain-v27.1.266.1.vbaqjL/Metal.xctoolchain/usr/bin/coreai-build"
+    "com.apple.MobileAsset.MetalToolchain-v*/Metal.xctoolchain/usr/bin/coreai-build"
 )
-ARCH = "h16g"
+
+
+def _latest_coreai_build() -> str:
+    hits = glob.glob(_MT_GLOB)
+    if not hits:
+        raise SystemExit("coreai-build toolchain not found under cryptexd mnt")
+
+    def _ver(path: str) -> tuple:
+        m = re.search(r"MetalToolchain-v([\d.]+)\.", path)
+        return tuple(int(x) for x in m.group(1).split(".")) if m else ()
+
+    return max(hits, key=_ver)
+
+
+def _detect_arch() -> str:
+    model = subprocess.run(
+        ["sysctl", "-n", "hw.model"], capture_output=True, text=True
+    ).stdout.strip()
+    # fleet-verified only (EXP-028 e6 R4): AOT accepted set is {h17c} — h17g is the
+    # runtime arch name but coreai-build --architecture rejects it on this fleet;
+    # Mac16,10 = M4 base h16g. Other Mac16.x are M4 Pro/Max and need h16s
+    # (contrib/ane-guide-arch-table-correction.md) — extend deliberately, never fall through.
+    arches = {"Mac17,14": "h17c", "Mac16,10": "h16g"}
+    if model not in arches:
+        raise SystemExit(f"hw.model {model!r} not in verified arch map {sorted(arches)}")
+    arch = arches[model]
+    print(f"detected hw.model={model} -> arch={arch}")
+    return arch
+
+
+COREAI_BUILD = _latest_coreai_build()
+ARCH = _detect_arch()
 
 
 def main() -> int:

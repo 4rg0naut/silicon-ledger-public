@@ -1,0 +1,13 @@
+PHASE fp16 start 23:56:36
+warm median  : 12.18 ms | p95 24.11 ms | min 8.59 ms | n=100
+PHASE fp16 end   23:56:39
+PHASE w8 start 23:56:47
+warm median  : 18.92 ms | p95 33.68 ms | min 13.82 ms | n=100
+PHASE w8 end   23:56:50
+PHASE w8 start 23:56:58
+warm median  : 18.83 ms | p95 25.80 ms | min 13.88 ms | n=100
+PHASE w8 end   23:57:01
+PHASE fp16 start 23:57:09
+warm median  : 12.31 ms | p95 16.88 ms | min 8.92 ms | n=100
+PHASE fp16 end   23:57:12
+DONE

@@ -1,0 +1,23 @@
+classes: desc=ok imm=ok req=ok aio=ok
+identity: chip=h16g cores=16 os=Version 27.0.1 (Build 26A434) host=mini
+
+in1          COMPILE-FAIL Error Domain=com.apple.appleneuralengine.compiler Code=1 "_ANECompiler : ANECCompile() FAILED" UserInfo={NSLocalizedDescription=_ANECompiler : ANECCompile() FAILED, NSUnderlyingError=0x7b0cc20c30 {Error Domain=com.apple.appleneuralengine.compiler Code=1 "ANECCompile(/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/DC789FAF4D6A092E86BED669D717584B4A3B8665769BD29C46EF38EBE070F6BC_416F9F735F4D82963EB3FA33E769560CB5D1A1C381DC9EAC46423372780AD806_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+    InvalidMILProgram
+)" UserInfo={NSLocalizedDescription=ANECCompile(/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/DC789FAF4D6A092E86BED669D717584B4A3B8665769BD29C46EF38EBE070F6BC_416F9F735F4D82963EB3FA33E769560CB5D1A1C381DC9EAC46423372780AD806_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+    InvalidMILProgram
+)}}}
+in2-add      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in2-rev      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in3-add      COMPILE-FAIL Error Domain=com.apple.appleneuralengine.compiler Code=1 "_ANECompiler : ANECCompile() FAILED" UserInfo={NSLocalizedDescription=_ANECompiler : ANECCompile() FAILED, NSUnderlyingError=0x7b0cc206f0 {Error Domain=com.apple.appleneuralengine.compiler Code=1 "ANECCompile(/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/6B7A759C96E71F27079BF8E52B0C51DDB8FEFBE052007D3B827E32B8338FB61F_690E3BF5B846CDBBC9CE5ADC50868B91B3322EA4045B6ED30B5BA6FA1B8F1FC1_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+    InvalidMILProgram
+)" UserInfo={NSLocalizedDescription=ANECCompile(/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/6B7A759C96E71F27079BF8E52B0C51DDB8FEFBE052007D3B827E32B8338FB61F_690E3BF5B846CDBBC9CE5ADC50868B91B3322EA4045B6ED30B5BA6FA1B8F1FC1_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+    InvalidMILProgram
+)}}}
+in4-add      COMPILE-FAIL Error Domain=com.apple.appleneuralengine.compiler Code=1 "_ANECompiler : ANECCompile() FAILED" UserInfo={NSLocalizedDescription=_ANECompiler : ANECCompile() FAILED, NSUnderlyingError=0x7b0cc20690 {Error Domain=com.apple.appleneuralengine.compiler Code=1 "ANECCompile(/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/97E529BFA553BF7E75819DF82C85A948017209741880B273F83B353316D3253A_7A267310FFB2915AB4757FFE44780DC71E89C67DF74FDEE10A616849E9BAF2D8_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+    InvalidMILProgram
+)" UserInfo={NSLocalizedDescription=ANECCompile(/var/folders/gt/0329z0990_14fns873bclhx00000gn/T/97E529BFA553BF7E75819DF82C85A948017209741880B273F83B353316D3253A_7A267310FFB2915AB4757FFE44780DC71E89C67DF74FDEE10A616849E9BAF2D8_E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855/) FAILED: err=(
+    InvalidMILProgram
+)}}}
+in2-big      COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in2-small    COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+done

@@ -1,0 +1,41 @@
+window: loadavg  1,31 1,47 1,40
+identity: chip=h16g os=Version 27.0.1 (Build 26A434)
+
+nconv=1   rep0 cold=    44.3 ms warm=    25.5 ms ratio=1.7x
+nconv=1   rep1 cold=    29.9 ms warm=    24.3 ms ratio=1.2x
+nconv=1   rep2 cold=    19.4 ms warm=    18.8 ms ratio=1.0x
+nconv=2   rep0 cold=    21.9 ms warm=    32.7 ms ratio=0.7x
+nconv=2   rep1 cold=    21.1 ms warm=    20.9 ms ratio=1.0x
+nconv=2   rep2 cold=    23.7 ms warm=    30.2 ms ratio=0.8x
+nconv=4   rep0 cold=    24.3 ms warm=    24.6 ms ratio=1.0x
+nconv=4   rep1 cold=    25.7 ms warm=    29.0 ms ratio=0.9x
+nconv=4   rep2 cold=    24.7 ms warm=    28.1 ms ratio=0.9x
+nconv=8   rep0 cold=    32.6 ms warm=    40.4 ms ratio=0.8x
+nconv=8   rep1 cold=    31.2 ms warm=    35.0 ms ratio=0.9x
+nconv=8   rep2 cold=    32.5 ms warm=    36.6 ms ratio=0.9x
+nconv=16  rep0 cold=    50.6 ms warm=    45.5 ms ratio=1.1x
+nconv=16  rep1 cold=    52.5 ms warm=    46.1 ms ratio=1.1x
+nconv=16  rep2 cold=    45.5 ms warm=    49.1 ms ratio=0.9x
+nconv=32  rep0 cold=    84.2 ms warm=    77.9 ms ratio=1.1x
+nconv=32  rep1 cold=    77.4 ms warm=    78.1 ms ratio=1.0x
+nconv=32  rep2 cold=    79.1 ms warm=    81.7 ms ratio=1.0x
+done
+--- XPROC same-nonce 555 ---
+identity: chip=h16g os=Version 27.0.1 (Build 26A434)
+
+nconv=1   rep0 cold=    21.9 ms warm=    19.0 ms ratio=1.2x
+nconv=2   rep0 cold=    20.5 ms warm=    25.6 ms ratio=0.8x
+nconv=4   rep0 cold=    24.3 ms warm=    24.3 ms ratio=1.0x
+nconv=8   rep0 cold=    31.3 ms warm=    37.3 ms ratio=0.8x
+nconv=16  rep0 cold=    45.6 ms warm=    47.1 ms ratio=1.0x
+nconv=32  rep0 cold=    78.6 ms warm=    79.2 ms ratio=1.0x
+done
+identity: chip=h16g os=Version 27.0.1 (Build 26A434)
+
+nconv=1   rep0 cold=    19.3 ms warm=   663.3 ms ratio=0.0x
+nconv=2   rep0 cold=    45.6 ms warm=    24.5 ms ratio=1.9x
+nconv=4   rep0 cold=    27.5 ms warm=  1267.4 ms ratio=0.0x
+nconv=8   rep0 cold=    31.4 ms warm=    31.1 ms ratio=1.0x
+nconv=16  rep0 cold=   919.5 ms warm=    66.2 ms ratio=13.9x
+nconv=32  rep0 cold=   605.1 ms warm=    77.4 ms ratio=7.8x
+done

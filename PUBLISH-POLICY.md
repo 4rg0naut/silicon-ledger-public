@@ -11,8 +11,10 @@ stays private is the chat logs and the scratch, never the conclusions.
 - `bench/`, `tools/`, `schemas/`, `ports/`, `evaluation/` — **the reusable instruments** (in full,
   including `.py`/`.m`), and the join contract with the companion benchmark repo.
 - `knowledge/` — the knowledge base: narrative docs **and** the machine-checkable records.
-- `results/**` as `.md` / `.json` / `.txt` / `.sh` — every experiment's README, its numbers and its
-  text/shell evidence, including the failure corpus.
+- `results/**` as `.md` / `.json` / `.txt` / `.sh` / `.tsv` / `.jsonl` / `.ll` / `.log` — every
+  experiment's README, its numbers and its text evidence, including the failure corpus
+  (`.tsv`/`.jsonl`/`.ll` widened 2026-10-26, `.log` 2026-10-27: raw arm logs are cited per-file
+  as receipts).
 - `assets/*.svg` — chart images referenced from the front door (generated, never hand-drawn; e.g.
   `assets/lane-tf.svg` comes from `tools/publish/make_lane_chart.py`).
 
@@ -27,6 +29,10 @@ stays private is the chat logs and the scratch, never the conclusions.
   their conclusions, not the drafts;
 - `knowledge/ane/ARCHIVE-MAP.md` — the private archive's file index; published prose cites it
   as `(source private)` where a predecessor hash needs an anchor;
+- **in-flight measurement windows** — an experiment whose declared window has not completed ships
+  when its numbers are certified, not before (`results/EXP-038-nax-quiet-retake/` is the current
+  instance: its ladder cells stay DECLINED in the private ledger until the quiet window completes;
+  `PUBLIC-INDEX.md` says so rather than silently skipping the id);
 - `.omp/` — the agent rule files.
 
 ## Path hygiene

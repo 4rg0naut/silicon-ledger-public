@@ -1,0 +1,13 @@
+classes: desc=ok imm=ok req=ok aio=ok
+identity: chip=h17g cores=16 os=Version 27.0.1 (Build 26A434) host=studio
+
+in1          OK eval | expected 512.0 observed[512.0,512.0,512.0] MATCH
+in1-w2       OK eval | expected 1024.0 observed[1024.0,1024.0,1024.0] MATCH
+in2-add      OK eval | expected 1536.0 observed[1536.0,1536.0,1536.0] MATCH
+in2-w2fill   COMPILE-FAIL Error Domain=com.apple.appleneuralengine Code=10 "verifyBundleAtPath: invalid model" UserInfo={NSLocalizedDescription=verifyBundleAtPath: invalid model}
+in2-rev      OK eval | expected 1536.0 observed[1536.0,1536.0,1536.0] MATCH
+in3-add      OK eval | expected 3072.0 observed[3072.0,3072.0,3072.0] MATCH
+in4-add      OK eval | expected 5120.0 observed[5120.0,5120.0,5120.0] MATCH
+in2-big      OK eval | expected 6144.0 observed[6144.0,6144.0,6144.0] MATCH
+in2-small    OK eval | expected 192.0 observed[192.0,192.0,192.0] MATCH
+done
