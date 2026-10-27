@@ -110,7 +110,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-187 | `tools/rerank-server/rerank_server_ane.py` | duplicate | The AOT-compiled ANE reranker over the same /v1/rerank API as the GPU server. |
 | INSTR-171 | `tools/archive/inventory.py` | superseded | inventory.py — cross-volume archive sweep that produces knowledge/ane/ARCHIVE-MAP.md. |
 
-## experiment-harness (109)
+## experiment-harness (111)
 
 | id | path | status | purpose |
 |---|---|---|---|
@@ -149,6 +149,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-192 | `results/EXP-037-fp8-nax/harness/lane_arms.m` | canonical | lane_arms — EXP-037 lineage: fill the hand-written matmul2d lane cells left open by fp8_ladder: |
 | INSTR-191 | `results/EXP-037-fp8-nax/harness/s0_compile_probe.sh` | canonical | s0_compile_probe.sh — S0 preflight for EXP-037: does the Metal 4.0 compiler accept |
 | INSTR-194 | `results/EXP-038-nax-quiet-retake/harness/quiet_retake.sh` | canonical | quiet_retake.sh — EXP-038: certified-quiet re-take of the EXP-037 Surface-1 NAX ladders. |
+| INSTR-207 | `results/EXP-038-nax-quiet-retake/harness/round6_quiet_campaign.sh` | canonical | round6_quiet_campaign.sh — one watcher, one window queue (single-watcher rule, 2026-10-27). |
 | INSTR-198 | `results/EXP-039-w8-palettization/harness/e39_ab_marker.sh` | canonical | e39_ab_marker.sh — EXP-039 matched-A/B wrapper for enginemon capture. |
 | INSTR-199 | `results/EXP-040-m4-fp16-zero-collapse/harness/fp64_oracle.py` | canonical | EXP-040 fp64 oracle: zoo torch graph in float64 on the checkpoint weights, |
 | INSTR-195 | `results/EXP-041-multi-input/harness/multi_input_probe.m` | canonical | multi_input_probe.m — EXP-041: how wide is the ANE single-input limitation, per machine? |
@@ -161,6 +162,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-204 | `results/EXP-044-metal-generations/harness/run_lanes44.sh` | canonical | run_lanes44 — EXP-044 C3/C4 timed matrix runner. Interleaves arms round-robin per shape |
 | INSTR-205 | `results/EXP-045-closed-claims/harness/mtl_compile_ladder.m` | canonical | mtl_compile_ladder — EXP-045 closed-claims ladder: arm A (PSO cold vs MTLBinaryArchive warm), arm B (N-variant |
 | INSTR-206 | `results/EXP-045-closed-claims/harness/retro_probe.m` | canonical | retro_probe — EXP-045/045-retro bare-metal retro-scene arms: d GPU-vs-CPU copy ladder, e QoS starvation (DEFAU |
+| INSTR-208 | `results/EXP-047-tile-probe/harness/tile_probe.m` | canonical | tile_probe — EXP-047: the O-6 cell. EXP-037/EXP-044 pinned hand-written matmul2d naive tiles at |
 | INSTR-066 | `results/EXP-025-ane-gpu-sync/harness/ane_bridge_dbg.m` | duplicate | ane_bridge.m — Objective-C implementation of the ANE private API bridge. |
 | INSTR-067 | `results/EXP-025-ane-gpu-sync/harness/ane_bridge_mrr.m` | duplicate | ane_bridge.m — Objective-C implementation of the ANE private API bridge. |
 | INSTR-144 | `results/EXP-029-nax-crosslane/harness/nax_gemm_matrix.sh` | duplicate | nax_gemm_matrix.sh — dtype-fair, MLX-free GEMM matrix on the local nax_gemm probe. |
