@@ -88,7 +88,9 @@ Instruments: [fp8_ladder.m](../../results/EXP-037-fp8-nax/README.md#reproduce) (
 toolchain `metalfe-32023.921.6` pinned in [s0 capture .ll](../../results/EXP-037-fp8-nax/raw/s0-20261026T131851Z/fp8_kernels.ll);
 OS 26A434; no MLX/MetalHLO/torch in path. Windows below: **loaded-concurrent** (2026-10-26, oMLX up —
 declare upper bounds; certified-quiet re-take is an open cell). Cross-arm parity is the robust result
-(arms interleaved, common-mode).
+(arms interleaved, common-mode). Gate stamp appended 2026-10-27 (EXP-044/GOTCHAS-093): `-std=metal4.1`
+is the **compile** gate (Xcode generation); running the produced metallib is a separate **OS** gate —
+4.1 code refuses to load on macOS 26.x, so fp8-on-NAX numbers are macOS-27 facts.
 
 | lane (kernel by construction) | measured | parity | instrument·kind | capture · summary |
 |---|---|---|---|---|
