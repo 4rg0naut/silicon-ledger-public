@@ -110,7 +110,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-187 | `tools/rerank-server/rerank_server_ane.py` | duplicate | The AOT-compiled ANE reranker over the same /v1/rerank API as the GPU server. |
 | INSTR-171 | `tools/archive/inventory.py` | superseded | inventory.py — cross-volume archive sweep that produces knowledge/ane/ARCHIVE-MAP.md. |
 
-## experiment-harness (111)
+## experiment-harness (112)
 
 | id | path | status | purpose |
 |---|---|---|---|
@@ -148,6 +148,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-190 | `results/EXP-037-fp8-nax/harness/fp8_matrix.sh` | canonical | fp8_matrix.sh — EXP-037 S2/S4: timed GEMM matrix, arms f8 | mix8 | f16 on identical shapes. |
 | INSTR-192 | `results/EXP-037-fp8-nax/harness/lane_arms.m` | canonical | lane_arms — EXP-037 lineage: fill the hand-written matmul2d lane cells left open by fp8_ladder: |
 | INSTR-191 | `results/EXP-037-fp8-nax/harness/s0_compile_probe.sh` | canonical | s0_compile_probe.sh — S0 preflight for EXP-037: does the Metal 4.0 compiler accept |
+| INSTR-209 | `results/EXP-038-nax-quiet-retake/harness/derive_round6_verdicts.sh` | canonical | derive_round6_verdicts.sh — post-campaign verdict derivation for round6_quiet_campaign.sh. |
 | INSTR-194 | `results/EXP-038-nax-quiet-retake/harness/quiet_retake.sh` | canonical | quiet_retake.sh — EXP-038: certified-quiet re-take of the EXP-037 Surface-1 NAX ladders. |
 | INSTR-207 | `results/EXP-038-nax-quiet-retake/harness/round6_quiet_campaign.sh` | canonical | round6_quiet_campaign.sh — one watcher, one window queue (single-watcher rule, 2026-10-27). |
 | INSTR-198 | `results/EXP-039-w8-palettization/harness/e39_ab_marker.sh` | canonical | e39_ab_marker.sh — EXP-039 matched-A/B wrapper for enginemon capture. |
