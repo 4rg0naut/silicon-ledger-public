@@ -26,6 +26,14 @@ Window gate update (2026-10-27, round-6): `quiet_probe.sh` QUIET-KEY now also ca
 `console=none share=down` (RULES-5 rail trap, 0–3 vs 27–85 mW); figures captured before the
 field exist are labelled `console-unrecorded` — a gap label, never a silent re-run.
 
+Round-6 campaign (2026-10-27): one watcher queue
+(`results/EXP-038-nax-quiet-retake/harness/round6_quiet_campaign.sh`, INSTR-207) owns the box for the
+overnight band — EXP-038 retake, EXP-047 tile timing (O-6), O-1 paired arms, O-10 recapture, each
+stage re-gated, DECLINED-window filed rather than fabricated. After `CAMPAIGN-DONE` appears in the
+campaign `verdict.txt`, run
+`sh results/EXP-038-nax-quiet-retake/harness/derive_round6_verdicts.sh` (INSTR-209) to state the
+O-1/O-6/O-10 verdicts from the captured outputs — never derive mid-run.
+
 
 ### Per-model hardware truth (2026-10-10, Apple-sourced)
 

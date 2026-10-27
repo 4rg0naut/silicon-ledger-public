@@ -240,6 +240,8 @@ CANON = {
         "same device-tensor form as fp8_ladder/lane_arms; f16_s arm restates the naive band in-run; grid padded, overhang early-return"),
     "results/EXP-038-nax-quiet-retake/harness/round6_quiet_campaign.sh": ("canonical", "single-watcher certified-window campaign queue",
         "stage order EXP-038 retake -> EXP-047 tile timing -> O-1 paired arms -> O-10 probe stdout; per-stage re-gate, DECLINED-window never fabricated"),
+    "results/EXP-038-nax-quiet-retake/harness/derive_round6_verdicts.sh": ("canonical", "post-campaign verdict derivation (O-1/O-6/O-10)",
+        "run after CAMPAIGN-DONE only; states verdicts from captured outputs, files DECLINED-window otherwise; never derives mid-run"),
     "results/EXP-038-nax-quiet-retake/harness/quiet_retake.sh": ("canonical", "certified-quiet NAX ladder re-take (EXP-037 cells)",
         "waits for quiet_probe QUIET-KEY (omlx=down loadavg<1.0) then re-runs EXP-037 fp8/lane ladders with window stamps; production oMLX must be cut by the operator"),
     "results/EXP-041-multi-input/harness/multi_input_probe.m": ("canonical", "multi-input ANE battery (N=1..4, unequal surfaces)",

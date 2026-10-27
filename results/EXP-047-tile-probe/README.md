@@ -7,7 +7,7 @@ never tested by us on this silicon. Does the recipe move the number, and what do
 exactness?
 
 Machine: M5 Max Studio `Mac17,14` (h17c/h17g), macOS 27.0.1/26A434. Instrument
-`harness/tile_probe.m` (INSTR-207): same documented device form as the EXP-037 lineage
+`harness/tile_probe.m` (INSTR-208): same documented device form as the EXP-037 lineage
 (`tensor<device T,…,tensor_inline>` + `matmul2d_descriptor` + device destination slice), three arms:
 
 | arm | tile | sg | dispatch |

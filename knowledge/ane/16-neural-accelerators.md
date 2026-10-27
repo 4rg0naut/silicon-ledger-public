@@ -239,6 +239,13 @@ Ryzen 5 3600 790/2200 ms p50/p95, Zakharko A19 tops-table, MetalHLO M5 Pro ~18 T
   the *per-eval full-stack* hand-MSL number (like p27's harness minus coreai) was never measured.
 - **O-6** fp8 at big tiles + Morton dispatch (Apple's ~7×) — build: extend `lane_arms` descriptor to
   128×64 + `execution_simdgroups<8>` swizzled grid.
+  UPDATE 2026-10-27 (EXP-047): built — `tile_probe.m` [INSTR-208] (128×64 descriptor, sg<8>, padded
+  overlaunch grid + block swizzle; f16 scalar / f16 block / fp8 block arms). Oracle ladder ALL PASS
+  maxabs=0 vs the EXP-037/EXP-044 oracle
+  ([raw](../../results/EXP-047-tile-probe/raw/ladder-20261027T154101Z-loaded-correctness.txt)).
+  Loaded-window smoke @2048³ (upper bounds, box loaded): f16 scalar 31.76, f16 block 47.53, fp8 block
+  58.73 TF. Certified timing queued as campaign stage 2 (single-watcher rule, EXP-038 queue);
+  lane-table numbers land only from that certified window.
 - **O-7 RESOLVED 2026-10-26** EXP-025 README bounds drift — dated corrections now in `README.md`
   (caveat 2) and `results/latency.md`; raw (`results/latency.txt`: eval 0.095–0.621, extra 0.020–0.053) governs.
 - **O-8 RESOLVED 2026-10-27** EXP-020 DMA-notch rows merged to the measurements ledger
