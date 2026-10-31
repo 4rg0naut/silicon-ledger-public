@@ -37,7 +37,7 @@ if smoke_f.exists():
 CLUSTERS: dict[str, dict] = {
     "power / energy": {
         "members": ["bench/_power.py", "bench/power_ab.py", "bench/power_coreai.py",
-                    "bench/power_mlcore.py", "bench/mlpower-runner.swift", "bench/syswide_ane.py",
+                    "bench/power_mlcore.py", "results/EXP-028-apple-tracer/harness/archived/mlpower-runner.swift", "results/EXP-004-coreai-ane/harness/archived/syswide_ane.py",
                     "tools/enginemon/enginemon.c"],
         "why": "seven ways to answer 'what did this load cost in energy'.",
     },
@@ -49,7 +49,7 @@ CLUSTERS: dict[str, dict] = {
     },
     "ANE visibility / attribution": {
         "members": ["bench/ane-dma-test.m", "bench/ane-probe.m", "bench/kane_gate_probe.m",
-                    "bench/metal_counters.m", "bench/probe_ane_regions.py",
+                    "bench/metal_counters.m", "results/EXP-005-ane-residency/harness/archived/probe_ane_regions.py",
                     "bench/analyze_ane_scan.py", "bench/ane_report.py",
                     "tools/enginemon/enginemon.c", "bench/jevbench_ane.py"],
         "why": "did the ANE actually do the work, and how do we see it.",
@@ -89,8 +89,8 @@ CLUSTERS: dict[str, dict] = {
                     "results/EXP-025-ane-gpu-sync/harness/coreml_plan.py",
                     "results/EXP-025-ane-gpu-sync/harness/coreml_route_sweep.py",
                     "results/EXP-025-ane-gpu-sync/harness/plan_devicesupport.m",
-                    "bench/diagnose_convert.py", "bench/find_int_op.py", "bench/repro_int_op.py",
-                    "bench/minimal_repro_ane_crash.py", "bench/mlir_bytecode.py"],
+                    "bench/diagnose_convert.py", "tools/archived/find_int_op.py", "bench/repro_int_op.py",
+                    "results/EXP-013-ane-reauthor/harness/archived/minimal_repro_ane_crash.py", "bench/mlir_bytecode.py"],
         "why": "the pre-Core-AI probe fleet, largely superseded by EXP-026+ lanes.",
     },
     "convert / model build": {

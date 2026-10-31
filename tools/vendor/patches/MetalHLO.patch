@@ -1,0 +1,28 @@
+diff --git a/Package.swift b/Package.swift
+index 8e7da9b..989ea90 100644
+--- a/Package.swift
++++ b/Package.swift
+@@ -50,6 +50,11 @@ let package = Package(
+             name: "mlx-comparison",
+             targets: ["MLXComparison"]
+         ),
++        // EXP-029 local probe (dtype-fair, MLX-free GEMM) - injected into this gitignored vendor tree
++        .executable(
++            name: "nax_gemm",
++            targets: ["nax_gemm"]
++        ),
+     ],
+     dependencies: [
+         // MLX Swift for comparison benchmarks
+@@ -122,6 +127,11 @@ let package = Package(
+                 .linkedFramework("Accelerate"),
+             ]
+         ),
++        .executableTarget(
++            name: "nax_gemm",
++            dependencies: ["MetalHLO"],
++            path: "Sources/nax_gemm"
++        ),
+         .executableTarget(
+             name: "HeterogeneousFusionBenchmark",
+             dependencies: ["HeterogeneousFusion"],

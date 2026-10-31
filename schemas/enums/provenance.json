@@ -1,0 +1,20 @@
+{
+ "_note": "Canonical provenance classes. provenance_class is derived from the legacy free-text `provenance` string by the first matching rule below; the original string is kept untouched. A string no rule matches is reported and mapped to `unknown`, never guessed.",
+ "values": {
+  "ours": "measured by this lab with its own instruments (including derived rows)",
+  "ours-bench": "measured by this lab through silicon-ledger-bench (carries a report fingerprint)",
+  "third-party": "number published or measured by someone else, reproduced here as a reference",
+  "vendor": "vendor claim, labelled as such",
+  "external-paper": "number taken from a paper",
+  "mixed": "one row that combines an external number with our own observation",
+  "unknown": "no rule matched"
+ },
+ "rules": [
+  {"match": "prefix", "text": "ours (silicon-ledger-bench", "class": "ours-bench"},
+  {"match": "contains", "text": "arxiv:2606.22283 (external) + ours", "class": "mixed"},
+  {"match": "prefix", "text": "arxiv:", "class": "external-paper"},
+  {"match": "prefix", "text": "vendor", "class": "vendor"},
+  {"match": "prefix", "text": "third-party", "class": "third-party"},
+  {"match": "prefix", "text": "ours", "class": "ours"}
+ ]
+}

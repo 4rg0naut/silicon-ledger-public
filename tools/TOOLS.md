@@ -8,7 +8,7 @@ in `tools/LANGUAGE-POLICY.md`; per-file verdict data in `tools/audit/verdicts-20
 
 Status: **canonical** = the one to use · **duplicate** = exists, prefer its canonical twin · **superseded** = kept only as an evidence artifact · **unclassified** = TODO.
 
-## cross-experiment (58)
+## cross-experiment (54)
 
 | id | path | status | purpose |
 |---|---|---|---|
@@ -41,6 +41,8 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-034 | `bench/kane_gate_probe.m` | canonical | kane_gate_probe.m — B5: does the 2606.22283 per-task kANE_* counter gate reproduce on h17c? |
 | INSTR-035 | `bench/latency_protocol.py` | canonical | One latency protocol, applied identically to every model. Emits schema-conformant rows. |
 | INSTR-036 | `bench/laya_ane_bench.py` | canonical | Run the Laya ANE build: fidelity against the torch module, latency, and ANE residency. |
+| INSTR-211 | `bench/ledger_coverage.py` | canonical | ledger_coverage.py — which hardware-lane experiments (EXP-024..047) have rows in the ledger. |
+| INSTR-212 | `bench/ledger_gaps.py` | canonical | ledger_gaps.py — close ledger gaps only where a source states the fact literally; declare the rest. |
 | INSTR-037 | `bench/losses.py` | canonical | The two losses left out of the first training run, written and tested before use. |
 | INSTR-038 | `bench/make_charts.py` | canonical | The picture: where the stack stands, what is on the ANE, and what is NOT measured. |
 | INSTR-039 | `bench/metal_counters.m` | canonical | metal_counters.m — #8 fallback ladder stage 3: what does MTLDevice counter sampling expose on M5 Max? |
@@ -48,6 +50,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-047 | `bench/mteb_retrieval.py` | canonical | MTEB retrieval evaluation of the ANE embedding server. |
 | INSTR-049 | `bench/na_tiles.metal` | canonical | na_tiles.metal — C6 valid-tile matched A/B (R8 workaround), M5 Max h17c. |
 | INSTR-050 | `bench/na_tiles.py` | canonical | C6 valid-tile matched A/B — matmul2d (64x32 tile, K=64) vs matched non-tensor matmul. |
+| INSTR-213 | `bench/normalize_enums.py` | canonical | normalize_enums.py — add canonical hardware_id / provenance_class / project to every ledger row. |
 | INSTR-051 | `bench/power_ab.py` | canonical | A/B power measurement for the Core ML encoder (ALL vs CPU_ONLY). |
 | INSTR-052 | `bench/power_coreai.py` | canonical | Which accelerator actually ran a Core AI graph? — power-rail A/B. |
 | INSTR-053 | `bench/power_mlcore.py` | canonical | Core ML MiniLM power A/B — coremltools-free (macOS 27: Core AI is the headline stack, the |
@@ -56,22 +59,15 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-061 | `bench/train_decision_model.py` | canonical | Train a decision model: ModernBERT-base + marker-pointer head, on typed-decisions. |
 | INSTR-062 | `bench/verify_extraction.py` | canonical | Verify extracted measurements against their source reports, then merge into measurements.json. |
 | INSTR-063 | `bench/von_authored144.py` | canonical | Run Von's own authored144 comparison suite against HF and against our ANE build. |
-| INSTR-060 | `bench/syswide_ane.py` | duplicate | System-wide ANE capture: does a Core AI graph use the Neural Engine? |
 | INSTR-017 | `bench/chunk_indexed_retrieval.py` | superseded | Does indexing chunks SEPARATELY beat truncating at the grid? |
-| INSTR-026 | `bench/find_int_op.py` | superseded | Locate the exact `int()` op that coremltools cannot convert. |
-| INSTR-040 | `bench/minimal_repro_ane_crash.py` | superseded | Bisection record -- and it is NOT a reproduction. Read this before trusting a case list. |
-| INSTR-042 | `bench/mlpower-runner.swift` | superseded | mlpower-runner.swift — Core ML inference load for power A/B, WITHOUT coremltools. |
 | INSTR-043 | `bench/mteb_french_tasks.py` | superseded | Which French retrieval tasks does MTEB/MMTEB offer, and how big are they?""" |
 | INSTR-044 | `bench/mteb_interface.py` | superseded | Introspect what `mteb` expects from a custom model, before writing a wrapper. |
 | INSTR-045 | `bench/mteb_multilingual_refs.py` | superseded | Multilingual-retrieval reference scores, and which tasks have the widest model coverage.""" |
 | INSTR-046 | `bench/mteb_reference.py` | superseded | /// script |
 | INSTR-048 | `bench/mteb_taskinfo.py` | superseded | /// script |
-| INSTR-054 | `bench/power_phase_probe.py` | superseded | Does ANE power drop when the ANE slows down? — the burst/sustained discriminator. |
-| INSTR-055 | `bench/probe_ane_regions.py` | superseded | Does dtype alone decide whether Core AI forms ANE regions on this Mac? |
-| INSTR-056 | `bench/repro_apple_attention.py` | superseded | Faithful repro: Apple's ACTUAL Attention class, with only RoPE and SDPA stubbed. |
 | INSTR-058 | `bench/rerank_retrieval.py` | superseded | Does the cross-encoder reranker close the ndcg gap? (EXP-012) |
 
-## instrument (34)
+## instrument (43)
 
 | id | path | status | purpose |
 |---|---|---|---|
@@ -96,21 +92,30 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-174 | `tools/audit/verdicts.py` | canonical | verdicts.py — Tool Audit 2026-10 phase-2/3 verdict engine. |
 | INSTR-175 | `tools/embed-server/embed_server.py` | canonical | OpenAI-compatible /v1/embeddings backed by Granite-Embedding-97M on the Neural Engine. |
 | INSTR-177 | `tools/enginemon/enginemon.c` | canonical | enginemon v2.1 — per-engine (CPU / GPU-shader / GPU-NA / ANE) activity on Apple |
+| INSTR-214 | `tools/gen_all.sh` | canonical | gen_all.sh — THE single entry point for every generated file. Never hand-edit these files. |
+| INSTR-215 | `tools/gen_counts.py` | canonical | gen_counts.py — derive results/COUNTS.json, the single source of every count a front door quotes. |
 | INSTR-178 | `tools/granite-runner/Package.swift` | canonical | swift-tools-version: 6.0 |
+| INSTR-217 | `tools/hooks/install.sh` | canonical | install.sh — point this clone's hooks at tools/hooks (core.hooksPath). Idempotent. |
 | INSTR-179 | `tools/kb_pipeline.sh` | canonical | kb_pipeline.sh — THE standard gate set for this repo. Run this; don't remember the steps. |
+| INSTR-218 | `tools/lab_scratch.sh` | canonical | lab_scratch.sh — resolve LAB_SCRATCH and FAIL LOUDLY when it is unset, missing or not writable. |
 | INSTR-180 | `tools/memory-stack/start.sh` | canonical | start.sh — bring up the fully-local memory stack and print what to export. |
 | INSTR-181 | `tools/publish/check_public.py` | canonical | check_public.py — the gates for the PUBLIC mirror (staging tree). |
 | INSTR-193 | `tools/publish/make_lane_chart.py` | canonical | make_lane_chart.py — dependency-free SVG chart of NAX tensor-lane throughput by dtype for the public README. |
 | INSTR-182 | `tools/publish/publish.sh` | canonical | publish.sh — deterministic generator of the public staging tree. |
 | INSTR-183 | `tools/publish/push-mirror.sh` | canonical | push-mirror.sh — push the public staging tree to the GitHub mirror. |
+| INSTR-216 | `tools/publish/render_counts.py` | canonical | render_counts.py — fill front-door counts from results/COUNTS.json via marker comments. |
 | INSTR-184 | `tools/publish/rewrite_links.py` | canonical | rewrite_links.py — publication-aware link rewriting (runs on the STAGING tree only). |
 | INSTR-185 | `tools/rerank-server/gate_reranker.py` | canonical | Gate the Qwen3-Reranker bundle against its published reference.json. |
 | INSTR-186 | `tools/rerank-server/rerank_server.py` | canonical | Qwen3-Reranker-0.6B over HTTP, OpenAI-ish / Jina-ish rerank shape. |
+| INSTR-219 | `tools/reshape/fetch_vendor.sh` | canonical | fetch_vendor.sh — verify or rebuild the vendored RE toolchains from tools/vendor/PINS.md. |
+| INSTR-220 | `tools/reshape/phase_gate.py` | canonical | phase_gate.py — the gate machinery for the reshape phases (G0). |
+| INSTR-210 | `tools/reshape/split_dryrun.py` | canonical | split_dryrun.py — dry-run report for splitting the ports project's CODE out of the ledger. |
 | INSTR-176 | `tools/embed-server/embed_server_gemma.py` | duplicate | EmbeddingGemma-300m served from its AOT Core AI bundle, on the Neural Engine. |
 | INSTR-187 | `tools/rerank-server/rerank_server_ane.py` | duplicate | The AOT-compiled ANE reranker over the same /v1/rerank API as the GPU server. |
 | INSTR-171 | `tools/archive/inventory.py` | superseded | inventory.py — cross-volume archive sweep that produces knowledge/ane/ARCHIVE-MAP.md. |
+| INSTR-026 | `tools/archived/find_int_op.py` | superseded | Locate the exact `int()` op that coremltools cannot convert. |
 
-## experiment-harness (112)
+## experiment-harness (118)
 
 | id | path | status | purpose |
 |---|---|---|---|
@@ -164,11 +169,16 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-205 | `results/EXP-045-closed-claims/harness/mtl_compile_ladder.m` | canonical | mtl_compile_ladder — EXP-045 closed-claims ladder: arm A (PSO cold vs MTLBinaryArchive warm), arm B (N-variant |
 | INSTR-206 | `results/EXP-045-closed-claims/harness/retro_probe.m` | canonical | retro_probe — EXP-045/045-retro bare-metal retro-scene arms: d GPU-vs-CPU copy ladder, e QoS starvation (DEFAU |
 | INSTR-208 | `results/EXP-047-tile-probe/harness/tile_probe.m` | canonical | tile_probe — EXP-047: the O-6 cell. EXP-037/EXP-044 pinned hand-written matmul2d naive tiles at |
+| INSTR-060 | `results/EXP-004-coreai-ane/harness/archived/syswide_ane.py` | duplicate | System-wide ANE capture: does a Core AI graph use the Neural Engine? |
 | INSTR-066 | `results/EXP-025-ane-gpu-sync/harness/ane_bridge_dbg.m` | duplicate | ane_bridge.m — Objective-C implementation of the ANE private API bridge. |
 | INSTR-067 | `results/EXP-025-ane-gpu-sync/harness/ane_bridge_mrr.m` | duplicate | ane_bridge.m — Objective-C implementation of the ANE private API bridge. |
 | INSTR-144 | `results/EXP-029-nax-crosslane/harness/nax_gemm_matrix.sh` | duplicate | nax_gemm_matrix.sh — dtype-fair, MLX-free GEMM matrix on the local nax_gemm probe. |
 | INSTR-147 | `results/EXP-029-nax-crosslane/harness/nax_lane_matrix.sh` | duplicate | nax_lane_matrix.sh — GPU-resident lane matrix via MetalHLO's own comparison runner. |
 | INSTR-064 | `results/EXP-002-apple-fm-baseline/harness/p2_fm_lane_audit.sh` | superseded | p2_fm_lane_audit.sh — FM lane audit under enginemon (EXP-002 follow-up). |
+| INSTR-054 | `results/EXP-005-ane-residency/harness/archived/power_phase_probe.py` | superseded | Does ANE power drop when the ANE slows down? — the burst/sustained discriminator. |
+| INSTR-055 | `results/EXP-005-ane-residency/harness/archived/probe_ane_regions.py` | superseded | Does dtype alone decide whether Core AI forms ANE regions on this Mac? |
+| INSTR-040 | `results/EXP-013-ane-reauthor/harness/archived/minimal_repro_ane_crash.py` | superseded | Bisection record -- and it is NOT a reproduction. Read this before trusting a case list. |
+| INSTR-056 | `results/EXP-013-ane-reauthor/harness/archived/repro_apple_attention.py` | superseded | Faithful repro: Apple's ACTUAL Attention class, with only RoPE and SDPA stubbed. |
 | INSTR-068 | `results/EXP-025-ane-gpu-sync/harness/ane_class_dump.m` | superseded | ane_class_dump.m — runtime class dump of AppleNeuralEngine sync/event classes. |
 | INSTR-069 | `results/EXP-025-ane-gpu-sync/harness/ane_reqmethods.m` | superseded | import <Foundation/Foundation.h> |
 | INSTR-070 | `results/EXP-025-ane-gpu-sync/harness/ane_surface_probe.m` | superseded | ane_surface_probe.m — who defines IOSurfaceSharedEvent, its full API, and which |
@@ -223,6 +233,7 @@ Status: **canonical** = the one to use · **duplicate** = exists, prefer its can
 | INSTR-128 | `results/EXP-027-nax/harness/p27_nax_probe.m` | superseded | import <Foundation/Foundation.h> |
 | INSTR-132 | `results/EXP-027-nax/harness/p27_src_probe.m` | superseded | EXP-027 SU follow-up: feed a captured model.src (or any MIL text) through the |
 | INSTR-133 | `results/EXP-027-nax/harness/p27_stale_probe.m` | superseded | EXP-027 AN-STALE: public-CoreML predict harness that DUMPS output vectors, |
+| INSTR-042 | `results/EXP-028-apple-tracer/harness/archived/mlpower-runner.swift` | superseded | mlpower-runner.swift — Core ML inference load for power A/B, WITHOUT coremltools. |
 | INSTR-141 | `results/EXP-029-nax-crosslane/harness/mm_inline.metal` | superseded | include <metal_stdlib> |
 | INSTR-145 | `results/EXP-029-nax-crosslane/harness/nax_ladder.m` | superseded | nax_ladder.m — MPP matmul2d correctness ladder on the CURRENT tensor API (2026-10-10). |
 | INSTR-146 | `results/EXP-029-nax-crosslane/harness/nax_ladder.metal` | superseded | include <metal_stdlib> |

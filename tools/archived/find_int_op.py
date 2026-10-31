@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Locate the exact `int()` op that coremltools cannot convert.
 
+ATTRIBUTION (4G toolbox consolidation, 2026-10-30): no EXP README, record or ledger row
+cites this probe; kept as superseded evidence per the 2026-10 audit (preserved evidence,
+not an instrument). Unattributable -> tools/archived/.
+
 Walks the traced graph (including sub-blocks), finds nodes whose kind mentions
 "int", and reports each node's scope, input types, and — via TorchScript's
 sourceRange — the original Python file and line that produced it.

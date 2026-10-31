@@ -1,0 +1,28 @@
+diff --git a/mil/mil_to_hwx.cc b/mil/mil_to_hwx.cc
+index 35c89d2..2fbc0bd 100644
+--- a/mil/mil_to_hwx.cc
++++ b/mil/mil_to_hwx.cc
+@@ -355,10 +355,11 @@ int compile_mil_to_hwx(const CompilerConfig& config) {
+ 
+     // Prepare input dictionary
+     NSString* nsInputPath = [NSString stringWithUTF8String:config.input_path.c_str()];
+-    NSDictionary* inputNetwork = @{
+-        @"NetworkSourceFileName": @"model.mil",
++    NSString* srcName = getenv("P2B_SRCNAME") ? @(getenv("P2B_SRCNAME")) : @"model.mil";
++    NSMutableDictionary* inputNetwork = [@{
++        @"NetworkSourceFileName": srcName,
+         @"NetworkSourcePath": nsInputPath,
+-    };
++    } mutableCopy];
+ 
+     NSArray* inputNetworks = @[inputNetwork];
+ 
+@@ -367,6 +368,8 @@ int compile_mil_to_hwx(const CompilerConfig& config) {
+     optionsDict[@"InputNetworks"] = inputNetworks;
+     optionsDict[@"OutputFilePath"] = [NSString stringWithUTF8String:model_output_dir.c_str()];
+     optionsDict[@"OutputFileName"] = @"model.hwx";
++    if (getenv("P2B_ISMIL")) optionsDict[@"IsMILModel"] = @YES;
++    if (getenv("P2B_SAVESTATS")) optionsDict[@"SaveStatistics"] = @YES;
+ 
+     // Prepare flags dictionary
+     NSMutableDictionary* flagsDict = [NSMutableDictionary dictionaryWithCapacity:8];

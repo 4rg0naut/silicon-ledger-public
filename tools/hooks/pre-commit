@@ -1,0 +1,46 @@
+#!/bin/sh
+# pre-commit — refuse a commit when generated files, the instrument registry or the spine are inconsistent.
+# Installed by tools/hooks/install.sh (core.hooksPath). Fast gates only; the full set is tools/kb_pipeline.sh.
+#
+# Bypass (logged to .git/hooks-bypass.log): LEDGER_HOOK_BYPASS="why" git commit ...
+set -u
+cd "$(git rev-parse --show-toplevel)"
+export LC_ALL=C
+
+if [ -n "${LEDGER_HOOK_BYPASS:-}" ]; then
+    printf '%s bypass by %s: %s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$(git config user.name || echo unknown)" "$LEDGER_HOOK_BYPASS" \
+        >> "$(git rev-parse --git-dir)/hooks-bypass.log"
+    echo "pre-commit: BYPASSED (logged): $LEDGER_HOOK_BYPASS" >&2
+    exit 0
+fi
+
+PY=${PYTHON:-.venv/bin/python}
+[ -x "$PY" ] || PY=python3
+fail=0
+
+step() {
+    label=$1; shift
+    if out=$("$@" 2>&1); then
+        echo "pre-commit: ok   $label"
+    else
+        fail=1
+        echo "pre-commit: FAIL $label" >&2
+        echo "$out" | tail -25 >&2
+    fi
+}
+
+step "generated files (tools/gen_all.sh --check)" sh tools/gen_all.sh --check
+step "instrument registry (tools/registry.py --check)" python3 tools/registry.py --check
+step "spine check (to_openclaims.py --check)" sh -c "\"$PY\" knowledge/ane/tools/to_openclaims.py --check | tail -1 | grep -q '0 INVALID'"
+
+if [ "$fail" -ne 0 ]; then
+    cat >&2 <<'MSG'
+
+pre-commit: commit refused.
+  - stale generated files : sh tools/gen_all.sh --write   (then git add the result)
+  - unregistered script   : python3 tools/registry.py --seed && python3 tools/registry.py --classify
+  - spine invalid         : never edit emitted events; add a NEW record (RULES 6)
+  - emergency bypass      : LEDGER_HOOK_BYPASS="reason" git commit ...   (logged)
+MSG
+    exit 1
+fi

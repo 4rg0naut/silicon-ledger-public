@@ -37,7 +37,11 @@ KEEP_RESULTS_EXT = (".md", ".json", ".txt", ".sh", ".tsv", ".jsonl", ".ll", ".lo
 # Working-notes exclusion (2026-10-26, C3): chat-era scratch stays private — the public tree carries
 # the records, not the sessions that produced them. PUBLISH-POLICY.md states this openly.
 WORKROOM = ("results/CONSISTENCY-PLAN.md", "results/MORNING-BRIEF.md", "results/TRAINING-PLAN.md",
-            "results/TRAINING-RESULTS.md", "results/RESEARCH-WORKFLOW.md")
+            "results/TRAINING-RESULTS.md", "results/RESEARCH-WORKFLOW.md",
+            "CHARTER.md", "STATE.md", "DECISIONS.md", "TODO.md", "SCRATCH.md")
+# 2026-10-27 (reshape P1/P3): the five root files above are the lab's own routing, handoff and scratch
+# notes (machine paths, pending owner decisions). Top-level .md files are otherwise published by default,
+# so each new private root document MUST be listed here; PUBLISH-POLICY.md names them.
 # In-flight window exclusion (2026-10-27): EXP-038's certified-quiet retake is still running;
 # unfinished windows ship no numbers (its README says so). Ships with the round that carries its
 # certified ladder. PUBLIC-INDEX points this out instead of silent-cutting the id.
@@ -176,6 +180,7 @@ PY
 # Publication gates (added 2026-10-10): rewrite private-path links in the published COPY, then
 # verify the public tree is self-consistent (no dead links) and that every headline finding carries
 # its NEW/EXT/KNOWN status + a resolving evidence link. Either gate failing aborts publication.
+"${PYTHON:-python3}" tools/publish/render_counts.py --stage "$(cd .. && pwd)/silicon-ledger-public-staging"
 "${PYTHON:-python3}" tools/publish/rewrite_links.py
 "${PYTHON:-python3}" tools/publish/check_public.py
 echo "staging ready   : ../silicon-ledger-public-staging (gates passed)"

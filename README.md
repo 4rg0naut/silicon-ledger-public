@@ -6,7 +6,7 @@
 [![platforms](https://img.shields.io/badge/platform-Apple%20silicon-black)](results/FLEET.md)
 [![claims machine--checkable](https://img.shields.io/badge/claims-machine--checkable-yellow)](PUBLIC-OPENCLAIMS.md)
 
-A home lab, two Macs (an M5 Max and an M4 mini), one discipline: run the same
+A home lab, three Macs (M4 mini, M5 Max Studio and M4 Air), one discipline: run the same
 AI workloads on **every compute lane** — the Neural Engine (ANE), the GPU's
 tensor units, the GPU's shader path, the CPU — and publish every number,
 including the embarrassing ones, the silent detours, and the outright failures.

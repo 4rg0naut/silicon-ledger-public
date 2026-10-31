@@ -1,0 +1,19 @@
+{
+ "_note": "Which sub-project a ledger row belongs to (CHARTER.md). Derived from the EXP directory the row is attributed to: first the report bench/audit_measurements.py attributes it to, then an EXP id in the row's `command`, then an `expNNN` id prefix. No source -> `unattributed`; never guessed. EXP-023 is a twin slot (two directories), so directories are matched by name, not by number.",
+ "values": {
+  "ports": "small-model porting and retrieval project (CHARTER.md)",
+  "hw-lanes": "bare-metal hardware-lane reverse engineering (CHARTER.md)",
+  "unattributed": "no source report, command or id names an experiment"
+ },
+ "exp_dirs": {
+  "ports": [
+   "EXP-001-ane-op-map", "EXP-002-apple-fm-baseline", "EXP-003-minilm-coreml-ane", "EXP-004-coreai-ane",
+   "EXP-005-ane-residency", "EXP-006-local-memory-stack", "EXP-007-mteb-retrieval-quality",
+   "EXP-008-multilingual-retrieval", "EXP-009-grid-sweep", "EXP-010-chunk-pooling", "EXP-011-chunk-indexed",
+   "EXP-012-reranker", "EXP-013-ane-reauthor", "EXP-014-competitive-position", "EXP-015-candidate-landscape",
+   "EXP-016-von-ane", "EXP-017-laya-ane", "EXP-018-jevbench-ane", "EXP-019-correctness-head",
+   "EXP-023-small-llm-ane-pilot"
+  ],
+  "hw-lanes_rule": "every other results/EXP-* directory: EXP-020, EXP-021, EXP-022, EXP-023-m5max-energy and EXP-024 onward"
+ }
+}

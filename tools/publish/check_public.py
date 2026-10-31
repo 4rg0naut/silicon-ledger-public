@@ -357,6 +357,63 @@ def check_os_stamps(stage: Path) -> list[str]:
     return bad
 
 
+# --- front-door numbers gate (added 2026-10-27, reshape P3): every count a front door quotes must equal
+# results/COUNTS.json, and COUNTS.json must equal what the staged data says (so a stale COUNTS.json
+# cannot launder a stale page). The numbers are rendered from COUNTS.json by render_counts.py. ---
+def check_frontdoor_numbers(stage: Path) -> list[str]:
+    cp = stage / "results" / "COUNTS.json"
+    if not cp.exists():
+        return ["results/COUNTS.json missing from staging (run tools/gen_all.sh --write)"]
+    c = json.loads(cp.read_text())
+    bad = []
+    mj = stage / "results" / "measurements.json"
+    rows = len(json.loads(mj.read_text(errors="replace"))["measurements"])
+    if c["measurements"] != rows:
+        bad.append(f"results/COUNTS.json: measurements={c['measurements']} but staged measurements.json has {rows}")
+    ocl = stage / "knowledge" / "ane" / "openclaims"
+    ev = sum(1 for n in ("claims-emitted", "claims-verified", "claims-disputed")
+             for raw in (ocl / f"{n}.jsonl").read_text(errors="replace").splitlines() if raw.strip())
+    if c["spine_events"] != ev:
+        bad.append(f"results/COUNTS.json: spine_events={c['spine_events']} but staged spine has {ev}")
+    exps = len({m.group(1) for d in (stage / "results").glob("EXP-*")
+                if (d / "README.md").exists() and (m := re.match(r"EXP-(\d+)-", d.name))})
+    if c["experiments"] != exps:
+        bad.append(f"results/COUNTS.json: experiments={c['experiments']} but staged results/ has {exps}")
+    rng = c["experiment_range"]
+    top = int(rng.split("..")[1])
+    pats = {
+        "README.md": [(r"measurements-(\d+)-blue", c["measurements"]), (r"experiments-(\d+)-blue", c["experiments"]),
+                      (r"\((\d+) rows\)", c["measurements"]), (r"EXP-001\.\.0*(\d+)", top)],
+        "PUBLIC-OPENCLAIMS.md": [(r"\*\*(\d+) claims emitted\*\*", c["claims_emitted"]),
+                                 (r"\*\*(\d+) verification events\*\*", c["claims_verified"]),
+                                 (r"\*\*(\d+) disputed\*\*", c["claims_disputed"]),
+                                 (r"(\d+) valid, 0 INVALID", c["spine_events"])],
+        "WHATSNEW.md": [(r"\((\d+) claims, \d+ provenance events", c["claims_emitted"]),
+                        (r"claims, (\d+) provenance events", c["spine_events"])],
+    }
+    for rel, items in pats.items():
+        p = stage / rel
+        text = p.read_text(errors="replace") if p.exists() else ""
+        for rx, want in items:
+            hits = re.findall(rx, text)
+            if not hits:
+                bad.append(f"{rel}: no match for {rx!r} (front door lost a counted line)")
+            for h in hits:
+                if int(h) != want:
+                    bad.append(f"{rel}: quotes {h} for {rx!r}, COUNTS.json says {want}")
+    readme = (stage / "README.md").read_text(errors="replace") if (stage / "README.md").exists() else ""
+    m = re.search(r"A home lab, (\w+ Macs \([^)]*\))", readme)
+    if not m or m.group(1) != c["machines_phrase"]:
+        bad.append(f"README.md: machine sentence {m.group(1) if m else None!r} != {c['machines_phrase']!r}")
+    for p in sorted(stage.rglob("*.md")):
+        rel = os.path.relpath(p, stage)
+        if "/raw/" in rel or rel.split(os.sep)[:2] == ["tools", "publish"]:
+            continue
+        if "<!-- gen:" in p.read_text(errors="replace"):
+            bad.append(f"{rel}: unrendered gen marker in staging")
+    return bad
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--staging", default=str(ROOT.parent / "silicon-ledger-public-staging"))
@@ -374,10 +431,12 @@ def main() -> int:
     digest = check_digest_counts(stage)
     attrib = check_machine_attribution(stage)
     osstamps = check_os_stamps(stage)
+    frontdoor = check_frontdoor_numbers(stage)
     for label, bad in (("LINKS", links), ("NOVELTY", novelty), ("CASE/ANCHORS", case_anchor),
                        ("PRIVATE-SLUG", priv), ("COUNTS", counts), ("MACHINE-NAMES", machine),
                        ("CHAT-VOICE", chat), ("DIGEST-COUNTS", digest),
-                       ("MACHINE-ATTRIBUTION", attrib), ("OS-STAMPS", osstamps)):
+                       ("MACHINE-ATTRIBUTION", attrib), ("OS-STAMPS", osstamps),
+                       ("FRONTDOOR-NUMBERS", frontdoor)):
         if bad:
             print(f"FAIL {label}: {len(bad)} violation(s)")
             for b in bad[:15]:
@@ -387,7 +446,7 @@ def main() -> int:
         else:
             print(f"OK   {label}")
     return 1 if (links or novelty or case_anchor or priv or counts or machine or chat
-               or digest or attrib or osstamps) else 0
+               or digest or attrib or osstamps or frontdoor) else 0
 
 
 if __name__ == "__main__":

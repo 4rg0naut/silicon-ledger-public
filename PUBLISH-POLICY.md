@@ -27,6 +27,10 @@ stays private is the chat logs and the scratch, never the conclusions.
   `results/TRAINING-PLAN.md`, `results/TRAINING-RESULTS.md`, `results/RESEARCH-WORKFLOW.md`: working
   notes where rewrites get argued out before they land in a published doc. The published tree states
   their conclusions, not the drafts;
+- the **lab's routing and handoff notes** — the root `CHARTER.md`, `STATE.md`, `DECISIONS.md`, `TODO.md`
+  and `SCRATCH.md`, and the whole `docs/` tree (reshape records, upstream bug drafts, memory policy, CI
+  notes): they carry machine paths and pending owner decisions. Their conclusions surface in the front
+  doors and in `PUBLIC-INDEX.md`;
 - `knowledge/ane/ARCHIVE-MAP.md` — the private archive's file index; published prose cites it
   as `(source private)` where a predecessor hash needs an anchor;
 - **in-flight measurement windows** — an experiment whose declared window has not completed ships

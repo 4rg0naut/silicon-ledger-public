@@ -63,3 +63,20 @@ on this host we stop at the timing statement.
   window caveat on absolute ms + unblocks the energy cell).
 - enginemon ANEXL U lens is validated on the Studio (EXP-037) — an ANE-attention-count run
   between regions would test the "less churn" hypothesis cheaply.
+
+## Storage recompute (2026-10-31, byte-exact, pre-upstream-citation check)
+
+Byte counts summed per `.aimodel` package from the artifact store (`/data/models/silicon
+-ledger-studio/`, read-only `stat`; artifacts are machine-independent files — Studio idle under the
+round-6 watcher, mini reached over ssh but stores no local copy):
+
+| bundle | exact bytes | as recorded |
+|---|---:|---|
+| granite97m_fp32_s128_bound.aimodel (zoo-published fp32) | 389,989,146 | 390 MB (EXP-005 ledger `granite-embedding-97m-fp32-published-gpu-bundle-size`) |
+| granite97m_fp16_s128.aimodel (our fp16) | 195,081,863 | 195 MB (EXP-005 ledger) |
+| granite97m_w8_fp16_s128.aimodel (this EXP's w8 build) | 166,814,800 | 167 MB (this EXP table) |
+
+**w8 vs published fp32: 389,989,146 / 166,814,800 = 2.34x smaller** (57.2% saved); w8 vs our fp16:
+1.17x. The "2.3x smaller than fp32" line circulated in coreai-model-zoo PR #36 comments is hereby
+byte-anchored; ratio of sizes is exact, only the MB roundings appeared in earlier text.
+

@@ -1,9 +1,9 @@
 {
- "_note": "Standing re-check of every measurements.json row against its source EXP report. verified = value (+latency_ms/ane_regions/date when set) literally appears in an attributable report (separator-blind). unattributable = no report found \u2014 declared, never asserted. value-missing = a report was found but a field does not occur in it. Coverage: all 966 ledger rows audited this run (941 attributed to an EXP report, 25 declared unattributable); regenerate with --json after any ledger change.",
+ "_note": "Standing re-check of every measurements.json row against its source EXP report. verified = value (+latency_ms/ane_regions/date when set) literally appears in an attributable report (separator-blind). unattributable = no report found \u2014 declared, never asserted. value-missing = a report was found but a field does not occur in it. Coverage: all 983 ledger rows audited this run (949 attributed to an EXP report, 34 declared unattributable); regenerate with --json after any ledger change.",
  "totals": {
-  "verified": 923,
-  "value-missing": 18,
-  "unattributable": 25
+  "verified": 928,
+  "value-missing": 21,
+  "unattributable": 34
  },
  "rows": [
   {
@@ -5428,9 +5428,11 @@
   },
   {
    "id": "m5max-s1-gpu-write",
-   "status": "unattributable",
-   "report": null,
-   "missing": []
+   "status": "value-missing",
+   "report": "EXP-027-nax",
+   "missing": [
+    "date"
+   ]
   },
   {
    "id": "m5max-s1-gpu-copy",
@@ -5837,6 +5839,112 @@
    "status": "verified",
    "report": "EXP-027-nax",
    "missing": []
+  },
+  {
+   "id": "granite97m-fp16-m5max",
+   "status": "verified",
+   "report": "EXP-039-w8-palettization",
+   "missing": []
+  },
+  {
+   "id": "granite97m-w8-m5max",
+   "status": "value-missing",
+   "report": "EXP-004-coreai-ane",
+   "missing": [
+    "date"
+   ]
+  },
+  {
+   "id": "exp020-ane-dma-1mib",
+   "status": "verified",
+   "report": "EXP-020-ane-dma-notch",
+   "missing": []
+  },
+  {
+   "id": "exp020-ane-dma-control-16k",
+   "status": "verified",
+   "report": "EXP-020-ane-dma-notch",
+   "missing": []
+  },
+  {
+   "id": "exp020-ane-dma-split-2x",
+   "status": "verified",
+   "report": "EXP-020-ane-dma-notch",
+   "missing": []
+  },
+  {
+   "id": "exp045-pso-cold-vs-warm",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "exp045-metallib-load-per-variant",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "exp045-fastmath-tanh-bitdiff",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "exp045-cpu-copy-64mb-ratio",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "exp045-qos-itps-mini",
+   "status": "verified",
+   "report": "EXP-045-closed-claims",
+   "missing": []
+  },
+  {
+   "id": "exp045-residency-2p2gb",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "exp045-sgemm-512-m5",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "exp045-sgemm-512-mini",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "exp045-vdsp-stream-mini",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "exp046-bracket-p50-m5",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "exp046-bracket-p50-mini",
+   "status": "unattributable",
+   "report": null,
+   "missing": []
+  },
+  {
+   "id": "exp045-vdsp-stream-m5",
+   "status": "value-missing",
+   "report": "EXP-022-m5max-baseline",
+   "missing": [
+    "date"
+   ]
   }
  ]
 }

@@ -1,0 +1,28 @@
+{
+ "_note": "Canonical hardware classes for measurements.json rows. hardware_id is a CHIP CLASS, not a machine: the legacy `hardware` strings do not say whether an M4-base row came from the Mac mini (Mac16,10, macOS 27.0.1) or the MacBook Air (Mac16,13, macOS 26.6.2, added 2026-10-27). No existing row mentions the Air. Machine-level attribution stays in the row's command / source report; it is never guessed here. The original `hardware` string of every row is kept untouched.",
+ "values": {
+  "m4-base": "Apple M4 base (h16g): Mac mini M4 16 GB historical corpus; also the Air M4 since 2026-10-27 (see _note)",
+  "m5-max": "Apple M5 Max (h17c), Mac Studio 128 GB, Mac17,14",
+  "apple-other-external": "Apple chip we never owned, quoted from a third party or paper (M3 Max, M4 Max GPU, M5 H17s)",
+  "non-apple-external": "Non-Apple hardware quoted from a third party (Ryzen 5 3600, RTX 3090)",
+  "unknown": "Row carries no hardware string and no source states it"
+ },
+ "aliases": {
+  "Apple M4 (h16g)": "m4-base",
+  "Apple M4 (base), h16g": "m4-base",
+  "Apple M4 (h16g), 16 GB": "m4-base",
+  "Apple M4 (base M4, h16g)": "m4-base",
+  "Apple M4 (base)": "m4-base",
+  "base M4": "m4-base",
+  "base Apple M4, macOS 27.0": "m4-base",
+  "Apple M4, macOS 27.0": "m4-base",
+  "Apple M4 (base), macOS 27.0": "m4-base",
+  "Apple M5 Max (h17c), 128 GB": "m5-max",
+  "Apple M5 (H17s)": "apple-other-external",
+  "M3 Max": "apple-other-external",
+  "Apple M4 Max GPU": "apple-other-external",
+  "Ryzen 5 3600 (4 threads)": "non-apple-external",
+  "AMD Ryzen 5 3600, 4 threads": "non-apple-external",
+  "RTX 3090": "non-apple-external"
+ }
+}

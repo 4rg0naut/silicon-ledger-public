@@ -96,6 +96,17 @@ docs (`backlog.md`, `prior_art.md`, `night_index_20261023.md`):
 Rule going forward: ncm-run takes ids only from slots listed here as ncm-run;
 home-base commits claim ids here first.
 
+## Namespace note (2026-10-27, reshape phase 2) — append-only, nothing above is edited
+
+- **EXP-023 is a twin slot**: two directories share the id (`EXP-023-small-llm-ane-pilot`, `EXP-023-m5max-energy`).
+  Never cite the bare id `EXP-023` in new work; cite the directory name. In ledger rows, the `project` field
+  (`schemas/enums/project.json`) assigns the pilot to `ports` and the energy ledger to `hw-lanes`.
+- **EXP-030 is deliberately unclaimed** (see the ncm-run row above); there is no `results/EXP-030-*`.
+- **EXP-038 has no README yet**: its certified-quiet window is still running; it is an in-flight exception,
+  declared in `docs/reshape/LEDGER-GAPS.md`, not a missing record.
+- Ledger rows carry three derived fields since 2026-10-27: `hardware_id`, `provenance_class`, `project`
+  (`bench/normalize_enums.py`); the original `hardware` and `provenance` strings are unchanged.
+
 ## Cross-experiment conclusions (current)
 1. **The ANE is real, usable and measured** on this M4 — three independent signals agree
    (hardware intervals, GPU draw at zero, throughput).
